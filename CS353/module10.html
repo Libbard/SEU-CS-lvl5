@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Module 10: Dynamic Programming</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f43f5e;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f43f5e;
+            background-color: rgba(244, 63, 94, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes fill-cell {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(244, 63, 94, 0.3); }
+            100% { background-color: rgba(244, 63, 94, 0.1); }
+        }
+        .anim-cell {
+            animation: fill-cell 2s infinite alternate;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Dynamic <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Programming</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                "Those who cannot remember the past are condemned to repeat it." <br>
+                Solving complex problems by breaking them into overlapping subproblems and recording their solutions.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Knapsack (0/1)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Warshall's Algorithm</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Floyd's Algorithm</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Optimal BST</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Core Philosophy</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Overlapping Subproblems</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Unlike Divide & Conquer (where subproblems are independent), <span class="smart-term font-bold text-brand-500" data-ar="البرمجة الديناميكية">Dynamic Programming</span> applies when subproblems overlap.
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Instead of solving the same subproblem again and again (recursion), we solve it <strong>once</strong> and store the result in a table.
+                    </p>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-xs font-mono">
+                        <span class="text-rose-500">Method 1 (Top-Down):</span> Memoization (Recursion + Table)<br>
+                        <span class="text-rose-500">Method 2 (Bottom-Up):</span> Tabulation (Iterative loops)
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col items-center">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">The Fibonacci Example</h4>
+                    
+                    <div class="flex space-x-8 w-full justify-center">
+                        <div class="text-center">
+                            <span class="block text-3xl font-bold text-rose-500">$2^n$</span>
+                            <span class="text-xs text-gray-500">Naive Recursion</span>
+                        </div>
+                        <div class="text-center border-l border-gray-300 dark:border-gray-600 pl-8">
+                            <span class="block text-3xl font-bold text-emerald-500">$n$</span>
+                            <span class="text-xs text-gray-500">Dynamic Programming</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Optimization Problems</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <div class="flex items-start">
+                        <div class="bg-brand-100 dark:bg-brand-900 text-brand-600 p-2 rounded mr-4">
+                            <i class="fa-solid fa-coins"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Coin Row Problem</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                                Pick coins from a row to maximize sum, but you cannot pick two adjacent coins.
+                            </p>
+                            <div class="bg-gray-900 p-3 rounded text-gray-300 font-mono text-sm">
+                                $F(n) = \max(c_n + F(n-2), \quad F(n-1))$
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Logic: Either pick coin $n$ (and skip $n-1$), or skip coin $n$.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded mr-4">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Change-Making Problem</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                                Find the minimum number of coins to make amount $n$ using denominations $d_1, d_2... d_m$.
+                            </p>
+                            <div class="bg-gray-900 p-3 rounded text-gray-300 font-mono text-sm">
+                                $F(n) = \min_{j:n \ge d_j} \{ F(n - d_j) \} + 1$
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="text-rose-500 font-bold">Note:</span> Greedy approach works for some coins (US Dollar) but fails for general cases. DP always works.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Knapsack Problem (0/1)</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl relative overflow-hidden">
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                    Given items with weights $w_i$ and values $v_i$, maximize value in a knapsack of capacity $W$. Each item can be taken (1) or left (0).
+                </p>
+
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">The Recurrence Relation</h4>
+                    <p class="font-mono text-sm overflow-x-auto">
+                        $$ V[i, j] = \begin{cases} \max(V[i-1, j], \quad v_i + V[i-1, j-w_i]) & \text{if } j \ge w_i \\ V[i-1, j] & \text{if } j < w_i \end{cases} $$
+                    </p>
+                    <p class="text-xs text-gray-500 mt-2">
+                        $V[i, j]$: Max value using first $i$ items with capacity $j$.
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center text-sm border-collapse">
+                        <thead>
+                            <tr class="text-gray-500 border-b border-gray-300 dark:border-gray-700">
+                                <th class="p-2">Item / Cap</th>
+                                <th class="p-2">0</th>
+                                <th class="p-2">1</th>
+                                <th class="p-2">2</th>
+                                <th class="p-2">3</th>
+                                <th class="p-2">4</th>
+                                <th class="p-2">5</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-800 dark:text-gray-200">
+                            <tr>
+                                <td class="font-bold border-r border-gray-300 dark:border-gray-700">0 (Null)</td>
+                                <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold border-r border-gray-300 dark:border-gray-700">1 (w=2, v=3)</td>
+                                <td>0</td><td>0</td><td class="bg-brand-500/20 font-bold">3</td><td>3</td><td>3</td><td>3</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold border-r border-gray-300 dark:border-gray-700">2 (w=3, v=4)</td>
+                                <td>0</td><td>0</td><td>3</td><td class="bg-brand-500/20 font-bold">4</td><td>4</td><td class="bg-brand-500/20 font-bold">7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 text-xs text-gray-500 text-center">
+                    Complexity: $O(n \times W)$ (Time & Space)
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Graph Algorithms</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Warshall's Algorithm</h3>
+                    <p class="text-xs font-bold uppercase text-purple-500 mb-2">Transitive Closure</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Finds if there is a path between <strong>every pair</strong> of vertices.
+                    </p>
+                    <div class="bg-gray-900 p-2 rounded text-gray-300 font-mono text-xs mb-2">
+                        $R^{(k)}[i,j] = R^{(k-1)}[i,j] \lor (R^{(k-1)}[i,k] \land R^{(k-1)}[k,j])$
+                    </div>
+                    <p class="text-xs text-gray-500">Uses Logical OR/AND. Complexity: $O(n^3)$.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-t-4 border-emerald-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Floyd's Algorithm</h3>
+                    <p class="text-xs font-bold uppercase text-emerald-500 mb-2">All-Pairs Shortest Path</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Finds the shortest distance between <strong>every pair</strong> of vertices.
+                    </p>
+                    <div class="bg-gray-900 p-2 rounded text-gray-300 font-mono text-xs mb-2">
+                        $D^{(k)}[i,j] = \min(D^{(k-1)}[i,j], \quad D^{(k-1)}[i,k] + D^{(k-1)}[k,j])$
+                    </div>
+                    <p class="text-xs text-gray-500">Uses Min/Addition. Complexity: $O(n^3)$.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Knapsack Efficiency
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "Is Knapsack 0/1 polynomial time?" <br>
+                            It is $O(n \cdot W)$. This looks polynomial, but $W$ is the <em>magnitude</em> of the capacity, not the input size. In terms of bits, it is <strong>Pseudo-Polynomial</strong> (Exponential).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Greedy vs DP
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Greedy algorithms make the local best choice. DP considers all choices. For Change-Making:
+                            <br>Coins: 1, 3, 4. Target: 6.
+                            <br>Greedy: 4 + 1 + 1 (3 coins).
+                            <br>DP: 3 + 3 (2 coins).
+                            <br>Always check if Greedy fails before using it.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Principle of Optimality
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            DP only applies if the problem satisfies the <strong>Principle of Optimality</strong>: An optimal solution to any instance must be composed of optimal solutions to its sub-instances.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Memory Functions
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Top-Down DP (Memoization)</strong> is often better than Bottom-Up if you don't need to solve <em>all</em> subproblems. It only solves what is required by the recursion tree.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

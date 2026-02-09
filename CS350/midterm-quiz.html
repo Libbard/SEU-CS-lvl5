@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Midterm Gauntlet (Mod 1-6)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9); 
+            border: 1px solid #fcd34d; 
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #4b5563;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        .option-btn {
+            transition: all 0.2s;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+            transform: translateX(4px);
+        }
+        .dark .option-btn:hover:not(:disabled) { background-color: rgba(245, 158, 11, 0.2); }
+        
+        .correct-answer { border-color: #10b981 !important; background-color: rgba(16, 185, 129, 0.1) !important; color: #059669 !important; }
+        .dark .correct-answer { color: #34d399 !important; }
+        
+        .wrong-answer { border-color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.1) !important; color: #dc2626 !important; }
+        .dark .wrong-answer { color: #f87171 !important; }
+
+        
+        .min-h-quiz {
+            min-height: 600px; 
+        }
+
+        
+        .model-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.3s;
+        }
+        .model-answer.open { max-height: 1000px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <nav class="sticky top-0 z-50 glass-card !rounded-none !border-x-0 border-b border-slate-200 dark:border-slate-700 !bg-opacity-90 dark:!bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">/</span>
+                    <a href="midterm-review.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-brand-600 dark:text-brand-400 font-bold">
+                        <i class="fa-solid fa-database mr-2"></i>Review
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-slate-500 uppercase mr-2">Session Score</span>
+                        <span id="score-badge" class="text-brand-600 dark:text-brand-400 font-mono font-bold">0</span>
+                        <span class="text-slate-400 text-xs ml-1">/ 70</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-stopwatch text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Interactive Gauntlet</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Modules 1-6 • Concepts, ER Diagrams, and Mapping.
+                <br><span class="text-sm font-bold text-brand-500">70 MCQs • 10 Essay Scenarios</span>
+            </p>
+        </header>
+
+        <section>
+            <div class="glass-card p-1 relative min-h-quiz flex flex-col">
+                <div class="h-1 bg-slate-100 dark:bg-slate-700 rounded-t-lg overflow-hidden shrink-0">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div class="p-6 md:p-8 flex flex-col flex-grow justify-between">
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span id="q-counter" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1 of 70</span>
+                            <span id="q-module" class="px-2 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase rounded border border-brand-100 dark:border-brand-800">Module 1</span>
+                        </div>
+
+                        <h2 id="q-text" class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100 mb-8 leading-relaxed min-h-[60px]">
+                            Loading Question...
+                        </h2>
+
+                        <div id="options-container" class="grid grid-cols-1 gap-3 mb-6">
+                            </div>
+                    </div>
+
+                    <div>
+                        <div id="feedback-area" class="hidden p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6 animate-fade-in">
+                            <div class="flex items-start">
+                                <div id="feedback-icon" class="mt-1 mr-3 text-lg"></div>
+                                <div>
+                                    <strong id="feedback-title" class="block text-sm font-bold mb-1"></strong>
+                                    <p id="feedback-text" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                            <button id="prev-btn" class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-brand-600 disabled:opacity-30 disabled:hover:text-slate-500 transition-colors">
+                                <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                            </button>
+                            <button id="next-btn" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold rounded-lg shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105">
+                                Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg text-brand-600 dark:text-brand-500">
+                    <i class="fa-solid fa-vault text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">The Concept Vault</h2>
+                    <p class="text-xs text-slate-500">Deep Dive Scenarios & Model Answers</p>
+                </div>
+            </div>
+
+            <div id="essay-grid" class="grid gap-6">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        const mcqBank = [
+            
+            { q: "What is 'Meta-data' in a database context?", o: ["The actual user data", "Data about data (structure)", "Backup data", "Log files"], c: 1, exp: "Meta-data describes the structure (schema) and constraints, stored in the catalog." },
+            { q: "Which is a characteristic of the Database Approach?", o: ["Program-Data Dependence", "Program-Data Independence", "Redundant data", "Single-user access only"], c: 1, exp: "Changes to data structure do not require rewriting application programs." },
+            { q: "Who is responsible for authorizing access and monitoring database use?", o: ["Database Designer", "Database Administrator (DBA)", "End User", "System Analyst"], c: 1, exp: "The DBA is the super-user responsible for control and security." },
+            { q: "Parametric (Naive) End Users typically use:", o: ["Ad-hoc queries", "Canned transactions", "DDL commands", "Database design tools"], c: 1, exp: "They use standard, pre-programmed queries (e.g., bank tellers)." },
+            { q: "When might you NOT use a DBMS?", o: ["When data is complex", "When multiple users need access", "When the system has strict real-time constraints", "When data integrity is crucial"], c: 2, exp: "The overhead of a DBMS might be too high for stringent real-time needs." },
+            { q: "Data Abstraction refers to:", o: ["Hiding storage details from users", "Deleting data", "Summarizing data", "Drawing ER diagrams"], c: 0, exp: "Suppression of details of data organization and storage." },
+            { q: "OLTP stands for:", o: ["Online Text Processing", "Online Transaction Processing", "Offline Transaction Protocol", "Only Long Term Process"], c: 1, exp: "Systems designed for high transaction rates." },
+            { q: "Which is NOT a main type of data model?", o: ["Conceptual", "Physical", "Implementation", "Graphical"], c: 3, exp: "Graphical is a representation style, not a formal data model category like Physical or Conceptual." },
+            { q: "Concurrency Control ensures:", o: ["Data is backed up", "Users cannot delete data", "Correctness when multiple users update data", "Faster hardware"], c: 2, exp: "Prevents errors like the Lost Update problem." },
+            { q: "The 'Miniworld' refers to:", o: ["The database software", "The part of reality represented by the DB", "A small table", "The users"], c: 1, exp: "Also called the Universe of Discourse." },
+
+            
+            { q: "Which schema level describes physical storage details?", o: ["External", "Conceptual", "Internal", "Logical"], c: 2, exp: "Internal Level deals with bits, bytes, and indices." },
+            { q: "Which schema level describes the structure for the whole community of users?", o: ["External", "Conceptual", "Internal", "Physical"], c: 1, exp: "Conceptual Level hides physical details but shows entities/relationships." },
+            { q: "Logical Data Independence is the capacity to change the ______ schema without changing the ______ schema.", o: ["Internal, Conceptual", "Conceptual, External", "External, Internal", "Internal, External"], c: 1, exp: "Changing the logical structure shouldn't break user views." },
+            { q: "Which language is used to define the database schema?", o: ["DML", "DDL", "VDL", "SDL"], c: 1, exp: "Data Definition Language (CREATE, ALTER)." },
+            { q: "Which language is used to retrieve and update data?", o: ["DML", "DDL", "VDL", "SDL"], c: 0, exp: "Data Manipulation Language (SELECT, INSERT)." },
+            { q: "A 'Three-Tier' architecture includes:", o: ["Client, Server", "Client, App Server, DB Server", "DB, OS, Hardware", "User, Admin, Guest"], c: 1, exp: "Adds an intermediate Application Server layer." },
+            { q: "The 'Intension' of a database corresponds to:", o: ["Schema", "State", "Data", "Users"], c: 0, exp: "Intension = Schema (Design). Extension = State (Data)." },
+            { q: "The 'Extension' of a database corresponds to:", o: ["Schema", "State (Snapshot)", "Design", "Constraints"], c: 1, exp: "The actual data stored at a moment in time." },
+            { q: "Mapping is the process of:", o: ["Drawing diagrams", "Transforming requests between schema levels", "Deleting tables", "Backing up data"], c: 1, exp: "Translating conceptual queries to internal queries, etc." },
+            { q: "Physical Data Independence allows changing the ______ without affecting the ______.", o: ["Internal, Conceptual", "Conceptual, External", "External, Internal", "Conceptual, Internal"], c: 0, exp: "Optimizing storage (indexes) shouldn't break the logical structure." },
+
+            
+            { q: "A Relation basically corresponds to a:", o: ["Field", "Row", "Table", "File"], c: 2, exp: "In the relational model, a Relation is a Table." },
+            { q: "A Tuple corresponds to a:", o: ["Column", "Row", "Table", "Key"], c: 1, exp: "A Tuple is a row/record in a table." },
+            { q: "An Attribute corresponds to a:", o: ["Column Header", "Row", "Table", "File"], c: 0, exp: "An Attribute is a column or field." },
+            { q: "The 'Domain' of an attribute is:", o: ["Its name", "Its physical location", "The set of allowable values", "Its row number"], c: 2, exp: "e.g., The domain of 'Age' is integers 0-120." },
+            { q: "A Superkey is:", o: ["Minimal unique identifier", "Any unique identifier", "A foreign key", "A null key"], c: 1, exp: "A set of attributes that uniquely identifies a tuple (uniqueness constraint)." },
+            { q: "A Candidate Key is:", o: ["A minimal Superkey", "Any Superkey", "A duplicate key", "A foreign key"], c: 0, exp: "A Superkey with no redundant attributes." },
+            { q: "Entity Integrity Constraint states that:", o: ["Foreign Keys cannot be NULL", "Primary Keys cannot be NULL", "All values must be integers", "Tables must have names"], c: 1, exp: "You cannot identify a tuple if its identifier is unknown." },
+            { q: "Referential Integrity Constraint involves:", o: ["One table", "Two tables (FK references PK)", "No tables", "Hardware"], c: 1, exp: "Ensures consistency between tables." },
+            { q: "A Foreign Key must:", o: ["Be unique", "Match an existing PK in referenced table or be NULL", "Always be NOT NULL", "Be a text field"], c: 1, exp: "It links to a valid parent record." },
+            { q: "If a tuple in a referenced table is deleted, 'CASCADE' means:", o: ["Stop the deletion", "Delete referencing tuples", "Set FK to NULL", "Do nothing"], c: 1, exp: "The delete propagates to child records." },
+
+            
+            { q: "An Entity Type is represented in ER diagrams by a:", o: ["Diamond", "Oval", "Rectangle", "Line"], c: 2, exp: "Standard notation." },
+            { q: "A Relationship Type is represented by a:", o: ["Diamond", "Oval", "Rectangle", "Line"], c: 0, exp: "Standard notation." },
+            { q: "An Attribute is represented by a:", o: ["Diamond", "Oval", "Rectangle", "Line"], c: 1, exp: "Standard notation." },
+            { q: "A Double Oval represents a:", o: ["Key Attribute", "Composite Attribute", "Multivalued Attribute", "Derived Attribute"], c: 2, exp: "Attributes that can have multiple values (e.g., Phone Numbers)." },
+            { q: "A Dashed Oval represents a:", o: ["Key Attribute", "Composite Attribute", "Multivalued Attribute", "Derived Attribute"], c: 3, exp: "Value is calculated from others (e.g., Age from DOB)." },
+            { q: "The 'Cardinality Ratio' specifies:", o: ["Max number of relationship instances", "Min number of relationship instances", "Data type", "Key size"], c: 0, exp: "1:1, 1:N, or M:N." },
+            { q: "Participation Constraint (Total/Partial) specifies:", o: ["Max instances", "Existence Dependency (Min)", "Data type", "Security"], c: 1, exp: "Total (Double Line) means entity MUST participate." },
+            { q: "A Weak Entity Type:", o: ["Has a Primary Key", "Has no Key", "Is independent", "Is represented by a Circle"], c: 1, exp: "It has a Partial Key and depends on an Owner Entity." },
+            { q: "Identify the Weak Entity notation:", o: ["Rectangle", "Double Rectangle", "Diamond", "Double Diamond"], c: 1, exp: "Double borders indicate weakness." },
+            { q: "A Composite Attribute:", o: ["Has multiple values", "Can be subdivided (e.g., Address)", "Is calculated", "Is unique"], c: 1, exp: "Address -> Street, City, Zip." },
+
+            
+            { q: "A Recursive Relationship is:", o: ["One entity type related to itself", "Two different entities", "Three entities", "A weak entity"], c: 0, exp: "e.g., Employee supervises Employee." },
+            { q: "In a Recursive Relationship, what is crucial to distinguish meaning?", o: ["Role Names", "Colors", "Data Types", "Table Names"], c: 0, exp: "e.g., Supervisor vs Supervisee roles." },
+            { q: "A Subclass inherits:", o: ["Only attributes", "Only relationships", "All attributes and relationships of Superclass", "Nothing"], c: 2, exp: "Inheritance principle." },
+            { q: "Specialization is a ______ process.", o: ["Top-down", "Bottom-up", "Random", "Lateral"], c: 0, exp: "Defining subgroups from a main group." },
+            { q: "Generalization is a ______ process.", o: ["Top-down", "Bottom-up", "Random", "Lateral"], c: 1, exp: "Grouping entities into a superclass." },
+            { q: "Disjointness Constraint (d) means:", o: ["Overlap is allowed", "Overlap is NOT allowed", "Entity must participate", "Entity need not participate"], c: 1, exp: "An entity can be in only one subclass." },
+            { q: "Overlap Constraint (o) means:", o: ["Overlap is allowed", "Overlap is NOT allowed", "Total participation", "Partial participation"], c: 0, exp: "An entity can be in multiple subclasses." },
+            { q: "Completeness Constraint (Total/Double Line) in Specialization means:", o: ["Every superclass entity must be in a subclass", "Optional subclass membership", "Disjoint", "Overlapping"], c: 0, exp: "Mandatory specialization." },
+            { q: "A Hierarchy (Tree) implies:", o: ["Single Inheritance", "Multiple Inheritance", "No Inheritance", "Circular Inheritance"], c: 0, exp: "Every subclass has exactly one superclass." },
+            { q: "A Lattice implies:", o: ["Single Inheritance", "Multiple Inheritance", "No Inheritance", "One Table"], c: 1, exp: "A subclass (Shared Subclass) can have multiple superclasses." },
+
+            
+            { q: "When mapping a regular entity, simple attributes become:", o: ["Tables", "Columns", "Rows", "Keys"], c: 1, exp: "Direct mapping." },
+            { q: "When mapping a Binary 1:N Relationship, the Foreign Key goes to:", o: ["The 1-side", "The N-side", "A new table", "Both sides"], c: 1, exp: "Put Parent ID in the Child (N-side) table." },
+            { q: "When mapping a Binary M:N Relationship, you must create:", o: ["A new column", "A new relation (Associative Entity)", "A view", "Nothing"], c: 1, exp: "You need a separate table with FKs from both sides." },
+            { q: "When mapping a Multivalued Attribute, you create:", o: ["Multiple columns", "A new relation", "A text field", "A primary key"], c: 1, exp: "New table with FK + Value as composite PK." },
+            { q: "The Primary Key of a Weak Entity table consists of:", o: ["Its Partial Key only", "Owner's PK only", "Owner's PK + Partial Key", "A random number"], c: 2, exp: "Composite key needed for uniqueness." },
+            { q: "For a Binary 1:1 Relationship, it is best to put the FK in:", o: ["The side with Total Participation", "The side with Partial Participation", "A new table", "Neither"], c: 0, exp: "Reduces NULL values." },
+            { q: "A Category (Union Type) represents:", o: ["A subclass with multiple superclasses of different types", "A shared subclass", "A weak entity", "A relationship"], c: 0, exp: "Owner is Person OR Company OR Bank." },
+            { q: "If a relationship has an attribute in an M:N mapping, where does it go?", o: ["Side A", "Side B", "The Associative (Join) Table", "Nowhere"], c: 2, exp: "It belongs to the relationship/combination." },
+            { q: "Mapping an N-ary relationship (degree > 2) usually requires:", o: ["Adding columns", "A new relation with N foreign keys", "A weak entity", "Deleting data"], c: 1, exp: "Similar to M:N, create a new table." },
+            { q: "A Surrogate Key is:", o: ["A natural key", "An artificial unique identifier", "A foreign key", "A composite key"], c: 1, exp: "Useful when mapping Categories with different PK types." }
+        ];
+
+        
+        
+        const fillerQs = [
+            { q: "SQL stands for:", o: ["Strong Query Language", "Structured Query Language", "Simple Question List", "Standard Query Link"], c: 1, exp: "Standard database language." },
+            { q: "Which normal form removes partial dependencies?", o: ["1NF", "2NF", "3NF", "BCNF"], c: 1, exp: "2NF deals with composite keys." }, 
+            { q: "Which normal form removes transitive dependencies?", o: ["1NF", "2NF", "3NF", "BCNF"], c: 2, exp: "3NF rule." }, 
+            { q: "An attribute that cannot be divided is:", o: ["Atomic", "Composite", "Derived", "Key"], c: 0, exp: "Atomic/Simple." },
+            { q: "The number of attributes in a relation is its:", o: ["Degree", "Cardinality", "Domain", "Size"], c: 0, exp: "Degree of relation." },
+            { q: "The number of tuples in a relation is its:", o: ["Degree", "Cardinality", "Domain", "Schema"], c: 1, exp: "Cardinality of relation." },
+            { q: "A 'Unifying' relationship typically involves:", o: ["One Entity", "Two Entities", "Three Entities", "Super/Subclasses"], c: 3, exp: "Refers to Union/Category mapping." },
+            { q: "Which is NOT a type of update anomaly?", o: ["Insert", "Delete", "Modification", "Select"], c: 3, exp: "Select is read-only." },
+            { q: "UML stands for:", o: ["Unified Modeling Language", "Universal Map Logic", "User Mode List", "Unique Method Log"], c: 0, exp: "Used for class diagrams." },
+            { q: "The 'E' in EER stands for:", o: ["Entity", "Enhanced", "Electronic", "Efficient"], c: 1, exp: "Enhanced Entity-Relationship." }
+        ];
+        
+        mcqBank.push(...fillerQs);
+        
+        
+        const finalMCQs = mcqBank.slice(0, 70);
+
+        
+        const essays = [
+            { q: "Explain the Three-Schema Architecture.", a: "1. <strong>Internal Level:</strong> Physical storage details (bits, pointers). <br>2. <strong>Conceptual Level:</strong> Structure of the whole database (Entities, Relationships). <br>3. <strong>External Level:</strong> User views (Subsets of data). <br>Goal: Data Independence." },
+            { q: "Differentiate between Logical and Physical Data Independence.", a: "<strong>Logical:</strong> Ability to change the Conceptual Schema without breaking External Views (e.g., adding a new field). <br><strong>Physical:</strong> Ability to change the Internal Schema without breaking the Conceptual Schema (e.g., adding an index for speed)." },
+            { q: "What is a Weak Entity? How is it mapped?", a: "An entity with no Key of its own. It depends on an <strong>Owner Entity</strong>. <br><strong>Mapping:</strong> Create a table. Include attributes. Add Owner's PK as a Foreign Key. The new PK is the composite of {Owner PK + Partial Key}." },
+            { q: "Explain the difference between 1:N and M:N relationship mapping.", a: "<strong>1:N:</strong> Place the Foreign Key on the N-side (Child). No new table needed. <br><strong>M:N:</strong> Must create a new <strong>Associative Table</strong> (Relationship Relation). Include PKs from both sides as FKs. The PK is the combination of these FKs." },
+            { q: "What is a Recursive Relationship? Give an example.", a: "An entity type related to itself. <br>Example: <strong>Employee Supervision</strong>. An Employee (Supervisor) manages other Employees (Supervisees). In the table, `Supervisor_SSN` is a FK referencing `SSN` in the <em>same</em> table." },
+            { q: "Define Entity Integrity and Referential Integrity.", a: "<strong>Entity Integrity:</strong> Primary Key cannot be NULL. <br><strong>Referential Integrity:</strong> A Foreign Key must match an existing Primary Key in the parent table OR be NULL (if allowed)." },
+            { q: "What is the difference between Specialization and Generalization?", a: "<strong>Specialization (Top-Down):</strong> Breaking a generic entity (Employee) into specific subclasses (Engineer, Secretary). <br><strong>Generalization (Bottom-Up):</strong> Combining specific entities (Car, Truck) into a generic superclass (Vehicle)." },
+            { q: "Explain Disjoint vs. Overlapping Constraints in EER.", a: "<strong>Disjoint (d):</strong> An entity can belong to at most one subclass (e.g., Employee is either Hourly OR Salaried). <br><strong>Overlapping (o):</strong> An entity can belong to multiple subclasses (e.g., Person can be Employee AND Student)." },
+            { q: "How do you map a Multivalued Attribute?", a: "Create a separate table. <br>Columns: {ForeignKey_to_Parent, Attribute_Value}. <br>Primary Key: The combination of both columns. <br>Example: `Employee_Phones(SSN, Phone_Num)`." },
+            { q: "What is a Composite Attribute? How is it mapped?", a: "An attribute composed of sub-parts (e.g., Name -> First, Last). <br><strong>Mapping:</strong> Flatten it. Create columns for the sub-parts in the main table (`Fname`, `Lname`). Do not create a separate table." }
+        ];
+
+        
+        let currentQ = 0;
+        let score = 0;
+        const totalQ = finalMCQs.length;
+
+        
+        const qText = document.getElementById('q-text');
+        const qCounter = document.getElementById('q-counter');
+        const qModule = document.getElementById('q-module');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreBadge = document.getElementById('score-badge');
+        const essayGrid = document.getElementById('essay-grid');
+
+        
+        function loadQuestion(index) {
+            const data = finalMCQs[index];
+            
+            
+            qCounter.innerText = `Question ${index + 1} of ${totalQ}`;
+            
+            
+            let modNum = 1;
+            if (index >= 10) modNum = 2;
+            if (index >= 20) modNum = 3;
+            if (index >= 30) modNum = 4;
+            if (index >= 40) modNum = 5;
+            if (index >= 50) modNum = 6;
+            if (index >= 60) modNum = "General"; 
+            qModule.innerText = `Module ${modNum}`;
+
+            const progress = ((index + 1) / totalQ) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            
+            qText.innerHTML = data.q;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            
+            data.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-lg border border-slate-300 dark:border-slate-600 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-sm";
+                btn.innerHTML = `<span class="inline-block w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 text-center text-xs leading-6 mr-3 font-bold text-slate-500">${String.fromCharCode(65+i)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(i, btn, data);
+                optionsContainer.appendChild(btn);
+            });
+
+            
+            
+            if (window.MathJax && typeof window.MathJax.typeset === 'function') {
+                MathJax.typeset();
+            }
+        }
+
+        function checkAnswer(selectedIndex, btn, data) {
+            
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('cursor-default');
+            });
+
+            const isCorrect = selectedIndex === data.c;
+            
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                score++;
+                scoreBadge.innerText = score;
+                feedbackArea.className = "p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-emerald-700 dark:text-emerald-400">Correct!</span>`;
+            } else {
+                btn.classList.add('wrong-answer');
+                buttons[data.c].classList.add('correct-answer');
+                feedbackArea.className = "p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-red-700 dark:text-red-400">Incorrect.</span>`;
+            }
+
+            feedbackText.innerHTML = data.exp;
+            
+            
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        nextBtn.onclick = () => {
+            if (currentQ < totalQ - 1) {
+                currentQ++;
+                loadQuestion(currentQ);
+            } else {
+                alert(`Gauntlet Complete! Score: ${score}/${totalQ}`);
+            }
+        };
+
+        prevBtn.onclick = () => {
+            if (currentQ > 0) {
+                currentQ--;
+                loadQuestion(currentQ);
+            }
+        };
+
+        
+        function renderEssays() {
+            essays.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 border-l-4 border-yellow-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-yellow-600 dark:text-yellow-500 uppercase tracking-wider">Scenario ${index + 1}</h3>
+                        <button onclick="toggleEssay(${index})" class="text-xs font-bold px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded hover:bg-yellow-200 transition-colors">
+                            Show Answer
+                        </button>
+                    </div>
+                    <p class="text-md font-medium text-slate-800 dark:text-slate-200 mb-4 leading-relaxed">
+                        ${item.q}
+                    </p>
+                    <div id="essay-ans-${index}" class="model-answer bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-2">Professor's Model Answer:</strong>
+                            ${item.a}
+                        </div>
+                    </div>
+                `;
+                essayGrid.appendChild(card);
+            });
+        }
+
+        window.toggleEssay = function(idx) {
+            const el = document.getElementById(`essay-ans-${idx}`);
+            el.classList.toggle('open');
+        };
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion(0);
+        renderEssays();
+
+    </script>
+</body>
+</html>

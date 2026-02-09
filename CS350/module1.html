@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Module 1: DB Concepts</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f59e0b;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background: #92400e; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+        
+        
+        #mermaid-container {
+            min-height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 1</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-database text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module2.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-server text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Foundations: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Databases & Users</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Understanding the architecture, actors, and fundamental concepts that power modern data systems.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Data vs Info</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DBMS</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Meta-data</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Transaction Processing</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">End Users</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Basic Definitions</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-database text-brand-500 mr-2"></i>The Basics</h3>
+                    <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                        <li>
+                            <strong class="text-brand-600 dark:text-brand-400">Data:</strong> Known facts that have implicit meaning (e.g., Names, Numbers).
+                        </li>
+                        <li>
+                            <strong class="text-brand-600 dark:text-brand-400">Database:</strong> A collection of <em>related</em> data. It represents a <span class="smart-term" data-ar="العالم المصغر">Miniworld</span> (Universe of Discourse).
+                        </li>
+                        <li>
+                            <strong class="text-brand-600 dark:text-brand-400">Meta-data:</strong> "Data about Data". The description of the database structure (types, constraints) stored in the DBMS catalog.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-cogs text-brand-500 mr-2"></i>The System</h3>
+                    <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
+                        <li>
+                            <strong class="text-brand-600 dark:text-brand-400">DBMS:</strong> A software system to create, maintain, and control access to the database (e.g., Oracle, MySQL).
+                        </li>
+                        <li>
+                            <strong class="text-brand-600 dark:text-brand-400">Database System:</strong> The combination of the Database + DBMS Software + Application Programs.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 glass-card p-6 rounded-xl">
+                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">Simplified Database Environment</h4>
+                
+                <div id="mermaid-container" class="flex justify-center"></div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Why Use Databases?</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    Traditional file processing (saving data in text files) has many issues. The Database Approach solves them via four main characteristics:
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8 text-sm">
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">1. Self-Describing Nature</h4>
+                        <p class="text-gray-500 dark:text-gray-400">
+                            The system contains not only the data but the <strong>structure</strong> of the data (Meta-data) in a catalog. This allows the DBMS to work with any database application.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">2. Insulation (Data Abstraction)</h4>
+                        <p class="text-gray-500 dark:text-gray-400">
+                            <strong>Program-Data Independence:</strong> You can change the data structure (e.g., add a field) without rewriting the application code. The DBMS handles the mapping.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">3. Multiple Views</h4>
+                        <p class="text-gray-500 dark:text-gray-400">
+                            Different users see different subsets of the data. A student sees grades; an admin sees transcripts.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">4. Multi-user Transaction Processing</h4>
+                        <p class="text-gray-500 dark:text-gray-400">
+                            Allows concurrent access. The DBMS ensures <span class="smart-term" data-ar="التزامن">Concurrency Control</span> (e.g., two people booking the same seat) and OLTP (Online Transaction Processing).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Actors on the Scene</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-5 rounded-xl text-center border-t-4 border-red-500">
+                    <i class="fa-solid fa-user-shield text-4xl text-red-500 mb-3"></i>
+                    <h4 class="font-bold text-gray-900 dark:text-white">DBA (Administrator)</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+                        Controls access, coordinates use, acquires resources, and ensures efficiency. Accountable for security.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl text-center border-t-4 border-blue-500">
+                    <i class="fa-solid fa-pen-ruler text-4xl text-blue-500 mb-3"></i>
+                    <h4 class="font-bold text-gray-900 dark:text-white">Database Designers</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+                        Identify data, choose structures/constraints, and communicate with users.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl text-center border-t-4 border-green-500">
+                    <i class="fa-solid fa-users text-4xl text-green-500 mb-3"></i>
+                    <h4 class="font-bold text-gray-900 dark:text-white">End Users</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
+                        The people who query/update the data.
+                    </p>
+                    <div class="mt-3 text-[10px] text-left bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                        <strong class="block text-green-600">Categories:</strong>
+                        <ul class="list-disc list-inside">
+                            <li><strong>Casual:</strong> Occasional access.</li>
+                            <li><strong>Naive (Parametric):</strong> Use "canned" transactions (e.g., Bank Tellers).</li>
+                            <li><strong>Sophisticated:</strong> Scientists/Analysts using tools.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">When NOT to use a DBMS?</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border-l-4 border-gray-500">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Using a DBMS incurs high costs (Investment, Hardware, Training, Overhead). Avoid it if:
+                </p>
+                <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                    <li class="flex items-center"><i class="fa-solid fa-xmark text-red-500 mr-2"></i> The database and applications are simple, well-defined, and not expected to change.</li>
+                    <li class="flex items-center"><i class="fa-solid fa-xmark text-red-500 mr-2"></i> Stringent real-time requirements (Overhead is too high).</li>
+                    <li class="flex items-center"><i class="fa-solid fa-xmark text-red-500 mr-2"></i> Multiple user access is NOT required.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Casual vs Naive Users
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Naive (Parametric)</strong> users make up the largest group (e.g., Bank Tellers). They use standard, pre-programmed queries ("Canned Transactions").
+                            <br><strong>Casual</strong> users access the DB occasionally and may need different info each time.
+                            Do not swap them!
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Program-Data Independence
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            In traditional file processing, if you change the data format (e.g., change zip code from 5 to 9 digits), you must rewrite <strong>every</strong> program that uses it.
+                            In a DBMS, you change the structure in the catalog (Meta-data) only. This is "Independence".
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Meta-data
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            If an exam question asks "What makes a database system self-describing?", the answer is <strong>Meta-data</strong> (stored in the Catalog). It describes the structure, types, and constraints.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Goal
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            The ultimate goal of the database approach is to control (not necessarily eliminate) <strong>Redundancy</strong>. Controlled redundancy improves performance; uncontrolled redundancy leads to Inconsistency.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+        
+        const diagramCode = `
+        graph TB
+            Users["Users/Programmers"]
+            
+            subgraph DB_System["Database System"]
+                App["Application Programs/Queries"]
+                
+                subgraph DBMS["DBMS Software"]
+                    Process["Software to Process<br/>Queries/Programs"]
+                    Access["Software to Access<br/>Stored Data"]
+                end
+                
+                Data[("Stored Database")]
+                Meta[("Stored Database<br/>Definition<br/>(Meta-Data)")]
+            end
+            
+            Users --> App
+            App --> Process
+            Process --> Access
+            Access --> Data
+            Access --> Meta
+            Data -.-> Access
+            Meta -.-> Access
+            
+            %% Minimal Styling for shape borders (Colors are now handled by themeVariables in JS)
+            style Users fill:transparent,stroke-width:2px
+            style App fill:transparent,stroke-width:2px
+            style Process fill:transparent,stroke-width:1px
+            style Access fill:transparent,stroke-width:1px
+            style Data fill:transparent,stroke-width:2px
+            style Meta fill:transparent,stroke-width:2px
+            style DBMS fill:transparent,stroke-width:2px,stroke-dasharray: 5 5
+            style DB_System fill:transparent,stroke-width:2px
+        `;
+
+        
+        async function renderMermaid() {
+            const container = document.getElementById('mermaid-container');
+            const isDark = document.documentElement.classList.contains('dark');
+            
+            
+            const graphId = 'mermaid-graph-' + Date.now();
+            
+            
+            container.innerHTML = '';
+            
+            
+            
+            const brandColor = '#f59e0b';
+            const textColor = isDark ? '#f3f4f6' : '#1f2937';
+            const lineColor = isDark ? '#fbbf24' : '#d97706'; 
+            
+            
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: isDark ? 'dark' : 'base',
+                fontFamily: 'Inter',
+                themeVariables: {
+                    primaryColor: brandColor,
+                    primaryTextColor: textColor,
+                    primaryBorderColor: brandColor,
+                    lineColor: lineColor,
+                    secondaryColor: isDark ? '#1f2937' : '#ffffff',
+                    tertiaryColor: isDark ? '#111827' : '#f3f4f6',
+                    fontFamily: 'Inter'
+                }
+            });
+
+            
+            const { svg } = await mermaid.render(graphId, diagramCode);
+            container.innerHTML = svg;
+        }
+
+        
+        window.updateMermaidDiagram = () => {
+            renderMermaid();
+        };
+
+        
+        renderMermaid();
+    </script>
+
+    <script>
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+            
+            
+            if (window.updateMermaidDiagram) {
+                window.updateMermaidDiagram();
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

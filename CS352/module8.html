@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS352 Module 8: Conceptual Data Modeling</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6', 
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #3b82f6;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes db-pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+        .db-icon {
+            animation: db-pulse 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module7.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 8</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-database text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module9.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-diagram-project text-3xl text-brand-500 db-icon"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Analysis: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Conceptual Data Modeling</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Defining the "What". Structuring organizational data using ERDs and Class Diagrams, independent of any database technology.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Entity-Relationship (ERD)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Class Diagrams</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Cardinality</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Aggregation</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Business Rules</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Modeling Process</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Conceptual data modeling captures the overall structure of organizational data. It is <strong>independent</strong> of any Database Management System (DBMS).
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 flex items-center">
+                            <i class="fa-solid fa-arrow-down-long mr-2"></i> Top-Down Approach
+                        </h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">
+                            Derives the data model from an intimate understanding of the business nature.
+                            <br><span class="text-gray-500 italic">"What are the subjects of the business?"</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 flex items-center">
+                            <i class="fa-solid fa-arrow-up-long mr-2"></i> Bottom-Up Approach
+                        </h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">
+                            Derives the data model by reviewing specific business documents (forms, reports).
+                            <br><span class="text-gray-500 italic">"What data appears on this Invoice?"</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Entity-Relationship Modeling</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-5 rounded-xl">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded mr-3"><i class="fa-regular fa-square"></i></div>
+                        <h3 class="font-bold text-gray-900 dark:text-white">Entities</h3>
+                    </div>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        A person, place, object, event, or concept about which the organization wishes to maintain data.
+                    </p>
+                    <ul class="text-xs text-gray-500 list-disc list-inside">
+                        <li><strong>Entity Type:</strong> Collection of entities (e.g., Employee).</li>
+                        <li><strong>Entity Instance:</strong> Single occurrence (e.g., John Doe).</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-green-100 dark:bg-green-900 text-green-600 p-2 rounded mr-3"><i class="fa-regular fa-circle"></i></div>
+                        <h3 class="font-bold text-gray-900 dark:text-white">Attributes</h3>
+                    </div>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        Properties or characteristics of an entity (e.g., Name, Address).
+                    </p>
+                    <ul class="text-xs text-gray-500 list-disc list-inside">
+                        <li><strong>Candidate Key:</strong> Uniquely identifies an instance (e.g., ID).</li>
+                        <li><strong>Multivalued:</strong> Takes >1 value (e.g., Skill). {Curly Brackets}.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-100 dark:bg-purple-900 text-purple-600 p-2 rounded mr-3"><i class="fa-solid fa-diamond"></i></div>
+                        <h3 class="font-bold text-gray-900 dark:text-white">Relationships</h3>
+                    </div>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        An association between the instances of one or more entity types.
+                    </p>
+                    <ul class="text-xs text-gray-500 list-disc list-inside">
+                        <li><strong>Degree:</strong> Number of entity types involved (Unary, Binary, Ternary).</li>
+                        <li><strong>Cardinality:</strong> Constraint on number of instances (1:1, 1:M, M:N).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-white dark:bg-gray-800 p-4 rounded-xl border-l-4 border-yellow-500 shadow-sm">
+                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1"><i class="fa-solid fa-link mr-2 text-yellow-500"></i>Associative Entity</h4>
+                <p class="text-xs text-gray-600 dark:text-gray-300">
+                    An entity type that associates the instances of one or more entity types and contains attributes that are peculiar to the relationship between those entity instances. Often used to resolve <strong>Many-to-Many (M:N)</strong> relationships.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">UML Class Diagrams</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Object Modeling</h3>
+                    <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 px-2 py-1 rounded">Static Structure</span>
+                </div>
+                
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    Shows the static structure of an object-oriented model: classes, their internal structure, and the relationships between them.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900">
+                        <div class="p-2 border-b border-gray-300 dark:border-gray-600 font-bold text-center text-sm">ClassName</div>
+                        <div class="p-2 border-b border-gray-300 dark:border-gray-600 text-xs">
+                            - attribute1: type<br>
+                            - attribute2: type
+                        </div>
+                        <div class="p-2 text-xs">
+                            + operation1(params): return<br>
+                            + operation2()
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 text-xs">
+						<div class="space-y-4 text-xs">
+							<div class="flex items-center group">
+								<span class="w-24 font-bold text-gray-500 shrink-0">Association</span>
+								<div class="flex-grow flex items-center mx-3">
+									<div class="h-px bg-gray-400 w-full"></div>
+								</div>
+								<span class="shrink-0 text-gray-600 dark:text-gray-400">Named relationship</span>
+							</div>
+
+							<div class="flex items-center group">
+								<span class="w-24 font-bold text-gray-500 shrink-0">Generalization</span>
+								<div class="flex-grow flex items-center mx-3">
+									<div class="h-px bg-gray-400 flex-grow"></div>
+									<i class="fa-solid fa-caret-right text-gray-400 text-lg -ml-1"></i>
+								</div>
+								<span class="shrink-0 text-gray-600 dark:text-gray-400">Inheritance (Is-a)</span>
+							</div>
+
+							<div class="flex items-center group">
+								<span class="w-24 font-bold text-gray-500 shrink-0">Aggregation</span>
+								<div class="flex-grow flex items-center mx-3">
+									<i class="fa-regular fa-gem text-gray-400 transform rotate-90 -mr-1 bg-transparent"></i>
+									<div class="h-px bg-gray-400 flex-grow"></div>
+								</div>
+								<span class="shrink-0 text-gray-600 dark:text-gray-400">Part-of (Shared)</span>
+							</div>
+
+							<div class="flex items-center group">
+								<span class="w-24 font-bold text-gray-500 shrink-0">Composition</span>
+								<div class="flex-grow flex items-center mx-3">
+									<i class="fa-solid fa-gem text-gray-400 transform rotate-90 -mr-1 bg-transparent"></i>
+									<div class="h-px bg-gray-400 flex-grow"></div>
+								</div>
+								<span class="shrink-0 text-gray-600 dark:text-gray-400">Part-of (Exclusive)</span>
+							</div>
+						</div>
+					</div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Relationships</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Generalization</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Abstracting common features (attributes/operations) into a <span class="font-bold">Superclass</span> and defining specific features in <span class="font-bold">Subclasses</span>.
+                    </p>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs text-center">
+                        Vehicle $\leftarrow$ Car, Truck, Bike
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Aggregation vs. Composition</h4>
+                    <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>
+                            <strong class="text-gray-900 dark:text-white">Aggregation (Hollow Diamond):</strong> Weak "Part-of". Parts can exist independently. (e.g., Computer has a Monitor).
+                        </li>
+                        <li>
+                            <strong class="text-gray-900 dark:text-white">Composition (Solid Diamond):</strong> Strong "Part-of". Parts live and die with the whole. (e.g., Building has Rooms) .
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Cardinality vs Degree
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Degree:</strong> The number of entity types that participate in a relationship (Unary, Binary, Ternary).
+                            <strong>Cardinality:</strong> The number of instances of entity B that can be associated with entity A (One, Many).
+                            Don't confuse "Binary Relationship" (Degree 2) with "One-to-Many" (Cardinality).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The M:N Solution
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "How do you implement a Many-to-Many relationship in a database?"
+                            <br>You <strong>CANNOT</strong> do it directly. You must create an <strong>Associative Entity</strong> (junction table) to break it into two 1:M relationships. Example: Student $\leftrightarrow$ Course becomes Student $\to$ Registration $\leftarrow$ Course.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Attribute Types
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Pay attention to attribute notation.
+                            <br><u>Underlined</u> = Primary/Identifier Key.
+                            <br>{Curly Brackets} = Multivalued Attribute (e.g., Skills).
+                            <br>(Parentheses) = Composite Attribute (e.g., Address composed of Street, City).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Diamond Rule
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            In UML Class Diagrams:
+                            <br><strong>Solid Diamond (Composition):</strong> If the University is destroyed, the Departments are destroyed.
+                            <br><strong>Hollow Diamond (Aggregation):</strong> If the Computer is destroyed, the Mouse/Keyboard can be reused elsewhere.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

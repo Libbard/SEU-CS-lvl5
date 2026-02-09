@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 8: Virtual Memory</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module7.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 8</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-ghost text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module9.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-cloud text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Illusion of Space: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Virtual Memory</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Running programs larger than physical memory. Demand Paging, Page Faults, Thrashing, and Replacement Algorithms.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Demand Paging</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Page Fault</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Copy-on-Write (COW)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">FIFO/LRU/Optimal</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Thrashing</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Why Virtual Memory?</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    <span class="text-brand-500 font-bold">Concept:</span> Separation of user logical memory from physical memory.
+                    <br>Only part of the program needs to be in memory for execution.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Benefits</strong>
+                        <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
+                            <li>Logical address space can be much larger than physical address space ($2^{64}$ vs 16GB RAM).</li>
+                            <li>More programs can run simultaneously (Higher CPU utilization).</li>
+                            <li>Less I/O needed to load or swap processes.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Implementation</strong>
+                        <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
+                            <li><strong>Demand Paging:</strong> Load pages only when needed.</li>
+                            <li><strong>Demand Segmentation:</strong> (Less common).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Demand Paging</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6 border-l-4 border-l-blue-500">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Lazy Swapper</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Never brings a page into memory until it is required.
+                    <br><strong>Valid-Invalid Bit:</strong> With each page table entry, a bit is associated (v = in memory, i = not in memory).
+                </p>
+                
+                <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded">
+                    <strong class="text-blue-700 dark:text-blue-400 block mb-2">Page Fault Handling Steps:</strong>
+                    <ol class="list-decimal list-inside text-xs text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>Access to a page marked 'i' $\to$ <strong>Trap</strong> to OS (Page Fault).</li>
+                        <li>OS checks internal table: Invalid reference $\to$ Abort. Just not in memory $\to$ Continue.</li>
+                        <li>Find a <strong>free frame</strong> in physical memory.</li>
+                        <li>Schedule disk operation to read page into frame.</li>
+                        <li>Reset page table (v = 1).</li>
+                        <li>Restart the instruction that caused the fault.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Performance of Demand Paging</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Effective Access Time (EAT) depends heavily on the <strong>Page Fault Rate ($p$)</strong>.
+                </p>
+                <div class="p-3 bg-gray-900 text-green-400 font-mono text-xs rounded text-center">
+                    EAT = (1 - p) * ma + p * (Page Fault Time)
+                </div>
+                <p class="text-xs text-gray-500 mt-2 text-center">
+                    ma = memory access time (~10-200ns).
+                    <br>Page Fault Time = service fault + read page + restart (~8ms).
+                    <br>Even a small $p$ enables drastic slowdown.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Page Replacement</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                What if there are no free frames? We must find a victim frame, write it to disk (if modified), and replace it.
+                <br><strong>Goal:</strong> Minimize page-fault rate.
+            </p>
+
+            
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">FIFO (First-In, First-Out)</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Replace the oldest page. Simple queue implementation.
+                    </p>
+                    <div class="p-3 border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/10 rounded text-xs text-red-600 dark:text-red-400">
+                        <i class="fa-solid fa-triangle-exclamation mr-2"></i><strong>Belady's Anomaly:</strong> Adding more frames can cause <em>more</em> page faults!
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Optimal Algorithm</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Replace the page that will not be used for the longest period of time.
+                        <br><strong>Impossible to implement</strong> (requires future knowledge). Used as a benchmark.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-green-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">LRU (Least Recently Used)</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Replace the page that has not been used for the longest period of time. (Approximation of Optimal).
+                        <br><em>Implementation:</em> Counters or Stack. Good performance, no Belady's Anomaly.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Allocation & Thrashing</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Frame Allocation</h3>
+                    <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>Fixed:</strong> Equal allocation or Proportional to size.</li>
+                        <li><strong>Global Replacement:</strong> Process can steal frames from others. (Good throughput, variable execution time).</li>
+                        <li><strong>Local Replacement:</strong> Must steal from own set. (Consistent perf, potentially lower throughput).</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Thrashing</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        A process is busy swapping pages in and out (Page Fault Rate > Service Rate).
+                        <br>CPU Utilization drops to near zero.
+                    </p>
+                    <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-[10px] text-gray-500">
+                        <strong>Cause:</strong> $\Sigma$ Size of Locality > Total Memory Size.
+                        <br><strong>Solution:</strong> Working Set Model (Monitor active pages per process and suspend processes if memory is insufficient).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Modify Bit
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "Why use a Modify (Dirty) bit?"
+                            <br>If the victim page has NOT been modified (Dirty bit = 0), we do NOT need to write it back to disk (it's already there). This saves 50% of the I/O time on replacement.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Belady's Anomaly
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Belady's Anomaly (more frames = more faults) happens with <strong>FIFO</strong>. It does NOT happen with LRU or Optimal (Stack Algorithms).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Copy-on-Write (COW)
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            `fork()` creates a child process. Instead of copying ALL parent pages (slow), COW allows parent and child to share the same pages initially.
+                            <br>Only if one writes to a page is a copy created. This makes process creation extremely fast.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Working Set
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            To prevent thrashing, the OS must ensure the process has enough frames to cover its current <strong>Locality</strong> (set of pages actively used together).
+                            <br>If $\Sigma$ Working Sets > Available Frames $\to$ Swap out a process.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

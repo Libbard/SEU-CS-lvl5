@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS352 Final Master Review (Mod 7-13)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6', 
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6); 
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+        }
+
+        
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .progress-anim {
+            animation: load 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module13.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Final Review</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-graduation-cap text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="final-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-6">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-infinity text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Knowledge Compendium</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                A complete synthesis of Modules 7 through 13. Mastering Advanced Modeling, Database Design, Implementation Strategies, and Maintenance.
+            </p>
+            
+            <div class="w-full max-w-md mx-auto bg-gray-300 dark:bg-gray-800 rounded-full h-2.5 mt-4">
+                <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Modules 7-13 Covered</p>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-purple-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">07. Process Logic</h2>
+                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded text-xs font-bold uppercase">Activity & Use Cases</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Activity Diagrams (Dynamic Flow)</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong class="text-gray-900 dark:text-white">Gateways:</strong> Control the path logic.</li>
+                            <li><strong class="text-purple-600 dark:text-purple-400">XOR (Diamond/X):</strong> Decision point. Only ONE path is taken.</li>
+                            <li><strong class="text-purple-600 dark:text-purple-400">AND (Bar/Plus):</strong> Parallel fork. ALL paths are taken simultaneously.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Use Case Diagrams</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Static view of system functionality.</p>
+                        <div class="grid grid-cols-2 gap-4 text-xs">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                                <strong>Include:</strong> Mandatory execution (Always happens).
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                                <strong>Extend:</strong> Optional execution (Conditional).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-blue-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">08. Conceptual Data</h2>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">ERD & UML</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Entity Relationships</h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>M:N Problem:</strong> Many-to-Many relationships cannot be implemented directly in a relational DB. You must use an <strong>Associative Entity</strong> (Junction Table) to break it into two 1:M relationships.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">UML Class Relationships</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong class="text-gray-900 dark:text-white">Aggregation (Hollow ◇):</strong> "Has-a". Weak bond. Parts survive if whole dies (e.g., Computer/Mouse).</li>
+                            <li><strong class="text-gray-900 dark:text-white">Composition (Solid ◆):</strong> "Part-of". Strong bond. Parts die if whole dies (e.g., Building/Room).</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-green-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">09. DB Design</h2>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">Normalization</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Normalization Rules</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong class="text-green-600 dark:text-green-400">1NF:</strong> Atomic values. No lists/repeating groups.</li>
+                            <li><strong class="text-green-600 dark:text-green-400">2NF:</strong> 1NF + No Partial Dependency. (Only relevant for Composite Keys).</li>
+                            <li><strong class="text-green-600 dark:text-green-400">3NF:</strong> 2NF + No Transitive Dependency. (Non-key depends on Non-key).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Physical Design</h4>
+                        <div class="grid grid-cols-3 gap-2 text-[10px] text-center">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                <strong>Sequential</strong><br>Fast Scan<br>Slow Random
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                <strong>Indexed</strong><br>Fast Random<br>Overhead
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                <strong>Hashed</strong><br>Direct Address<br>No Scan
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-yellow-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">10. Interface</h2>
+                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">Usability</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Definitions</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong>Form:</strong> Input (Write). User $\to$ System.</li>
+                            <li><strong>Report:</strong> Output (Read). System $\to$ User.</li>
+                            <li><strong>Turnaround Doc:</strong> Output that becomes Input (e.g., Bill stub).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Usability Metrics</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            1. Learnability (Time to learn).<br>
+                            2. Efficiency (Speed of use).<br>
+                            3. Error Rate (Accuracy).
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-cyan-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">11. Architecture</h2>
+                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">Cloud & Network</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">LAN Architectures</h4>
+                        <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                            <p><strong>File Server:</strong> Sends entire file to client. High traffic. Fat Client.</p>
+                            <p><strong>Client/Server:</strong> Server processes query, sends result. Low traffic. Scalable.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Cloud Models</h4>
+                        <div class="grid grid-cols-3 gap-2 text-xs text-center">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>IaaS</strong><br>Hardware</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>PaaS</strong><br>Platform</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>SaaS</strong><br>Apps</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-rose-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">12. Implementation</h2>
+                    <span class="bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 px-3 py-1 rounded text-xs font-bold uppercase">Test & Install</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Testing Strategy (Bottom-Up)</h4>
+                        <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300">
+                            <li><strong>Unit:</strong> Single module logic.</li>
+                            <li><strong>Integration:</strong> Interfaces between modules.</li>
+                            <li><strong>System:</strong> Whole system vs Requirements.</li>
+                            <li><strong>Acceptance:</strong> User verification.</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Installation Strategies</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><span class="text-red-500 font-bold">Direct:</span> High risk, low cost.</li>
+                            <li><span class="text-green-500 font-bold">Parallel:</span> Low risk, high cost.</li>
+                            <li><span class="text-blue-500 font-bold">Pilot:</span> One location first.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-orange-500 flex flex-col h-full lg:col-span-2">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">13. Maintenance</h2>
+                    <span class="bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300 px-3 py-1 rounded text-xs font-bold uppercase">Long Haul</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-orange-600 dark:text-orange-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Types of Maintenance</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong>Corrective (70%):</strong> Fixing bugs.</li>
+                            <li><strong>Adaptive:</strong> OS/Environment changes.</li>
+                            <li><strong>Perfective:</strong> Enhancements/Performance.</li>
+                            <li><strong>Preventive:</strong> Future-proofing (Refactoring).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-orange-600 dark:text-orange-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Key Facts</h4>
+                        <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded border border-orange-200 dark:border-orange-800">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                                Maintenance is the <strong>Most Expensive</strong> phase (60-80% of TCO). It is a repeating SDLC process (Plan, Analyze, Design, Implement, Test).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Key Concepts Summary</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Normalization Keys</h4>
+                    <ul class="text-xs text-gray-500 space-y-1">
+                        <li><strong>Composite Key:</strong> Primary Key with >1 attribute.</li>
+                        <li><strong>Partial Dependency:</strong> Depends on part of PK (Violates 2NF).</li>
+                        <li><strong>Transitive Dependency:</strong> Non-key depends on Non-key (Violates 3NF).</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Testing Flow</h4>
+                    <div class="flex items-center text-xs text-gray-500 justify-between">
+                        <span>Unit</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <span>Integration</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <span>System</span>
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-2">Always Bottom-Up.</p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Cost Distribution</h4>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="bg-orange-500 h-2.5 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Maintenance is 70% of total lifecycle cost.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Final Exam Mega Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Secrets for Mod 7-13</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 2NF Requirement
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            "Does every table need 2NF checking?"
+                            <br><strong>NO.</strong> If the Primary Key is a single attribute (not composite), the table is <strong>automatically in 2NF</strong>. You only check for Partial Dependencies if the PK has multiple fields.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Fat vs Thin Client
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            <strong>Fat Client:</strong> Processing happens on the PC (Presentation + Logic). Hard to update.
+                            <br><strong>Thin Client:</strong> Processing happens on the Server. PC is just UI. Easy to update.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: System vs User Doc
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            <strong>System Doc:</strong> Records <em>design decisions</em> (For Programmers).
+                            <br><strong>User Doc:</strong> Records <em>how to use it</em> (For End Users).
+                            Do not confuse the target audience.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The M:N Fix
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            You cannot implement M:N in a database. You MUST create an <strong>Associative Entity</strong>.
+                            <br>Example: Student $\leftrightarrow$ Course becomes Student $\leftarrow$ Registration $\rightarrow$ Course.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-key mr-2"></i> SECRET: Maintenance Reality
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            Maintenance is NOT just fixing bugs (Corrective). Most maintenance effort actually goes to <strong>Enhancements</strong> (Perfective) and <strong>Adaptation</strong> (Adaptive) to keep the system alive.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: XOR vs AND
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            In Activity Diagrams:
+                            <br><strong>XOR (Diamond):</strong> "OR". Only 1 path.
+                            <br><strong>AND (Bar):</strong> "AND". All paths parallel.
+                            Confusing these destroys the logic flow.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>

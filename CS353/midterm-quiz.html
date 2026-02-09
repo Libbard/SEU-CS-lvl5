@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Midterm Interactive Quiz</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover {
+            transform: translateX(5px);
+        }
+
+        
+        .reveal-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            opacity: 0;
+        }
+        .reveal-content.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Main Dashboard">
+                        <i class="fa-solid fa-layer-group text-xl"></i>
+                    </a>
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Subject Home">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="midterm-review.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Review Notes">
+                        <i class="fa-solid fa-book-open"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Midterm Quiz</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module7.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Resume Course">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Mod 7</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-16">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-vial-circle-check text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Challenge</span>
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                Comprehensive Assessment covering Modules 1-6.
+                <br><strong>Part 1:</strong> 70 Multiple Choice Questions (Analysis, Brute Force, Divide & Conquer).
+                <br><strong>Part 2:</strong> 10 Concept Essay Questions.
+            </p>
+        </header>
+
+        <section id="mcq-section" class="scroll-mt-20">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Part 1: The Gauntlet (70 MCQs)</h2>
+            </div>
+
+            <div id="quiz-container" class="glass-card rounded-2xl p-8 relative min-h-[450px] flex flex-col justify-between">
+                
+                <div class="absolute top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-t-2xl overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div id="question-block" class="space-y-6">
+                    <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-400">
+                        <span id="question-counter">Question 1/70</span>
+                        <span id="score-display" class="text-brand-500">Score: 0</span>
+                    </div>
+                    
+                    <div class="min-h-[80px]">
+                        <h2 id="question-text" class="text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-snug">
+                            </h2>
+                    </div>
+
+                    <div id="options-container" class="grid gap-3 grid-cols-1 md:grid-cols-2">
+                        </div>
+                </div>
+
+                <div id="feedback-block" class="hidden mt-6 p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 animate-fade-in">
+                    <div class="flex items-start space-x-3">
+                        <div id="feedback-icon" class="mt-1"></div>
+                        <div>
+                            <h4 id="feedback-title" class="font-bold text-sm"></h4>
+                            <p id="feedback-text" class="text-sm text-gray-600 dark:text-gray-300 mt-1"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between items-center">
+                    <div class="text-xs text-gray-400 italic">
+                        Topic: <span id="question-topic">General</span>
+                    </div>
+                    <button id="next-btn" class="hidden px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-bold transition-colors flex items-center shadow-lg hover:shadow-brand-500/30">
+                        Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+
+                <div id="result-screen" class="hidden text-center py-10">
+                    <div class="mb-6">
+                        <i id="result-icon" class="text-6xl mb-4 block"></i>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Midterm Complete!</h2>
+                        <p class="text-gray-500 dark:text-gray-400">You scored <span id="final-score" class="text-brand-500 font-bold text-2xl"></span> / 70</p>
+                    </div>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="location.reload()" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-bold transition-colors">
+                            Retry
+                        </button>
+                        <a href="#essay-section" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-bold transition-colors">
+                            Go to Part 2: Essays
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="essay-section" class="scroll-mt-20">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-blue-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Part 2: The Concept Vault (Essays)</h2>
+            </div>
+
+            <div class="grid gap-6">
+                
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">1. Algorithm Characteristics</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 1</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        List and briefly explain the 5 essential characteristics of an algorithm. Distinguish between an Algorithm and a Program.
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Characteristics:</strong> Input (0+), Output (1+), Definiteness (Clear steps), Finiteness (Must terminate), Effectiveness (Feasible).<br>
+                        <strong>Difference:</strong> An algorithm MUST terminate (Finiteness). A program (like an OS) may run indefinitely (infinite loop).
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">2. Asymptotic Notations</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 2</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Explain the difference between $O$, $\Omega$, and $\Theta$. Why is $\Theta(n)$ preferred over $O(n)$ when describing an algorithm's exact behavior?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        $O$ is Upper Bound (Worst case limit). $\Omega$ is Lower Bound (Best case limit). $\Theta$ is Tight Bound (Sandwiched between constants). $\Theta$ is preferred because it gives a precise growth rate, whereas $O(n^2)$ is technically true for a linear algorithm but misleading.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">3. Brute Force Sorting</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 3</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Compare Selection Sort and Bubble Sort. Both are $O(n^2)$, but why might Selection Sort be preferred in a system where writing to memory is expensive?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        Selection Sort performs exactly $O(n)$ swaps (writes) in the worst case. Bubble Sort performs $O(n^2)$ swaps. If write operations are costly (e.g., Flash memory), Selection Sort is superior despite having the same time complexity.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">4. DFS vs BFS</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 3</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Describe the data structures used for DFS and BFS. How does the choice of Adjacency Matrix vs. Adjacency List affect their complexity?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        DFS uses a <strong>Stack</strong> (LIFO). BFS uses a <strong>Queue</strong> (FIFO).<br>
+                        <strong>Matrix:</strong> $O(|V|^2)$ because finding neighbors requires scanning a whole row.<br>
+                        <strong>List:</strong> $O(|V| + |E|)$ because we only traverse existing edges.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">5. Decrease-and-Conquer Types</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 4</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Differentiate between "Decrease by Constant" and "Decrease by Factor". Give one algorithm example for each.
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Constant:</strong> Reduces size by 1 (or k). Recurrence $T(n) = T(n-1) + 1 \to O(n)$. Ex: Insertion Sort, DFS.<br>
+                        <strong>Factor:</strong> Reduces size by half (or n/k). Recurrence $T(n) = T(n/2) + 1 \to O(\log n)$. Ex: Binary Search.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">6. Topological Sort</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 4</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        What condition must a graph satisfy to be topologically sorted? Explain the "Source Removal" method.
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        The graph must be a <strong>DAG</strong> (Directed Acyclic Graph). If it has a cycle, no order exists. Source Removal method: Identify a node with in-degree 0, print it, remove it and its edges, repeat.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">7. Master Theorem</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 5</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Given $T(n) = 2T(n/2) + n$, apply the Master Theorem to find the complexity. What algorithm does this recurrence represent?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        $a=2, b=2, d=1$. Compare $a$ vs $b^d \to 2$ vs $2^1$. Since equal, Case 2 applies: $O(n^d \log n) = O(n \log n)$. This represents <strong>Mergesort</strong> (and best-case QuickSort).
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">8. QuickSort Worst Case</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 5</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Under what specific conditions does QuickSort perform in $O(n^2)$? How can we mitigate this?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        Occurs when the pivot is the smallest or largest element every time (e.g., sorted array with first element as pivot). Splits into 0 and n-1. Mitigation: Pick random pivot, or median-of-three.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">9. Presorting Benefits</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 6</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        "Presorting makes everything faster." Critically evaluate this statement. When is it true, and when is it false?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        False. It has overhead. Total cost = Sort ($n \log n$) + Search.
+                        <br><strong>True</strong> if you search many times (amortized cost) or if brute force is $O(n^2)$ (e.g., uniqueness).
+                        <br><strong>False</strong> if searching once (Linear search $O(n)$ < Sorting $n \log n$).
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">10. AVL Rotations</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 6</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        What triggers a rotation in an AVL tree? Describe the difference between a Single Rotation and a Double Rotation scenario.
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        Triggered when balance factor becomes +2 or -2.
+                        <br><strong>Single:</strong> Used for Left-Left or Right-Right imbalance (straight line).
+                        <br><strong>Double:</strong> Used for Left-Right or Right-Left imbalance (zig-zag).
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 transition-colors duration-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        document.querySelectorAll('.essay-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                if (content.classList.contains('open')) {
+                    content.classList.remove('open');
+                    btn.innerHTML = '<i class="fa-regular fa-eye mr-2"></i> Show Model Answer';
+                } else {
+                    content.classList.add('open');
+                    btn.innerHTML = '<i class="fa-regular fa-eye-slash mr-2"></i> Hide Answer';
+                }
+            });
+        });
+
+        
+        const topics = [
+            { id: "Mod 1", name: "Fundamentals", start: 0, end: 10 },
+            { id: "Mod 2", name: "Analysis", start: 10, end: 20 },
+            { id: "Mod 3", name: "Brute Force", start: 20, end: 35 },
+            { id: "Mod 4", name: "Decrease & Conquer", start: 35, end: 45 },
+            { id: "Mod 5", name: "Divide & Conquer", start: 45, end: 60 },
+            { id: "Mod 6", name: "Transform & Conquer", start: 60, end: 70 }
+        ];
+
+        
+        const mcqBank = [
+            
+            {q: "What is the most important characteristic of an algorithm?", o: ["Efficiency", "Finiteness", "Length", "Language"], c: 1, exp: "An algorithm must terminate (Finiteness)."},
+            {q: "Euclid's Algorithm calculates:", o: ["LCM", "GCD", "Primes", "Fibonacci"], c: 1, exp: "Greatest Common Divisor."},
+            {q: "An algorithm must have:", o: ["0 inputs", "1 input", "2 inputs", "Any number of inputs"], c: 3, exp: "It can have 0 or more inputs."},
+            {q: "Pseudocode is:", o: ["Machine code", "High-level code", "A mix of natural language and code", "Hardware design"], c: 2, exp: "Tool for humans to understand logic."},
+            {q: "Definiteness means:", o: ["It ends", "Steps are clear", "It is fast", "It is short"], c: 1, exp: "No ambiguity in steps."},
+            {q: "Effectiveness means:", o: ["Steps are feasible", "Steps are fast", "Steps are complex", "Output is correct"], c: 0, exp: "Operations must be basic enough to be done."},
+            {q: "A flowchart uses a Diamond shape for:", o: ["Process", "Input/Output", "Decision", "Start/End"], c: 2, exp: "Decision/Branching."},
+            {q: "Which is NOT a valid way to represent an algorithm?", o: ["Pseudocode", "Flowchart", "Natural Language", "Hardware Circuit"], c: 3, exp: "Hardware is an implementation, not a representation."},
+            {q: "Correctness means:", o: ["Fastest answer", "Correct output for valid inputs", "No crashes", "Short code"], c: 1, exp: "Algorithm solves the problem accurately."},
+            {q: "Algorithms with same Big-O always have:", o: ["Same speed", "Same growth rate", "Same lines of code", "Same memory"], c: 1, exp: "Same asymptotic growth rate."},
+
+            
+            {q: "The Basic Operation is:", o: ["First line", "Last line", "Innermost loop op", "Function call"], c: 2, exp: "Executes the most times."},
+            {q: "Worst-case efficiency is:", o: ["O", "Omega", "Theta", "Small-o"], c: 0, exp: "Upper Bound (Big-O)."},
+            {q: "Best-case efficiency is:", o: ["O", "Omega", "Theta", "Small-o"], c: 1, exp: "Lower Bound (Omega)."},
+            {q: "Average-case efficiency requires:", o: ["Random numbers", "Probability distribution", "Worst input", "Best input"], c: 1, exp: "Knowledge of input probabilities."},
+            {q: "Amortized efficiency considers:", o: ["Single op", "Sequence of ops", "Best case", "Worst case"], c: 1, exp: "Average over a sequence."},
+            {q: "Nested loops i=1..n, j=1..n run in:", o: ["n", "n^2", "log n", "1"], c: 1, exp: "n * n times."},
+            {q: "Sum of 1 to n is approx:", o: ["n", "n^2 / 2", "n^3", "log n"], c: 1, exp: "Arithmetic series sum."},
+            {q: "Sum of 1/i from 1 to n is:", o: ["n", "log n", "1", "n^2"], c: 1, exp: "Harmonic series is ln n."},
+            {q: "Recursive analysis uses:", o: ["Summation", "Recurrence Relation", "Integration", "Differentiation"], c: 1, exp: "M(n) defined by M(n-1)."},
+            {q: "Backward substitution is for:", o: ["Solving Recurrences", "Sorting", "Searching", "Graphing"], c: 0, exp: "Finding closed form of recursive relations."},
+
+            
+            {q: "Selection Sort complexity:", o: ["O(n)", "O(n log n)", "O(n^2)", "O(1)"], c: 2, exp: "Always scans remaining list."},
+            {q: "Bubble Sort best case:", o: ["O(n)", "O(n log n)", "O(n^2)", "O(1)"], c: 0, exp: "If array is sorted, one pass detects it."},
+            {q: "String Matching brute force worst case:", o: ["O(n)", "O(m)", "O(nm)", "O(n+m)"], c: 2, exp: "Pattern compares at every text position."},
+            {q: "DFS uses which structure?", o: ["Queue", "Stack", "Heap", "Tree"], c: 1, exp: "LIFO Stack (or recursion)."},
+            {q: "BFS uses which structure?", o: ["Queue", "Stack", "Heap", "Tree"], c: 0, exp: "FIFO Queue."},
+            {q: "Exhaustive Search for TSP is:", o: ["O(n^2)", "O(n!)", "O(2^n)", "O(n log n)"], c: 1, exp: "Factorial permutations."},
+            {q: "Knapsack Exhaustive Search is:", o: ["O(n!)", "O(2^n)", "O(n^2)", "O(n)"], c: 1, exp: "Subset generation (Power set)."},
+            {q: "Assignment Problem permutations:", o: ["n", "n^2", "n!", "2^n"], c: 2, exp: "One-to-one mapping permutations."},
+            {q: "Closest Pair Brute Force:", o: ["O(n)", "O(n^2)", "O(n log n)", "O(1)"], c: 1, exp: "Compare every pair of points."},
+            {q: "Selection Sort stable?", o: ["Yes", "No", "Sometimes", "Maybe"], c: 1, exp: "Swapping long distances breaks order."},
+            {q: "Bubble Sort stable?", o: ["Yes", "No", "Sometimes", "Maybe"], c: 0, exp: "Only swaps adjacent out-of-order items."},
+            {q: "Sequential Search sentinel moves check to:", o: ["Inside loop", "Outside loop", "Start", "End"], c: 1, exp: "Removes boundary check inside loop."},
+            {q: "Graph Matrix Space:", o: ["V", "E", "V^2", "V+E"], c: 2, exp: "2D Array V*V."},
+            {q: "Graph List Space:", o: ["V", "E", "V^2", "V+E"], c: 3, exp: "Array of lists."},
+            {q: "Connected component search uses:", o: ["Sorting", "Hashing", "DFS/BFS", "Brute Force"], c: 2, exp: "Traversals find connectivity."},
+
+            
+            {q: "Insertion Sort Best Case:", o: ["O(n)", "O(n^2)", "O(log n)", "O(1)"], c: 0, exp: "Sorted array = 1 comparison per item."},
+            {q: "Topological Sort applies to:", o: ["Undirected", "DAG", "Cyclic", "Trees"], c: 1, exp: "Directed Acyclic Graphs only."},
+            {q: "Binary Search is Decrease by:", o: ["Constant", "Factor", "Variable", "None"], c: 1, exp: "Factor of 2."},
+            {q: "QuickSelect finds:", o: ["Max", "Min", "Median/k-th", "All"], c: 2, exp: "Selection problem."},
+            {q: "Fake Coin problem strategy:", o: ["Sort", "Decrease by Factor", "Brute Force", "Hashing"], c: 1, exp: "Weighing splits piles (factor of 2 or 3)."},
+            {q: "Insertion Sort is efficient for:", o: ["Large random arrays", "Small/sorted arrays", "Reverse arrays", "Linked lists"], c: 1, exp: "Low overhead, adaptive."},
+            {q: "Source Removal algorithm uses:", o: ["Out-degree", "In-degree", "Weights", "Colors"], c: 1, exp: "Removes nodes with In-degree 0."},
+            {q: "Binary Search complexity:", o: ["O(n)", "O(n^2)", "O(log n)", "O(1)"], c: 2, exp: "Halving steps."},
+            {q: "Decrease-by-one is usually:", o: ["Recursive", "Iterative", "Exponential", "Random"], c: 1, exp: "Like loops."},
+            {q: "Lomuto Partition is used in:", o: ["MergeSort", "QuickSelect", "HeapSort", "BubbleSort"], c: 1, exp: "Partitioning around pivot."},
+
+            
+            {q: "Mergesort recurrence:", o: ["T(n)=2T(n/2)+n", "T(n)=T(n-1)+1", "T(n)=2T(n/2)+1", "T(n)=T(n/2)+n"], c: 0, exp: "Split 2, Merge n."},
+            {q: "Quicksort Worst Case:", o: ["n", "n log n", "n^2", "log n"], c: 2, exp: "Bad pivot selection."},
+            {q: "Master Theorem Case 1 condition:", o: ["a < b^d", "a = b^d", "a > b^d", "a = d"], c: 0, exp: "Root dominates."},
+            {q: "Strassen's Algorithm speeds up:", o: ["Sorting", "Searching", "Matrix Mult", "Graphs"], c: 2, exp: "Reduces multiplications."},
+            {q: "Binary Tree Preorder:", o: ["L-R-Root", "Root-L-R", "L-Root-R", "R-L-Root"], c: 1, exp: "Root first."},
+            {q: "MergeSort space complexity:", o: ["O(1)", "O(n)", "O(log n)", "O(n^2)"], c: 1, exp: "Not in-place."},
+            {q: "QuickSort Average Case:", o: ["n", "n log n", "n^2", "log n"], c: 1, exp: "Balanced partitions."},
+            {q: "Closest Pair Divide & Conquer:", o: ["O(n)", "O(n log n)", "O(n^2)", "O(1)"], c: 1, exp: "Better than brute force."},
+            {q: "Large Integer Multiplication reduces mults from 4 to:", o: ["3", "2", "1", "0"], c: 0, exp: "Karatsuba algorithm."},
+            {q: "Binary Tree Height:", o: ["log n", "n", "n log n", "1"], c: 0, exp: "For balanced trees."},
+            {q: "Master Theorem Case 2 complexity:", o: ["n^d", "n^d log n", "n^log_b a", "n"], c: 1, exp: "Equal work at levels."},
+            {q: "Defective Chessboard uses:", o: ["Greedy", "D&C", "DP", "Brute"], c: 1, exp: "Tiling with trominoes."},
+            {q: "QuickSort pivot strategy:", o: ["First", "Last", "Median-of-3", "All"], c: 2, exp: "Avoids worst case for sorted input."},
+            {q: "Mergesort Stability:", o: ["Stable", "Unstable", "Random", "Unknown"], c: 0, exp: "Preserves order."},
+            {q: "Strassen's exponent:", o: ["3", "2.807", "2", "1"], c: 1, exp: "log2(7)."},
+
+            
+            {q: "Presorting Uniqueness check:", o: ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"], c: 1, exp: "Sort first."},
+            {q: "Gaussian Elimination complexity:", o: ["O(n)", "O(n^2)", "O(n^3)", "O(log n)"], c: 2, exp: "Three nested loops."},
+            {q: "AVL Tree Balance Factor:", o: ["-1,0,1", "-2,0,2", "0,1", "Any"], c: 0, exp: "Strictly balanced."},
+            {q: "Left-Left imbalance needs:", o: ["Single Right", "Single Left", "Double LR", "Double RL"], c: 0, exp: "Rotate right."},
+            {q: "LCM reduction:", o: ["Product", "Sum", "GCD", "Mod"], c: 2, exp: "Uses GCD."},
+            {q: "Horner's Rule is for:", o: ["Sorting", "Polynomial Eval", "Graphs", "Trees"], c: 1, exp: "Efficient evaluation."},
+            {q: "Binary Exponentiation complexity:", o: ["n", "log n", "n^2", "1"], c: 1, exp: "Right-to-left binary."},
+            {q: "Problem Reduction transforms to:", o: ["Harder problem", "Solved problem", "New problem", "Random problem"], c: 1, exp: "Use known solution."},
+            {q: "AVL Insertion complexity:", o: ["n", "log n", "n^2", "1"], c: 1, exp: "Tree height."},
+            {q: "Computing Mode after sort:", o: ["O(n)", "O(n^2)", "O(1)", "O(log n)"], c: 0, exp: "Linear scan counts runs."}
+        ];
+
+        
+        let currentQIndex = 0;
+        let score = 0;
+        let isAnswered = false;
+
+        
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackBlock = document.getElementById('feedback-block');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreDisplay = document.getElementById('score-display');
+        const questionCounter = document.getElementById('question-counter');
+        const quizContainer = document.getElementById('question-block');
+        const resultScreen = document.getElementById('result-screen');
+        const questionTopic = document.getElementById('question-topic');
+
+        
+        function loadQuestion() {
+            isAnswered = false;
+            const q = mcqBank[currentQIndex];
+            
+            
+            const topic = topics.find(t => currentQIndex >= t.start && currentQIndex < t.end);
+            questionTopic.innerText = topic ? topic.name : "General";
+            questionTopic.className = "text-brand-500 font-bold";
+
+            
+            questionText.innerText = q.q;
+            questionCounter.innerText = `Question ${currentQIndex + 1}/${mcqBank.length}`;
+            progressBar.style.width = `${((currentQIndex) / mcqBank.length) * 100}%`;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackBlock.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+
+            
+            q.o.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all font-medium text-gray-700 dark:text-gray-200 relative overflow-hidden`;
+                btn.innerHTML = `<span class="inline-block w-6 font-bold text-gray-400 mr-2">${String.fromCharCode(65 + index)}.</span> ${opt}`;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            
+            MathJax.typesetPromise();
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const q = mcqBank[currentQIndex];
+            const isCorrect = selectedIndex === q.c;
+            const correctBtn = optionsContainer.children[q.c];
+
+            
+            if (isCorrect) {
+                score++;
+                scoreDisplay.innerText = `Score: ${score}`;
+                btnElement.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/20');
+                showFeedback(true, q.exp);
+            } else {
+                btnElement.classList.add('ring-2', 'ring-rose-500', 'bg-rose-50', 'dark:bg-rose-900/20');
+                correctBtn.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/20');
+                showFeedback(false, q.exp);
+            }
+
+            Array.from(optionsContainer.children).forEach(b => b.disabled = true);
+            nextBtn.classList.remove('hidden');
+        }
+
+        function showFeedback(isCorrect, text) {
+            feedbackBlock.classList.remove('hidden');
+            const title = document.getElementById('feedback-title');
+            const body = document.getElementById('feedback-text');
+            const icon = document.getElementById('feedback-icon');
+
+            if (isCorrect) {
+                feedbackBlock.className = "mt-6 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 animate-fade-in";
+                icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500 text-xl"></i>';
+                title.innerText = "Correct!";
+                title.className = "font-bold text-sm text-emerald-700 dark:text-emerald-400";
+            } else {
+                feedbackBlock.className = "mt-6 p-4 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 animate-fade-in";
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-500 text-xl"></i>';
+                title.innerText = "Incorrect";
+                title.className = "font-bold text-sm text-rose-700 dark:text-rose-400";
+            }
+            body.innerHTML = text;
+        }
+
+        nextBtn.onclick = () => {
+            currentQIndex++;
+            if (currentQIndex < mcqBank.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContainer.children[0].classList.add('hidden');
+            document.getElementById('question-block').classList.add('hidden');
+            feedbackBlock.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            const finalScoreEl = document.getElementById('final-score');
+            const resultIcon = document.getElementById('result-icon');
+            finalScoreEl.innerText = score;
+
+            if (score >= 60) {
+                resultIcon.className = "fa-solid fa-trophy text-6xl mb-4 block text-yellow-400 animate-bounce";
+                resultIcon.nextElementSibling.innerText = "Algorithm Master!";
+            } else if (score >= 40) {
+                resultIcon.className = "fa-solid fa-thumbs-up text-6xl mb-4 block text-blue-400";
+                resultIcon.nextElementSibling.innerText = "Solid Performance!";
+            } else {
+                resultIcon.className = "fa-solid fa-book-open-reader text-6xl mb-4 block text-gray-400";
+                resultIcon.nextElementSibling.innerText = "Review Required";
+            }
+        }
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion();
+
+    </script>
+</body>
+</html>

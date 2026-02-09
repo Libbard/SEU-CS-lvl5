@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Midterm Master Review (Mod 1-6)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .progress-anim {
+            animation: load 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Midterm Review</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-database text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Database Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="midterm-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-6">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-layer-group text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Knowledge Compendium</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                A complete synthesis of Modules 1 through 6. From the basics of Data Models to the complexities of EER Mapping.
+            </p>
+            
+            <div class="w-full max-w-md mx-auto bg-gray-300 dark:bg-gray-800 rounded-full h-2.5 mt-4">
+                <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 46%"></div> </div>
+            <p class="text-xs text-gray-500 mt-2">Covering Modules 1-6</p>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-gray-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">01. Foundations</h2>
+                    <span class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-3 py-1 rounded text-xs font-bold uppercase">Definitions</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Core Concepts</h4>
+                        <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                            <li><strong class="text-gray-900 dark:text-white">Database (DB):</strong> Collection of related data representing a Miniworld.</li>
+                            <li><strong class="text-gray-900 dark:text-white">DBMS:</strong> Software to define, construct, and manipulate the DB.</li>
+                            <li><strong class="text-gray-900 dark:text-white">Meta-data:</strong> "Data about Data" (Structure, Constraints). Stored in the Catalog.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Key Advantages</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <strong>Program-Data Independence:</strong> Changing data structure (e.g., adding a field) does NOT require rewriting applications. The DBMS handles the mapping.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-blue-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">02. Architecture</h2>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">3-Schema</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The Three Schemas</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>1. Internal:</strong> Physical storage (Bits, Indices).</li>
+                            <li><strong>2. Conceptual:</strong> Structure (Entities, Relationships). Hides storage details.</li>
+                            <li><strong>3. External:</strong> User Views (Subsets of data).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Data Independence</h4>
+                        <div class="grid grid-cols-2 gap-4 text-xs">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                                <strong class="block text-gray-900 dark:text-white">Logical</strong>
+                                Change Conceptual w/o breaking External views.
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                                <strong class="block text-gray-900 dark:text-white">Physical</strong>
+                                Change Internal (Optimization) w/o breaking Conceptual.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-green-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">03. Relational Model</h2>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">Tables & Constraints</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Keys</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>Superkey:</strong> Unique identifier (can be redundant).</li>
+                            <li><strong>Candidate Key:</strong> Minimal Superkey.</li>
+                            <li><strong>Primary Key (PK):</strong> Chosen Candidate Key. Cannot be NULL.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Integrity Constraints</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>Entity Integrity:</strong> PK $\neq$ NULL.</li>
+                            <li><strong>Referential Integrity:</strong> Foreign Key (FK) must match an existing PK in the referenced table OR be NULL.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-yellow-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">04. ER Modeling</h2>
+                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">Concepts</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Attributes</h4>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Simple</span>
+                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">Composite (Address)</span>
+                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded border border-brand-500">Multi-valued (Color) { }</span>
+                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded border border-dashed border-gray-500">Derived (Age)</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Weak Entity</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Has no Key. Identified by an <strong>Owner Entity</strong> via an Identifying Relationship.
+                            <br><em>Example:</em> Dependent relies on Employee.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-purple-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">05. EER Inheritance</h2>
+                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded text-xs font-bold uppercase">Super/Subclass</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Specialization vs Generalization</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>Specialization (Top-Down):</strong> Breaking Entity into subgroups (Employee $\to$ Secretary, Engineer).</li>
+                            <li><strong>Generalization (Bottom-Up):</strong> Combining entities into a superclass (Car, Truck $\to$ Vehicle).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Inheritance</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Subclasses inherit <strong>ALL</strong> attributes and relationships of the Superclass.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-cyan-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">06. Mapping & Constraints</h2>
+                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">Logical Design</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Constraint Types</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                <strong>Disjoint (d):</strong> Overlap NOT allowed.
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                <strong>Overlap (o):</strong> Entity can be in multiple subclasses.
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                <strong>Total (Double):</strong> Every Super must be a Sub.
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                                <strong>Partial (Single):</strong> Super can exist alone.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-cyan-50 dark:bg-cyan-900/20 p-3 rounded border border-cyan-200 dark:border-cyan-800">
+                        <strong class="text-xs text-cyan-700 dark:text-cyan-300 block mb-1">Union Type (Category)</strong>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">
+                            A subclass with multiple superclasses representing <strong>different</strong> entity types. Relation is OR.
+                            <br>(e.g., Owner is Person OR Bank OR Company).
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The 7-Step Mapping Algorithm</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="text-brand-600 block text-lg mb-1">Step 1: Strong</strong>
+                        Create table. Simple attributes become columns.
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="text-brand-600 block text-lg mb-1">Step 2: Weak</strong>
+                        Create table. Add Owner PK as FK. <br>PK = {OwnerPK + PartialKey}.
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="text-brand-600 block text-lg mb-1">Step 3: 1:1</strong>
+                        Add PK of one side as FK to the other. Prefer Total Participation side.
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="text-brand-600 block text-lg mb-1">Step 4: 1:N</strong>
+                        Add PK of "1-side" as FK to "N-side". (Parent ID goes to Child).
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="text-brand-600 block text-lg mb-1">Step 5: M:N</strong>
+                        Create <strong>Associative Table</strong>. Include PKs of both sides as FKs. PK = {FK1, FK2}.
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="text-brand-600 block text-lg mb-1">Step 6: Multi-Val</strong>
+                        Create new table. PK = {ParentID, Value}.
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700 col-span-2">
+                        <strong class="text-brand-600 block text-lg mb-1">Step 7: N-ary</strong>
+                        Create new table with FKs from all participating entities.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Midterm Mega Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">All Secrets, Traps, and Tricks (Mod 1-6)</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Schema vs State
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            <strong>Schema (Intension):</strong> The blueprint. Changes rarely.
+                            <br><strong>State (Extension):</strong> The data content. Changes frequently.
+                            Don't confuse them!
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 1:N Mapping
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            Never put the Foreign Key on the "1-side". It violates 1NF (atomic values).
+                            <br>Always put the FK on the <strong>N-side</strong> (the child).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Weak Entity PK
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            A Weak Entity does NOT have a Primary Key of its own. It has a <strong>Partial Key</strong>.
+                            Its PK in the database is (Owner PK + Partial Key).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Meta-Data
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            What makes a DBMS "Self-Describing"?
+                            <br>The existence of the <strong>System Catalog</strong> which stores the Meta-data (description of structure and constraints).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: Composite Attribute Mapping
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            When mapping a composite attribute (e.g., Address: City, Street), you do NOT create a separate table. You just flatten the components into columns (Address_City, Address_Street) in the main table.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-key mr-2"></i> SECRET: M:N Attributes
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            If a relationship has an attribute (e.g., "Hours Worked"), and the relationship is M:N, that attribute belongs to the <strong>Associative Entity</strong> (the middle table), not the Employee or Project tables.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="midterm-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Quiz</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Review</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>

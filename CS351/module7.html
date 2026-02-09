@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 7: Main Memory</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        .bit-box {
+            border: 1px solid #4b5563;
+            padding: 4px 8px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+        .dark .bit-box { border-color: #6b7280; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 7</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-memory text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module8.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Space Management: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Main Memory</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Bridging the gap between CPU and Storage. Contiguous Allocation, Fragmentation, Paging, and Translation Look-aside Buffers (TLB).
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Logical vs Physical Address</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Fragmentation</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Paging</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Page Table</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">TLB</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Swapping</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Core Concepts</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    A program on disk is a passive file. To run, it must be loaded into memory.
+                    <br><strong>Address Binding</strong> maps instructions to physical memory addresses at different times.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4 text-center text-xs">
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Compile Time</strong>
+                        If memory location is known a priori, absolute code can be generated. Must recompile if location changes.
+                    </div>
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Load Time</strong>
+                        Compiler generates relocatable code. Final binding happens when loading.
+                    </div>
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Execution Time</strong>
+                        Binding delayed until run time. Needs hardware support (MMU). Most modern OSs use this.
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Memory Management Unit (MMU)</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            A hardware device that maps <span class="text-blue-500 font-bold">Logical</span> to <span class="text-green-500 font-bold">Physical</span> addresses at run time.
+                        </p>
+                        <div class="mt-4 p-3 bg-purple-50 dark:bg-purple-900/20 rounded text-xs">
+                            <strong class="block text-purple-700 dark:text-purple-300">Relocation Register Logic:</strong>
+                            User program deals with Logical Addresses (0 to max).
+                            <br>MMU adds the value in the Relocation Register to generate the Physical Address.
+                            <br><em>Physical = Logical + Relocation Register</em>
+                        </div>
+                    </div>
+                    <div class="mermaid">
+                        graph LR
+                        CPU -->|Logical Addr| MMU
+                        MMU -->|Physical Addr| MEM[Memory]
+                        MMU -- Relocation Reg --> ADD((+))
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Contiguous Allocation</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Each process is contained in a single contiguous section of memory.
+                    <br><strong>Dynamic Storage-Allocation Problem:</strong> How to satisfy a request of size <em>n</em> from a list of free holes?
+                </p>
+                <ul class="list-disc list-inside text-xs text-gray-500 space-y-1 mb-4">
+                    <li><strong>First-Fit:</strong> Allocate the first hole that is big enough. (Fast).</li>
+                    <li><strong>Best-Fit:</strong> Allocate the smallest hole that is big enough. (Leaves tiny holes).</li>
+                    <li><strong>Worst-Fit:</strong> Allocate the largest hole. (Leaves largest remaining hole).</li>
+                </ul>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-t-red-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">External Fragmentation</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Total memory space exists to satisfy a request, but it is <strong>not contiguous</strong>.
+                        <br><em>Solution:</em> Compaction (Shuffle memory contents to place free memory together). Expensive.
+                    </p>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-t-orange-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Internal Fragmentation</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Allocated memory may be slightly larger than requested memory. The difference is unused memory internal to a partition.
+                        <br><em>Common in Paging.</em>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Paging</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    Physical memory is divided into fixed-sized blocks called <span class="text-green-500 font-bold">Frames</span>.
+                    <br>Logical memory is divided into blocks of same size called <span class="text-blue-500 font-bold">Pages</span>.
+                    <br><strong>Benefit:</strong> Eliminates External Fragmentation. Allows non-contiguous allocation.
+                </p>
+
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex-1">
+                        <strong class="block text-gray-900 dark:text-white text-sm mb-3 text-center">Logical Address Structure</strong>
+                        <div class="flex justify-center mb-2">
+                            <div class="bit-box bg-blue-100 dark:bg-blue-900/30 w-1/2">Page Number (p)</div>
+                            <div class="bit-box bg-green-100 dark:bg-green-900/30 w-1/2">Page Offset (d)</div>
+                        </div>
+                        <p class="text-[10px] text-gray-500 text-center">
+                            $p$ is index into Page Table.
+                            <br>$d$ is displacement within the page/frame.
+                        </p>
+                    </div>
+                    
+                    <div class="text-2xl text-gray-400"><i class="fa-solid fa-arrow-right"></i></div>
+
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex-1">
+                        <strong class="block text-gray-900 dark:text-white text-sm mb-3 text-center">Page Table</strong>
+                        
+                        <div class="flex flex-col items-center space-y-2">
+                            <div class="w-full border border-gray-400 p-1 text-center text-xs">Maps <strong>p</strong> $\to$ <strong>f</strong></div>
+                            <div class="w-full bg-gray-700 h-px"></div>
+                            <div class="text-xs text-gray-500">Physical Addr = (f $\times$ Size) + d</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-yellow-500">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Translation Look-aside Buffer (TLB)</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                    The Page Table is stored in main memory. This means every data access requires <strong>two</strong> memory accesses (one for table, one for data). Too slow!
+                    <br><strong>Solution:</strong> TLB. A fast, special hardware cache for page translations.
+                </p>
+                <div class="mt-4 grid grid-cols-2 gap-4 text-xs">
+                    <div class="p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded">
+                        <strong class="block text-yellow-700 dark:text-yellow-400">TLB Hit</strong>
+                        Translation found in fast cache. No extra memory access.
+                    </div>
+                    <div class="p-2 bg-red-50 dark:bg-red-900/20 rounded">
+                        <strong class="block text-red-700 dark:text-red-400">TLB Miss</strong>
+                        Must go to memory to fetch page table entry. Add to TLB for next time.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Structures</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                For large address spaces ($2^{64}$), the page table itself becomes too large to fit in contiguous memory.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">Hierarchical Paging</h3>
+                    <p class="text-xs text-gray-500">
+                        "Page the Page Table". Break the page table into smaller pieces.
+                        <br>e.g., Two-Level Paging. Outer page table maps to inner page tables.
+                    </p>
+                </div>
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">Hashed Page Tables</h3>
+                    <p class="text-xs text-gray-500">
+                        Common for address spaces > 32 bits.
+                        <br>Virtual page number is hashed into a chain of elements.
+                    </p>
+                </div>
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">Inverted Page Tables</h3>
+                    <p class="text-xs text-gray-500">
+                        One entry for each <strong>physical</strong> frame (not virtual page).
+                        <br>Saves memory, but searching is harder (needs hashing).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: EAT Calculation
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Effective Access Time (EAT)</strong> with TLB:
+                            <br>$EAT = (HitRate \times Time_{mem}) + (MissRate \times 2 \times Time_{mem})$
+                            <br><em>Note:</em> Miss usually costs 2 memory accesses (Table + Data). Don't forget the '2'!
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Fragmentation Types
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Segmentation</strong> suffers from <em>External</em> Fragmentation.
+                            <br><strong>Paging</strong> suffers from <em>Internal</em> Fragmentation (last frame may not be full).
+                            <br>Do not mix them up.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Context Switch & TLB
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            When switching processes, the TLB must be <strong>flushed</strong> (cleared) because the virtual-to-physical mapping changes completely. This adds to the cost of context switching. Some TLBs use ASIDs (Address Space IDs) to avoid flushing.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Shared Pages
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Paging allows sharing common code (e.g., standard C library, text editors).
+                            <br>The code must be <strong>Reentrant</strong> (read-only, no self-modification).
+                            <br>Multiple processes can map their virtual pages to the <em>same</em> physical frame holding the shared code.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Module 9: Hashing & B-Trees</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f43f5e;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f43f5e;
+            background-color: rgba(244, 63, 94, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes dropIn {
+            0% { transform: translateY(-20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .bucket-item {
+            animation: dropIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module8.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 9</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module10.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-table-list text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Space and Time <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Trade-Offs II</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Breaking the $O(\log n)$ barrier with Hashing and mastering external memory with B-Trees.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Hashing</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Collision Resolution</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Open Addressing</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">B-Trees</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Hashing: The $O(1)$ Dream</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">The Dictionary Problem</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        We need to implement a set with three operations: <strong>Find</strong>, <strong>Insert</strong>, and <strong>Delete</strong>.
+                        Balanced Trees do this in $O(\log n)$. Hashing aims for $O(1)$ on average by trading space.
+                    </p>
+                    
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-sm mb-2 text-brand-600 dark:text-brand-400">The Hash Function $h(K)$</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                            Maps a key $K$ (large universe) to a small table index $[0, m-1]$.
+                        </p>
+                        <div class="block text-xs bg-gray-200 dark:bg-gray-700 p-2 rounded text-center font-mono">
+						$h(K) = K \mod m$
+						</div>
+                        <p class="text-[10px] text-gray-500 mt-2 text-center">Ideally, $m$ should be a Prime Number to minimize patterns.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex flex-col space-y-2">
+                            <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs">Key: 105</span>
+                            <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs">Key: 24</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-right-long text-brand-500 text-xl"></i>
+                        <div class="bg-brand-500 text-white px-3 py-2 rounded font-bold text-sm">
+                            $h(K) \% 10$
+                        </div>
+                        <i class="fa-solid fa-arrow-right-long text-brand-500 text-xl"></i>
+                        <div class="border border-gray-400 rounded p-1 w-16">
+                            <div class="h-6 border-b border-gray-700 text-[10px] text-center">0</div>
+                            <div class="h-6 border-b border-gray-700 text-[10px] text-center">...</div>
+                            <div class="h-6 border-b border-gray-700 text-[10px] text-center bg-brand-500/20">4 -> 24</div>
+                            <div class="h-6 border-b border-gray-700 text-[10px] text-center bg-brand-500/20">5 -> 105</div>
+                            <div class="h-6 text-[10px] text-center">...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Handling Collisions</h2>
+            </div>
+            
+            <p class="mb-6 text-gray-600 dark:text-gray-400">
+                A <span class="smart-term font-bold text-brand-500" data-ar="تصادم">Collision</span> occurs when $h(K_1) = h(K_2)$. Since the table size $m < n$ (universe), collisions are inevitable.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-t-4 border-emerald-500 shadow-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">1. Open Hashing</h3>
+                        <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-600 px-2 py-1 rounded font-mono">Separate Chaining</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        Keys are stored in <strong>Linked Lists</strong> attached to the table cells.
+                    </p>
+                    <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
+                        <li><i class="fa-solid fa-link text-emerald-500 mr-2"></i><strong>Logic:</strong> If collision, append node to the list.</li>
+                        <li><i class="fa-solid fa-gauge-high text-emerald-500 mr-2"></i><strong>Load Factor ($\alpha$):</strong> Can be $> 1$.</li>
+                        <li><i class="fa-solid fa-clock text-emerald-500 mr-2"></i><strong>Search:</strong> $1 + \alpha/2$ (average).</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-t-4 border-rose-500 shadow-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">2. Closed Hashing</h3>
+                        <span class="text-xs bg-rose-100 dark:bg-rose-900 text-rose-600 px-2 py-1 rounded font-mono">Open Addressing</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                        Keys are stored <strong>inside</strong> the table itself.
+                    </p>
+                    <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
+                        <li><i class="fa-solid fa-forward-step text-rose-500 mr-2"></i><strong>Linear Probing:</strong> If occupied, check $i+1, i+2...$</li>
+                        <li><i class="fa-solid fa-gauge-high text-rose-500 mr-2"></i><strong>Load Factor ($\alpha$):</strong> Must be $\le 1$.</li>
+                        <li><i class="fa-solid fa-triangle-exclamation text-rose-500 mr-2"></i><strong>Clustering:</strong> Keys tend to clump together, slowing performance.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">B-Trees</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-8">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 bg-blue-100 dark:bg-blue-900 text-blue-500 p-3 rounded-lg mr-4">
+                        <i class="fa-solid fa-hard-drive text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Why B-Trees?</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            Standard BSTs and AVL trees are great in RAM. But when data is too large (Databases, File Systems), it lives on <strong>Disk</strong>. Disk access is 10,000x slower than RAM. B-Trees minimize disk accesses (height) by expanding the node width.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-4">Properties of a B-Tree of Order $m$</h4>
+                    <div class="grid md:grid-cols-2 gap-6 text-sm">
+                        <div>
+                            <span class="font-bold text-gray-900 dark:text-white block mb-1">1. Balance</span>
+                            <p class="text-gray-600 dark:text-gray-400">Perfectly balanced. All leaves are at the same depth.</p>
+                        </div>
+                        <div>
+                            <span class="font-bold text-gray-900 dark:text-white block mb-1">2. Node Capacity</span>
+                            <p class="text-gray-600 dark:text-gray-400">Every node (except root) has between $\lceil m/2 \rceil$ and $m$ children.</p>
+                        </div>
+                        <div>
+                            <span class="font-bold text-gray-900 dark:text-white block mb-1">3. Keys</span>
+                            <p class="text-gray-600 dark:text-gray-400">A node with $k$ children contains $k-1$ keys.</p>
+                        </div>
+                        <div>
+                            <span class="font-bold text-gray-900 dark:text-white block mb-1">4. Growth</span>
+                            <p class="text-gray-600 dark:text-gray-400">Grows upwards. When a node overflows, it splits and pushes a key to the parent.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The Naming Confusion
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            This is the most common mistake:
+                            <br><strong>Open Hashing</strong> = Separate Chaining (Linked Lists outside).
+                            <br><strong>Open Addressing</strong> = Closed Hashing (Everything inside).
+                            <br>Memorize this opposition. "Open Addressing" means the address is open to other keys, but it is a "Closed Hashing" system.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Hashing Worst Case
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "Is Hashing always $O(1)$?"
+                            <br><strong>NO!</strong> That is the <em>average</em> case. In the worst case (all keys collide to the same index), it degrades to $O(n)$ (searching a linked list). Never promise $O(1)$ without saying "average".
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Why Primes?
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Why do we choose table size $m$ to be Prime?
+                            <br>If keys have a pattern (e.g., 10, 20, 30) and $m$ is 10, they all collide at index 0. A Prime number $m$ breaks up arithmetic patterns in the input keys, distributing them more evenly.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: B+ Trees
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            The PDF mentions <strong>B+ Trees</strong> in the summary. The key difference from B-Trees: in B+ Trees, <strong>all data</strong> is stored in the leaves. Internal nodes only contain keys for navigation. This allows for faster sequential access (linked leaves).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

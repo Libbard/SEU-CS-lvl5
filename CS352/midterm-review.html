@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS352 Midterm Visual Compendium</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6', 
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6); 
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #3b82f6;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .progress-anim {
+            animation: load 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Midterm Review</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-book-open-reader text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="midterm-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-6">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-layer-group text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Knowledge Compendium</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                A complete synthesis of Modules 1 through 6. This visual guide covers the Foundations, Planning, Analysis, and Process Modeling required for the Midterm Exam.
+            </p>
+            
+            <div class="w-full max-w-md mx-auto bg-gray-300 dark:bg-gray-800 rounded-full h-2.5 mt-4">
+                <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 46%"></div> </div>
+            <p class="text-xs text-gray-500 mt-2">Modules 1-6 Covered</p>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-blue-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">01. Foundations</h2>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">SDLC & Agile</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The SDLC Phases (Waterfall)</h4>
+                        <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                            <li><strong class="text-gray-900 dark:text-white">1. Planning:</strong> Identify, analyze, prioritize needs.</li>
+                            <li><strong class="text-gray-900 dark:text-white">2. Analysis:</strong> Determine Requirements ("What").</li>
+                            <li><strong class="text-gray-900 dark:text-white">3. Design:</strong> Logical (Biz) & Physical (Tech) specs ("How").</li>
+                            <li><strong class="text-gray-900 dark:text-white">4. Implementation:</strong> Code, Test, Install, Support.</li>
+                            <li><strong class="text-gray-900 dark:text-white">5. Maintenance:</strong> Repair and improve (Repeats SDLC).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Agile Methodologies</h4>
+                        <div class="grid grid-cols-2 gap-4 text-xs">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                                <strong class="block text-gray-900 dark:text-white mb-1">eXtreme Programming (XP)</strong>
+                                Short cycles, Pair Programming, Automated Tests.
+                            </div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
+                                <strong class="block text-gray-900 dark:text-white mb-1">Scrum</strong>
+                                Sprints (2-4 weeks), Product Backlog, Daily Standup.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-indigo-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">02. Project Mgmt</h2>
+                    <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-3 py-1 rounded text-xs font-bold uppercase">Planning & Scheduling</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The 4 Phases</h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                            <strong>Initiation</strong> (Charter) $\to$ <strong>Planning</strong> (Baseline Plan, WBS) $\to$ <strong>Execution</strong> (Do work) $\to$ <strong>Closedown</strong> (Reviews).
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Scheduling Tools</h4>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <strong class="block text-gray-900 dark:text-white">Gantt Charts</strong>
+                                <span class="text-xs text-gray-500">Bars vs Time. Shows overlap/duration. Good for progress tracking.</span>
+                            </div>
+                            <div>
+                                <strong class="block text-gray-900 dark:text-white">Network Diagrams</strong>
+                                <span class="text-xs text-gray-500">Nodes/Arrows. Shows dependencies. Essential for Critical Path.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded border border-indigo-200 dark:border-indigo-800">
+                        <strong class="text-xs text-indigo-700 dark:text-indigo-400 block mb-1">KEY CONCEPT: Critical Path</strong>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            The sequence of tasks with <strong>Zero Slack</strong>. It is the <em>longest</em> path through the network but determines the <em>shortest</em> time to finish.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-cyan-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">03. Identification</h2>
+                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">Selection Strategy</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Project Sources</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong class="text-gray-900 dark:text-white">Top-Down:</strong> Strategic, Upper Mgmt. Better integration, broader scope.</li>
+                            <li><strong class="text-gray-900 dark:text-white">Bottom-Up:</strong> Tactical, User Depts. Faster, solves specific pain points.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Evaluation Criteria</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Projects are selected based on Value Chain Analysis and Strategic Alignment.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Value Chain</span>
+                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Resource Availability</span>
+                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Potential ROI</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-teal-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">04. Initiation</h2>
+                    <span class="bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-300 px-3 py-1 rounded text-xs font-bold uppercase">Feasibility</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-teal-600 dark:text-teal-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Six Types of Feasibility</h4>
+                        <ul class="grid grid-cols-2 gap-2 text-xs text-gray-700 dark:text-gray-300">
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Economic:</strong> ROI, NPV.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Technical:</strong> Risk/Skill.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Operational:</strong> Usage.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Schedule:</strong> Time.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Legal:</strong> Compliance.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Political:</strong> Stakeholders.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-teal-600 dark:text-teal-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Baseline Project Plan (BPP)</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            The primary deliverable. It contains the best estimate of scope, benefits, costs, risks, and resource requirements.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-green-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">05. Requirements</h2>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">Gathering</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Traditional Methods</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>Interviews:</strong> Open (Detail) vs Closed (Quantifiable).</li>
+                            <li><strong>Observation:</strong> "Informal" system. Risk: Hawthorne Effect.</li>
+                            <li><strong>Docs:</strong> "Formal" system procedures.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Modern Methods</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>JAD:</strong> Off-site, intense group workshop. Conflict resolution.</li>
+                            <li><strong>Prototyping:</strong> Iterative. Good when reqs are unclear.</li>
+                            <li><strong>BPR:</strong> Radical change. "Obliterate don't automate."</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-yellow-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">06. Process Modeling</h2>
+                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">DFD</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">DFD Symbols (Gane & Sarson)</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-gray-700 dark:text-gray-300">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Process:</strong> Rounded Rect (Verb).</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Data Store:</strong> Open Rect (Noun).</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Source/Sink:</strong> Square (External).</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Flow:</strong> Arrow (Data in motion).</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Logic Modeling</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            <strong>Decision Tables:</strong> Matrix of Conditions and Actions. Used to document complex logic inside a Process.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Essential Formulas & Rules</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">PERT Expected Time</h4>
+                    <div class="text-2xl font-mono text-gray-900 dark:text-white mb-2">
+                        $ET = \frac{o + 4r + p}{6}$
+                    </div>
+                    <p class="text-xs text-gray-500">Weighted average of Optimistic (o), Realistic (r), and Pessimistic (p) times.</p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Slack Time</h4>
+                    <div class="text-2xl font-mono text-gray-900 dark:text-white mb-2">
+                        $Slack = T_L - T_E$
+                    </div>
+                    <p class="text-xs text-gray-500">Latest Finish time minus Earliest Finish time. Critical Path has Zero Slack.</p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">DFD Balancing Rule</h4>
+                    <div class="text-sm font-mono text-gray-900 dark:text-white mb-2">
+                        Inputs(Parent) == Inputs(Child)
+                        <br>Outputs(Parent) == Outputs(Child)
+                    </div>
+                    <p class="text-xs text-gray-500">Data cannot magically appear or disappear when decomposing a process.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Midterm Mega Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">All Secrets, Traps, and Tricks (Mod 1-6)</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Analysis vs Design
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            <strong>Analysis:</strong> Understanding the problem ("What"). Output: Requirements.
+                            <br><strong>Design:</strong> Specifying the solution ("How"). Output: Blueprints.
+                            <br>Don't confuse "What the system does" with "How it is built".
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The Critical Path
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            It is the <strong>LONGEST</strong> path through the network diagram.
+                            However, it represents the <strong>SHORTEST</strong> possible time to complete the project.
+                            Shortening a non-critical task does NOT shorten the project.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Illegal DFD Flows
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            Data Store $\to$ Data Store (Illegal).
+                            <br>External Entity $\to$ Data Store (Illegal).
+                            <br>External Entity $\to$ External Entity (Illegal).
+                            <br><strong>ALL data must move through a PROCESS.</strong>
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Incremental Commitment
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            The project is not approved once and for all at the beginning. It is re-evaluated after EVERY phase (Planning, Analysis, Design). It can be cancelled at any point.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: JAD Locations
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            Joint Application Design (JAD) sessions MUST be held <strong>off-site</strong>. The isolation from daily tasks and phone calls is critical for the intense collaboration required.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-key mr-2"></i> SECRET: Context Diagram Rules
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            A Context Diagram (Level 0) has only <strong>ONE</strong> process symbol (labeled "0"). It shows the system boundary. It does <strong>NOT</strong> show Data Stores (unless they are external to the system).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="midterm-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Quiz</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Review</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>

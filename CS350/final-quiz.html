@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Final Gauntlet (Mod 7-13)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9); 
+            border: 1px solid #fcd34d;
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #4b5563;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        .option-btn {
+            transition: all 0.2s;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+            transform: translateX(4px);
+        }
+        .dark .option-btn:hover:not(:disabled) { background-color: rgba(245, 158, 11, 0.2); }
+        
+        .correct-answer { border-color: #10b981 !important; background-color: rgba(16, 185, 129, 0.1) !important; color: #059669 !important; }
+        .dark .correct-answer { color: #34d399 !important; }
+        
+        .wrong-answer { border-color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.1) !important; color: #dc2626 !important; }
+        .dark .wrong-answer { color: #f87171 !important; }
+
+        
+        .model-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.3s;
+        }
+        .model-answer.open { max-height: 1000px; }
+
+        
+        .min-h-quiz {
+            min-height: 600px; 
+        }
+        
+        
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0,0,0,0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .dark code { background: rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <nav class="sticky top-0 z-50 glass-card !rounded-none !border-x-0 border-b border-slate-200 dark:border-slate-700 !bg-opacity-90 dark:!bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">/</span>
+                    <a href="final-review.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-brand-600 dark:text-brand-400 font-bold">
+                        <i class="fa-solid fa-graduation-cap mr-2"></i>Review
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-slate-500 uppercase mr-2">Session Score</span>
+                        <span id="score-badge" class="text-brand-600 dark:text-brand-400 font-mono font-bold">0</span>
+                        <span class="text-slate-400 text-xs ml-1">/ 70</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-flag-checkered text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Final <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Interactive Gauntlet</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Test your mastery of Modules 7-13. 
+                <br><span class="text-sm font-bold text-brand-500">70 MCQs • 10 Essay Scenarios</span>
+            </p>
+        </header>
+
+        <section>
+            <div class="glass-card p-1 relative min-h-quiz flex flex-col">
+                <div class="h-1 bg-slate-100 dark:bg-slate-700 rounded-t-lg overflow-hidden shrink-0">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div class="p-6 md:p-8 flex flex-col flex-grow justify-between">
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span id="q-counter" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1 of 70</span>
+                            <span id="q-module" class="px-2 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase rounded border border-brand-100 dark:border-brand-800">Module 7</span>
+                        </div>
+
+                        <h2 id="q-text" class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100 mb-8 leading-relaxed min-h-[60px]">
+                            Loading Question...
+                        </h2>
+
+                        <div id="options-container" class="grid grid-cols-1 gap-3 mb-6">
+                            </div>
+                    </div>
+
+                    <div>
+                        <div id="feedback-area" class="hidden p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6 animate-fade-in">
+                            <div class="flex items-start">
+                                <div id="feedback-icon" class="mt-1 mr-3 text-lg"></div>
+                                <div>
+                                    <strong id="feedback-title" class="block text-sm font-bold mb-1"></strong>
+                                    <p id="feedback-text" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                            <button id="prev-btn" class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-brand-600 disabled:opacity-30 disabled:hover:text-slate-500 transition-colors">
+                                <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                            </button>
+                            <button id="next-btn" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold rounded-lg shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105">
+                                Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg text-brand-600 dark:text-brand-500">
+                    <i class="fa-solid fa-vault text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">The Concept Vault</h2>
+                    <p class="text-xs text-slate-500">Deep Dive Scenarios & Model Answers</p>
+                </div>
+            </div>
+
+            <div id="essay-grid" class="grid gap-6">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        const mcqBank = [
+            
+            { q: "Which SQL command is used to modify the structure of an existing table?", o: ["UPDATE", "ALTER", "MODIFY", "CHANGE"], c: 1, exp: "ALTER TABLE is used to add, delete, or modify columns/constraints." },
+            { q: "In SQL, `VARCHAR(20)` means:", o: ["Fixed length string of 20 chars", "Variable length string up to 20 chars", "Integer of 20 digits", "Array of 20 characters"], c: 1, exp: "VARCHAR uses only as much space as needed, up to the limit." },
+            { q: "Which constraint ensures that a column cannot have NULL values?", o: ["UNIQUE", "PRIMARY KEY", "NOT NULL", "CHECK"], c: 2, exp: "Explicitly prevents NULL entries." },
+            { q: "The default action for `ON DELETE` in a foreign key constraint is:", o: ["CASCADE", "SET NULL", "RESTRICT (or NO ACTION)", "SET DEFAULT"], c: 2, exp: "If not specified, the DB rejects deleting a parent with children." },
+            { q: "Which command deletes a table and all its data from the database?", o: ["DELETE TABLE", "REMOVE TABLE", "DROP TABLE", "ERASE TABLE"], c: 2, exp: "DROP removes the schema and data permanently." },
+            { q: "A Primary Key constraint automatically implies:", o: ["NOT NULL and UNIQUE", "Foreign Key", "Auto Increment", "Indexed"], c: 0, exp: "PK must uniquely identify a row and cannot be null." },
+            { q: "Which data type is best for storing a date like '2023-10-25'?", o: ["VARCHAR", "INT", "DATE", "DATETIME"], c: 2, exp: "Standard DATE type stores YYYY-MM-DD." },
+            { q: "To add a Foreign Key to an existing table, you use:", o: ["CREATE CONSTRAINT", "ADD CONSTRAINT in ALTER TABLE", "INSERT CONSTRAINT", "MODIFY TABLE"], c: 1, exp: "`ALTER TABLE x ADD CONSTRAINT fk...`" },
+            { q: "The catalog stores:", o: ["User data", "Meta-data (Schema descriptions)", "Backup files", "Log files"], c: 1, exp: "The dictionary describing the database structure." },
+            { q: "Which creates a user-defined domain?", o: ["CREATE TYPE", "CREATE DOMAIN", "NEW TYPE", "ADD DOMAIN"], c: 1, exp: "`CREATE DOMAIN` defines a reusable data type." },
+
+            
+            { q: "The basic form of a SQL retrieval query is:", o: ["SELECT-WHERE-FROM", "SELECT-FROM-WHERE", "FROM-SELECT-WHERE", "WHERE-SELECT-FROM"], c: 1, exp: "SELECT cols FROM tables WHERE condition." },
+            { q: "Which wildcard represents zero or more characters in `LIKE`?", o: ["_", "?", "%", "*"], c: 2, exp: "`%` matches any string of any length." },
+            { q: "To eliminate duplicate rows in a result, use:", o: ["UNIQUE", "DIFFERENT", "DISTINCT", "ONLY"], c: 2, exp: "`SELECT DISTINCT column...`" },
+            { q: "If `WHERE` is omitted in a `DELETE` statement, what happens?", o: ["Nothing", "Error", "Deletes the first row", "Deletes ALL rows"], c: 3, exp: "Dangerous! It empties the table." },
+            { q: "To sort results in descending order, use:", o: ["SORT DESC", "ORDER BY ... DESC", "GROUP BY ... DESC", "REVERSE"], c: 1, exp: "Standard sorting syntax." },
+            { q: "Which logical operator is used to combine conditions where BOTH must be true?", o: ["OR", "NOT", "AND", "XOR"], c: 2, exp: "Standard boolean logic." },
+            { q: "`INSERT INTO` can specify columns to:", o: ["Change their data types", "Insert values in a specific order", "Delete them", "Create them"], c: 1, exp: "It maps values to specific columns." },
+            { q: "In `UPDATE`, the `SET` clause specifies:", o: ["Which rows to update", "The new values for columns", "The table name", "The sorting order"], c: 1, exp: "`SET Col = Val`." },
+            { q: "Comparing a value with NULL using `=` results in:", o: ["TRUE", "FALSE", "UNKNOWN", "ERROR"], c: 2, exp: "NULL cannot be equal to anything. Use `IS NULL`." },
+            { q: "To rename a table in a query (Alias), use:", o: ["RENAME", "ALIAS", "AS", "LIKE"], c: 2, exp: "`FROM Table AS T`." },
+
+            
+            { q: "Which aggregate function counts the number of rows?", o: ["SUM", "TOTAL", "COUNT", "NUMBER"], c: 2, exp: "`COUNT(*)` counts rows." },
+            { q: "Which clause filters groups AFTER aggregation?", o: ["WHERE", "HAVING", "GROUP BY", "ORDER BY"], c: 1, exp: "`WHERE` filters rows; `HAVING` filters groups." },
+            { q: "A query inside another query is called a:", o: ["Sub-schema", "Nested Query", "Recursive Query", "View"], c: 1, exp: "Or Subquery." },
+            { q: "The `IN` operator checks for:", o: ["Null values", "Membership in a set/list", "String patterns", "Range of values"], c: 1, exp: "`Val IN (1, 2, 3)`." },
+            { q: "A Left Outer Join returns:", o: ["Only matching rows", "All rows from Left table, matches from Right", "All rows from Right table", "Cartesian product"], c: 1, exp: "Preserves the left table." },
+            { q: "A Correlated Nested Query executes:", o: ["Once total", "Once per row of the outer query", "Only when called", "In parallel"], c: 1, exp: "It references the outer row, so it re-runs for each." },
+            { q: "`EXISTS` returns TRUE if the subquery returns:", o: ["No rows", "At least one row", "A single value", "NULL"], c: 1, exp: "Checks for existence of result." },
+            { q: "Which join returns all rows from both tables, matching where possible?", o: ["Inner Join", "Left Join", "Full Outer Join", "Cross Join"], c: 2, exp: "Union of Left and Right joins." },
+            { q: "Triggers follow which model?", o: ["E-C-A (Event-Condition-Action)", "Input-Process-Output", "Client-Server", "Request-Response"], c: 0, exp: "Standard active DB model." },
+            { q: "When using `GROUP BY`, columns in `SELECT` must be:", o: ["Aggregated or in the Group By clause", "Unique", "Sorted", "Numeric"], c: 0, exp: "SQL rule for grouping." },
+
+            
+            { q: "A View is:", o: ["A physical table", "A virtual table (saved query)", "A stored procedure", "A backup"], c: 1, exp: "It does not store data itself." },
+            { q: "Which Relational Algebra operation filters rows?", o: ["Project ($\pi$)", "Select ($\sigma$)", "Join ($\bowtie$)", "Union ($\cup$)"], c: 1, exp: "Selection ($\sigma$)." },
+            { q: "Which Relational Algebra operation filters columns?", o: ["Project ($\pi$)", "Select ($\sigma$)", "Join ($\bowtie$)", "Product ($\times$)"], c: 0, exp: "Projection ($\pi$)." },
+            { q: "The Cartesian Product ($\times$) of a table with 5 rows and one with 4 rows has:", o: ["9 rows", "20 rows", "1 row", "0 rows"], c: 1, exp: "$5 \times 4 = 20$." },
+            { q: "Union Compatibility requires relations to have:", o: ["Same number of tuples", "Same attributes/domains", "Same primary keys", "Same names"], c: 1, exp: "Must be structurally compatible." },
+            { q: "The Division operation ($\div$) is used for queries involving:", o: ["'Some' or 'Any'", "'All' or 'Every'", "Difference", "Summation"], c: 1, exp: "Universal quantification." },
+            { q: "Can all Views be updated?", o: ["Yes", "No, complex views are often read-only", "Only if they have no keys", "Only if they use JOINs"], c: 1, exp: "Views with aggregates or joins usually cannot be updated directly." },
+            { q: "Intersection ($R \cap S$) returns tuples in:", o: ["R only", "S only", "Both R and S", "Either R or S"], c: 2, exp: "Standard set intersection." },
+            { q: "Natural Join implies:", o: ["Equality on all common attributes", "Cross product", "Union", "Subtraction"], c: 0, exp: "Auto-joins on same-named columns." },
+            { q: "Query Trees represent:", o: ["Relational Algebra expressions", "File directory", "User hierarchy", "Network topology"], c: 0, exp: "Internal representation for query optimization." },
+
+            
+            { q: "Normalization is used to:", o: ["Increase redundancy", "Minimize redundancy and anomalies", "Create backups", "Encrypt data"], c: 1, exp: "Primary goal is good design." },
+            { q: "1NF disallows:", o: ["Null values", "Composite/Multivalued attributes", "Foreign keys", "Text data"], c: 1, exp: "Values must be atomic." },
+            { q: "A Functional Dependency $X \to Y$ means:", o: ["Y determines X", "If X is known, Y is unique/determined", "X and Y are unrelated", "X is a key"], c: 1, exp: "X determines Y." },
+            { q: "2NF requires 1NF and no ______ dependencies.", o: ["Transitive", "Partial", "Trivial", "Cyclic"], c: 1, exp: "Non-prime attributes must depend on the FULL primary key." },
+            { q: "3NF requires 2NF and no ______ dependencies.", o: ["Transitive", "Partial", "Trivial", "Cyclic"], c: 0, exp: "Non-prime attribute depending on another non-prime attribute." },
+            { q: "A Partial Dependency occurs when an attribute depends on:", o: ["The whole PK", "Part of a composite PK", "A non-key attribute", "Nothing"], c: 1, exp: "Violates 2NF." },
+            { q: "A Transitive Dependency is:", o: ["A -> B -> C", "A -> B", "A -> A", "A -> B -> A"], c: 0, exp: "C depends on A via B." },
+            { q: "Armstrong's Axioms are used for:", o: ["Query optimization", "Inference of Functional Dependencies", "Security", "Backup"], c: 1, exp: "Reflexivity, Augmentation, Transitivity." },
+            { q: "A Prime Attribute is:", o: ["First attribute in table", "Part of a Candidate Key", "A foreign key", "An integer"], c: 1, exp: "Member of any key." },
+            { q: "If a table has a single-attribute Primary Key, it is automatically in:", o: ["1NF", "2NF", "3NF", "4NF"], c: 1, exp: "No partial dependencies possible." },
+
+            
+            { q: "BCNF is stricter than 3NF because:", o: ["It allows transitive dependency", "It requires every determinant to be a Superkey", "It requires no keys", "It allows multivalued attributes"], c: 1, exp: "Removes the exception for prime attributes." },
+            { q: "4NF deals with:", o: ["Functional Dependencies", "Multivalued Dependencies (MVD)", "Join Dependencies", "Inclusion Dependencies"], c: 1, exp: "Separating independent multivalued facts." },
+            { q: "An MVD is denoted by:", o: ["X -> Y", "X ->> Y", "X => Y", "X ~> Y"], c: 1, exp: "Double arrow." },
+            { q: "5NF deals with:", o: ["Join Dependencies", "Functional Dependencies", "MVDs", "Primary Keys"], c: 0, exp: "Project-Join Normal Form." },
+            { q: "Lossless Join Property ensures:", o: ["No data is lost/spurious tuples created during decomposition", "Joins are fast", "No nulls", "Tables are small"], c: 0, exp: "Crucial for valid normalization." },
+            { q: "Dependency Preservation means:", o: ["All FDs can be checked within individual tables", "No FDs allowed", "Backups are safe", "Keys are preserved"], c: 0, exp: "Constraints are enforceable without joining tables." },
+            { q: "DKNF stands for:", o: ["Data Key Normal Form", "Domain-Key Normal Form", "Direct Key Normal Form", "Database Key Normal Form"], c: 1, exp: "The theoretical ultimate form." },
+            { q: "A table in 4NF is always in:", o: ["5NF", "BCNF", "DKNF", "6NF"], c: 1, exp: "Hierarchy: 1->2->3->BCNF->4." },
+            { q: "Spurious tuples are created by:", o: ["Good design", "Lossy decomposition/bad joins", "Normalization", "Indexing"], c: 1, exp: "Fake data from improper joining." },
+            { q: "Which normal form handles independent multivalued facts?", o: ["2NF", "3NF", "4NF", "5NF"], c: 2, exp: "4NF." },
+
+            
+            { q: "Which security goal ensures data is not modified by unauthorized users?", o: ["Confidentiality", "Integrity", "Availability", "Privacy"], c: 1, exp: "Integrity." },
+            { q: "Which security goal ensures data is visible only to authorized users?", o: ["Confidentiality", "Integrity", "Availability", "Utility"], c: 0, exp: "Confidentiality." },
+            { q: "DAC stands for:", o: ["Direct Access Control", "Discretionary Access Control", "Database Access Control", "Data Admin Control"], c: 1, exp: "Owner decides access." },
+            { q: "MAC stands for:", o: ["Mandatory Access Control", "Multiple Access Control", "Main Access Control", "Managed Access Control"], c: 0, exp: "System decides access (Clearance)." },
+            { q: "In MAC (Bell-LaPadula), 'Simple Security' means:", o: ["No Read Up", "No Write Down", "Read Anything", "Write Anything"], c: 0, exp: "Cannot read higher classification." },
+            { q: "In MAC, the *-Property means:", o: ["No Read Up", "No Write Down", "Read All", "Write All"], c: 1, exp: "Cannot leak info to lower classification." },
+            { q: "RBAC assigns privileges to:", o: ["Users directly", "Roles", "Tables", "Computers"], c: 1, exp: "Role-Based Access Control." },
+            { q: "SQL Injection is:", o: ["A valid optimization", "Inserting malicious code via input", "A backup method", "A database installation"], c: 1, exp: "Major security threat." },
+            { q: "Which command gives privileges to a user?", o: ["ALLOW", "GRANT", "GIVE", "PERMIT"], c: 1, exp: "GRANT SELECT ON..." },
+            { q: "Which command removes privileges?", o: ["REMOVE", "REVOKE", "DELETE", "DENY"], c: 1, exp: "REVOKE SELECT ON..." }
+        ];
+
+        
+        const essays = [
+            { q: "Explain the difference between `DELETE`, `DROP`, and `TRUNCATE`.", a: "<strong>DELETE:</strong> DML command. Removes rows based on WHERE clause. Can be rolled back. Slower. <br><strong>TRUNCATE:</strong> DDL command. Removes ALL rows. Resets identity. Cannot be rolled back (usually). Faster. <br><strong>DROP:</strong> DDL command. Removes the table structure and data entirely." },
+            { q: "What is a View and why use it?", a: "A <strong>View</strong> is a virtual table defined by a query. <br><strong>Uses:</strong> 1) Simplifies complex queries for users. 2) Security (hide sensitive columns). 3) Logical Data Independence (rename columns/structure)." },
+            { q: "Explain the difference between Inner Join and Outer Join.", a: "<strong>Inner Join:</strong> Returns only rows where there is a match in BOTH tables. <br><strong>Outer Join (Left/Right/Full):</strong> Returns all rows from one (or both) tables, filling in NULLs where no match is found." },
+            { q: "What is a Correlated Nested Query?", a: "A subquery that uses values from the outer query. It executes once for <strong>every row</strong> processed by the outer query, which can be slow (performance impact). Example: Finding employees earning more than the average of <em>their own</em> department." },
+            { q: "Define 1NF, 2NF, and 3NF simply.", a: "<strong>1NF:</strong> No lists/groups (Atomic values). <br><strong>2NF:</strong> 1NF + No Partial Dependency (Everything depends on the whole Key). <br><strong>3NF:</strong> 2NF + No Transitive Dependency (No non-key attributes determining other non-key attributes)." },
+            { q: "What is BCNF?", a: "<strong>Boyce-Codd Normal Form:</strong> A stricter 3NF. It requires that for every functional dependency $X \\to Y$, $X$ must be a <strong>Superkey</strong>. It handles edge cases where a prime attribute depends on a non-prime attribute." },
+            { q: "Explain the ACID properties (briefly relevant to design/security).", a: "<strong>Atomicity:</strong> All or nothing. <br><strong>Consistency:</strong> DB stays valid. <br><strong>Isolation:</strong> Transactions don't interfere. <br><strong>Durability:</strong> Saved data stays saved." },
+            { q: "What is SQL Injection and how do you prevent it?", a: "An attack where malicious SQL is inserted into input fields to manipulate the database (e.g., `' OR '1'='1`). <br><strong>Prevention:</strong> Use <strong>Prepared Statements</strong> (Bind Variables) which treat input as data, not executable code." },
+            { q: "Compare DAC and MAC security models.", a: "<strong>DAC (Discretionary):</strong> Users control access to their own data (GRANT/REVOKE). Flexible but prone to Trojan horses. <br><strong>MAC (Mandatory):</strong> System controls access based on clearance levels (Top Secret vs Public). Rigid but secure against leakage." },
+            { q: "What is the difference between WHERE and HAVING?", a: "<strong>WHERE:</strong> Filters rows <em>before</em> grouping. Cannot use aggregates like SUM(). <br><strong>HAVING:</strong> Filters groups <em>after</em> grouping. Used with aggregates (e.g., `HAVING COUNT(*) > 5`)." }
+        ];
+
+        
+        let currentQ = 0;
+        let score = 0;
+        const totalQ = mcqBank.length;
+
+        
+        const qText = document.getElementById('q-text');
+        const qCounter = document.getElementById('q-counter');
+        const qModule = document.getElementById('q-module');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreBadge = document.getElementById('score-badge');
+        const essayGrid = document.getElementById('essay-grid');
+
+        
+        function loadQuestion(index) {
+            const data = mcqBank[index];
+            
+            
+            qCounter.innerText = `Question ${index + 1} of ${totalQ}`;
+            
+            
+            let modName = "General";
+            if(index < 10) modName = "Mod 7: DDL";
+            else if(index < 20) modName = "Mod 8: DML";
+            else if(index < 30) modName = "Mod 9: Adv SQL";
+            else if(index < 40) modName = "Mod 10: Views";
+            else if(index < 50) modName = "Mod 11: Norm I";
+            else if(index < 60) modName = "Mod 12: Norm II";
+            else modName = "Mod 13: Security";
+            
+            qModule.innerText = modName;
+
+            const progress = ((index + 1) / totalQ) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            
+            qText.innerHTML = data.q;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            
+            data.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-lg border border-slate-300 dark:border-slate-600 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-sm";
+                btn.innerHTML = `<span class="inline-block w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 text-center text-xs leading-6 mr-3 font-bold text-slate-500">${String.fromCharCode(65+i)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(i, btn, data);
+                optionsContainer.appendChild(btn);
+            });
+
+            
+            
+            if (window.MathJax && typeof window.MathJax.typeset === 'function') {
+                MathJax.typeset();
+            }
+        }
+
+        function checkAnswer(selectedIndex, btn, data) {
+            
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('cursor-default');
+            });
+
+            const isCorrect = selectedIndex === data.c;
+            
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                score++;
+                scoreBadge.innerText = score;
+                feedbackArea.className = "p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-emerald-700 dark:text-emerald-400">Correct!</span>`;
+            } else {
+                btn.classList.add('wrong-answer');
+                buttons[data.c].classList.add('correct-answer');
+                feedbackArea.className = "p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-red-700 dark:text-red-400">Incorrect.</span>`;
+            }
+
+            feedbackText.innerHTML = data.exp;
+            
+            
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        nextBtn.onclick = () => {
+            if (currentQ < totalQ - 1) {
+                currentQ++;
+                loadQuestion(currentQ);
+            } else {
+                alert(`Gauntlet Complete! Score: ${score}/${totalQ}`);
+            }
+        };
+
+        prevBtn.onclick = () => {
+            if (currentQ > 0) {
+                currentQ--;
+                loadQuestion(currentQ);
+            }
+        };
+
+        
+        function renderEssays() {
+            essays.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 border-l-4 border-fuchsia-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-fuchsia-600 dark:text-fuchsia-500 uppercase tracking-wider">Scenario ${index + 1}</h3>
+                        <button onclick="toggleEssay(${index})" class="text-xs font-bold px-3 py-1 bg-fuchsia-100 dark:bg-fuchsia-900/30 text-fuchsia-700 dark:text-fuchsia-300 rounded hover:bg-fuchsia-200 transition-colors">
+                            Show Answer
+                        </button>
+                    </div>
+                    <p class="text-md font-medium text-slate-800 dark:text-slate-200 mb-4 leading-relaxed">
+                        ${item.q}
+                    </p>
+                    <div id="essay-ans-${index}" class="model-answer bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-2">Professor's Model Answer:</strong>
+                            ${item.a}
+                        </div>
+                    </div>
+                `;
+                essayGrid.appendChild(card);
+            });
+        }
+
+        window.toggleEssay = function(idx) {
+            const el = document.getElementById(`essay-ans-${idx}`);
+            el.classList.toggle('open');
+        };
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion(0);
+        renderEssays();
+
+    </script>
+</body>
+</html>

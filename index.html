@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Level 5 | Digital Nexus</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        
+        .ambient-light {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            transition: opacity 0.5s ease;
+        }
+        
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: blob 20s infinite alternate;
+            transition: background-color 0.5s ease;
+        }
+
+        
+        .dark .orb-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #4f46e5; } 
+        .dark .orb-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #be123c; animation-delay: -5s; } 
+        .dark .orb-3 { top: 40%; left: 40%; width: 400px; height: 400px; background: #059669; animation-delay: -10s; } 
+
+        
+        .orb-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #c7d2fe; opacity: 0.8; } 
+        .orb-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #fecdd3; opacity: 0.8; } 
+        .orb-3 { top: 40%; left: 40%; width: 400px; height: 400px; background: #a7f3d0; opacity: 0.8; } 
+
+        
+        .holo-card {
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease, border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        
+        html:not(.dark) .holo-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+        }
+
+        
+        .group:hover .glow-db { border-color: #f59e0b; } 
+        html.dark .group:hover .glow-db { box-shadow: 0 0 50px -10px rgba(245, 158, 11, 0.2); }
+        html:not(.dark) .group:hover .glow-db { box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.4); background: rgba(255, 255, 255, 0.8); }
+
+        .group:hover .glow-os { border-color: #10b981; } 
+        html.dark .group:hover .glow-os { box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.2); }
+        html:not(.dark) .group:hover .glow-os { box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.4); background: rgba(255, 255, 255, 0.8); }
+
+        .group:hover .glow-sys { border-color: #3b82f6; } 
+        html.dark .group:hover .glow-sys { box-shadow: 0 0 50px -10px rgba(59, 130, 246, 0.2); }
+        html:not(.dark) .group:hover .glow-sys { box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.4); background: rgba(255, 255, 255, 0.8); }
+
+        .group:hover .glow-algo { border-color: #f43f5e; } 
+        html.dark .group:hover .glow-algo { box-shadow: 0 0 50px -10px rgba(244, 63, 94, 0.2); }
+        html:not(.dark) .group:hover .glow-algo { box-shadow: 0 10px 40px -10px rgba(244, 63, 94, 0.4); background: rgba(255, 255, 255, 0.8); }
+
+        
+        .grid-bg {
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            opacity: 0.3;
+        }
+        .dark .grid-bg {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+        html:not(.dark) .grid-bg {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        }
+
+        .perspective-container { perspective: 1000px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-[#030712] dark:text-gray-100 min-h-screen flex flex-col relative selection:bg-indigo-500 selection:text-white">
+
+    <div class="ambient-light">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="absolute inset-0 grid-bg"></div>
+    </div>
+
+    <nav class="w-full h-20 flex items-center justify-between px-6 md:px-16 z-50 border-b border-gray-200/50 dark:border-white/5 bg-white/30 dark:bg-black/20 backdrop-blur-md sticky top-0 transition-colors duration-500">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 text-white">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">CS Level 5 <span class="text-slate-500 dark:text-gray-500 font-normal">| Nexus</span></span>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-gray-400">
+                <span>SEU Curriculum</span>
+                <div class="h-4 w-px bg-slate-300 dark:bg-gray-700"></div>
+                <span class="text-emerald-500 dark:text-green-400 flex items-center">
+                    <span class="relative flex h-2 w-2 mr-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    System Online
+                </span>
+            </div>
+            
+            <button id="theme-toggle" class="p-2.5 rounded-xl bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-slate-600 dark:text-yellow-400 hover:scale-105 transition-all shadow-sm">
+                <i id="theme-icon" class="fa-solid fa-sun"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col justify-center items-center px-4 py-12 relative z-10">
+        
+        <div class="text-center mb-16 animate-float relative">
+            <span class="px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 text-xs font-mono uppercase tracking-widest mb-4 inline-block backdrop-blur-md">
+                Select Your Operation
+            </span>
+            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-b from-slate-800 to-slate-500 dark:from-white dark:to-gray-500">
+                Digital Garden
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-gray-400 max-w-lg mx-auto">
+                Access the neural center of your academic semester. Four distinct modules. One unified interface.
+            </p>
+        </div>
+
+        <div class="perspective-container w-full max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4 md:px-0">
+
+                <a href="CS353/index.html" class="group relative h-96 w-full cursor-pointer">
+                    <div class="holo-card glow-algo rounded-3xl h-full w-full p-8 flex flex-col justify-between tilt-element">
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start">
+                                <span class="font-mono text-rose-600 dark:text-rose-500 text-sm font-bold">CS353</span>
+                                <i class="fa-solid fa-arrow-right -rotate-45 text-slate-400 dark:text-gray-600 group-hover:text-rose-500 group-hover:rotate-0 transition-all duration-300"></i>
+                            </div>
+                            <div class="mt-4 p-3 w-fit rounded-xl bg-rose-500/10 text-rose-500 border border-rose-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fa-solid fa-project-diagram text-3xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">Design and Analysis<br>of Algorithms</h2>
+                            <p class="text-xs text-slate-500 dark:text-gray-400 line-clamp-2">Complexity, Dynamic Prog, Greedy & Graph Theory.</p>
+                            <div class="mt-4 h-1 w-full bg-slate-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-rose-500 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="CS352/index.html" class="group relative h-96 w-full cursor-pointer">
+                    <div class="holo-card glow-sys rounded-3xl h-full w-full p-8 flex flex-col justify-between tilt-element">
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start">
+                                <span class="font-mono text-blue-600 dark:text-blue-500 text-sm font-bold">CS352</span>
+                                <i class="fa-solid fa-arrow-right -rotate-45 text-slate-400 dark:text-gray-600 group-hover:text-blue-500 group-hover:rotate-0 transition-all duration-300"></i>
+                            </div>
+                            <div class="mt-4 p-3 w-fit rounded-xl bg-blue-500/10 text-blue-500 border border-blue-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fa-solid fa-sitemap text-3xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">System Analysis<br>and Design</h2>
+                            <p class="text-xs text-slate-500 dark:text-gray-400 line-clamp-2">SDLC, UML Modeling, Requirements & Architecture.</p>
+                            <div class="mt-4 h-1 w-full bg-slate-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-500 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="CS350/index.html" class="group relative h-96 w-full cursor-pointer">
+                    <div class="holo-card glow-db rounded-3xl h-full w-full p-8 flex flex-col justify-between tilt-element">
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start">
+                                <span class="font-mono text-amber-600 dark:text-amber-500 text-sm font-bold">CS350</span>
+                                <i class="fa-solid fa-arrow-right -rotate-45 text-slate-400 dark:text-gray-600 group-hover:text-amber-500 group-hover:rotate-0 transition-all duration-300"></i>
+                            </div>
+                            <div class="mt-4 p-3 w-fit rounded-xl bg-amber-500/10 text-amber-500 border border-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fa-solid fa-database text-3xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">Introduction to<br>Database</h2>
+                            <p class="text-xs text-slate-500 dark:text-gray-400 line-clamp-2">SQL, Relational Algebra, Normalization & Design.</p>
+                            <div class="mt-4 h-1 w-full bg-slate-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-amber-500 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="CS351/index.html" class="group relative h-96 w-full cursor-pointer">
+                    <div class="holo-card glow-os rounded-3xl h-full w-full p-8 flex flex-col justify-between tilt-element">
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start">
+                                <span class="font-mono text-emerald-600 dark:text-emerald-500 text-sm font-bold">CS351</span>
+                                <i class="fa-solid fa-arrow-right -rotate-45 text-slate-400 dark:text-gray-600 group-hover:text-emerald-500 group-hover:rotate-0 transition-all duration-300"></i>
+                            </div>
+                            <div class="mt-4 p-3 w-fit rounded-xl bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fa-solid fa-microchip text-3xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">Operating<br>Systems</h2>
+                            <p class="text-xs text-slate-500 dark:text-gray-400 line-clamp-2">Kernel, Processes, Scheduling, Memory & Security.</p>
+                            <div class="mt-4 h-1 w-full bg-slate-200 dark:bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 w-0 group-hover:w-full transition-all duration-700 ease-out"></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="w-full py-8 text-center relative z-10 border-t border-slate-200 dark:border-white/5 bg-white/30 dark:bg-black/20 backdrop-blur-sm">
+        <div class="text-xs font-mono text-slate-500 dark:text-gray-500 mb-2">
+            SOURCE: <span class="text-slate-700 dark:text-gray-300 font-bold">SEU SLIDES (SAUDI ELECTRONIC UNIVERSITY)</span>
+        </div>
+        <p class="text-slate-400 dark:text-gray-600 text-xs">
+            &copy; 2026 CS Level 5 Digital Garden. 
+            <a href="https://t.me/Computing_and_Informatics" target="_blank" class="ml-2 text-indigo-500 hover:text-indigo-400 transition-colors">
+                <i class="fa-brands fa-telegram mr-1"></i>Contact Creator
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        
+        const cards = document.querySelectorAll('.tilt-element');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xPct = x / rect.width;
+                const yPct = y / rect.height;
+                const xRot = (yPct - 0.5) * 10;
+                const yRot = (0.5 - xPct) * 10;
+                card.style.transform = `rotateX(${xRot}deg) rotateY(${yRot}deg) scale(1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlElement = document.documentElement;
+
+        function updateThemeIcon() {
+            if (htmlElement.classList.contains('dark')) {
+                themeIcon.className = "fa-solid fa-sun"; 
+            } else {
+                themeIcon.className = "fa-solid fa-moon"; 
+            }
+        }
+
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+        updateThemeIcon();
+
+        
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+            updateThemeIcon();
+        });
+    </script>
+</body>
+</html>

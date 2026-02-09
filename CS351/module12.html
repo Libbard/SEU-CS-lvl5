@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 12: Security & Protection</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module11.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 12</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-user-secret text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module13.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-lock text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Defense: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Security & Protection</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Guarding the system. From Malware and Buffer Overflows to the Access Matrix and Protection Domains.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Threats vs Attacks</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Trojan Horse / Virus / Worm</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Buffer Overflow</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Least Privilege</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Access Matrix</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ACL vs Capability List</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Security Violations</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    A system is secure if resources are used and accessed as intended.
+                    <br><strong>Threat:</strong> Potential for violation.
+                    <br><strong>Attack:</strong> Attempt to breach security (Accidental or Malicious).
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Breach Categories</strong>
+                        <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
+                            <li><strong>Confidentiality:</strong> Unauthorized reading.</li>
+                            <li><strong>Integrity:</strong> Unauthorized modification.</li>
+                            <li><strong>Availability:</strong> Destruction of data.</li>
+                            <li><strong>Theft of Service:</strong> Unauthorized use (e.g., crypto mining).</li>
+                            <li><strong>Denial of Service (DoS):</strong> Preventing legitimate use.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Attack Surface</strong>
+                        <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
+                            <li><strong>Masquerading:</strong> Pretending to be someone else.</li>
+                            <li><strong>Replay Attack:</strong> Repeating a valid transmission.</li>
+                            <li><strong>Man-in-the-Middle:</strong> Intercepting/modifying data.</li>
+                            <li><strong>Session Hijacking:</strong> Taking over an active session.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Program Threats</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Trojan Horse</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Code segment that misuses its environment.
+                        <br>Looks like a useful program (e.g., game, editor) but performs malicious acts using the <strong>user's privileges</strong>.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Virus</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Fragment of code embedded in a legitimate program.
+                        <br><strong>Key Feature:</strong> Self-replicating. Infects other programs.
+                        <br>Specific to CPU architecture / OS.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-orange-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Worm</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Standalone program. Uses the <strong>network</strong> to replicate itself.
+                        <br>Consumes system resources (CPU, Network Bandwidth) causing DoS.
+                        <br>Example: Morris Worm.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Stack & Buffer Overflow</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Exploits a bug where input exceeds the buffer size.
+                        <br>Overwrites the <strong>Return Address</strong> on the stack to point to malicious code (Shellcode).
+                    </p>
+                    
+                    <div class="p-2 bg-purple-50 dark:bg-purple-900/20 rounded text-[10px] text-purple-700 dark:text-purple-300">
+                        <strong>Prevention:</strong> Bounds checking (Java/C#), Stack Randomization (ASLR), Non-executable Stack (NX bit).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Protection Mechanisms</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <div class="flex items-start">
+                    <i class="fa-solid fa-shield-halved text-2xl text-brand-500 mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Principle of Least Privilege</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            Programs, users, and systems should be given just enough privileges to perform their tasks.
+                            <br>Limits the damage if a component is compromised.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Domain of Protection</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    A computer system is a collection of processes and objects.
+                    <br><strong>Domain:</strong> A set of Access Rights.
+                    <br><em>Access Right:</em> <object-name, rights-set> (e.g., <file1, {read, write}>).
+                </p>
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
+                        <strong>User = Domain:</strong>
+                        <br>Domain changes when user ID changes.
+                    </div>
+                    <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
+                        <strong>Process = Domain:</strong>
+                        <br>Domain changes when process ID changes.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Access Matrix</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                A general model of protection.
+                <br><strong>Rows:</strong> Domains (Users/Processes).
+                <br><strong>Columns:</strong> Objects (Files/Printers).
+            </p>
+
+            <div class="glass-card p-6 rounded-xl overflow-x-auto">
+                <table class="w-full text-xs text-left">
+                    <thead class="border-b border-gray-200 dark:border-gray-700 text-brand-600 dark:text-brand-400">
+                        <tr>
+                            <th class="p-2">Domain / Object</th>
+                            <th class="p-2">File 1</th>
+                            <th class="p-2">File 2</th>
+                            <th class="p-2">File 3</th>
+                            <th class="p-2">Printer</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 dark:text-gray-300">
+                        <tr class="border-b border-gray-100 dark:border-gray-800">
+                            <td class="p-2 font-bold">D1</td>
+                            <td class="p-2">Read</td>
+                            <td class="p-2"></td>
+                            <td class="p-2">Read</td>
+                            <td class="p-2"></td>
+                        </tr>
+                        <tr class="border-b border-gray-100 dark:border-gray-800">
+                            <td class="p-2 font-bold">D2</td>
+                            <td class="p-2"></td>
+                            <td class="p-2"></td>
+                            <td class="p-2"></td>
+                            <td class="p-2">Print</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2 font-bold">D3</td>
+                            <td class="p-2">Read, Write</td>
+                            <td class="p-2">Execute</td>
+                            <td class="p-2"></td>
+                            <td class="p-2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-6 grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Access Control List (ACL)</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Store the matrix by <strong>Column</strong> (Object).
+                        <br>Each object keeps a list: (Domain, Rights).
+                        <br><em>Example:</em> File1: {(D1, Read), (D3, RW)}.
+                        <br>Efficient for: "Who can access this file?"
+                    </p>
+                </div>
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Capability List</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Store the matrix by <strong>Row</strong> (Domain).
+                        <br>Each domain keeps a list of objects it can access.
+                        <br><em>Example:</em> D1: {(File1, Read), (File3, Read)}.
+                        <br>Efficient for: "What can this user do?" (Hard to revoke).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Protection vs Security
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Protection:</strong> Internal mechanism. Controls access of processes to resources (Access Matrix).
+                            <br><strong>Security:</strong> External/Total mechanism. Dealing with threats (Virus, Worms, Physical theft).
+                            Protection is a <em>tool</em> for Security.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Virus vs Worm
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Virus:</strong> Needs a host program to run. Infects files.
+                            <br><strong>Worm:</strong> Standalone program. Uses network to spread. Does not need to infect files.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Revocation
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Revoking access in an <strong>ACL</strong> system is easy (just delete the entry from the file's list).
+                            <br>Revoking access in a <strong>Capability List</strong> system is hard (you have to find the user's capability pointer and delete it, which is distributed across the system).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Lock-Key Mechanism
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            A compromise between ACL and Capability Lists.
+                            <br>Each Object has a "Lock" (bit pattern).
+                            <br>Each Domain has a "Key".
+                            <br>Access allowed only if Key matches Lock.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

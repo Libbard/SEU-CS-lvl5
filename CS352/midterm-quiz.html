@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS352 Midterm Gauntlet (Mod 1-6)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6', 
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9); 
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        .option-btn {
+            transition: all 0.2s;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.05);
+            transform: translateX(4px);
+        }
+        .dark .option-btn:hover:not(:disabled) { background-color: rgba(59, 130, 246, 0.15); }
+        
+        .correct-answer { border-color: #10b981 !important; background-color: rgba(16, 185, 129, 0.1) !important; color: #059669 !important; }
+        .dark .correct-answer { color: #34d399 !important; }
+        
+        .wrong-answer { border-color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.1) !important; color: #dc2626 !important; }
+        .dark .wrong-answer { color: #f87171 !important; }
+
+        
+        .model-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.3s;
+        }
+        .model-answer.open { max-height: 1000px; }
+
+        
+        .min-h-quiz {
+            min-height: 600px; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <nav class="sticky top-0 z-50 glass-card !rounded-none !border-x-0 border-b border-slate-200 dark:border-slate-700 !bg-opacity-90 dark:!bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">/</span>
+                    <a href="midterm-review.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-brand-600 dark:text-brand-400 font-bold">
+                        <i class="fa-solid fa-book-open-reader mr-2"></i>Review
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-slate-500 uppercase mr-2">Session Score</span>
+                        <span id="score-badge" class="text-brand-600 dark:text-brand-400 font-mono font-bold">0</span>
+                        <span class="text-slate-400 text-xs ml-1">/ 70</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-stopwatch text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Interactive Gauntlet</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Test your mastery of Modules 1-6. 
+                <br><span class="text-sm font-bold text-brand-500">70 MCQs • 10 Essay Scenarios</span>
+            </p>
+        </header>
+
+        <section>
+            <div class="glass-card p-1 relative min-h-quiz flex flex-col">
+                <div class="h-1 bg-slate-100 dark:bg-slate-700 rounded-t-lg overflow-hidden shrink-0">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div class="p-6 md:p-8 flex flex-col flex-grow justify-between">
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span id="q-counter" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1 of 70</span>
+                            <span id="q-module" class="px-2 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase rounded border border-brand-100 dark:border-brand-800">Module 1</span>
+                        </div>
+
+                        <h2 id="q-text" class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100 mb-8 leading-relaxed min-h-[60px]">
+                            Loading Question...
+                        </h2>
+
+                        <div id="options-container" class="grid grid-cols-1 gap-3 mb-6">
+                            </div>
+                    </div>
+
+                    <div>
+                        <div id="feedback-area" class="hidden p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6 animate-fade-in">
+                            <div class="flex items-start">
+                                <div id="feedback-icon" class="mt-1 mr-3 text-lg"></div>
+                                <div>
+                                    <strong id="feedback-title" class="block text-sm font-bold mb-1"></strong>
+                                    <p id="feedback-text" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                            <button id="prev-btn" class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-brand-600 disabled:opacity-30 disabled:hover:text-slate-500 transition-colors">
+                                <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                            </button>
+                            <button id="next-btn" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold rounded-lg shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105">
+                                Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg text-yellow-600 dark:text-yellow-500">
+                    <i class="fa-solid fa-vault text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">The Concept Vault</h2>
+                    <p class="text-xs text-slate-500">Deep Dive Scenarios & Model Answers</p>
+                </div>
+            </div>
+
+            <div id="essay-grid" class="grid gap-6">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        const mcqBank = [
+            
+            { q: "Which phase of the SDLC involves identifying, analyzing, prioritizing, and arranging IS needs?", o: ["Analysis", "Planning", "Design", "Implementation"], c: 1, exp: "Planning is the foundational phase where the business need is identified and prioritized." },
+            { q: "In which SDLC phase are system requirements studied and structured?", o: ["Planning", "Design", "Analysis", "Maintenance"], c: 2, exp: "Analysis focuses on 'What' the system should do (Requirements Determination)." },
+            { q: "Which is NOT a primary source of software?", o: ["In-house", "Cloud", "Off-the-shelf", "Hardware Vendor"], c: 3, exp: "While vendors sell hardware, 'Hardware Vendor' is not a standard software acquisition source category." },
+            { q: "Agile Methodologies value ______ over comprehensive documentation.", o: ["Processes", "Contract negotiation", "Working software", "Following a plan"], c: 2, exp: "A core value of the Agile Manifesto: Output over paperwork." },
+            { q: "Which Agile method involves 'Sprints' of 2-4 weeks?", o: ["XP", "Scrum", "Waterfall", "RAD"], c: 1, exp: "Scrum is defined by its fixed-length iterations called Sprints." },
+            { q: "eXtreme Programming (XP) distinguishes itself by using:", o: ["Long cycles", "Pair Programming", "Large teams", "Passive testing"], c: 1, exp: "Two programmers at one workstation is a key practice of XP." },
+            { q: "Outsourcing is often done to:", o: ["Retain internal knowledge", "Free up internal resources", "Increase costs", "Slow down development"], c: 1, exp: "It allows internal staff to focus on core business competencies." },
+            { q: "Turning design specifications into working code happens in:", o: ["Analysis", "Implementation", "Maintenance", "Planning"], c: 1, exp: "Implementation includes Coding, Testing, and Installation." },
+            { q: "Physical Design focuses on:", o: ["Business rules", "Technology specifications", "User requirements", "Feasibility"], c: 1, exp: "It binds the logical design to specific technology (DB, Hardware)." },
+            { q: "Systematic repair and improvement of a system is called:", o: ["Implementation", "Analysis", "Maintenance", "Testing"], c: 2, exp: "Maintenance is the ongoing support phase." },
+            
+            
+            { q: "A planned undertaking of related activities to reach an objective is a:", o: ["Process", "Project", "System", "Methodology"], c: 1, exp: "Standard definition of a Project." },
+            { q: "Which document is the output of the Initiation phase?", o: ["Baseline Plan", "Project Charter", "System Code", "Gantt Chart"], c: 1, exp: "The Charter formally authorizes the project." },
+            { q: "The Critical Path represents the ______ time to complete a project.", o: ["Longest", "Shortest", "Average", "Ideal"], c: 1, exp: "It is the shortest possible time, determined by the longest sequence of dependent tasks." },
+            { q: "If Task A (5 days) must finish before Task B (3 days) starts, when does B finish?", o: ["Day 5", "Day 3", "Day 8", "Day 15"], c: 2, exp: "5 + 3 = 8 days." },
+            { q: "Slack time is calculated as:", o: ["$T_L - T_E$", "$T_E - T_L$", "$T_L + T_E$", "$T_E / T_L$"], c: 0, exp: "Latest Finish minus Earliest Finish." },
+            { q: "Tasks on the Critical Path have a slack of:", o: ["1 day", "Zero", "Infinite", "Variable"], c: 1, exp: "Any delay on the critical path delays the whole project." },
+            { q: "A Gantt chart primarily shows:", o: ["Logic flow", "Task duration over time", "Data movement", "Cost analysis"], c: 1, exp: "Bars represent task duration on a timeline." },
+            { q: "Which diagram is best for showing task dependencies?", o: ["Gantt Chart", "Network Diagram", "Pie Chart", "Histogram"], c: 1, exp: "PERT/CPM Network diagrams explicitly link nodes." },
+            { q: "The Project Workbook is used to:", o: ["Write code", "Store documentation", "Calculate costs", "Draw DFDs"], c: 1, exp: "It is the central repository for all project artifacts." },
+            { q: "In PERT, 'o' stands for:", o: ["Operational", "Optimistic", "Optional", "Outstanding"], c: 1, exp: "Optimistic time estimate." },
+            { q: "Calculate ET if o=2, r=4, p=12:", o: ["4", "5", "6", "4.5"], c: 1, exp: "$ET = (2 + 4(4) + 12) / 6 = 30/6 = 5$." },
+            { q: "The final phase of Project Management is:", o: ["Execution", "Termination", "Closedown", "Post-mortem"], c: 2, exp: "Closedown includes reviews and contract termination." },
+            { q: "Which is NOT a skill required for a Project Manager?", o: ["Leadership", "Conflict Management", "Deep Coding Expertise", "Customer Relations"], c: 2, exp: "Technical awareness is needed, but deep coding is for developers." },
+            { q: "A Baseline Project Plan (BPP) is an outcome of:", o: ["Initiation", "Planning", "Execution", "Analysis"], c: 1, exp: "Planning concludes with the BPP." },
+            { q: "OOSAD (Object-Oriented Analysis) is often associated with which process?", o: ["Waterfall", "RUP (Rational Unified Process)", "Top-Down", "Structured Analysis"], c: 1, exp: "RUP is a common iterative framework for OOSAD." },
+
+            
+            { q: "Top-Down project identification usually results in:", o: ["Faster fixes", "Better integration", "Narrow focus", "Redundant data"], c: 1, exp: "Upper management sees the enterprise view." },
+            { q: "Bottom-Up project identification usually results in:", o: ["Strategic focus", "Faster tactical fixes", "Enterprise solutions", "High cost"], c: 1, exp: "Solves immediate, specific user pain points." },
+            { q: "Value Chain Analysis identifies:", o: ["Hardware costs", "Value-adding activities", "Employee salaries", "Stock prices"], c: 1, exp: "Where value is added vs cost incurred." },
+            { q: "Incremental Commitment means:", o: ["Funding everything upfront", "Re-justifying at each step", "Never cancelling", "Agile coding"], c: 1, exp: "Project feasibility is re-evaluated after every phase." },
+            { q: "A Mission Statement defines:", o: ["The business we are in", "Coding standards", "Deadlines", "Database schema"], c: 0, exp: "High-level organizational purpose." },
+            { q: "Which is a generic competitive strategy?", o: ["High Cost", "Low-Cost Producer", "Slow Delivery", "Complex Design"], c: 1, exp: "Porter's strategies: Low-cost, Differentiation, Niche." },
+            { q: "B2B stands for:", o: ["Back to Business", "Business to Business", "Business to Buyer", "Buyer to Business"], c: 1, exp: "Commerce between companies." },
+            { q: "Which matrix maps Functions to Data Entities?", o: ["Location-to-Function", "Function-to-Process", "Data Entity-to-System", "Process-to-Data"], c: 2, exp: "CRUD analysis happens here." },
+            { q: "The Steering Committee represents:", o: ["Bottom-up source", "Top-down source", "External source", "Vendor"], c: 1, exp: "Cross-functional senior management." },
+            { q: "A 'Niche' strategy implies:", o: ["Broad market", "Narrow market focus", "Lowest price", "Mass production"], c: 1, exp: "Focusing on a specific segment." },
+
+            
+            { q: "Economic Feasibility is also known as:", o: ["Technical Analysis", "Cost-Benefit Analysis", "Operational Analysis", "Legal Analysis"], c: 1, exp: "Focuses on financial metrics (ROI, NPV)." },
+            { q: "Tangible benefits are:", o: ["Hard to measure", "Measured in dollars", "Subjective", "Morale boosting"], c: 1, exp: "Quantifiable and certain." },
+            { q: "Intangible costs include:", o: ["Hardware", "Salaries", "Loss of goodwill", "Utilities"], c: 2, exp: "Hard to quantify in exact dollars." },
+            { q: "The discount rate is used in which calculation?", o: ["ROI", "Break-even", "NPV", "Technical Feasibility"], c: 2, exp: "Net Present Value accounts for Time Value of Money." },
+            { q: "Technical Feasibility assesses:", o: ["Budget", "Ability to build/integrate", "Laws", "User acceptance"], c: 1, exp: "Risk, Skills, and Technology availability." },
+            { q: "Operational Feasibility assesses:", o: ["ROI", "Does it solve the problem?", "Speed", "Compliance"], c: 1, exp: "Will the system work in the user's daily life?" },
+            { q: "A Walk-through is a:", o: ["Running race", "Peer review", "Coding session", "Manager meeting"], c: 1, exp: "Structured peer review to find errors." },
+            { q: "The Baseline Project Plan (BPP) is output from:", o: ["Planning/Initiation", "Analysis", "Design", "Implementation"], c: 0, exp: "It sets the scope for the project." },
+            { q: "One-time costs include:", o: ["Salaries", "Hardware purchase", "Utilities", "Maintenance"], c: 1, exp: "Asset acquisition happens once." },
+            { q: "Recurring costs include:", o: ["Site prep", "Software licenses", "Initial training", "Conversion"], c: 1, exp: "Paid regularly (e.g., annual fees)." },
+
+            
+            { q: "The primary purpose of Requirements Determination is:", o: ["Write code", "Convert data", "Understand user needs", "Design DB"], c: 2, exp: "Gathering the 'What'." },
+            { q: "Which is a 'Traditional' method?", o: ["JAD", "Interviewing", "Prototyping", "Agile"], c: 1, exp: "Interviews are the classic approach." },
+            { q: "Open-ended questions allow:", o: ["Yes/No answers", "Specific data", "Breadth/Depth", "Easy analysis"], c: 2, exp: "Users can elaborate freely." },
+            { q: "The 'Hawthorne Effect' impacts:", o: ["Interviews", "Observation", "Documents", "JAD"], c: 1, exp: "People act differently when watched." },
+            { q: "JAD sessions are held:", o: ["In the office", "Off-site", "In the cafeteria", "Online only"], c: 1, exp: "To isolate from distractions." },
+            { q: "JAD stands for:", o: ["Joint Application Design", "Java App Data", "Just A Design", "Joint Action Dev"], c: 0, exp: "Standard definition." },
+            { q: "Prototyping is useful when:", o: ["Reqs are clear", "Reqs are unclear", "System is critical", "Budget is zero"], c: 1, exp: "Visuals help clarify vague needs." },
+            { q: "BPR stands for:", o: ["Business Process Reengineering", "Basic Process Rule", "Business Plan Review", "Binary Process"], c: 0, exp: "Radical redesign." },
+            { q: "Formal systems are found in:", o: ["Observations", "Documents", "Interviews", "Prototypes"], c: 1, exp: "Manuals describe the rules." },
+            { q: "Informal systems are found via:", o: ["Manuals", "Observation", "Forms", "Reports"], c: 1, exp: "Watching reality vs the rules." },
+
+            
+            { q: "A DFD shows:", o: ["Logic flow", "Data movement", "Database schema", "Class structure"], c: 1, exp: "Data Flow Diagram." },
+            { q: "In Gane & Sarson, a Process is a:", o: ["Square", "Rounded Rectangle", "Open Rectangle", "Arrow"], c: 1, exp: "Standard symbol." },
+            { q: "In Gane & Sarson, a Data Store is a:", o: ["Square", "Rounded Rectangle", "Open Rectangle", "Arrow"], c: 2, exp: "Standard symbol." },
+            { q: "A Source/Sink represents:", o: ["Internal logic", "External Entity", "Database", "File"], c: 1, exp: "Outside the system boundary." },
+            { q: "A Context Diagram has how many processes?", o: ["Zero", "One", "Many", "Unlimited"], c: 1, exp: "One process (0) for the whole system." },
+            { q: "Data flows from Source to:", o: ["Sink", "Process", "Data Store", "Source"], c: 1, exp: "Entities talk to Processes." },
+            { q: "Can data move Store to Store?", o: ["Yes", "No", "Only in Level 1", "Only in Context"], c: 1, exp: "Must go through a Process." },
+            { q: "A 'Black Hole' error is:", o: ["Output no input", "Input no output", "No input/output", "Store to Store"], c: 1, exp: "Data enters and vanishes." },
+            { q: "A 'Miracle' error is:", o: ["Output no input", "Input no output", "No input/output", "Entity to Store"], c: 0, exp: "Data created from nothing." },
+            { q: "DFD Balancing ensures:", o: ["Costs match", "Child Inputs/Outputs match Parent", "Verbs used", "Symmetry"], c: 1, exp: "Data conservation between levels." },
+            { q: "Decision Tables model:", o: ["Data flow", "Process Logic", "Database", "Classes"], c: 1, exp: "Conditions and Actions logic." },
+            { q: "Functional Decomposition is:", o: ["Breaking down processes", "Merging", "Deleting", "Designing DB"], c: 0, exp: "Level 0 -> Level 1 -> Level 2." },
+            { q: "Data Stores are NOT shown on:", o: ["Level-0", "Level-1", "Context Diagram", "Any DFD"], c: 2, exp: "Context shows boundary only." },
+            { q: "A Data Flow implies:", o: ["Rest", "Motion", "Logic", "Hardware"], c: 1, exp: "Packets moving." },
+            { q: "Top rows of a Decision Table are:", o: ["Actions", "Conditions", "Results", "Metadata"], c: 1, exp: "Conditions determine Actions." },
+            { q: "Bottom rows of a Decision Table are:", o: ["Actions", "Conditions", "Rules", "Title"], c: 0, exp: "Actions result from Conditions." },
+            { q: "Level-0 DFDs show:", o: ["System boundary", "Major processes", "Specific logic", "Code"], c: 1, exp: "The main functional breakdown." },
+            { q: "A Data Store usually corresponds to:", o: ["A variable", "A database table", "A function", "A user"], c: 1, exp: "Data at rest." },
+            { q: "The act of ensuring a DFD is consistent is:", o: ["Coding", "Balancing", "Compiling", "Networking"], c: 1, exp: "Checking inputs/outputs." },
+            { q: "External Entities are also called:", o: ["Processes", "Terminators", "Stores", "Flows"], c: 1, exp: "Sources or Sinks." }
+        ];
+
+        
+        
+        
+        const fillerQs = [
+            { q: "Which feasibility looks at the ability to integrate with current systems?", o: ["Technical", "Operational", "Schedule", "Economic"], c: 0, exp: "Technical Feasibility includes integration capability." },
+            { q: "Which tool tracks the progress of tasks over time?", o: ["PERT", "Gantt", "DFD", "ERD"], c: 1, exp: "Gantt is a bar chart for time tracking." },
+            { q: "A system used to support managers in making decisions is:", o: ["DSS", "TPS", "ERP", "MIS"], c: 0, exp: "Decision Support System." },
+            { q: "Which phase comes after Design?", o: ["Analysis", "Implementation", "Maintenance", "Planning"], c: 1, exp: "Implementation follows Design." },
+            { q: "Software Reuse is a feature of:", o: ["Waterfall", "Object-Oriented Development", "JAD", "Prototyping"], c: 1, exp: "Objects are designed to be reused." }
+        ];
+        
+        while(mcqBank.length < 70) {
+            mcqBank.push(fillerQs[mcqBank.length % fillerQs.length]);
+        }
+        
+        
+        const finalMCQs = mcqBank.slice(0, 70);
+
+        
+        const essays = [
+            { q: "Explain the difference between Analysis and Design.", a: "<strong>Analysis</strong> ('What') focuses on understanding needs and requirements (Problem Domain). <br><strong>Design</strong> ('How') focuses on specifications and architecture (Solution Domain)." },
+            { q: "Why is the Critical Path counter-intuitive?", a: "It is the <strong>longest</strong> path through the network (sum of task durations), but it determines the <strong>shortest</strong> possible project duration. Any delay here delays the whole project." },
+            { q: "Compare JAD and Interviewing.", a: "Interviewing is individual, can lead to conflicts, and is time-consuming. JAD is group-based, resolves conflicts immediately, and is faster but more expensive to organize." },
+            { q: "Define the Hawthorne Effect.", a: "People change their behavior when they know they are being observed. An analyst might observe a 'perfect' process that doesn't reflect reality, leading to inaccurate requirements." },
+            { q: "What is Incremental Commitment?", a: "The practice of re-evaluating the project at the end of each SDLC phase to decide whether to proceed, redirect, or cancel. It prevents 'throwing good money after bad'." },
+            { q: "Explain the DFD Data Store rule.", a: "Data cannot move directly between two stores or between a store and an external entity. It MUST go through a <strong>Process</strong>, which represents the logic of retrieval or storage." },
+            { q: "Tangible vs Intangible Benefits.", a: "<strong>Tangible:</strong> Can be measured in dollars/units (e.g., Cost reduction). <br><strong>Intangible:</strong> Subjective and hard to quantify (e.g., Improved morale, Brand image)." },
+            { q: "Context vs Level-0 DFD.", a: "<strong>Context:</strong> 1 Process (System Boundary), External Entities, No Stores. Overview. <br><strong>Level-0:</strong> Main Processes (1.0, 2.0...), Data Stores, Data Flows. Functional breakdown." },
+            { q: "Explain Slack Time.", a: "The amount of time a task can be delayed without delaying the project. Formula: $T_L - T_E$. Critical Path tasks have Zero Slack." },
+            { q: "Why is Maintenance a repeating SDLC?", a: "To fix or update a system properly, you cannot just 'hack' the code. You must Plan the fix, Analyze impact, Design the change, Implement it, and Test it. It loops through the standard phases." }
+        ];
+
+        
+        let currentQ = 0;
+        let score = 0;
+        const totalQ = finalMCQs.length;
+
+        
+        const qText = document.getElementById('q-text');
+        const qCounter = document.getElementById('q-counter');
+        const qModule = document.getElementById('q-module');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreBadge = document.getElementById('score-badge');
+        const essayGrid = document.getElementById('essay-grid');
+
+        
+        function loadQuestion(index) {
+            const data = finalMCQs[index];
+            
+            
+            qCounter.innerText = `Question ${index + 1} of ${totalQ}`;
+            qModule.innerText = `Module ${Math.floor(index / 12) + 1}`; 
+            const progress = ((index + 1) / totalQ) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            
+            qText.innerHTML = data.q;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            
+            data.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-lg border border-slate-300 dark:border-slate-600 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-sm";
+                btn.innerHTML = `<span class="inline-block w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 text-center text-xs leading-6 mr-3 font-bold text-slate-500">${String.fromCharCode(65+i)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(i, btn, data);
+                optionsContainer.appendChild(btn);
+            });
+
+            
+            
+            if (window.MathJax && typeof window.MathJax.typeset === 'function') {
+                MathJax.typeset();
+            }
+        }
+
+        function checkAnswer(selectedIndex, btn, data) {
+            
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('cursor-default');
+            });
+
+            const isCorrect = selectedIndex === data.c;
+            
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                score++;
+                scoreBadge.innerText = score;
+                feedbackArea.className = "p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-emerald-700 dark:text-emerald-400">Correct!</span>`;
+            } else {
+                btn.classList.add('wrong-answer');
+                buttons[data.c].classList.add('correct-answer'); 
+                feedbackArea.className = "p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-red-700 dark:text-red-400">Incorrect.</span>`;
+            }
+
+            feedbackText.innerHTML = data.exp;
+            
+            
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        nextBtn.onclick = () => {
+            if (currentQ < totalQ - 1) {
+                currentQ++;
+                loadQuestion(currentQ);
+            } else {
+                alert(`Quiz Complete! Final Score: ${score}/${totalQ}`);
+            }
+        };
+
+        prevBtn.onclick = () => {
+            if (currentQ > 0) {
+                currentQ--;
+                loadQuestion(currentQ);
+            }
+        };
+
+        
+        function renderEssays() {
+            essays.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 border-l-4 border-yellow-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-yellow-600 dark:text-yellow-500 uppercase tracking-wider">Scenario ${index + 1}</h3>
+                        <button onclick="toggleEssay(${index})" class="text-xs font-bold px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded hover:bg-yellow-200 transition-colors">
+                            Show Answer
+                        </button>
+                    </div>
+                    <p class="text-md font-medium text-slate-800 dark:text-slate-200 mb-4 leading-relaxed">
+                        ${item.q}
+                    </p>
+                    <div id="essay-ans-${index}" class="model-answer bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-2">Professor's Model Answer:</strong>
+                            ${item.a}
+                        </div>
+                    </div>
+                `;
+                essayGrid.appendChild(card);
+            });
+        }
+
+        window.toggleEssay = function(idx) {
+            const el = document.getElementById(`essay-ans-${idx}`);
+            el.classList.toggle('open');
+        };
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion(0);
+        renderEssays();
+
+    </script>
+</body>
+</html>

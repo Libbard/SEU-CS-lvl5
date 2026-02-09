@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351: Midterm Gauntlet (Mod 1-6)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9); 
+            border: 1px solid #6ee7b7; 
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #064e3b; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        .option-btn {
+            transition: all 0.2s;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #10b981; 
+            background-color: rgba(16, 185, 129, 0.1);
+            transform: translateX(4px);
+        }
+        .dark .option-btn:hover:not(:disabled) { background-color: rgba(16, 185, 129, 0.2); }
+        
+        .correct-answer { border-color: #10b981 !important; background-color: rgba(16, 185, 129, 0.2) !important; color: #059669 !important; }
+        .dark .correct-answer { color: #34d399 !important; background-color: rgba(6, 78, 59, 0.5) !important; }
+        
+        .wrong-answer { border-color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.1) !important; color: #dc2626 !important; }
+        .dark .wrong-answer { color: #f87171 !important; }
+
+        
+        .min-h-quiz {
+            min-height: 600px; 
+        }
+
+        
+        .model-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.3s;
+        }
+        .model-answer.open { max-height: 1000px; }
+        
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+
+    <nav class="sticky top-0 z-50 glass-card !rounded-none !border-x-0 border-b border-slate-200 dark:border-slate-700 !bg-opacity-90 dark:!bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">/</span>
+                    <a href="midterm-review.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-brand-600 dark:text-brand-400 font-bold">
+                        <i class="fa-solid fa-database mr-2"></i>Review
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-slate-500 uppercase mr-2">Session Score</span>
+                        <span id="score-badge" class="text-brand-600 dark:text-brand-400 font-mono font-bold">0</span>
+                        <span class="text-slate-400 text-xs ml-1">/ 70</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-brand-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-stopwatch text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-600">Interactive Gauntlet</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Modules 1-6 • OS Architecture, Processes, Scheduling, & Synchronization.
+                <br><span class="text-sm font-bold text-brand-500">70 MCQs • 10 Essay Scenarios</span>
+            </p>
+        </header>
+
+        <section>
+            <div class="glass-card p-1 relative min-h-quiz flex flex-col">
+                <div class="h-1 bg-slate-100 dark:bg-slate-700 rounded-t-lg overflow-hidden shrink-0">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div class="p-6 md:p-8 flex flex-col flex-grow justify-between">
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span id="q-counter" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1 of 70</span>
+                            <span id="q-module" class="px-2 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase rounded border border-brand-100 dark:border-brand-800">Module 1</span>
+                        </div>
+
+                        <h2 id="q-text" class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100 mb-8 leading-relaxed min-h-[60px]">
+                            Loading Question...
+                        </h2>
+
+                        <div id="options-container" class="grid grid-cols-1 gap-3 mb-6">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div id="feedback-area" class="hidden p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6 animate-fade-in">
+                            <div class="flex items-start">
+                                <div id="feedback-icon" class="mt-1 mr-3 text-lg"></div>
+                                <div>
+                                    <strong id="feedback-title" class="block text-sm font-bold mb-1"></strong>
+                                    <p id="feedback-text" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                            <button id="prev-btn" class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-brand-600 disabled:opacity-30 disabled:hover:text-slate-500 transition-colors">
+                                <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                            </button>
+                            <button id="next-btn" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold rounded-lg shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105">
+                                Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg text-brand-600 dark:text-brand-500">
+                    <i class="fa-solid fa-vault text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">The Concept Vault</h2>
+                    <p class="text-xs text-slate-500">Deep Dive Scenarios & Model Answers</p>
+                </div>
+            </div>
+
+            <div id="essay-grid" class="grid gap-6">
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        
+        
+        const mcqBank = [
+            
+            { q: "What is the main function of the Operating System?", o: ["To compile code", "To act as an intermediary between user and hardware", "To perform arithmetic calculations", "To design graphics"], c: 1, exp: "The OS provides an environment for execution and abstracts hardware complexity." },
+            { q: "Which of the following is NOT a goal of the Operating System?", o: ["Efficiency", "Convenience", "Hardware Manufacturing", "Resource Allocation"], c: 2, exp: "OS manages hardware, it doesn't manufacture it." },
+            { q: "The one program running at all times on the computer is called the:", o: ["Compiler", "Interrupt Handler", "Kernel", "Bootstrap"], c: 2, exp: "The Kernel is the core component resident in memory." },
+            { q: "What triggers a switch from User Mode to Kernel Mode?", o: ["System Call (Trap)", "Function Call", "Compilation", "Variable Declaration"], c: 0, exp: "A software interrupt (trap) caused by a system call triggers the mode bit switch." },
+            { q: "Which program runs immediately on computer power-up?", o: ["Kernel", "Bootstrap Program", "Shell", "Compiler"], c: 1, exp: "Bootstrap (firmware) initializes hardware and loads the OS." },
+            { q: "Which of these is NOT a System Call category?", o: ["Process Control", "File Management", "Device Management", "Memory fabrication"], c: 3, exp: "Memory fabrication is a hardware process." },
+            { q: "What is the mode bit value for Kernel Mode?", o: ["1", "0", "2", "-1"], c: 1, exp: "Bit 0 is Kernel Mode, Bit 1 is User Mode." },
+            { q: "The interface between the OS and User Programs is defined by:", o: ["Machine Code", "System Calls", "GUI", "Compiler"], c: 1, exp: "System Calls provide the API for OS services." },
+            { q: "Which system structure organizes the OS into layers?", o: ["Monolithic", "Layered Approach", "Microkernel", "Modules"], c: 1, exp: "The Layered approach organizes the OS into levels 0 to N." },
+            { q: "A Microkernel moves as much functionality as possible from the kernel into:", o: ["User Space", "Hardware", "Firmware", "Network"], c: 0, exp: "Microkernels minimize the kernel size for stability." },
+            { q: "Which is an example of a System Program?", o: ["File Manager", "Web Browser", "Video Game", "Word Processor"], c: 0, exp: "System programs ship with the OS (e.g., file management tools)." },
+            { q: "Dual-mode operation allows the OS to:", o: ["Run multiple CPUs", "Protect itself and other users", "Connect to WiFi", "Compile Java"], c: 1, exp: "It prevents user programs from executing privileged instructions." },
+
+            
+            { q: "What is a Process?", o: ["A program on disk", "A program in execution", "A hardware component", "A compiler"], c: 1, exp: "A process is the active entity of a program." },
+            { q: "Which part of the process contains global variables?", o: ["Stack", "Heap", "Data Section", "Text Section"], c: 2, exp: "Data section holds global/static vars. Stack holds local vars." },
+            { q: "Which state corresponds to a process waiting for I/O?", o: ["Ready", "Running", "Waiting", "New"], c: 2, exp: "In Waiting state, the process cannot run until the event occurs." },
+            { q: "The data structure representing a process in the OS is:", o: ["PCB", "TCB", "Page Table", "Inode"], c: 0, exp: "Process Control Block (PCB)." },
+            { q: "The overhead of switching the CPU to another process is called:", o: ["Context Switch", "Mode Switch", "Interrupt", "Swapping"], c: 0, exp: "Context switching saves/restores state and is pure overhead." },
+            { q: "What does the fork() system call do?", o: ["Terminates a process", "Creates a new process", "Waits for child", "Loads a program"], c: 1, exp: "fork() creates a child process as a copy of the parent." },
+            { q: "What does fork() return to the Child Process?", o: ["PID of Parent", "PID of Child", "0", "-1"], c: 2, exp: "It returns 0 to the child and the Child's PID to the parent." },
+            { q: "A process that has finished execution but whose parent has not yet called wait() is a:", o: ["Orphan", "Zombie", "Daemon", "Thread"], c: 1, exp: "Zombie processes remain in the process table until waited on." },
+            { q: "Which multithreading model maps many user threads to one kernel thread?", o: ["Many-to-One", "One-to-One", "Many-to-Many", "Two-Level"], c: 0, exp: "Many-to-One. If one blocks, all block." },
+            { q: "Which IPC method is faster for large data transfer?", o: ["Message Passing", "Shared Memory", "Sockets", "Pipes"], c: 1, exp: "Shared memory avoids kernel intervention for data access once set up." },
+            { q: "A thread shares which of the following with peer threads?", o: ["Stack", "Registers", "Code Section", "Program Counter"], c: 2, exp: "Threads share Code, Data, and Files. They have their own Stack/Registers." },
+            { q: "What problem does Amdahl's Law describe?", o: ["Deadlocks", "Speedup limit by serial code", "Memory leaks", "Disk fragmentation"], c: 1, exp: "Max speedup is limited by the serial portion of the program." },
+
+            
+            { q: "Which scheduler selects processes from the disk to load into memory?", o: ["Short-term", "Medium-term", "Long-term", "Dispatcher"], c: 2, exp: "Long-term scheduler controls the degree of multiprogramming." },
+            { q: "Which scheduler allocates the CPU to a process?", o: ["Long-term", "Short-term", "Job scheduler", "Swapper"], c: 1, exp: "Short-term scheduler (CPU scheduler) runs frequently." },
+            { q: "What is Dispatch Latency?", o: ["Time to stop one process and start another", "Time to execute a process", "Time to wait in queue", "Time for I/O"], c: 0, exp: "It is the time taken by the dispatcher." },
+            { q: "Which algorithm suffers from the Convoy Effect?", o: ["RR", "SJF", "FCFS", "Priority"], c: 2, exp: "Long process holding CPU blocks short processes in FCFS." },
+            { q: "Which algorithm is optimal for minimum Average Waiting Time?", o: ["FCFS", "SJF", "RR", "Priority"], c: 1, exp: "SJF (Shortest Job First) is mathematically optimal." },
+            { q: "The main issue with Priority Scheduling is:", o: ["Convoy Effect", "Starvation", "Overhead", "Complexity"], c: 1, exp: "Low priority processes may never execute." },
+            { q: "What is the solution to Starvation?", o: ["Aging", "Preemption", "Quantums", "Semaphores"], c: 0, exp: "Aging increases priority over time." },
+            { q: "Round Robin is designed for:", o: ["Batch Systems", "Time Sharing Systems", "Real-Time Systems", "Mainframes"], c: 1, exp: "It provides fair response time for interactive users." },
+            { q: "If the Time Quantum in RR is too large, it behaves like:", o: ["SJF", "FCFS", "Priority", "LIFO"], c: 1, exp: "Infinite quantum = FCFS." },
+            { q: "In Multilevel Feedback Queue, a process can:", o: ["Change its priority", "Move between queues", "Clone itself", "Use shared memory"], c: 1, exp: "Processes move between queues based on CPU burst behavior." },
+            { q: "Turnaround Time is defined as:", o: ["Completion - Arrival", "Start - Arrival", "Waiting + Execution", "Completion - Start"], c: 0, exp: "Total time from submission to completion." },
+            { q: "Which scheduling scope schedules threads onto available CPUs?", o: ["Process-Contention Scope", "System-Contention Scope", "User Scope", "Local Scope"], c: 1, exp: "SCS is used by the Kernel to map threads to CPU." },
+
+            
+            { q: "A situation where outcomes depend on execution order is called:", o: ["Deadlock", "Race Condition", "Starvation", "Context Switch"], c: 1, exp: "Race condition occurs on unsynchronized shared data access." },
+            { q: "The code segment where shared resources are accessed is the:", o: ["Entry Section", "Exit Section", "Critical Section", "Remainder Section"], c: 2, exp: "Critical Section (CS)." },
+            { q: "Which is NOT a requirement for Critical Section solution?", o: ["Mutual Exclusion", "Progress", "Bounded Waiting", "Speed"], c: 3, exp: "Speed is desirable but not a correctness requirement." },
+            { q: "Peterson's Solution works for how many processes?", o: ["1", "2", "N", "Infinite"], c: 1, exp: "It is a classic software solution for 2 processes." },
+            { q: "Which instruction is hardware atomic?", o: ["Load", "Store", "TestAndSet", "Increment"], c: 2, exp: "TestAndSet (and CompareAndSwap) are atomic." },
+            { q: "A Mutex Lock is essentially a:", o: ["Binary Semaphore", "Counting Semaphore", "Monitor", "Spinlock"], c: 0, exp: "Mutex is a binary lock (0 or 1)." },
+            { q: "Busy waiting in a lock implementation is also called:", o: ["Spinlock", "Deadlock", "Sleep lock", "Monitor"], c: 0, exp: "The process 'spins' while waiting." },
+            { q: "Which Semaphore operation increments the value?", o: ["wait()", "signal()", "P()", "acquire()"], c: 1, exp: "signal() (or V()) increments." },
+            { q: "If a Semaphore value is 0, a wait() operation will:", o: ["Proceed", "Block", "Increment", "Crash"], c: 1, exp: "Wait() blocks if S <= 0." },
+            { q: "Which tool fixes the timing errors of Semaphores?", o: ["Mutex", "Monitor", "Spinlock", "Hardware"], c: 1, exp: "Monitors provide high-level synchronization constructs." },
+            { q: "In Java, what keyword is used for synchronization?", o: ["lock", "atomic", "synchronized", "mutex"], c: 2, exp: "The 'synchronized' keyword creates a monitor." },
+            { q: "Priority Inversion occurs when:", o: ["High priority waits for Low priority", "Low waits for High", "Equal priorities clash", "No one runs"], c: 0, exp: "A low priority task holds a lock needed by a high priority task." },
+
+            
+            { q: "In Bounded Buffer, what does the 'empty' semaphore track?", o: ["Items in buffer", "Empty slots", "Mutex lock", "Consumers"], c: 1, exp: "It counts available empty slots for production." },
+            { q: "In Readers-Writers problem, the Writer needs:", o: ["Shared Access", "Exclusive Access", "No Access", "Read Access"], c: 1, exp: "Writers must have exclusive access." },
+            { q: "The Dining Philosophers problem mainly illustrates:", o: ["Memory Mgmt", "Deadlock & Starvation", "CPU Scheduling", "I/O"], c: 1, exp: "It models resource contention and deadlock." },
+            { q: "To solve Dining Philosophers Deadlock, one rule is:", o: ["Pick Left first", "Pick Right first", "Pick both atomically", "Don't eat"], c: 2, exp: "Picking both simultaneously prevents holding one and waiting." },
+            { q: "Windows synchronization uses objects called:", o: ["Dispatcher Objects", "Files", "Inodes", "Signals"], c: 0, exp: "Dispatcher objects (mutexes, events, etc.)." },
+            { q: "Linux uses a non-preemptive kernel.", o: ["True", "False"], c: 1, exp: "Modern Linux is fully preemptive." },
+            { q: "Atomic integers are useful for:", o: ["Complex structures", "Counters", "File I/O", "Network"], c: 1, exp: "Simple counters without lock overhead." },
+            { q: "The 'readers' in Readers-Writers problem:", o: ["Must exclude each other", "Can read simultaneously", "Must block writers forever", "Change data"], c: 1, exp: "Multiple readers are allowed." },
+            { q: "A Monitor Condition Variable has which operations?", o: ["wait/signal", "P/V", "lock/unlock", "read/write"], c: 0, exp: "wait() and signal()." },
+            { q: "Transactional Memory borrows concepts from:", o: ["Databases", "Networking", "Graphics", "Compilers"], c: 0, exp: "ACID properties from databases." },
+
+            
+            { q: "Which is NOT a necessary condition for Deadlock?", o: ["Mutual Exclusion", "Circular Wait", "Preemption", "Hold and Wait"], c: 2, exp: "NO Preemption is the condition. If preemption exists, deadlock breaks." },
+            { q: "A cycle in a Resource Allocation Graph confirms deadlock if:", o: ["Resources have multiple instances", "Resources have single instance", "Always", "Never"], c: 1, exp: "With single instances, Cycle == Deadlock." },
+            { q: "The Banker's Algorithm is used for:", o: ["Deadlock Prevention", "Deadlock Avoidance", "Deadlock Detection", "Recovery"], c: 1, exp: "Avoidance checks future safety." },
+            { q: "A Safe State means:", o: ["No deadlock possible", "Deadlock is active", "System is crashed", "CPU is idle"], c: 0, exp: "A safe sequence exists to finish all processes." },
+            { q: "Deadlock Prevention works by:", o: ["Detecting cycles", "Invalidating one of the 4 conditions", "Killing processes", "Adding memory"], c: 1, exp: "Ideally preventing the possibility of deadlock." },
+            { q: "The 'Wait-for' graph is used for deadlock detection when:", o: ["Multiple instances exist", "Single instances exist", "Always", "Never"], c: 1, exp: "It's a simplified RAG for single-instance resources." },
+            { q: "Recovering from deadlock by aborting all processes is:", o: ["Cheap", "Expensive", "Impossible", "Fast"], c: 1, exp: "Expensive. Computation work is lost." },
+            { q: "To attack 'Hold and Wait', we can require:", o: ["Request all resources at start", "Preempt resources", "Number resources", "Add RAM"], c: 0, exp: "All-or-nothing allocation." },
+            { q: "To attack 'Circular Wait', we can:", o: ["Use aging", "Order resources numerically", "Use timeouts", "Use Spooling"], c: 1, exp: "Total ordering forces acyclic requests." },
+            { q: "Starvation in deadlock recovery refers to:", o: ["Same victim always picked", "Process never starts", "CPU idle", "Memory full"], c: 0, exp: "Cost factors must ensure fairness." },
+            { q: "The 'Ostrich Algorithm' means:", o: ["Fix immediately", "Ignore the problem", "Restart system", "Run faster"], c: 1, exp: "Pretend deadlock doesn't exist (Unix/Windows approach)." },
+            { q: "Banker's Algorithm requires knowing:", o: ["Process Priority", "Max Demand", "File size", "Thread count"], c: 1, exp: "Max demand is crucial for safety check." }
+        ];
+
+        const finalMCQs = mcqBank;
+        
+        
+        
+        
+        const essays = [
+            { q: "1. Explain the mechanism of a Context Switch and why it is considered overhead.", a: "<p>A <strong>Context Switch</strong> is the process of storing the state of the currently running process (Process A) and restoring the state of the next process (Process B) so execution can continue.</p><p class='mt-2'><strong>Mechanism:</strong><br>1. Save Process A's PCB (Program Counter, Registers).<br>2. Update state to Ready/Blocked.<br>3. Select Process B.<br>4. Restore Process B from its PCB.<br>5. Resume B.</p><p class='mt-2 text-red-500'><strong>Overhead:</strong> The system does no useful work while switching. High frequency degrades throughput.</p>" },
+            { q: "2. Compare User-Level Threads vs. Kernel-Level Threads.", a: "<strong>User-Level:</strong> Managed by user library. Fast. If one blocks, all block. (Many-to-One). <br><strong>Kernel-Level:</strong> Managed by OS. Slower. Independent scheduling. (One-to-One)." },
+            { q: "3. Analyze Round Robin (RR) and Time Quantum.", a: "RR is for time-sharing. <br><strong>Large Quantum:</strong> Degenerates to FCFS. Poor response time. <br><strong>Small Quantum:</strong> High overhead from context switching. <br><strong>Optimal:</strong> Quantum > 80% of CPU bursts." },
+            { q: "4. What is the 'Critical Section Problem'? Define the 3 requirements.", a: "Code segment accessing shared resources. <br><strong>1. Mutual Exclusion:</strong> Only one process in CS. <br><strong>2. Progress:</strong> Decision to enter CS isn't postponed indefinitely. <br><strong>3. Bounded Waiting:</strong> Limit on waiting times (No starvation)." },
+            { q: "5. Describe the 'Dining Philosophers Problem' Deadlock.", a: "5 Philosophers, 5 chopsticks. Need 2 to eat. <br><strong>Deadlock:</strong> Everyone picks LEFT chopstick simultaneously. Everyone waits for RIGHT forever. <br><strong>Solution:</strong> Pick both atomically, or restrict count to 4." },
+            { q: "6. Explain the 4 Necessary Conditions for Deadlock.", a: "1. <strong>Mutual Exclusion</strong> (Non-sharable resource). <br>2. <strong>Hold and Wait</strong> (Holding one, waiting for another). <br>3. <strong>No Preemption</strong> (Cannot take resource away). <br>4. <strong>Circular Wait</strong> (A waits for B, B waits for A)." },
+            { q: "7. How does the Banker's Algorithm avoid deadlock?", a: "<strong>Avoidance:</strong> Processes declare Max Demand. OS checks if granting a request leaves system in a <strong>Safe State</strong> (Safe Sequence exists). If Safe -> Grant. If Unsafe -> Wait." },
+            { q: "8. Differentiate between a Semaphore and a Mutex Lock.", a: "<strong>Mutex:</strong> Locking mechanism. Ownership (holder must release). Binary (0/1). <br><strong>Semaphore:</strong> Signaling mechanism. No ownership. Can be Counting (Integer)." },
+            { q: "9. What is Amdahl's Law?", a: "Defines speedup limit on multicore. Speedup is limited by the <strong>serial portion</strong> of code. Even with infinite cores, if 50% is serial, max speedup is 2x." },
+            { q: "10. Bounded Buffer Solution with Semaphores.", a: "Use 3 Semaphores: <br>1. `mutex` (1): Protects buffer. <br>2. `empty` (N): Counts empty slots. <br>3. `full` (0): Counts filled slots. <br>Producer waits on `empty`, Consumer waits on `full`." }
+        ];
+
+        
+        
+        
+        let currentQ = 0;
+        let score = 0;
+        const totalQ = finalMCQs.length;
+
+        
+        const qText = document.getElementById('q-text');
+        const qCounter = document.getElementById('q-counter');
+        const qModule = document.getElementById('q-module');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreBadge = document.getElementById('score-badge');
+        const essayGrid = document.getElementById('essay-grid');
+
+        
+        function loadQuestion(index) {
+            const data = finalMCQs[index];
+            
+            
+            qCounter.innerText = `Question ${index + 1} of ${totalQ}`;
+            
+            
+            let modNum = 1;
+            if (index >= 12) modNum = 2;
+            if (index >= 24) modNum = 3;
+            if (index >= 36) modNum = 4;
+            if (index >= 48) modNum = 5;
+            if (index >= 58) modNum = 6;
+            qModule.innerText = `Module ${modNum}`;
+
+            const progress = ((index + 1) / totalQ) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            
+            qText.innerHTML = data.q;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            
+            data.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-lg border border-slate-300 dark:border-slate-600 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-sm";
+                btn.innerHTML = `<span class="inline-block w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 text-center text-xs leading-6 mr-3 font-bold text-slate-500">${String.fromCharCode(65+i)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(i, btn, data);
+                optionsContainer.appendChild(btn);
+            });
+
+            if (window.MathJax && typeof window.MathJax.typeset === 'function') {
+                MathJax.typeset();
+            }
+        }
+
+        function checkAnswer(selectedIndex, btn, data) {
+            
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('cursor-default');
+            });
+
+            const isCorrect = selectedIndex === data.c;
+            
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                score++;
+                scoreBadge.innerText = score;
+                feedbackArea.className = "p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-emerald-700 dark:text-emerald-400">Correct!</span>`;
+            } else {
+                btn.classList.add('wrong-answer');
+                buttons[data.c].classList.add('correct-answer');
+                feedbackArea.className = "p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-red-700 dark:text-red-400">Incorrect.</span>`;
+            }
+
+            feedbackText.innerHTML = data.exp;
+            
+            
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        nextBtn.onclick = () => {
+            if (currentQ < totalQ - 1) {
+                currentQ++;
+                loadQuestion(currentQ);
+            } else {
+                alert(`Gauntlet Complete! Score: ${score}/${totalQ}`);
+            }
+        };
+
+        prevBtn.onclick = () => {
+            if (currentQ > 0) {
+                currentQ--;
+                loadQuestion(currentQ);
+            }
+        };
+
+        
+        function renderEssays() {
+            essays.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 border-l-4 border-brand-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-brand-600 dark:text-brand-500 uppercase tracking-wider">Scenario ${index + 1}</h3>
+                        <button onclick="toggleEssay(${index})" class="text-xs font-bold px-3 py-1 bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded hover:bg-brand-200 transition-colors">
+                            Show Answer
+                        </button>
+                    </div>
+                    <p class="text-md font-medium text-slate-800 dark:text-slate-200 mb-4 leading-relaxed">
+                        ${item.q}
+                    </p>
+                    <div id="essay-ans-${index}" class="model-answer bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-2">Professor's Model Answer:</strong>
+                            ${item.a}
+                        </div>
+                    </div>
+                `;
+                essayGrid.appendChild(card);
+            });
+        }
+
+        window.toggleEssay = function(idx) {
+            const el = document.getElementById(`essay-ans-${idx}`);
+            el.classList.toggle('open');
+        };
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion(0);
+        renderEssays();
+
+    </script>
+</body>
+</html>

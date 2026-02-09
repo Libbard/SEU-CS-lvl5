@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 10: I/O Systems</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-ethernet text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-print text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Input/Output: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">I/O Systems</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Managing external devices. Polling, Interrupts, DMA, and the Kernel I/O Subsystem.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Port-Mapped I/O</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Polling</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Interrupts</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DMA</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Blocking/Non-blocking</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Hardware Interface</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    A typical I/O device has a <span class="text-brand-500 font-bold">Port</span> (connection point) and a <span class="text-brand-500 font-bold">Bus</span> (daisy chain or shared access).
+                    <br><strong>Device Controller:</strong> Electronics that operate the port/device. Has registers for data and control.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Memory-Mapped I/O</strong>
+                        Device registers are mapped to main memory addresses.
+                        <br><em>Access:</em> Standard load/store instructions (`MOV`, `LD`).
+                        <br><em>Example:</em> Video memory.
+                    </div>
+                    <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-2">Port-Mapped I/O</strong>
+                        Uses special I/O instructions (`IN`, `OUT`) to access separate I/O address space.
+                        <br><em>Example:</em> Early x86 architecture.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Communication Methods</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                How does the CPU talk to the device?
+            </p>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">1. Polling (Busy Wait)</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        CPU repeatedly checks the status register: "Are you ready? Are you ready?".
+                        <br><strong>Pros:</strong> Simple. Fast if device is fast.
+                        <br><strong>Cons:</strong> Wastes CPU cycles if device is slow.
+                    </p>
+                    <div class="code-block text-[10px]">
+while (*status_reg == BUSY); // Spin loop
+*data_reg = byte_to_write;
+*command_reg = GO;
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">2. Interrupt-Driven I/O</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        CPU issues command and goes to do other work.
+                        <br>When device is done, it raises an <strong>Interrupt Request Line</strong>.
+                        <br>CPU stops, saves state, runs <strong>Interrupt Handler</strong>, restores state.
+                        <br><strong>Benefit:</strong> CPU not tied up waiting.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">3. Direct Memory Access (DMA)</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Used for high-speed devices (Disks, Network) to avoid interrupting CPU for <em>every byte</em>.
+                        <br><strong>How:</strong> CPU programs DMA controller (Source, Dest, Count). DMA transfers block directly to memory.
+                        <br><strong>Result:</strong> Only one interrupt per block.
+                    </p>
+                    
+                    <div class="mermaid text-center">
+                        graph LR
+                        CPU -->|Setup| DMA
+                        DMA -->|Data Transfer| MEM[Memory]
+                        DISK[Disk Drive] -->|Data| DMA
+                        DMA -->|"Interrupt (Done)"| CPU
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Kernel I/O Subsystem</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    The kernel provides generic services to hide hardware complexity.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                        <strong class="block text-brand-600 mb-1">I/O Scheduling</strong>
+                        Reordering requests (queueing) to optimize performance (e.g., disk elevator).
+                    </div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                        <strong class="block text-brand-600 mb-1">Buffering</strong>
+                        Store data in memory while transferring. Handles speed mismatch (modem vs SSD) and data size mismatch.
+                    </div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                        <strong class="block text-brand-600 mb-1">Caching</strong>
+                        Holding copies of data for faster access. (Buffer = copy, Cache = fast copy).
+                    </div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                        <strong class="block text-brand-600 mb-1">Spooling</strong>
+                        Holding output for a device that can only serve one request at a time (e.g., Printer).
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Blocking vs Non-Blocking</h3>
+                <div class="grid md:grid-cols-3 gap-6 text-center text-xs">
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="block text-red-500 mb-1">Blocking I/O</strong>
+                        Process suspended until I/O completed. Easy to use/understand.
+                    </div>
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="block text-yellow-500 mb-1">Non-Blocking I/O</strong>
+                        Call returns quickly with data count read (maybe 0). Process keeps running. Used in UIs/Video games.
+                    </div>
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="block text-green-500 mb-1">Asynchronous I/O</strong>
+                        Process runs while I/O executes. Signal tells process when I/O is done. Hard to program.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Life Cycle of a Request</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <ol class="list-decimal list-inside space-y-3 text-xs text-gray-600 dark:text-gray-300">
+                    <li><strong>User Process:</strong> Issues read() system call.</li>
+                    <li><strong>Kernel:</strong> Checks parameters. Checks if data in cache. If not, requests device driver.</li>
+                    <li><strong>Device Driver:</strong> Issues commands to device controller registers. Blocks process.</li>
+                    <li><strong>Device Controller:</strong> Operates hardware. Transfers data. Generates <strong>Interrupt</strong> when done.</li>
+                    <li><strong>Interrupt Handler:</strong> Saves data, signals driver.</li>
+                    <li><strong>Kernel:</strong> Moves data to user space. Wakes up process.</li>
+                    <li><strong>User Process:</strong> read() returns.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Interrupt Overhead
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Interrupts are good but have overhead (Context switch, Pipeline flush).
+                            <br>For very high-speed networks (e.g., 10Gbps), interrupts happen too often ("Livelock").
+                            <br><strong>Solution:</strong> Hybrid approach (Switch to Polling under high load).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Double Buffering
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Often used in graphics/video. While one buffer is being displayed/written, the other is being filled. This decouples the producer and consumer rates.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: DMA & Caches
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            DMA writes directly to Main Memory, bypassing the CPU Cache. This creates a <strong>Cache Coherency</strong> problem (CPU reads stale data from cache).
+                            <br><em>Fix:</em> OS/Hardware must invalidate cache lines affected by DMA.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Vectored Interrupt
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Instead of a single "Interrupt" line where the CPU must poll every device to find who rang the bell, modern CPUs use an <strong>Interrupt Vector Table</strong>. The device sends an ID (Vector #), and CPU jumps directly to that device's specific handler.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

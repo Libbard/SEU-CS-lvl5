@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Final Master Review (Mod 7-13)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .sql-key { color: #f59e0b; font-weight: bold; }
+        .sql-val { color: #10b981; }
+        
+        
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .progress-anim {
+            animation: load 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module13.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Final Review</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-server text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Database Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="final-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-6">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-infinity text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Knowledge Compendium</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                A complete synthesis of Modules 7 through 13. Mastering SQL, Relational Algebra, Normalization, and Security.
+            </p>
+            
+            <div class="w-full max-w-md mx-auto bg-gray-300 dark:bg-gray-800 rounded-full h-2.5 mt-4">
+                <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Covering Modules 7-13</p>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-blue-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">07. SQL Definition</h2>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">DDL & Constraints</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Creating Structures</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            <span class="font-mono text-xs">CREATE TABLE</span> defines the schema. 
+                            <span class="font-mono text-xs">ALTER TABLE</span> modifies it (add/drop columns).
+                            <span class="font-mono text-xs">DROP TABLE</span> deletes it.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Constraint Actions</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            When deleting a parent record, what happens to the children?
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-1">
+                            <li><strong>RESTRICT:</strong> Stop deletion (Default).</li>
+                            <li><strong>CASCADE:</strong> Delete children too.</li>
+                            <li><strong>SET NULL:</strong> Set child FK to NULL.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-green-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">08. SQL Retrieval</h2>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">DML & Basics</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The SELECT Block</h4>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-xs">
+                            <span class="sql-key">SELECT</span> columns<br>
+                            <span class="sql-key">FROM</span> tables<br>
+                            <span class="sql-key">WHERE</span> row_condition<br>
+                            <span class="sql-key">ORDER BY</span> sort_cols;
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Pattern Matching</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>LIKE:</strong> Used for strings.</li>
+                            <li><strong>%:</strong> Multi-char wildcard.</li>
+                            <li><strong>_:</strong> Single-char wildcard.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-purple-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">09. Complex SQL</h2>
+                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded text-xs font-bold uppercase">Joins & Logic</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Advanced Joins</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>Inner Join:</strong> Only matching rows.</li>
+                            <li><strong>Left/Right Outer Join:</strong> Keep all rows from one side, fill missing matches with NULL.</li>
+                            <li><strong>Self Join:</strong> Joining table to itself (Requires Aliases).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Grouping</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <strong>WHERE</strong> filters rows before grouping.
+                            <br><strong>HAVING</strong> filters groups after grouping (allows Aggregates).
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-yellow-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">10. Theory & Views</h2>
+                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">Relational Algebra</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Relational Algebra Ops</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\sigma$ Select:</strong> Filter Rows.</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\pi$ Project:</strong> Filter Cols.</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\times$ Product:</strong> All combos.</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\div$ Division:</strong> "For All".</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Views</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Virtual tables. Saved queries. Hides complexity and enhances security. Generally read-only if they contain aggregates or joins.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-cyan-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">11. Normalization I</h2>
+                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">1NF - 3NF</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The Basics</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>1NF:</strong> Atomic values (No lists).</li>
+                            <li><strong>2NF:</strong> No Partial Dependency (Attribute depends on full PK).</li>
+                            <li><strong>3NF:</strong> No Transitive Dependency (Non-key depends on Non-key).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Functional Dependency</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            $X \to Y$: If you know X, you determine Y.
+                            <br><strong>Armstrong's Axioms:</strong> Reflexive, Augmentation, Transitive.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-rose-500 flex flex-col h-full">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">12. Normalization II</h2>
+                    <span class="bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 px-3 py-1 rounded text-xs font-bold uppercase">BCNF - 5NF</span>
+                </div>
+                
+                <div class="space-y-6 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Advanced Forms</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                            <li><strong>BCNF:</strong> Stricter 3NF. Every determinant must be a Superkey.</li>
+                            <li><strong>4NF:</strong> No Multivalued Dependencies (MVD).</li>
+                            <li><strong>5NF:</strong> Join Dependencies (Rare).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Decomposition Properties</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <strong>Lossless Join:</strong> Rejoining tables must not create fake data.
+                            <br><strong>Dependency Preservation:</strong> FDs should be enforceable within a single table.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="glass-card p-8 rounded-xl border-t-4 border-gray-500 flex flex-col h-full lg:col-span-2">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">13. Database Security</h2>
+                    <span class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-3 py-1 rounded text-xs font-bold uppercase">Access Control</span>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 flex-grow">
+                    <div>
+                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Access Models</h4>
+                        <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+                            <li><strong>DAC:</strong> Identity-based (GRANT/REVOKE).</li>
+                            <li><strong>MAC:</strong> Clearance Levels (Top Secret). No Read Up, No Write Down.</li>
+                            <li><strong>RBAC:</strong> Role-based (Manager, Clerk).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">CIA Triad</h4>
+                        <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded text-center">
+                            <span class="block text-brand-500 font-bold">Confidentiality</span>
+                            <span class="block text-green-500 font-bold">Integrity</span>
+                            <span class="block text-blue-500 font-bold">Availability</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">SQL Injection</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-300">
+                            Malicious code inserted via inputs. 
+                            <br><strong>Solution:</strong> Prepared Statements (Bind Variables).
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">SQL Order of Execution</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-sm text-gray-500 mb-4">SQL code is written in one order but executed in another.</p>
+                <div class="flex flex-wrap justify-center gap-4 text-xs font-mono font-bold text-gray-900 dark:text-white">
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">1. FROM / JOIN</div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">2. WHERE</div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">3. GROUP BY</div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">4. HAVING</div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">5. SELECT</div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">6. DISTINCT</div>
+                    <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">7. ORDER BY</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Final Exam Mega Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Secrets for Mod 7-13</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 3NF vs BCNF
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            If $X \to A$ and $X$ is NOT a superkey:
+                            <br>In <strong>3NF</strong>: Allowed if $A$ is Prime.
+                            <br>In <strong>BCNF</strong>: Forbidden. $X$ MUST be a superkey.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: WHERE vs HAVING
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            You cannot use Aggregates (SUM, COUNT) in WHERE.
+                            <br>Wrong: `WHERE COUNT(*) > 5`
+                            <br>Right: `HAVING COUNT(*) > 5`
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: NULL Comparisons
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            `Salary = NULL` is always FALSE (or Unknown).
+                            <br>You MUST use `Salary IS NULL`.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Division Op
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            Any question with "Find students who took <strong>ALL</strong> courses" implies the <strong>Division ($\div$)</strong> operation. In SQL, this is solved using double `NOT EXISTS`.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-key mr-2"></i> SECRET: MAC Logic
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            <strong>Bell-LaPadula (Confidentiality):</strong>
+                            <br>No Read Up (Can't see above).
+                            <br>No Write Down (Can't leak to below).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
+                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: Lossless Join
+                        </h4>
+                        <p class="text-xs text-gray-700 dark:text-gray-300">
+                            Decomposition is only valid if it is <strong>Lossless</strong>. This means the common attribute between the two new tables MUST be a <strong>key</strong> in at least one of them.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>

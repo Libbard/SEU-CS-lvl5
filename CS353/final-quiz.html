@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Final Exam Interactive Suite</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover {
+            transform: translateX(5px);
+        }
+
+        
+        .reveal-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+            opacity: 0;
+        }
+        .reveal-content.open {
+            max-height: 500px; 
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Main Dashboard">
+                        <i class="fa-solid fa-layer-group text-xl"></i>
+                    </a>
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Subject Home">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="final-review.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Review Notes">
+                        <i class="fa-solid fa-book-open"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Final Quiz</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-16">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-flag-checkered text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Master Challenge</span>
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                Coverage: Modules 7-13 (Transform-and-Conquer, Space-Time Trade-offs, Dynamic Programming, Greedy, Limitations, Coping).
+                <br><strong>Part 1:</strong> 70 Multiple Choice Questions. <strong>Part 2:</strong> 10 Concept Essay Questions.
+            </p>
+        </header>
+
+        <section id="mcq-section" class="scroll-mt-20">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Part 1: The Gauntlet (MCQ)</h2>
+            </div>
+
+            <div id="quiz-container" class="glass-card rounded-2xl p-8 relative min-h-[450px] flex flex-col justify-between">
+                
+                <div class="absolute top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-t-2xl overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div id="question-block" class="space-y-6">
+                    <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-400">
+                        <span id="question-counter">Question 1/70</span>
+                        <span id="score-display" class="text-brand-500">Score: 0</span>
+                    </div>
+                    
+                    <div class="min-h-[80px]">
+                        <h2 id="question-text" class="text-lg md:text-xl font-bold text-gray-900 dark:text-white leading-snug">
+                            </h2>
+                    </div>
+
+                    <div id="options-container" class="grid gap-3 grid-cols-1 md:grid-cols-2">
+                        </div>
+                </div>
+
+                <div id="feedback-block" class="hidden mt-6 p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 animate-fade-in">
+                    <div class="flex items-start space-x-3">
+                        <div id="feedback-icon" class="mt-1"></div>
+                        <div>
+                            <h4 id="feedback-title" class="font-bold text-sm"></h4>
+                            <p id="feedback-text" class="text-sm text-gray-600 dark:text-gray-300 mt-1"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between items-center">
+                    <div class="text-xs text-gray-400 italic">
+                        Topic: <span id="question-topic">General</span>
+                    </div>
+                    <button id="next-btn" class="hidden px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-bold transition-colors flex items-center shadow-lg hover:shadow-brand-500/30">
+                        Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+
+                <div id="result-screen" class="hidden text-center py-10">
+                    <div class="mb-6">
+                        <i id="result-icon" class="text-6xl mb-4 block"></i>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Gauntlet Complete!</h2>
+                        <p class="text-gray-500 dark:text-gray-400">You scored <span id="final-score" class="text-brand-500 font-bold text-2xl"></span> / 70</p>
+                    </div>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="location.reload()" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-bold transition-colors">
+                            Retry
+                        </button>
+                        <a href="#essay-section" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg font-bold transition-colors">
+                            Go to Essays
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="essay-section" class="scroll-mt-20">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-blue-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Part 2: The Deep Dive (Concepts)</h2>
+            </div>
+
+            <div class="grid gap-6">
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">1. Heaps vs. BSTs</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 7</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Explain the structural and ordering differences between a Heap and a Binary Search Tree (BST). Why is a Heap generally preferred for implementing a Priority Queue?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Difference:</strong> In a BST, for any node, left children are smaller and right children are larger (Left-Right Ordering). In a Heap, the parent is larger/smaller than BOTH children (Top-Down Ordering).<br><br>
+                        <strong>Priority Queue:</strong> Heaps allow accessing the Min/Max in O(1) and removing it in O(log n). A BST takes O(log n) to find min/max (if balanced) but has higher overhead to maintain balance (AVL/Red-Black). Heaps can also be implemented efficiently as arrays.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">2. Open vs. Closed Hashing</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 9</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Compare Open Hashing (Separate Chaining) and Closed Hashing (Open Addressing). Under what conditions does Closed Hashing degrade significantly?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Open Hashing:</strong> Keys stored in linked lists outside the table. Handles Load Factor > 1 well.<br>
+                        <strong>Closed Hashing:</strong> Keys stored inside the table slots. Requires Load Factor < 1.<br><br>
+                        <strong>Degradation:</strong> Closed hashing degrades rapidly as the Load Factor approaches 1 (table gets full) due to "Clustering" (long sequences of occupied cells), turning search/insert into O(n).
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">3. Dynamic Programming vs. Divide & Conquer</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 10</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Both techniques split problems into subproblems. What is the fundamental difference that dictates when to use DP instead of D&C? Give an example where D&C fails but DP works.
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Difference:</strong> D&C implies <em>independent</em> subproblems. DP implies <em>overlapping</em> subproblems.<br><br>
+                        <strong>Example:</strong> Calculating Fibonacci numbers. D&C naively recalculates F(n-2) multiple times, leading to exponential time. DP stores the result of F(n-2) once and reuses it, achieving linear time.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">4. The Principle of Optimality</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 10</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Define the Principle of Optimality. Explain why the Longest Path problem does not satisfy this principle, whereas Shortest Path does.
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Definition:</strong> An optimal solution to a problem instance must be composed of optimal solutions to its sub-instances.<br><br>
+                        <strong>Shortest Path:</strong> If A->B->C is shortest, then A->B must be the shortest path to B.<br>
+                        <strong>Longest Path:</strong> The longest simple path from A to C might not use the longest simple path from A to B because using the longest A->B path might use vertices needed for the B->C leg (causing a cycle).
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">5. Greedy vs. DP in Knapsack</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 11</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Why does the Greedy strategy (sorting by value/weight) work for the Fractional Knapsack problem but fail for the 0/1 Knapsack problem?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        In <strong>Fractional Knapsack</strong>, we can fill the remaining space with a fraction of the next best item, ensuring no capacity is wasted. In <strong>0/1 Knapsack</strong>, picking the item with the highest ratio might leave a small, unusable gap in capacity that could have been better filled by a combination of lower-ratio items.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">6. Dijkstra and Negative Weights</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 11</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Explain precisely why Dijkstra's algorithm fails if the graph contains negative edge weights. What algorithm should be used instead?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        Dijkstra's is "Greedy"; it assumes that once a node is visited (marked final), its distance cannot be improved. A negative edge later in the graph could theoretically loop back and reduce the cost of an already-finalized node, violating this assumption. Use <strong>Bellman-Ford</strong> instead.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">7. P vs NP</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 12</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Define the classes P and NP. Clarify the common misconception that "NP stands for Not Polynomial".
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>P:</strong> Problems solvable in Polynomial Time.<br>
+                        <strong>NP:</strong> Nondeterministic Polynomial. Problems where a solution can be <em>verified</em> in Polynomial Time.<br>
+                        <strong>Misconception:</strong> It does NOT mean "Not Polynomial". P is a subset of NP.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">8. The Halting Problem</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 12</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        What is the Halting Problem and what does it prove about the limitations of algorithms?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        It is the problem of determining whether a given program will eventually stop or run forever. Alan Turing proved it is <strong>Undecidable</strong>—no algorithm can exist that solves this for all possible input programs. It proves some problems are computationally unsolvable.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">9. Backtracking vs. Branch-and-Bound</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 13</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        Distinguish between Backtracking and Branch-and-Bound. Which one is used for N-Queens and which for Knapsack? Why?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Backtracking:</strong> DFS traversal of state space. Used for non-optimization problems (finding all solutions) like <strong>N-Queens</strong>.<br>
+                        <strong>Branch-and-Bound:</strong> Uses a numerical bound (cost function) to prune branches. Used for optimization problems (finding best solution) like <strong>Knapsack</strong> or TSP.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">10. Approximation Accuracy</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 text-brand-600 px-2 py-1 rounded">Mod 13</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                        What is the Performance Ratio ($\rho$) of an approximation algorithm? For TSP Nearest Neighbor, is this ratio bounded?
+                    </p>
+                    <button class="essay-toggle px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-semibold rounded-lg transition-colors flex items-center">
+                        <i class="fa-regular fa-eye mr-2"></i> Show Model Answer
+                    </button>
+                    <div class="reveal-content mt-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border-l-4 border-brand-500 text-sm text-gray-700 dark:text-gray-300">
+                        $\rho$ is the ratio of the approximate solution cost to the optimal solution cost ($\ge 1$). For general TSP, the ratio is <strong>unbounded</strong> (can be infinitely bad). For Euclidean TSP, it is bounded by a function of log N.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 transition-colors duration-300 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        document.querySelectorAll('.essay-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    content.style.opacity = 0;
+                    btn.innerHTML = '<i class="fa-regular fa-eye mr-2"></i> Show Model Answer';
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    content.style.opacity = 1;
+                    btn.innerHTML = '<i class="fa-regular fa-eye-slash mr-2"></i> Hide Answer';
+                }
+            });
+        });
+
+        
+        
+        const topics = [
+            { id: "Mod 7", name: "Heaps & AVL", start: 0, end: 10 },
+            { id: "Mod 8", name: "Space-Time I", start: 10, end: 20 },
+            { id: "Mod 9", name: "Space-Time II", start: 20, end: 30 },
+            { id: "Mod 10", name: "Dynamic Prog", start: 30, end: 40 },
+            { id: "Mod 11", name: "Greedy Tech", start: 40, end: 50 },
+            { id: "Mod 12", name: "Limitations", start: 50, end: 60 },
+            { id: "Mod 13", name: "Coping", start: 60, end: 70 }
+        ];
+
+        
+        
+        const mcqBank = [
+            
+            {q: "What is the shape property of a Heap?", o: ["Perfect Binary Tree", "Essentially Complete Binary Tree", "Full Binary Tree", "Unbalanced Tree"], c: 1, exp: "Heaps must be filled from left to right on the last level."},
+            {q: "What is the time complexity to build a heap bottom-up?", o: ["O(n)", "O(n log n)", "O(log n)", "O(n^2)"], c: 0, exp: "Bottom-up heap construction is linear O(n)."},
+            {q: "In Heapsort, after building the heap, we swap root with...", o: ["Second element", "Last element", "Middle element", "Random element"], c: 1, exp: "Swap root with last, then decrease heap size."},
+            {q: "AVL trees maintain balance by checking height difference is...", o: ["<= 2", "<= 1", "Exactly 0", "Any value"], c: 1, exp: "Balance factor must be -1, 0, or 1."},
+            {q: "Which rotation fixes a Left-Right (LR) imbalance in AVL?", o: ["Single Left", "Single Right", "Double Left-Right", "Double Right-Left"], c: 2, exp: "LR case requires a double rotation (Left then Right)."},
+            {q: "Heapsort space complexity is:", o: ["O(1)", "O(n)", "O(log n)", "O(n log n)"], c: 0, exp: "Heapsort sorts in-place."},
+            {q: "Reducing LCM(u,v) to GCD(u,v) is an example of:", o: ["Instance Simplification", "Problem Reduction", "Representation Change", "Backtracking"], c: 1, exp: "Transforming a problem into another known problem."},
+            {q: "The parent of a node at index i in a heap (1-based) is:", o: ["2i", "2i+1", "floor(i/2)", "i-1"], c: 2, exp: "Parent is at floor(i/2)."},
+            {q: "In a Max-Heap, the smallest element is found at:", o: ["The Root", "A Leaf node", "The second level", "The middle"], c: 1, exp: "Smallest element must be one of the leaves."},
+            {q: "Counting paths of length n can be solved by:", o: ["Sorting", "Matrix Power A^n", "Hashing", "Greedy"], c: 1, exp: "Adjacency matrix raised to power n gives path counts."},
+
+            
+            {q: "Distribution Counting Sort is most efficient when:", o: ["Range of keys is small", "Array is reverse sorted", "Array is large", "Keys are floats"], c: 0, exp: "It is O(n+k), efficient only if k (range) is small."},
+            {q: "Horspool's algorithm scans the pattern:", o: ["Left to Right", "Right to Left", "Randomly", "Middle out"], c: 1, exp: "It matches from right to left."},
+            {q: "In Horspool, the shift size is determined by:", o: ["The mismatched character in Pattern", "The character in Text aligned with pattern end", "The first character", "Random"], c: 1, exp: "Based on the text character aligned with the last pattern character."},
+            {q: "Input Enhancement usually trades:", o: ["Time for Space", "Space for Time", "Accuracy for Speed", "Complexity for Simplicity"], c: 1, exp: "Uses extra space (tables) to gain speed."},
+            {q: "Comparison Counting Sort complexity is:", o: ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"], c: 2, exp: "It compares every pair, so n^2."},
+            {q: "Which is NOT an Input Enhancement technique?", o: ["Presorting", "Hashing", "Horspool Table", "Brute Force"], c: 3, exp: "Brute force uses no pre-calculated info."},
+            {q: "Distribution Counting is:", o: ["Stable", "Unstable", "In-place", "Recursive"], c: 0, exp: "It preserves relative order of equal keys."},
+            {q: "Shift table size in Horspool depends on:", o: ["Pattern length", "Text length", "Alphabet size", "None"], c: 2, exp: "Size is determined by the alphabet (e.g., 256 for ASCII)."},
+            {q: "Boyer-Moore is generally ______ than Horspool.", o: ["Slower", "Faster", "Same", "Simpler"], c: 1, exp: "Boyer-Moore uses two heuristics (Bad Symbol + Good Suffix) making it faster but complex."},
+            {q: "In Horspool, if a char is not in pattern, shift is:", o: ["1", "m (pattern length)", "m-1", "0"], c: 1, exp: "Safe to shift past the whole pattern."},
+
+            
+            {q: "Hashing searches on average in:", o: ["O(n)", "O(log n)", "O(1)", "O(n^2)"], c: 2, exp: "Constant time average."},
+            {q: "Separate Chaining handles collisions by:", o: ["Probing next slot", "Linked Lists", "Double Hashing", "Resizing"], c: 1, exp: "Stores colliding elements in a list."},
+            {q: "Open Addressing requires Load Factor alpha to be:", o: ["<= 1", "> 1", "= 0", "Any value"], c: 0, exp: "Table must have room; cannot exceed size."},
+            {q: "B-Trees are optimized for:", o: ["RAM", "Disk Storage", "Cache", "Registers"], c: 1, exp: "Minimizes disk I/O operations."},
+            {q: "In a B-Tree of order m, nodes have at most ___ children.", o: ["m", "m/2", "2m", "m-1"], c: 0, exp: "Order m means max m children."},
+            {q: "A hash function should ideally:", o: ["Cluster keys", "Distribute keys uniformly", "Be complex", "Return 0"], c: 1, exp: "Uniform distribution minimizes collisions."},
+            {q: "Linear Probing suffers from:", o: ["Primary Clustering", "Secondary Clustering", "Fragmentation", "Recursion"], c: 0, exp: "Occupied slots build up in chunks."},
+            {q: "Double Hashing uses:", o: ["One hash function", "Two hash functions", "Linked lists", "Trees"], c: 1, exp: "Step size is determined by a second hash function."},
+            {q: "If Load Factor is 0.5 in Open Addressing, half the table is:", o: ["Empty", "Full", "Deleted", "Linked"], c: 1, exp: "Ratio of elements to size is 0.5."},
+            {q: "B-Trees grow:", o: ["Downward", "Upward (Root splits)", "Sideways", "Randomly"], c: 1, exp: "Nodes split and push median up."},
+
+            
+            {q: "Dynamic Programming requires:", o: ["Independent Subproblems", "Overlapping Subproblems", "Greedy Choice", "Randomness"], c: 1, exp: "Solves same subproblems repeatedly."},
+            {q: "Warshall's Algorithm computes:", o: ["Shortest Path", "Transitive Closure", "MST", "Flow"], c: 1, exp: "Reachability matrix (Transitive Closure)."},
+            {q: "Floyd's Algorithm complexity:", o: ["O(n^2)", "O(n^3)", "O(n log n)", "O(2^n)"], c: 1, exp: "Three nested loops over n vertices."},
+            {q: "Knapsack 0/1 DP recurrence involves:", o: ["max(exclude, include)", "min(exclude, include)", "sum(all)", "average"], c: 0, exp: "Max of value without item vs value with item."},
+            {q: "Top-Down DP is also called:", o: ["Tabulation", "Memoization", "Iteration", "Recursion"], c: 1, exp: "Memoization caches recursive calls."},
+            {q: "Bottom-Up DP usually uses:", o: ["Recursion", "Iterative Loops", "Stacks", "Queues"], c: 1, exp: "Fills table from base cases up."},
+            {q: "Fibonacci DP reduces complexity from Exponential to:", o: ["O(1)", "O(n)", "O(n^2)", "O(log n)"], c: 1, exp: "Linear time."},
+            {q: "In Floyd's, D[i,j] is updated using intermediate node:", o: ["k", "x", "y", "z"], c: 0, exp: "d[i,j] = min(d[i,j], d[i,k] + d[k,j])."},
+            {q: "Coin Row problem constraint:", o: ["Pick adjacent", "No adjacent coins", "Pick all", "Pick none"], c: 1, exp: "Cannot pick two adjacent coins."},
+            {q: "Optimal Binary Search Tree minimizes:", o: ["Height", "Average Search Cost", "Space", "Insert Time"], c: 1, exp: "Based on access probabilities."},
+
+            
+            {q: "Greedy algorithms make choices that are:", o: ["Globally Optimal", "Locally Optimal", "Random", "Reversible"], c: 1, exp: "Best immediate choice."},
+            {q: "Prim's Algorithm grows a tree from:", o: ["Smallest Edge", "Arbitrary Start Node", "Largest Edge", "Random Edge"], c: 1, exp: "Starts at a node, grows one tree."},
+            {q: "Kruskal's Algorithm sorts edges by:", o: ["Weight", "Node Degree", "Length", "Index"], c: 0, exp: "Increasing weight."},
+            {q: "Dijkstra's Algorithm fails with:", o: ["Cycles", "Negative Edges", "Directed Graphs", "Large Graphs"], c: 1, exp: "Assumes path cost only increases."},
+            {q: "Huffman Codes are:", o: ["Fixed Length", "Variable Length Prefix-Free", "Lossy", "Encrypted"], c: 1, exp: "Optimal prefix codes."},
+            {q: "Data structure for Prim's:", o: ["Stack", "Queue", "Priority Queue", "Hash Table"], c: 2, exp: "To fetch min weight edge efficiently."},
+            {q: "Data structure for Kruskal's cycle check:", o: ["DFS", "Union-Find", "BFS", "Matrix"], c: 1, exp: "Disjoint Set Union (DSU)."},
+            {q: "Change Making is greedy-optimal for:", o: ["All coins", "Standard denominations", "Random coins", "None"], c: 1, exp: "US/Euro coins work, others might not."},
+            {q: "MST property: A graph with distinct weights has ___ MST(s).", o: ["0", "1", "Many", "Infinite"], c: 1, exp: "Unique MST if weights are distinct."},
+            {q: "Dijkstra complexity with Priority Queue:", o: ["O(V^2)", "O(E log V)", "O(V)", "O(1)"], c: 1, exp: "Logarithmic update time."},
+
+            
+            {q: "Sorting Lower Bound is:", o: ["O(n)", "Omega(n log n)", "Theta(n^2)", "Omega(n)"], c: 1, exp: "Information theoretic bound."},
+            {q: "Class P consists of problems solvable in:", o: ["Polynomial Time", "Exponential Time", "Infinite Time", "Log Time"], c: 0, exp: "O(n^k)."},
+            {q: "Class NP consists of problems where solution is:", o: ["Found in Poly Time", "Verified in Poly Time", "Impossible", "Linear"], c: 1, exp: "Verifiable quickly."},
+            {q: "A problem is NP-Complete if:", o: ["It is in NP and all NP reduce to it", "It is in P", "It is unsolvable", "It is hard"], c: 0, exp: "The hardest in NP."},
+            {q: "The Halting Problem is:", o: ["P", "NP", "Undecidable", "Hard"], c: 2, exp: "No algorithm exists."},
+            {q: "Decision Trees model:", o: ["Comparison based algorithms", "Math formulas", "Hardware", "Networks"], c: 0, exp: "Visualizing comparisons."},
+            {q: "If P = NP, then:", o: ["Nothing changes", "All NP problems are easy", "Computers break", "Crypto is safe"], c: 1, exp: "NP-Complete probs become Polynomial."},
+            {q: "Traveling Salesman (Decision) is:", o: ["P", "NP-Complete", "Undecidable", "Linear"], c: 1, exp: "Classic NP-Complete."},
+            {q: "3-SAT is:", o: ["P", "NP-Complete", "Solved", "Trivial"], c: 1, exp: "First proved NP-Complete (Cook-Levin)."},
+            {q: "Trivial Lower Bound for Matrix Mult:", o: ["n", "n^2", "n^3", "log n"], c: 1, exp: "Must read/write n^2 elements."},
+
+            
+            {q: "Backtracking traverses state space using:", o: ["BFS", "DFS", "Random Walk", "Linear Scan"], c: 1, exp: "Depth First."},
+            {q: "Branch-and-Bound is used for:", o: ["Decision Problems", "Optimization Problems", "Sorting", "Searching"], c: 1, exp: "Minimizing/Maximizing cost."},
+            {q: "N-Queens is typically solved by:", o: ["Greedy", "Backtracking", "DP", "Divide & Conquer"], c: 1, exp: "Placing row by row and backtracking."},
+            {q: "Approximation Ratio rho is always:", o: [">= 1", "< 1", "= 0", "Negative"], c: 0, exp: "Approx/Optimal or Optimal/Approx >= 1."},
+            {q: "TSP Nearest Neighbor is:", o: ["Exact", "Approximation", "Optimal", "Slow"], c: 1, exp: "Greedy approx."},
+            {q: "Bounding function in B&B helps to:", o: ["Find solution", "Prune branches", "Sort data", "Hash"], c: 1, exp: "Eliminates non-promising nodes."},
+            {q: "Multifragment Heuristic for TSP sorts:", o: ["Cities", "Edges", "Costs", "Nodes"], c: 1, exp: "Sorts edges by weight."},
+            {q: "Backtracking worst case complexity:", o: ["Polynomial", "Exponential", "Linear", "Logarithmic"], c: 1, exp: "O(2^n) or O(n!)."},
+            {q: "Local Search algorithms start with:", o: ["Optimal solution", "Initial guess", "Empty set", "Bounds"], c: 1, exp: "Improve an initial guess iteratively."},
+            {q: "Which is a 'promising' node?", o: ["Leads to feasible solution", "Violates constraints", "Is a leaf", "Is root"], c: 0, exp: "Can potentially yield a valid answer."}
+        ];
+
+        
+        let currentQIndex = 0;
+        let score = 0;
+        let isAnswered = false;
+
+        
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackBlock = document.getElementById('feedback-block');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreDisplay = document.getElementById('score-display');
+        const questionCounter = document.getElementById('question-counter');
+        const quizContainer = document.getElementById('question-block');
+        const resultScreen = document.getElementById('result-screen');
+        const questionTopic = document.getElementById('question-topic');
+
+        
+        function loadQuestion() {
+            isAnswered = false;
+            const q = mcqBank[currentQIndex];
+            
+            
+            const topic = topics.find(t => currentQIndex >= t.start && currentQIndex < t.end);
+            questionTopic.innerText = topic ? topic.name : "General";
+            questionTopic.className = "text-brand-500 font-bold";
+
+            
+            questionText.innerText = q.q;
+            questionCounter.innerText = `Question ${currentQIndex + 1}/${mcqBank.length}`;
+            progressBar.style.width = `${((currentQIndex) / mcqBank.length) * 100}%`;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackBlock.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+
+            
+            q.o.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = `option-btn w-full text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all font-medium text-gray-700 dark:text-gray-200 relative overflow-hidden`;
+                btn.innerHTML = `<span class="inline-block w-6 font-bold text-gray-400 mr-2">${String.fromCharCode(65 + index)}.</span> ${opt}`;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            
+            MathJax.typesetPromise();
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            if (isAnswered) return;
+            isAnswered = true;
+
+            const q = mcqBank[currentQIndex];
+            const isCorrect = selectedIndex === q.c;
+            const correctBtn = optionsContainer.children[q.c];
+
+            
+            if (isCorrect) {
+                score++;
+                scoreDisplay.innerText = `Score: ${score}`;
+                btnElement.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/20');
+                showFeedback(true, q.exp);
+            } else {
+                btnElement.classList.add('ring-2', 'ring-rose-500', 'bg-rose-50', 'dark:bg-rose-900/20');
+                correctBtn.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/20');
+                showFeedback(false, q.exp);
+            }
+
+            Array.from(optionsContainer.children).forEach(b => b.disabled = true);
+            nextBtn.classList.remove('hidden');
+        }
+
+        function showFeedback(isCorrect, text) {
+            feedbackBlock.classList.remove('hidden');
+            const title = document.getElementById('feedback-title');
+            const body = document.getElementById('feedback-text');
+            const icon = document.getElementById('feedback-icon');
+
+            if (isCorrect) {
+                feedbackBlock.className = "mt-6 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 animate-fade-in";
+                icon.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500 text-xl"></i>';
+                title.innerText = "Correct!";
+                title.className = "font-bold text-sm text-emerald-700 dark:text-emerald-400";
+            } else {
+                feedbackBlock.className = "mt-6 p-4 rounded-xl border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 animate-fade-in";
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-500 text-xl"></i>';
+                title.innerText = "Incorrect";
+                title.className = "font-bold text-sm text-rose-700 dark:text-rose-400";
+            }
+            body.innerHTML = text;
+        }
+
+        nextBtn.onclick = () => {
+            currentQIndex++;
+            if (currentQIndex < mcqBank.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            quizContainer.children[0].classList.add('hidden');
+            document.getElementById('question-block').classList.add('hidden');
+            feedbackBlock.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            const finalScoreEl = document.getElementById('final-score');
+            const resultIcon = document.getElementById('result-icon');
+            finalScoreEl.innerText = score;
+
+            if (score >= 60) {
+                resultIcon.className = "fa-solid fa-trophy text-6xl mb-4 block text-yellow-400 animate-bounce";
+                resultIcon.nextElementSibling.innerText = "Algorithm Master!";
+            } else if (score >= 40) {
+                resultIcon.className = "fa-solid fa-thumbs-up text-6xl mb-4 block text-blue-400";
+                resultIcon.nextElementSibling.innerText = "Solid Performance!";
+            } else {
+                resultIcon.className = "fa-solid fa-book-open-reader text-6xl mb-4 block text-gray-400";
+                resultIcon.nextElementSibling.innerText = "Review Required";
+            }
+        }
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion();
+
+    </script>
+</body>
+</html>

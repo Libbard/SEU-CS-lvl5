@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Module 2: Analysis Methods</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f43f5e;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f43f5e;
+            background-color: rgba(244, 63, 94, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
+
+        
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+        .path-anim {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module1.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 2</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module3.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-magnifying-glass-chart text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Algorithms <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Analysis Methods</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Mastering the framework to measure efficiency, asymptotic notations, and the mathematical analysis of recursive and non-recursive algorithms.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Time vs Space</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">O, Ω, Θ Notations</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Recurrence Relations</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Empirical Analysis</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Analysis Framework</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="glass-card p-5 rounded-xl border-l-4 border-l-brand-500">
+                        <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Two Types of Efficiency</h3>
+                        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                            <li><i class="fa-solid fa-clock w-6 text-center text-gray-400"></i> <strong>Time Efficiency:</strong> How fast the algorithm runs (Time Complexity).</li>
+                            <li><i class="fa-solid fa-memory w-6 text-center text-gray-400"></i> <strong>Space Efficiency:</strong> Memory units required for algorithm + input/output (Space Complexity).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-gray-100 mb-2">Measuring Input Size ($n$)</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Input size depends on the problem type :</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 pl-2">
+                            <li><strong>Polynomials:</strong> Degree of polynomial or number of coefficients.</li>
+                            <li><strong>Matrices:</strong> Dimensions ($n \times n$).</li>
+                            <li><strong>Primality Check:</strong> Number of bits $b = \lfloor \log_2 n \rfloor + 1$ (NOT the number value itself).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-gray-100 rounded-xl p-6 shadow-inner border border-gray-700">
+                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-microchip mr-2 text-emerald-400"></i> The "Basic Operation"</h3>
+                    <p class="text-sm text-gray-400 mb-4">
+                        We <strong>DO NOT</strong> measure time in seconds or milliseconds because that depends on the computer speed, compiler, and quality of code .
+                    </p>
+                    <p class="text-sm text-gray-300 mb-6">
+                        Instead, we count the <strong>Basic Operation</strong>: the operation contributing most to running time (usually the most frequent one inside the innermost loop).
+                    </p>
+                    
+                    <div class="bg-gray-800 rounded p-4 font-mono text-xs border border-gray-700">
+                        <div class="flex justify-between border-b border-gray-700 pb-2 mb-2">
+                            <span class="text-emerald-400">Problem</span>
+                            <span class="text-brand-400">Basic Operation</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span>Searching List</span>
+                            <span>Key Comparison</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span>Matrix Multi.</span>
+                            <span>Multiplication</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Graph Problem</span>
+                            <span>Visiting Vertex</span>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-right text-xs text-gray-500"></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Worst, Best, & Average Cases</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-cloud-bolt text-6xl text-rose-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-rose-600 dark:text-rose-400 mb-2">Worst-Case</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        The input that makes the algorithm run the longest. It provides an <strong>Upper Bound</strong> guarantee. The algorithm will never take longer than this .
+                    </p>
+                    <div class="text-xs font-mono bg-rose-50 dark:bg-rose-900/20 p-2 rounded text-rose-800 dark:text-rose-200">
+                        $C_{worst}(n)$
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-sun text-6xl text-emerald-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mb-2">Best-Case</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        The input that makes the algorithm run the fastest. Usually trivial (e.g., finding the item at index 0) .
+						<br><br>
+                    </p>
+                    <div class="text-xs font-mono bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded text-emerald-800 dark:text-emerald-200">
+                        $C_{best}(n)$
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-scale-balanced text-6xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Average-Case</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Based on probabilistic assumptions. Usually lies between Best and Worst. Requires knowing probability distribution of inputs .
+                    </p>
+                    <div class="text-xs font-mono bg-blue-50 dark:bg-blue-900/20 p-2 rounded text-blue-800 dark:text-blue-200">
+                        $C_{avg}(n)$
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 border-l-4 border-amber-500">
+                <p class="text-sm text-gray-700 dark:text-gray-300">
+                    <strong><i class="fa-solid fa-chart-line text-amber-500 mr-2"></i>Amortized Efficiency:</strong> Not a single run, but the average cost over a <em>sequence</em> of operations. Useful when one expensive operation pays for many cheap ones (discovered by Robert Tarjan) .
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Asymptotic Notations ($O, \Omega, \Theta$)</h2>
+            </div>
+
+            <div class="space-y-12">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/2">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                            1. Big-O Notation <span class="text-brand-500">$O(g(n))$</span>
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            Upper Bound. $t(n)$ grows <strong>no faster than</strong> $g(n)$.
+                        </p>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm mb-4">
+                            $t(n) \le c \cdot g(n)$ for all $n \ge n_0$
+                        </div>
+                        <p class="text-xs text-gray-500"></p>
+                        <p class="text-sm mt-2 font-semibold text-rose-500">Use for Worst-Case Analysis.</p>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <svg width="300" height="200" viewBox="0 0 300 200" class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                            <line x1="20" y1="180" x2="280" y2="180" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+                            <line x1="20" y1="180" x2="20" y2="20" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+                            <path d="M 20 180 Q 150 170 280 20" fill="none" stroke="#f43f5e" stroke-width="2" />
+                            <text x="260" y="30" fill="#f43f5e" font-size="12">c·g(n)</text>
+                            <path d="M 20 170 Q 150 160 260 80" fill="none" stroke="#9ca3af" stroke-width="2" stroke-dasharray="4" />
+                            <text x="240" y="90" fill="#9ca3af" font-size="12">t(n)</text>
+                            <text x="280" y="195" fill="currentColor" class="text-gray-500" font-size="10">n</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row-reverse gap-8 items-center">
+                    <div class="md:w-1/2">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                            2. Big-Omega Notation <span class="text-emerald-500">$\Omega(g(n))$</span>
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            Lower Bound. $t(n)$ grows <strong>at least as fast as</strong> $g(n)$.
+                        </p>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm mb-4">
+                            $t(n) \ge c \cdot g(n)$ for all $n \ge n_0$
+                        </div>
+                        <p class="text-xs text-gray-500"></p>
+                        <p class="text-sm mt-2 font-semibold text-emerald-500">Use for Best-Case Analysis.</p>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <svg width="300" height="200" viewBox="0 0 300 200" class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                            <line x1="20" y1="180" x2="280" y2="180" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+                            <line x1="20" y1="180" x2="20" y2="20" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+                            <path d="M 20 180 Q 150 170 280 20" fill="none" stroke="#9ca3af" stroke-width="2" />
+                            <text x="260" y="30" fill="#9ca3af" font-size="12">t(n)</text>
+                            <path d="M 20 170 Q 150 175 280 120" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4" />
+                            <text x="260" y="130" fill="#10b981" font-size="12">c·g(n)</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/2">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                            3. Big-Theta Notation <span class="text-blue-500">$\Theta(g(n))$</span>
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            Tight Bound. $t(n)$ grows <strong>at the same rate as</strong> $g(n)$.
+                        </p>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm mb-4">
+                            $c_2 \cdot g(n) \le t(n) \le c_1 \cdot g(n)$
+                        </div>
+                        <p class="text-xs text-gray-500"></p>
+                        <p class="text-sm mt-2 font-semibold text-blue-500">Use for Exact/Average Analysis.</p>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <svg width="300" height="200" viewBox="0 0 300 200" class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                            <line x1="20" y1="180" x2="280" y2="180" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+                            <line x1="20" y1="180" x2="20" y2="20" stroke="currentColor" stroke-width="1" class="text-gray-400" />
+                            <path d="M 20 180 Q 150 170 280 20" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="2" />
+                            <text x="260" y="30" fill="#3b82f6" font-size="12">c1·g(n)</text>
+                            <path d="M 20 180 Q 150 150 280 50" fill="none" stroke="#9ca3af" stroke-width="3" />
+                            <text x="270" y="70" fill="#9ca3af" font-size="12">t(n)</text>
+                            <path d="M 20 180 Q 150 160 280 90" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="2" />
+                            <text x="270" y="110" fill="#3b82f6" font-size="12">c2·g(n)</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-8">
+            <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg text-purple-600 dark:text-purple-300">
+                        <i class="fa-solid fa-list-ol"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Non-Recursive Analysis</h3>
+                </div>
+                
+                <h4 class="font-semibold text-sm mb-2">Process :</h4>
+                <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4">
+                    <li>Decide on input parameter ($n$).</li>
+                    <li>Identify basic operation (innermost loop).</li>
+                    <li>Set up a <span class="smart-term font-bold text-brand-500" data-ar="مجموع">Summation</span> $\sum$.</li>
+                    <li>Solve the sum to find closed form.</li>
+                </ol>
+
+                <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-xs font-mono space-y-2">
+                    <p class="text-gray-500">// Example: UniqueElements </p>
+                    <p>$C_{worst}(n) = \sum_{i=0}^{n-2} \sum_{j=i+1}^{n-1} 1$</p>
+                    <p>$= \frac{(n-1)n}{2} \approx \frac{1}{2}n^2 \in \Theta(n^2)$</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="p-2 bg-orange-100 dark:bg-orange-900 rounded-lg text-orange-600 dark:text-orange-300">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Recursive Analysis</h3>
+                </div>
+                
+                <h4 class="font-semibold text-sm mb-2">Process :</h4>
+                <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4">
+                    <li>Decide on input parameter ($n$).</li>
+                    <li>Identify basic operation.</li>
+                    <li>Set up a <span class="smart-term font-bold text-brand-500" data-ar="علاقة تكرارية">Recurrence Relation</span>.</li>
+                    <li>Solve using Backward Substitution.</li>
+                </ol>
+
+                <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-xs font-mono space-y-2">
+                    <p class="text-gray-500">// Example: Factorial F(n) </p>
+                    <p>$M(n) = M(n-1) + 1$ for $n > 0$</p>
+                    <p>$M(0) = 0$</p>
+                    <p>Result: $M(n) = n$</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl border-l-4 border-gray-500">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                <i class="fa-solid fa-flask text-gray-500 mr-2"></i> Empirical Analysis
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+                Used when mathematical analysis is too difficult. Involves generating random inputs, running the actual code, measuring time/count, and plotting results .
+            </p>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Value vs. Size
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            For Primality Testing, if the input is $n = 1,000,000$, the input size is NOT $10^6$. It is the <strong>number of bits</strong>: $b = \log_2(10^6) \approx 20$. This is a classic trick question .
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Inner Loops
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Don't just count the loops. Look at the <strong>limits</strong>.
+                            <br>
+                            Loop $1..n$ inside Loop $1..n$ $\rightarrow O(n^2)$.
+                            <br>
+                            Loop $1..n$ inside Loop $1..10$ $\rightarrow O(n)$ (because 10 is constant).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Constant Factor
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            In Asymptotic notation, constants ($c$) and lower order terms are ignored. $100n + 5 \in O(n^2)$ is technically true (loose bound), but $\Theta(n)$ is the tight (better) answer .
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Backward Substitution
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Master the "Method of Backward Substitution" for recursive relations. It is the primary method required for Module 2 exams to prove $M(n)=n$ or similar .
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 1</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

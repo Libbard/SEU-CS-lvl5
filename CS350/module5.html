@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Module 5: Advanced ER</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter',
+            er: {
+                diagramPadding: 20,
+                layoutDirection: 'TB',
+                minEntityWidth: 100,
+                entityPadding: 15,
+                stroke: '#f59e0b',
+                fill: '#1f2937',
+                fontSize: 12
+            }
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f59e0b;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module4.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 5</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-sitemap text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module6.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-project-diagram text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Advanced ER: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Enhanced ER (EER)</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Extending the ER model with Object-Oriented concepts: Subclasses, Superclasses, Inheritance, and Specialization.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Ternary Relationships</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Subclass/Superclass</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Inheritance</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Specialization</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Generalization</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Higher-Degree Relationships</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    While binary relationships (degree 2) are most common, some situations require degree > 2.
+                </p>
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <strong class="text-brand-600 block mb-2">Ternary Relationship (Degree 3)</strong>
+                        <p class="text-xs text-gray-500 mb-2">
+                            Example: <span class="font-mono">SUPPLY</span> relates <span class="font-bold">Supplier</span>, <span class="font-bold">Part</span>, and <span class="font-bold">Project</span> simultaneously.
+                        </p>
+                        <ul class="text-xs text-gray-500 list-disc list-inside">
+                            <li>Cannot be easily decomposed into 3 binary relationships without losing semantics.</li>
+                            <li>Attributes (e.g., Quantity) belong to the combination of all three.</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <strong class="text-brand-600 block mb-2">Aggregation</strong>
+                        <p class="text-xs text-gray-500">
+                            An abstraction concept for building composite objects. Used when a relationship itself needs to participate in another relationship.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Subclasses & Superclasses</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Concept</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        An entity type may have meaningful subgroupings.
+                        <br>Example: <span class="font-bold text-brand-600">EMPLOYEE</span> may be subdivided into <em>SECRETARY</em>, <em>ENGINEER</em>, <em>TECHNICIAN</em>.
+                    </p>
+                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2">
+                        <li><strong>Superclass:</strong> The generic entity (EMPLOYEE).</li>
+                        <li><strong>Subclass:</strong> The specific subgroup (ENGINEER).</li>
+                        <li><strong>Relationship:</strong> IS-A (e.g., ENGINEER IS-A EMPLOYEE).</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
+                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Attribute Inheritance</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        An entity in the Subclass inherits:
+                    </p>
+                    <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 mt-2">
+                        <li>All <span class="font-bold">Attributes</span> of the Superclass.</li>
+                        <li>All <span class="font-bold">Relationships</span> the Superclass participates in.</li>
+                    </ol>
+                    <div class="mt-4 p-2 bg-purple-50 dark:bg-purple-900/20 rounded text-xs">
+                        <em>Local Attributes:</em> Attributes specific to the subclass (e.g., `TypingSpeed` for SECRETARY).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Specialization vs Generalization</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <div class="grid md:grid-cols-2 gap-8 text-center">
+                    <div>
+                        <div class="inline-block p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 mb-2">
+                            <i class="fa-solid fa-arrow-down-wide-short text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-blue-600 dark:text-blue-400">Specialization</h4>
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest mb-2">Top-Down Process</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            Start with a single entity (EMPLOYEE) and define subclasses (SECRETARY, ENGINEER) based on distinguishing characteristics.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="inline-block p-3 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 mb-2">
+                            <i class="fa-solid fa-arrow-up-wide-short text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-green-600 dark:text-green-400">Generalization</h4>
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest mb-2">Bottom-Up Process</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            Start with separate entities (CAR, TRUCK) and generalize them into a single superclass (VEHICLE) based on common features.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">EER Diagram: Employee Hierarchy</h4>
+                
+                <div class="mermaid flex justify-center">
+                    classDiagram
+                        EMPLOYEE <|-- SECRETARY
+                        EMPLOYEE <|-- ENGINEER
+                        EMPLOYEE <|-- TECHNICIAN
+                        class EMPLOYEE {
+                            Name
+                            SSN
+                            Salary
+                        }
+                        class SECRETARY {
+                            TypingSpeed
+                        }
+                        class ENGINEER {
+                            EngType
+                        }
+                        class TECHNICIAN {
+                            TGrade
+                        }
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-2">
+                    Notation: The arrow points to the Superclass (Inheritance).
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Constraints</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-yellow-500">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">1. Disjointness Constraint</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Can an entity be a member of more than one subclass?
+                    </p>
+                    <ul class="text-xs space-y-1">
+                        <li class="flex items-center"><span class="w-6 font-bold text-yellow-600">d</span> <strong>Disjoint:</strong> NO overlap. (Entity must be either A or B, not both).</li>
+                        <li class="flex items-center"><span class="w-6 font-bold text-yellow-600">o</span> <strong>Overlapping:</strong> Overlap allowed. (Entity can be both A and B).</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-t-4 border-cyan-500">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">2. Completeness Constraint</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Must every entity in the superclass be a member of some subclass?
+                    </p>
+                    <ul class="text-xs space-y-1">
+                        <li class="flex items-center"><span class="w-20 font-bold text-cyan-600">Total</span> YES. (Double Line). Every Employee MUST be a Sec, Eng, or Tech.</li>
+                        <li class="flex items-center"><span class="w-20 font-bold text-cyan-600">Partial</span> NO. (Single Line). An Employee can exist without being any of the subclasses.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Disjoint vs Overlapping
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Disjoint (d):</strong> E.g., Employee is either Salaried OR Hourly. Cannot be both.
+                            <br><strong>Overlapping (o):</strong> E.g., Person can be Employee AND Student.
+                            Look for the little 'd' or 'o' inside the circle in EER diagrams.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Inheritance Direction
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Attributes flow <strong>DOWN</strong>. Subclasses inherit from Superclass.
+                            Subclasses NEVER pass their specific attributes UP to the Superclass.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Union Type
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            A subclass with <strong>multiple superclasses</strong> is a Shared Subclass (Multiple Inheritance).
+                            If the superclasses are different entity types (e.g., Car and Truck owning a "RegisteredVehicle" license), it's called a <strong>Category (Union Type)</strong>.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: When to Specialize?
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Create a subclass only if:
+                            <br>1. The subclass has <strong>unique attributes</strong> not shared by others.
+                            <br>2. The subclass participates in a <strong>unique relationship</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

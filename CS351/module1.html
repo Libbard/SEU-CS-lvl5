@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 1: OS Services</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        .terminal {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #10b981;
+            overflow-x: auto;
+        }
+        .terminal-prompt { color: #10b981; font-weight: bold; }
+        .terminal-cmd { color: #60a5fa; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 1</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-microchip text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module2.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-desktop text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Core Foundations: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">OS Architecture</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                What happens when you press the power button? Understanding the Kernel, System Calls, and the Dual-Mode Operation.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Kernel vs User Mode</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">System Calls</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Bootstrap Program</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Interrupts</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Virtualization</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">What is an Operating System?</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    An OS is a program that acts as an <span class="text-brand-500 font-bold">Intermediary</span> between the user and the hardware.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">Main Goals</h4>
+                        <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                            <li><i class="fa-solid fa-check text-brand-500 mr-2"></i><strong>Convenience:</strong> Makes the computer easier to use (Abstraction). Turns "ugly hardware" into beautiful interfaces.</li>
+                            <li><i class="fa-solid fa-check text-brand-500 mr-2"></i><strong>Efficiency:</strong> Manages resources (CPU, Memory, Disk) optimally.</li>
+                            <li><i class="fa-solid fa-check text-brand-500 mr-2"></i><strong>Protection:</strong> Ensures security and reliability.</li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">Key Definitions</h4>
+                        <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                            <li><strong class="text-brand-600 dark:text-brand-400">Kernel:</strong> The one program running at all times. The core of the OS.</li>
+                            <li><strong class="text-brand-600 dark:text-brand-400">System Programs:</strong> Ships with the OS but not part of the kernel (e.g., File Manager).</li>
+                            <li><strong class="text-brand-600 dark:text-brand-400">Application Programs:</strong> User software (e.g., Chrome, Word). Not part of the OS.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">System Architecture</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Bootstrap Program</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        The first code executed on power-up.
+                    </p>
+                    <ul class="list-disc list-inside mt-2 text-xs text-gray-500 space-y-1">
+                        <li>Stored in <span class="font-bold">ROM or EEPROM</span> (Firmware).</li>
+                        <li>Initializes all hardware (CPU, Memory, Controllers).</li>
+                        <li>Loads the <span class="font-bold text-blue-500">OS Kernel</span> into memory and starts execution.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Interrupts</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        The mechanism for Hardware/Software to signal the CPU.
+                    </p>
+                    <ul class="list-disc list-inside mt-2 text-xs text-gray-500 space-y-1">
+                        <li><strong>Hardware Interrupt:</strong> Signal from device (e.g., Key press, Disk ready).</li>
+                        <li><strong>Software Interrupt (Trap/Exception):</strong> Signal from software (e.g., Error, System Call request).</li>
+                        <li><strong>Handling:</strong> CPU stops, saves state, jumps to <span class="font-bold text-red-500">Interrupt Service Routine (ISR)</span> via the Interrupt Vector.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 glass-card p-6 rounded-xl">
+                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">I/O Operation Structure</h4>
+                <div class="mermaid flex justify-center">
+                    sequenceDiagram
+                        participant CPU
+                        participant Controller
+                        participant Memory
+                        CPU->>Controller: Request I/O
+                        Note over CPU: CPU executes other tasks
+                        Controller->>Controller: Process I/O
+                        Controller-->>CPU: Interrupt (I/O Complete)
+                        CPU->>Memory: Transfer Data (if needed)
+                        Note over CPU: Resume suspended task
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Architecture Types</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Multiprocessor Systems (Parallel)</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
+                        Systems with 2 or more processors in close communication, sharing the computer bus, clock, memory, and peripherals.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                            <strong class="block text-gray-900 dark:text-white mb-1">Asymmetric (Master-Slave)</strong>
+                            One Master CPU controls the system. Others look to the master for instruction.
+                        </div>
+                        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                            <strong class="block text-gray-900 dark:text-white mb-1">Symmetric (SMP)</strong>
+                            Most common. Each processor performs all tasks. All are peers.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Clustered Systems</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Multiple individual systems (nodes) gathered together. Usually share storage via a Storage Area Network (SAN).
+                        <br><strong>High Availability:</strong> If one node fails, another takes over.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">OS Operations</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Dual-Mode Operation</h3>
+                    <span class="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 px-3 py-1 rounded text-xs font-bold">Critical Concept</span>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    To protect the OS from user errors, hardware provides two modes:
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 text-center">
+                    <div class="p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg">
+                        <strong class="block text-lg text-gray-500">User Mode (Bit 1)</strong>
+                        <p class="text-xs mt-2 text-gray-400">Restricted access. Cannot execute privileged instructions (e.g., halting CPU, accessing I/O directly).</p>
+                    </div>
+                    <div class="p-4 border-2 border-brand-500 rounded-lg bg-brand-500/10">
+                        <strong class="block text-lg text-brand-500">Kernel Mode (Bit 0)</strong>
+                        <p class="text-xs mt-2 text-gray-400">Full access. Executes privileged instructions. Entered via System Calls or Interrupts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">System Calls</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    The programming interface to the services provided by the OS. Typically written in C/C++.
+                </p>
+                <div class="terminal">
+                    <span class="terminal-prompt">user@os:~$</span> <span class="terminal-cmd">./app</span><br>
+                    <span class="text-gray-500">// App needs to read a file...</span><br>
+                    <span class="text-yellow-500">1. User App calls open()</span> -> Switches to Kernel Mode<br>
+                    <span class="text-red-500">2. OS executes sys_open()</span> -> Hardware Access<br>
+                    <span class="text-green-500">3. OS returns file handle</span> -> Switches back to User Mode<br>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: System Call vs API
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>APIs</strong> (like `printf()` in C) are library functions running in <em>User Mode</em>.
+                            <br><strong>System Calls</strong> (like `write()`) are the actual OS entry points running in <em>Kernel Mode</em>.
+                            Most APIs eventually invoke System Calls, but they are not the same thing.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Mode Switching
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            The switch from User to Kernel mode happens via a <strong>Trap (Software Interrupt)</strong>. It is hardware-triggered by a specific instruction. It is NOT just a simple function call jump.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Timer
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            How does the OS prevent an infinite loop in a user program from freezing the whole system?
+                            <br><strong>The Timer Interrupt.</strong> The hardware timer periodically interrupts the CPU, giving control back to the OS scheduler. This ensures the OS always regains control.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Virtualization
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Emulation</strong> runs code for a different CPU type (slow).
+                            <br><strong>Virtualization</strong> runs code for the SAME CPU type but isolates it (fast).
+                            The <strong>Hypervisor</strong> (VMM) sits between hardware and OS to manage VMs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

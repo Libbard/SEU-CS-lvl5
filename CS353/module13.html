@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Module 13: Coping with Limitations</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f43f5e;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f43f5e;
+            background-color: rgba(244, 63, 94, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes prune-fade {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9) grayscale(100%); }
+            100% { opacity: 0.2; transform: scale(0.8) grayscale(100%); text-decoration: line-through; color: #9ca3af; }
+        }
+        .pruned {
+            animation: prune-fade 2s forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module12.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 13</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="final-review.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Final Review">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Finals</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-scissors text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Coping with <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Limitations</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                When a problem is NP-Hard, we have two choices: find an exact solution intelligently (Backtracking/Branch-and-Bound) or settle for a "good enough" approximation.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Backtracking</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">State-Space Trees</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Branch-and-Bound</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Approximation Algorithms</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Two Approaches to NP-Hard Problems</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-rose-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">1. Exact Solutions</h3>
+                        <i class="fa-solid fa-crosshairs text-rose-500 text-xl"></i>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        We want the <strong>optimal</strong> answer, even if it takes a long time. We try to be smarter than Brute Force by eliminating bad options early.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                        <li><i class="fa-solid fa-arrow-turn-up text-rose-500 mr-2"></i><strong>Backtracking:</strong> Depth-First Search with pruning.</li>
+                        <li><i class="fa-solid fa-code-branch text-rose-500 mr-2"></i><strong>Branch-and-Bound:</strong> Optimization with bounding functions.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-t-4 border-emerald-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">2. Approximations</h3>
+                        <i class="fa-solid fa-compress text-emerald-500 text-xl"></i>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        We accept a <strong>sub-optimal</strong> answer if we can find it in <strong>Polynomial Time</strong>.
+						<br><br>
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                        <li><i class="fa-solid fa-percent text-emerald-500 mr-2"></i><strong>Accuracy Ratio:</strong> How close are we to optimal?</li>
+                        <li><i class="fa-solid fa-bolt text-emerald-500 mr-2"></i><strong>Heuristics:</strong> Greedy strategies (Nearest Neighbor).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Backtracking</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    Builds the solution component by component (e.g., $x_1, x_2, \dots, x_n$). If a partial solution $(x_1, \dots, x_i)$ cannot lead to a complete valid solution, we <span class="smart-term font-bold text-brand-500" data-ar="تقليم">Prune</span> that node (terminate that branch) and backtrack to try a different choice for $x_i$.
+                </p>
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex flex-col items-center">
+                    <h4 class="font-bold text-sm text-gray-500 mb-2">Example: 3-Queens Problem</h4>
+                    <div class="flex flex-col items-center text-xs font-mono">
+                        <div class="border border-gray-400 p-1 rounded mb-2 bg-white dark:bg-gray-700">Root</div>
+                        <div class="flex space-x-8">
+                            <div class="flex flex-col items-center">
+                                <div class="h-4 w-px bg-gray-400"></div>
+                                <div class="border border-gray-400 p-1 rounded bg-white dark:bg-gray-700">Q1 at (1,1)</div>
+                                <div class="flex space-x-4">
+                                    <div class="flex flex-col items-center">
+                                        <div class="h-4 w-px bg-gray-400"></div>
+                                        <div class="border border-red-400 text-red-500 p-1 rounded pruned bg-red-50 dark:bg-red-900/20">Q2 at (2,1)? No</div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="h-4 w-px bg-gray-400"></div>
+                                        <div class="border border-red-400 text-red-500 p-1 rounded pruned bg-red-50 dark:bg-red-900/20">Q2 at (2,2)? No</div>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="h-4 w-px bg-gray-400"></div>
+                                        <div class="border border-gray-400 p-1 rounded bg-white dark:bg-gray-700">Q2 at (2,3)</div>
+                                        <div class="text-[10px] text-brand-500 mt-1">Promising</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">N-Queens Problem</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Place $n$ queens on an $n \times n$ board so no two attack each other.
+                        <br><strong>Constraint:</strong> No two queens share a row, column, or diagonal.
+                    </p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">Hamiltonian Circuit</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        Find a cycle visiting every vertex exactly once. Backtracking explores paths and prunes if a vertex is visited twice or no edge exists.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Branch-and-Bound</h2>
+            </div>
+            
+            <p class="mb-6 text-gray-600 dark:text-gray-400">
+                Similar to Backtracking but used for <span class="smart-term font-bold text-brand-500" data-ar="مشاكل التحسين">Optimization Problems</span> (finding the best solution, not just any solution).
+            </p>
+
+            <div class="glass-card p-6 rounded-xl">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-3">Key Components</h3>
+                        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-ruler-combined text-blue-500 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Bounding Function:</strong> Calculates a lower (for minimization) or upper (for maximization) bound on the optimal solution obtainable from a node.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-ban text-rose-500 mt-1 mr-2"></i>
+                                <div>
+                                    <strong>Pruning Rule:</strong> If a node's bound is worse than the best solution found so far, kill the node.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg border-l-4 border-blue-500">
+                        <h4 class="font-bold text-sm text-gray-700 dark:text-gray-300 mb-2">Knapsack Example (Max Value)</h4>
+                        <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                            To find the <strong>Upper Bound</strong> for a node (partial selection), we relax the integer constraint: imagine we can take fractions of the remaining items (Greedy approach).
+                        </p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">
+                            If $UB < Best\_Value\_So\_Far$, prune!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Approximation Algorithms</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Performance Ratio ($\rho$)</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        We measure quality by the ratio of the approximate solution cost ($f(s_a)$) to the optimal cost ($f(s^*)$).
+                    </p>
+                    <div class="text-center font-mono text-lg bg-gray-100 dark:bg-gray-900 p-2 rounded">
+						$\rho(n) = \frac{f(s_a)}{f(s^*)}$ (for minimization)
+					</div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-emerald-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white">TSP: Nearest Neighbor</h3>
+                        <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-600 px-2 py-1 rounded">Greedy</span>
+                    </div>
+                    
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                        <strong>Strategy:</strong> Always go to the nearest unvisited city.
+                        <br><strong>Accuracy:</strong> For general graphs, the error is unbounded (can be $\infty$). For <strong>Euclidean</strong> graphs (triangle inequality holds), it satisfies $\rho(n) \le \frac{1}{2}(\lceil \log_2 n \rceil + 1)$.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-blue-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold text-gray-900 dark:text-white">Knapsack: Greedy Ratio</h3>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 px-2 py-1 rounded">Greedy</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                        <strong>Strategy:</strong> Sort items by value-to-weight ratio ($v_i/w_i$) and pick the best ones.
+                        <br><strong>Accuracy:</strong> The performance ratio is bounded (usually $\le 2$).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Worst Case Backtracking
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "Is Backtracking efficient?"
+                            <br>In practice, yes (it prunes many branches). But in the <strong>Worst Case</strong>, it visits every node, so it is still Exponential ($O(2^n)$ or $O(n!)$). Do not call it "Polynomial Time".
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Approximation Ratio
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            For maximization problems (Knapsack), the ratio is usually defined as $f(s^*)/f(s_a) \ge 1$. For minimization (TSP), it is $f(s_a)/f(s^*) \ge 1$. Always check the direction of the inequality so your ratio is $\ge 1$.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: B&B vs Backtracking
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Backtracking</strong> is for non-optimization (decision) problems or finding <em>all</em> solutions.
+                            <br><strong>Branch-and-Bound</strong> is for optimization problems (Min/Max). It uses the numeric bound to prune. This distinction is crucial for definitions.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Multifragment Heuristic
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            For TSP, another approximation is the <strong>Multifragment Heuristic</strong>. It sorts edges by weight (like Kruskal's) and adds them if they don't create a loop (unless size < n) and don't create a degree-3 vertex. It often outperforms Nearest Neighbor.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Review</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

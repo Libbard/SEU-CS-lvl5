@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351: Midterm Review | Digital Garden</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter',
+            securityLevel: 'loose'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.85); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(209, 250, 229, 0.6); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.15);
+        }
+        .dark .glass-card:hover {
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+        }
+        .smart-term:hover { color: #10b981; }
+
+        
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            border-left: 3px solid #10b981;
+        }
+
+        
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .progress-anim {
+            animation: load 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <nav class="sticky top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module6.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-slate-400 dark:text-slate-500">Midterm Review</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-microchip text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="midterm-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-6">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-layer-group text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                The Ultimate <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Compendium</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Everything you need for the Midterm. OS Structures, Processes, Scheduling, Synchronization, and Deadlocks.
+            </p>
+            
+            <div class="w-full max-w-md mx-auto bg-slate-300 dark:bg-slate-800 rounded-full h-2.5 mt-4">
+                <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
+            </div>
+            <p class="text-xs text-slate-500 mt-2">Covering Modules 1-6</p>
+        </header>
+
+        <section id="mod1">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 1: OS Services & Structure</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2"><i class="fa-solid fa-shield-halved mr-2"></i>Dual Mode Operation</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                        Hardware protection against erratic users.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-center text-xs">
+                        <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">
+                            <strong class="block text-slate-900 dark:text-white mb-1">User Mode (Bit 1)</strong>
+                            Restricted. No I/O instructions. No HALT.
+                        </div>
+                        <div class="p-3 bg-brand-50 dark:bg-brand-900/30 rounded border border-brand-200 dark:border-brand-500/30">
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-1">Kernel Mode (Bit 0)</strong>
+                            Privileged. Access to all hardware instructions.
+                        </div>
+                    </div>
+                    <div class="mt-4 text-xs text-slate-500">
+                        <strong>Transition:</strong> User $\to$ Kernel via <strong>System Call (Trap)</strong>. Kernel $\to$ User via <strong>Return from Trap</strong>.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2"><i class="fa-solid fa-code mr-2"></i>System Calls</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">The API between User Programs and the OS.</p>
+                    <div class="code-block">
+// Example: Copy File
+read(src, buffer);  -> Trap to Kernel
+write(dest, buffer); -> Trap to Kernel
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">
+                        Common APIs: POSIX (Linux/Unix), Win32 (Windows), Java API.
+                        <br><strong>Note:</strong> `printf()` is a library call, which eventually calls `write()` (System Call).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod2">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 2: Processes & Threads</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-xl col-span-2">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">Process State Diagram</h3>
+                    <div class="mermaid flex justify-center">
+                        stateDiagram-v2
+                            New --> Ready: Admitted
+                            Ready --> Running: Scheduler Dispatch
+                            Running --> Ready: Interrupt
+                            Running --> Waiting: I/O Wait
+                            Waiting --> Ready: I/O Complete
+                            Running --> Terminated: Exit
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">PCB (Process Control Block)</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">The "Soul" of the process.</p>
+                    <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                        <li><strong>PID:</strong> Unique ID.</li>
+                        <li><strong>Program Counter:</strong> Next instruction.</li>
+                        <li><strong>Registers:</strong> CPU state.</li>
+                        <li><strong>Memory Limits:</strong> Base/Limit.</li>
+                        <li><strong>Open Files:</strong> I/O list.</li>
+                    </ul>
+                    <div class="mt-4 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 rounded text-xs text-red-600 dark:text-red-300">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> <strong>Context Switch:</strong> Saving PCB of old process and loading PCB of new one. Pure overhead!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod3">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 3: Scheduling</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6 flex flex-wrap gap-4 justify-around items-center">
+                <div class="text-center">
+                    <span class="text-xs text-slate-500 uppercase tracking-widest">Turnaround Time</span>
+                    <div class="text-xl font-mono text-brand-600 dark:text-brand-400">$T_{completion} - T_{arrival}$</div>
+                </div>
+                <div class="w-px h-10 bg-slate-300 dark:bg-slate-700"></div>
+                <div class="text-center">
+                    <span class="text-xs text-slate-500 uppercase tracking-widest">Waiting Time</span>
+                    <div class="text-xl font-mono text-brand-600 dark:text-brand-400">$Turnaround - Burst$</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div class="glass-card p-4 rounded-xl">
+                    <strong class="text-slate-900 dark:text-white block mb-1">FCFS</strong>
+                    First-Come First-Served.
+                    <br><span class="text-red-500 dark:text-red-400">Problem:</span> Convoy Effect (Short waits for Long).
+                    <br><em>Non-Preemptive.</em>
+                </div>
+                <div class="glass-card p-4 rounded-xl">
+                    <strong class="text-slate-900 dark:text-white block mb-1">SJF / SRTF</strong>
+                    Shortest Job First.
+                    <br><span class="text-green-600 dark:text-green-400">Benefit:</span> Optimal Avg Wait Time.
+                    <br><span class="text-red-500 dark:text-red-400">Problem:</span> Starvation, Predicting next burst.
+                </div>
+                <div class="glass-card p-4 rounded-xl border-l-2 border-brand-500">
+                    <strong class="text-slate-900 dark:text-white block mb-1">Round Robin (RR)</strong>
+                    Time Quantum ($q$).
+                    <br>Fair. Good response time.
+                    <br>High context switch overhead if $q$ is small.
+                </div>
+                <div class="glass-card p-4 rounded-xl">
+                    <strong class="text-slate-900 dark:text-white block mb-1">Priority</strong>
+                    Highest priority runs.
+                    <br><span class="text-red-500 dark:text-red-400">Problem:</span> Starvation.
+                    <br><span class="text-green-600 dark:text-green-400">Solution:</span> Aging.
+                </div>
+            </div>
+        </section>
+
+        <section id="mod4">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 4: Synchronization Tools</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Critical Section (CS) Requirements</h3>
+                    <ol class="list-decimal list-inside text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                        <li><strong class="text-slate-900 dark:text-white">Mutual Exclusion:</strong> Only one process in CS at a time.</li>
+                        <li><strong class="text-slate-900 dark:text-white">Progress:</strong> If CS is empty, selection isn't postponed indefinitely.</li>
+                        <li><strong class="text-slate-900 dark:text-white">Bounded Waiting:</strong> Limit on times others enter CS before me (No starvation).</li>
+                    </ol>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Semaphores (S)</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="code-block text-xs">
+wait(S) {
+  while (S <= 0);
+  S--;
+}
+                        </div>
+                        <div class="code-block text-xs">
+signal(S) {
+  S++;
+}
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">
+                        <strong>Counting Semaphore:</strong> For resource pools.<br>
+                        <strong>Binary Semaphore:</strong> Same as Mutex (0 or 1).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod5">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 5: Classical Problems</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="glass-card p-4 rounded-xl flex items-center">
+                    <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded mr-4 font-mono text-lg">1</div>
+                    <div>
+                        <strong class="text-slate-900 dark:text-white text-sm">Bounded Buffer</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Producer/Consumer. Needs 3 semaphores: `mutex` (lock), `full` (item count), `empty` (space count).</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-xl flex items-center">
+                    <div class="p-2 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded mr-4 font-mono text-lg">2</div>
+                    <div>
+                        <strong class="text-slate-900 dark:text-white text-sm">Readers-Writers</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Multiple Readers OK. Writer needs exclusive access. Problem: Writer Starvation.</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-xl flex items-center">
+                    <div class="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded mr-4 font-mono text-lg">3</div>
+                    <div>
+                        <strong class="text-slate-900 dark:text-white text-sm">Dining Philosophers</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">5 chairs, 5 sticks. Need 2 to eat. Deadlock if everyone takes Left stick at once.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod6">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 6: Deadlocks</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">The 4 Necessary Conditions</h3>
+                    <p class="text-xs text-slate-500 mb-2">ALL must hold for deadlock to occur.</p>
+                    <ul class="list-disc list-inside text-sm text-slate-600 dark:text-slate-300 space-y-1">
+                        <li>Mutual Exclusion</li>
+                        <li>Hold and Wait</li>
+                        <li>No Preemption</li>
+                        <li>Circular Wait</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-yellow-500">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Banker's Algorithm</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">Used for <strong>Deadlock Avoidance</strong>.</p>
+                    <div class="bg-slate-800 p-2 rounded text-xs font-mono text-yellow-300 mb-2">
+                        Need[i] = Max[i] - Allocation[i]
+                    </div>
+                    <p class="text-xs text-slate-600 dark:text-slate-400">
+                        Check if system is in a <strong>Safe State</strong> (Is there a sequence where everyone can finish?).
+                        <br>If Request $\le$ Available, pretend to allocate and check Safety.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-16">
+            <div class="relative border-2 border-brand-500/50 rounded-2xl p-8 overflow-hidden bg-slate-100 dark:bg-slate-800/50">
+                <div class="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">PROFESSOR'S SECRETS</div>
+                
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">The Mega Vault: Midterm Edition</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Fork Logic</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            `fork()` returns <strong>0</strong> to Child, <strong>PID</strong> to Parent.
+                            <br>Child gets a <em>copy</em> of data, not shared memory.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>User vs Kernel Threads</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            User threads are fast but if one blocks, the whole process blocks (Many-to-One).
+                            Kernel threads are slower (overhead) but independent (One-to-One).
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Wait Time Formula</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Do NOT just sum waiting periods. Always use:
+                            <br>$Wait = Turnaround - Burst$.
+                            <br>It reduces calculation errors.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Signal Order</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            In Bounded Buffer, order matters.
+                            <br>`wait(empty)` BEFORE `wait(mutex)`.
+                            <br>If swapped $\to$ Deadlock.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>RAG Cycles</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Cycle in RAG $\neq$ Deadlock (if multiple instances exist).
+                            <br>Cycle in RAG == Deadlock (if only 1 instance per resource).
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Monitor Signal</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Monitor `signal()` is not persistent. If no one is waiting, the signal is lost.
+                            Semaphore `signal()` increases counter (persistent).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-slate-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <a href="midterm-quiz.html" class="text-slate-500 hover:text-brand-500 transition-colors">Midterm Quiz</a>
+                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <a href="final-review.html" class="text-slate-500 hover:text-brand-500 transition-colors">Final Review</a>
+            </div>
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>

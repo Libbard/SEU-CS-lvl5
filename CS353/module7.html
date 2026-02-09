@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Module 7: Transform-and-Conquer II</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f43f5e;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f43f5e;
+            background-color: rgba(244, 63, 94, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes pulse-node {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+        }
+        .node-anim {
+            animation: pulse-node 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 7</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module8.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-cubes-stacked text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Heaps, Heapsort & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Problem Reduction</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Part II of Transform-and-Conquer. Mastering data structures that bridge the gap between trees and arrays, and solving problems by transforming them into ones we already know.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Representation Change</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Heap Property</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Priority Queues</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Reductions</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Heaps: The Binary Tree in an Array</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Definition</h3>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">
+                        A <span class="smart-term font-bold text-brand-500" data-ar="كومة">Heap</span> is a binary tree with two critical properties:
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-sitemap text-brand-500 mt-1 mr-2"></i>
+                            <span><strong>Structural Property:</strong> It is <em class="text-gray-900 dark:text-white font-semibold">Essentially Complete</em>. All levels are full except possibly the last, which is filled from left to right. This allows implementation as an ARRAY.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-arrow-up-right-dots text-brand-500 mt-1 mr-2"></i>
+                            <span><strong>Parental Dominance:</strong> The key at every node is $\ge$ (or $\le$ for min-heap) the keys of its children.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl flex flex-col items-center justify-center space-y-4">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-lg z-10 node-anim">10</div>
+                        <div class="flex space-x-8 mt-4 relative">
+                            <div class="absolute top-[-1rem] left-[25%] w-[50%] h-[1rem] border-t-2 border-l-2 border-r-2 border-gray-400 rounded-t-xl"></div>
+                            
+                            <div class="flex flex-col items-center">
+                                <div class="w-10 h-10 rounded-full bg-brand-400 text-white flex items-center justify-center font-bold">5</div>
+                                <div class="flex space-x-2 mt-2">
+                                    <div class="w-8 h-8 rounded-full bg-brand-300 text-gray-800 flex items-center justify-center text-xs">2</div>
+                                    <div class="w-8 h-8 rounded-full bg-brand-300 text-gray-800 flex items-center justify-center text-xs">1</div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-10 h-10 rounded-full bg-brand-400 text-white flex items-center justify-center font-bold">7</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full mt-4">
+                        <p class="text-xs text-center text-gray-500 mb-1">Array Representation</p>
+                        <div class="flex border border-gray-400 rounded overflow-hidden">
+                            <div class="flex-1 bg-brand-500 text-white text-center py-1 text-xs border-r border-gray-400">10</div>
+                            <div class="flex-1 bg-brand-400 text-white text-center py-1 text-xs border-r border-gray-400">5</div>
+                            <div class="flex-1 bg-brand-400 text-white text-center py-1 text-xs border-r border-gray-400">7</div>
+                            <div class="flex-1 bg-brand-300 text-gray-800 text-center py-1 text-xs border-r border-gray-400">2</div>
+                            <div class="flex-1 bg-brand-300 text-gray-800 text-center py-1 text-xs">1</div>
+                        </div>
+                        <div class="flex text-[10px] text-gray-400 justify-around px-1">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Heap Construction</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The "Heapify" Process</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        We don't insert elements one by one ($O(n \log n)$). Instead, we dump data into an array and fix it <strong>Bottom-Up</strong>.
+                    </p>
+                    <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                        <li>Start at the last parent node (index $\lfloor n/2 \rfloor$).</li>
+                        <li>Check if the parent dominates its children.</li>
+                        <li>If not, <strong>Swap</strong> with the larger child (sift down).</li>
+                        <li>Move backwards to index 1.</li>
+                    </ol>
+                    <div class="mt-4 p-3 bg-brand-50 dark:bg-brand-900/20 rounded-lg text-center border border-brand-200 dark:border-brand-800">
+                        <span class="text-sm font-bold text-brand-700 dark:text-brand-300">Efficiency: $O(n)$</span>
+                        <p class="text-xs text-brand-600 dark:text-brand-400">Surprisingly, building a heap is linear time, not log-linear.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Heapsort: The 2-Stage Algorithm</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-2 text-6xl text-gray-200 dark:text-gray-700 font-bold opacity-20">1</div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 z-10 relative">Stage 1: Construction</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 z-10 relative">
+                        Construct a heap from the given array using the Bottom-Up approach.
+						<br><br><br>
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 dark:bg-gray-900 p-2 rounded text-center">
+                        Cost: $O(n)$
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-2 text-6xl text-gray-200 dark:text-gray-700 font-bold opacity-20">2</div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 z-10 relative">Stage 2: Root Deletion</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 z-10 relative">
+                        1. Swap Root (Max) with Last Element.<br>
+                        2. Decrease heap size by 1.<br>
+                        3. Sift down the new root.<br>
+                        4. Repeat $n-1$ times.
+                    </p>
+                    <div class="text-xs font-mono bg-gray-100 dark:bg-gray-900 p-2 rounded text-center">
+                        Cost: $O(n \log n)$
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <span class="inline-block px-4 py-2 rounded-full bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-bold shadow-lg">
+                    Total Complexity: $O(n \log n)$
+                </span>
+                <p class="text-xs text-gray-500 mt-2">Space Complexity: $O(1)$ (In-place)</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Problem Reduction</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
+                    <i class="fa-solid fa-right-left text-brand-500 mr-2"></i>
+                    "If you can't solve a problem, transform it into one you <em>can</em> solve."
+                </p>
+
+                <div class="space-y-4">
+                    <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div class="flex-shrink-0 bg-rose-100 dark:bg-rose-900 text-rose-500 p-2 rounded-lg mr-4">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white">LCM via GCD</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Finding the Least Common Multiple (LCM) is hard. Finding GCD (Euclid's) is easy.
+                            </p>
+                            <code class="block mt-2 text-xs bg-gray-200 dark:bg-gray-700 p-1 rounded w-max">
+                                LCM(u, v) = (u * v) / GCD(u, v)
+                            </code>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div class="flex-shrink-0 bg-blue-100 dark:bg-blue-900 text-blue-500 p-2 rounded-lg mr-4">
+                            <i class="fa-solid fa-route"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Counting Paths</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Count paths of length $n$ in a graph? Reduce it to <strong>Matrix Multiplication</strong>. Compute $A^n$ (Adjacency Matrix to power $n$).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div class="flex-shrink-0 bg-emerald-100 dark:bg-emerald-900 text-emerald-500 p-2 rounded-lg mr-4">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 dark:text-white">Linear Programming</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                Many optimization problems (Network Flow, Knapsack) can be reduced to a standard <strong>Linear Programming</strong> model and solved using Simplex.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Heap vs BST
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            A Heap is <strong>NOT</strong> a Binary Search Tree.
+                            <br>BST: Left < Parent < Right.
+                            <br>Heap: Parent > Children (Left AND Right).
+                            <br>Heaps are ordered top-to-bottom, <br>BSTs left-to-right. Don't confuse them! 
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Array Indices
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            In algorithm theory, arrays often start at index 1 for easier math (Left child = $2i$, Right = $2i+1$). <br>In C++/Java, they start at 0 (Left = $2i+1$, Right = $2i+2$). Check the context of the question! 
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Construction Speed
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Constructing a heap using `HeapInsert` $n$ times takes $O(n \log n)$. Using the Bottom-Up approach takes $O(n)$. <br>This linear time construction is the "secret sauce" of Heapsort efficiency. 
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Reduction Direction
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Always reduce the <strong>Unknown</strong> problem TO the <strong>Known</strong> problem.
+                            <br>Correct: "I can solve LCM by reducing it to GCD."
+                            <br>Incorrect: "I can solve GCD by reducing it to LCM." 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

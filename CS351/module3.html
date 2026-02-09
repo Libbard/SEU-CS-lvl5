@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 3: CPU Scheduling</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module2.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 3</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-stopwatch text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module4.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-clock-rotate-left text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Optimization: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">CPU Scheduling</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Deciding which process runs next. Maximizing CPU utilization through smart algorithms.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Preemptive vs Non-Preemptive</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">FCFS</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">SJF</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Round Robin (RR)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Multilevel Queue</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Basic Concepts</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    Process execution consists of a cycle of <span class="text-brand-500 font-bold">CPU execution</span> and <span class="text-brand-500 font-bold">I/O wait</span>.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="mermaid">
+                        graph LR
+                        A[Load Store] --> B(CPU Burst)
+                        B --> C[Read File]
+                        C --> D(I/O Burst)
+                        D --> E[Store Increment]
+                        E --> F(CPU Burst)
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-xs">
+                            <strong class="block text-gray-900 dark:text-white mb-1">CPU-bound Process</strong>
+                            Spends more time doing computations. Few very long CPU bursts.
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-xs">
+                            <strong class="block text-gray-900 dark:text-white mb-1">I/O-bound Process</strong>
+                            Spends more time doing I/O. Many short CPU bursts.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Dispatcher</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                    The module that gives control of the CPU to the process selected by the short-term scheduler.
+                </p>
+                <ul class="list-disc list-inside mt-2 text-xs text-gray-500 space-y-1">
+                    <li>Switching context.</li>
+                    <li>Switching to user mode.</li>
+                    <li>Jumping to the proper location in the user program to restart that program.</li>
+                </ul>
+                <p class="text-xs font-bold text-red-500 mt-2">Dispatch Latency: Time it takes for the dispatcher to stop one process and start another.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Optimization Criteria</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                What are we trying to maximize or minimize?
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
+                <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded border border-green-200 dark:border-green-800">
+                    <i class="fa-solid fa-arrow-trend-up text-green-500 mb-2"></i>
+                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">Maximize</h4>
+                    <p class="text-xs text-gray-500 mt-1">CPU Utilization</p>
+                    <p class="text-xs text-gray-500">Throughput</p>
+                </div>
+                <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded border border-red-200 dark:border-red-800">
+                    <i class="fa-solid fa-arrow-trend-down text-red-500 mb-2"></i>
+                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">Minimize</h4>
+                    <p class="text-xs text-gray-500 mt-1">Turnaround Time</p>
+                    <p class="text-xs text-gray-500">Waiting Time</p>
+                    <p class="text-xs text-gray-500">Response Time</p>
+                </div>
+                <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800 md:col-span-2 lg:col-span-1">
+                    <h4 class="font-bold text-sm text-gray-900 dark:text-white mb-2">Definitions</h4>
+                    <div class="text-[10px] text-left space-y-1 text-gray-600 dark:text-gray-400">
+                        <p><strong>Throughput:</strong> # of processes completing per time unit.</p>
+                        <p><strong>Turnaround:</strong> Submission to Completion.</p>
+                        <p><strong>Waiting:</strong> Time spent in Ready Queue.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Algorithms</h2>
+            </div>
+
+            <div class="space-y-6">
+                
+                <div class="glass-card p-6 rounded-xl">
+                    <div class="flex justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">FCFS (First-Come, First-Served)</h3>
+                        <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-600 dark:text-gray-300">Non-Preemptive</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                        Processes are executed in the order they arrive. Simple (FIFO Queue) but can cause the <strong class="text-brand-500">Convoy Effect</strong> (short process stuck behind long process).
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <div class="flex justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">SJF (Shortest Job First)</h3>
+                        <span class="text-xs bg-brand-100 dark:bg-brand-900 px-2 py-1 rounded text-brand-700 dark:text-brand-300">Optimal (Avg Wait)</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                        Associate with each process the length of its next CPU burst. Use these lengths to schedule the process with the shortest time.
+                    </p>
+                    <div class="mt-4 grid grid-cols-2 gap-4 text-xs">
+                        <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
+                            <strong>Non-Preemptive SJF:</strong> Once CPU given, it cannot be preempted until completion.
+                        </div>
+                        <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
+                            <strong>Preemptive SJF (SRTF):</strong> If a new process arrives with shorter burst than remaining time of current, preempt! (Shortest Remaining Time First).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
+                    <div class="flex justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Round Robin (RR)</h3>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-700 dark:text-blue-300">Preemptive</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                        Designed for time-sharing. Each process gets a small unit of CPU time (<span class="font-mono text-brand-500">Time Quantum q</span>), usually 10-100ms. After this time, the process is preempted and added to the end of the ready queue.
+                    </p>
+                    <p class="text-xs text-gray-500 mt-2 italic">
+                        *If q is too large $\to$ FCFS. If q is too small $\to$ Excessive context switch overhead.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Priority Scheduling</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                        A priority number (integer) is associated with each process. CPU is allocated to the process with highest priority (smallest integer usually).
+                        <br><span class="text-red-500 font-bold">Problem: Starvation</span> (Low priority processes may never execute).
+                        <br><span class="text-green-500 font-bold">Solution: Aging</span> (Increase priority as time progresses).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Queuing</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Multilevel Queue</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Ready queue is partitioned into separate queues (e.g., foreground/interactive, background/batch).
+                        <br>Each queue has its own scheduling algorithm.
+                        <br>Scheduling must be done between queues (Fixed priority or Time slice).
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-orange-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Multilevel Feedback Queue</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        A process can <strong>move between queues</strong>.
+                        <br>If a process uses too much CPU time $\to$ move to lower priority queue.
+                        <br>If a process waits too long in lower priority queue $\to$ move to higher priority (Aging).
+                        <br>Most complex and general algorithm.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: SJF Prediction
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            SJF is optimal, but we <strong>cannot know</strong> the length of the next CPU burst. We can only <strong>estimate</strong> it using exponential averaging:
+                            <br>$\tau_{n+1} = \alpha t_n + (1 - \alpha)\tau_n$
+                            <br>(New Estimate = $\alpha \times$ Actual Last + $(1-\alpha) \times$ Old Estimate).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Turnaround Time Calculation
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Turnaround Time = Completion Time - Arrival Time.
+                            <br>Waiting Time = Turnaround Time - Burst Time.
+                            <br>Don't just sum up the waiting periods; using the formula is safer and faster.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: FCFS Convoy Effect
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            If a CPU-bound process arrives first, all I/O-bound processes pile up behind it, leaving the I/O devices idle. When the CPU-bound process finally does I/O, the CPU sits idle. This lowers <strong>both</strong> CPU and I/O utilization.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Context Switch
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Context Switch time is <strong>overhead</strong>. The system does no useful work. It depends on hardware support (multiple register sets).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

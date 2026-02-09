@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS352 Final Gauntlet (Mod 7-13)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6', 
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9); 
+            border: 1px solid #cbd5e1;
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        .option-btn {
+            transition: all 0.2s;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.05);
+            transform: translateX(4px);
+        }
+        .dark .option-btn:hover:not(:disabled) { background-color: rgba(59, 130, 246, 0.15); }
+        
+        .correct-answer { border-color: #10b981 !important; background-color: rgba(16, 185, 129, 0.1) !important; color: #059669 !important; }
+        .dark .correct-answer { color: #34d399 !important; }
+        
+        .wrong-answer { border-color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.1) !important; color: #dc2626 !important; }
+        .dark .wrong-answer { color: #f87171 !important; }
+
+        
+        .model-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.3s;
+        }
+        .model-answer.open { max-height: 1000px; }
+
+        
+        .min-h-quiz {
+            min-height: 600px; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <nav class="sticky top-0 z-50 glass-card !rounded-none !border-x-0 border-b border-slate-200 dark:border-slate-700 !bg-opacity-90 dark:!bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">/</span>
+                    <a href="final-review.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-brand-600 dark:text-brand-400 font-bold">
+                        <i class="fa-solid fa-graduation-cap mr-2"></i>Review
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-slate-500 uppercase mr-2">Session Score</span>
+                        <span id="score-badge" class="text-brand-600 dark:text-brand-400 font-mono font-bold">0</span>
+                        <span class="text-slate-400 text-xs ml-1">/ 70</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-flag-checkered text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Final <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Interactive Gauntlet</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Test your mastery of Modules 7-13. 
+                <br><span class="text-sm font-bold text-brand-500">70 MCQs • 10 Essay Scenarios</span>
+            </p>
+        </header>
+
+        <section>
+            <div class="glass-card p-1 relative min-h-quiz flex flex-col">
+                <div class="h-1 bg-slate-100 dark:bg-slate-700 rounded-t-lg overflow-hidden shrink-0">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div class="p-6 md:p-8 flex flex-col flex-grow justify-between">
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span id="q-counter" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1 of 70</span>
+                            <span id="q-module" class="px-2 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase rounded border border-brand-100 dark:border-brand-800">Module 7</span>
+                        </div>
+
+                        <h2 id="q-text" class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100 mb-8 leading-relaxed min-h-[60px]">
+                            Loading Question...
+                        </h2>
+
+                        <div id="options-container" class="grid grid-cols-1 gap-3 mb-6">
+                            </div>
+                    </div>
+
+                    <div>
+                        <div id="feedback-area" class="hidden p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6 animate-fade-in">
+                            <div class="flex items-start">
+                                <div id="feedback-icon" class="mt-1 mr-3 text-lg"></div>
+                                <div>
+                                    <strong id="feedback-title" class="block text-sm font-bold mb-1"></strong>
+                                    <p id="feedback-text" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                            <button id="prev-btn" class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-brand-600 disabled:opacity-30 disabled:hover:text-slate-500 transition-colors">
+                                <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                            </button>
+                            <button id="next-btn" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold rounded-lg shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105">
+                                Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg text-yellow-600 dark:text-yellow-500">
+                    <i class="fa-solid fa-vault text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">The Concept Vault</h2>
+                    <p class="text-xs text-slate-500">Deep Dive Scenarios & Model Answers</p>
+                </div>
+            </div>
+
+            <div id="essay-grid" class="grid gap-6">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        const mcqBank = [
+            
+            { q: "In an Activity Diagram, a 'Diamond' symbol represents a:", o: ["Process", "Decision (XOR)", "Parallel Fork (AND)", "Terminator"], c: 1, exp: "The diamond is a decision node where only one path is chosen." },
+            { q: "Which symbol in an Activity Diagram represents a 'Fork' or 'Join'?", o: ["Diamond", "Thick Horizontal Bar", "Circle", "Rounded Rectangle"], c: 1, exp: "The synchronization bar (AND) allows parallel flows." },
+            { q: "In a Use Case Diagram, 'Include' means:", o: ["Optional behavior", "Mandatory behavior", "Inheritance", "Error handling"], c: 1, exp: "The included use case is always executed." },
+            { q: "In a Use Case Diagram, 'Extend' means:", o: ["Mandatory behavior", "Optional behavior", "Copying code", "Deleting data"], c: 1, exp: "The extended use case runs only under certain conditions." },
+            { q: "The 'Actor' in a Use Case Diagram represents:", o: ["Internal logic", "External user or system", "Database", "Algorithm"], c: 1, exp: "Anyone or anything interacting with the system." },
+            { q: "An Activity Diagram is most similar to a:", o: ["Class Diagram", "Flowchart", "ERD", "State Diagram"], c: 1, exp: "It models the dynamic flow of control." },
+            { q: "BPMN stands for:", o: ["Business Process Modeling Notation", "Basic Program Method Number", "Binary Process Model Network", "Business Plan Management Node"], c: 0, exp: "Standard for business process modeling." },
+            { q: "In Sequence Diagrams, the vertical axis represents:", o: ["Objects", "Time", "Messages", "Actors"], c: 1, exp: "Time progresses downwards." },
+            { q: "Which UML diagram models the static structure?", o: ["Activity", "Sequence", "Class", "State"], c: 2, exp: "Class diagrams show structure (attributes/methods)." },
+            { q: "A 'Swimlane' in an Activity Diagram groups activities by:", o: ["Time", "Responsibility (Actor)", "Cost", "Difficulty"], c: 1, exp: "It shows who does what." },
+
+            
+            { q: "An Entity-Relationship Diagram (ERD) models:", o: ["Process flow", "Data at rest", "User interfaces", "Network topology"], c: 1, exp: "It models entities and their relationships." },
+            { q: "A 'Primary Key' must be:", o: ["Optional", "Unique and Not Null", "Duplicated", "Text only"], c: 1, exp: "It uniquely identifies a row." },
+            { q: "A 'Foreign Key' is used to:", o: ["Uniquely identify a row", "Link two tables", "Calculate data", "Store passwords"], c: 1, exp: "It references the Primary Key of another table." },
+            { q: "In UML Class Diagrams, a 'Hollow Diamond' represents:", o: ["Composition", "Aggregation", "Inheritance", "Dependency"], c: 1, exp: "Aggregation (Weak 'Has-a' relationship)." },
+            { q: "In UML Class Diagrams, a 'Solid Diamond' represents:", o: ["Composition", "Aggregation", "Inheritance", "Interface"], c: 0, exp: "Composition (Strong 'Part-of' relationship)." },
+            { q: "A Many-to-Many (M:N) relationship requires a(n) ______ to implement.", o: ["Foreign Key", "Associative Entity", "Index", "Trigger"], c: 1, exp: "You break M:N into two 1:M relationships." },
+            { q: "Which attribute can be calculated from other attributes?", o: ["Derived", "Multivalued", "Composite", "Simple"], c: 0, exp: "e.g., Age derived from Birthdate." },
+            { q: "An attribute that breaks down into sub-parts is:", o: ["Derived", "Composite", "Simple", "Key"], c: 1, exp: "e.g., Address (City, Street, Zip)." },
+            { q: "The degree of a relationship is:", o: ["Number of entities participating", "Number of attributes", "Complexity", "Speed"], c: 0, exp: "Unary, Binary, Ternary." },
+            { q: "Cardinality constraint specifies:", o: ["Data type", "Number of instances related", "Security level", "File size"], c: 1, exp: "e.g., 1:1, 1:M." },
+
+            
+            { q: "Normalization is the process of:", o: ["Creating redundancy", "Removing redundancy", "Backup", "Encryption"], c: 1, exp: "Organizing data to minimize duplication." },
+            { q: "1NF requires:", o: ["No partial dependencies", "Atomic values", "No transitive dependencies", "Indexes"], c: 1, exp: "No repeating groups or lists." },
+            { q: "2NF requires:", o: ["1NF + No Partial Dependency", "1NF only", "3NF", "No keys"], c: 0, exp: "Attributes must depend on the WHOLE key." },
+            { q: "3NF requires:", o: ["2NF + No Transitive Dependency", "2NF + No Partial Dependency", "1NF", "Indexes"], c: 0, exp: "Non-key attributes must not depend on other non-key attributes." },
+            { q: "If a Primary Key is a single attribute, the table is automatically in:", o: ["1NF", "2NF", "3NF", "4NF"], c: 1, exp: "Partial dependency is impossible without a composite key." },
+            { q: "Which file organization is best for sequential scanning?", o: ["Hashed", "Indexed", "Sequential", "Random"], c: 2, exp: "Records are stored in order." },
+            { q: "Which file organization provides the fastest random access?", o: ["Sequential", "Hashed", "Linked List", "Stack"], c: 1, exp: "Calculates address directly from key." },
+            { q: "Denormalization is done to:", o: ["Save space", "Improve read performance", "Improve write performance", "Reduce redundancy"], c: 1, exp: "Reduces joins for faster queries." },
+            { q: "Referential Integrity ensures:", o: ["PKs are unique", "FKs match valid PKs", "Data is encrypted", "Users are logged in"], c: 1, exp: "Prevents broken links between tables." },
+            { q: "An Index is like a:", o: ["Table of Contents", "Book Cover", "Page Number", "Title"], c: 0, exp: "It points to data locations." },
+
+            
+            { q: "A Form is used for:", o: ["Input", "Output", "Storage", "Processing"], c: 0, exp: "User $\\to$ System." },
+            { q: "A Report is used for:", o: ["Input", "Output", "Validation", "Calculation"], c: 1, exp: "System $\\to$ User." },
+            { q: "A Turnaround Document is:", o: ["Input only", "Output only", "Output that becomes Input", "Deleted data"], c: 2, exp: "e.g., A utility bill stub." },
+            { q: "Which is a usability metric?", o: ["Learnability", "Code size", "Server speed", "Disk usage"], c: 0, exp: "How fast a user can learn the system." },
+            { q: "Highlighting should be used:", o: ["Everywhere", "Sparingly", "Never", "Randomly"], c: 1, exp: "Overuse reduces impact." },
+            { q: "To check if a form is usable, you should perform:", o: ["Unit Testing", "Usability Testing", "Stress Testing", "Code Review"], c: 1, exp: "Observe real users." },
+            { q: "Consistency in interface design means:", o: ["Different fonts on every page", "Same shortcuts/terms everywhere", "Using all colors", "Changing layouts"], c: 1, exp: "Reduces learning curve." },
+            { q: "The '3-Click Rule' suggests:", o: ["Users should click 3 times to login", "Info should be found in 3 clicks", "Mice must have 3 buttons", "Forms need 3 fields"], c: 1, exp: "Navigation efficiency." },
+            { q: "Breadcrumbs help users:", o: ["Eat", "Know their location", "Delete files", "Logout"], c: 1, exp: "Navigation trail." },
+            { q: "Input validation should happen:", o: ["Never", "After saving", "Before processing", "Only on paper"], c: 2, exp: "Prevent bad data entry." },
+
+            
+            { q: "In a File Server architecture, processing happens on the:", o: ["Server", "Client", "Network", "Database"], c: 1, exp: "The whole file is sent to the client." },
+            { q: "In a Client/Server architecture, the query is processed on the:", o: ["Server", "Client", "Router", "Browser"], c: 0, exp: "Only the result is sent to the client." },
+            { q: "SaaS stands for:", o: ["System as a Service", "Software as a Service", "Storage as a System", "Security as a Service"], c: 1, exp: "e.g., Google Docs." },
+            { q: "IaaS stands for:", o: ["Infrastructure as a Service", "Internet as a Service", "Info as a System", "Input as a Source"], c: 0, exp: "e.g., AWS EC2." },
+            { q: "Middleware is used to:", o: ["Connect disparate systems", "Delete data", "Create UIs", "Format text"], c: 0, exp: "The 'glue' between OS and Apps." },
+            { q: "SOA stands for:", o: ["System Oriented Architecture", "Service Oriented Architecture", "Simple Object Access", "Secure Online App"], c: 1, exp: "Building systems from reusable services." },
+            { q: "A 'Thin Client' relies heavily on the:", o: ["Client PC", "Server", "User", "Keyboard"], c: 1, exp: "Most processing is done server-side." },
+            { q: "XML is used for:", o: ["Data styling", "Data exchange/structure", "Programming logic", "Database storage"], c: 1, exp: "Standard for data transport." },
+            { q: "SOAP is a protocol for:", o: ["Cleaning disks", "Web Services", "Database Design", "UI Design"], c: 1, exp: "Simple Object Access Protocol." },
+            { q: "Cloud Computing provides resources:", o: ["On-demand", "Permanently", "Offline", "Manually"], c: 0, exp: "Elastic scalability." },
+
+            
+            { q: "Which testing type checks individual modules?", o: ["Integration", "System", "Unit", "Acceptance"], c: 2, exp: "Smallest scope." },
+            { q: "Which testing type checks interfaces between modules?", o: ["Unit", "Integration", "System", "Stress"], c: 1, exp: "Ensures parts work together." },
+            { q: "Which testing type checks requirements compliance?", o: ["Unit", "Integration", "System", "Code"], c: 2, exp: "Whole system verification." },
+            { q: "Direct Installation is:", o: ["Low risk", "High risk", "Slow", "Expensive"], c: 1, exp: "Cold turkey switch. No backup." },
+            { q: "Parallel Installation is:", o: ["Low risk, High cost", "High risk, Low cost", "Fast", "Simple"], c: 0, exp: "Run both systems. Safe but double entry." },
+            { q: "Pilot Installation involves:", o: ["Installing everywhere", "Installing in one location", "Installing module by module", "Installing nothing"], c: 1, exp: "Test in one branch first." },
+            { q: "System Documentation is for:", o: ["End Users", "Programmers/Maintenance", "Managers", "Customers"], c: 1, exp: "Details internal design." },
+            { q: "User Documentation is for:", o: ["Programmers", "End Users", "Database Admins", "Network Eng"], c: 1, exp: "Instructions on usage." },
+            { q: "Alpha Testing is done by:", o: ["Users with real data", "Users with simulated data", "Programmers", "Robots"], c: 1, exp: "Controlled environment." },
+            { q: "Beta Testing is done by:", o: ["Users with real data", "Programmers", "Managers", "Designers"], c: 0, exp: "Live environment." },
+
+            
+            { q: "Which phase is the most expensive in the SDLC?", o: ["Analysis", "Design", "Implementation", "Maintenance"], c: 3, exp: "60-80% of TCO." },
+            { q: "Corrective Maintenance involves:", o: ["Adding features", "Fixing bugs", "Adapting to OS", "Refactoring"], c: 1, exp: "Repairing defects." },
+            { q: "Adaptive Maintenance involves:", o: ["Fixing bugs", "Environment changes", "User enhancements", "Code cleanup"], c: 1, exp: "e.g., New Windows version." },
+            { q: "Perfective Maintenance involves:", o: ["Fixing bugs", "Environment changes", "Enhancements", "Backups"], c: 2, exp: "Making it better/faster." },
+            { q: "Preventive Maintenance involves:", o: ["Fixing bugs", "Future-proofing", "Adding features", "Updating docs"], c: 1, exp: "e.g., Refactoring to prevent future crash." },
+            { q: "MTBF stands for:", o: ["Mean Time Between Failures", "Mean Time Before Fix", "Max Time Between Files", "Min Time By Friday"], c: 0, exp: "Reliability metric." },
+            { q: "Configuration Management controls:", o: ["User access", "Code versions", "Database size", "Network speed"], c: 1, exp: "Prevents overwriting code." },
+            { q: "The 'Lost Update' problem occurs when:", o: ["Two users update same data w/o lock", "Server crashes", "Network is slow", "Disk is full"], c: 0, exp: "Concurrency issue." },
+            { q: "Baseline modules are:", o: ["Draft code", "Tested and frozen modules", "Deleted modules", "Future modules"], c: 1, exp: "Stable versions." },
+            { q: "Maintenance often costs ______ of total budget.", o: ["10-20%", "30-40%", "60-80%", "90-100%"], c: 2, exp: "Significant long-term cost." }
+        ];
+
+        
+        
+        const finalMCQs = mcqBank.slice(0, 70);
+
+        
+        const essays = [
+            { q: "Explain the difference between 2NF and 3NF.", a: "<strong>2NF:</strong> Removes Partial Dependencies. (Attributes must depend on the WHOLE primary key). Only applies to Composite Keys. <br><strong>3NF:</strong> Removes Transitive Dependencies. (Non-key attributes must not depend on other non-key attributes)." },
+            { q: "Compare File Server vs. Client/Server Architectures.", a: "<strong>File Server:</strong> Client requests file, Server sends ENTIRE file. Processing on Client. High network traffic. <br><strong>Client/Server:</strong> Client requests data, Server processes query, sends only RESULT. Processing split. Low network traffic." },
+            { q: "Explain the 'Parallel Installation' strategy tradeoffs.", a: "<strong>Pros:</strong> Lowest risk. If new system fails, old one is still running. <br><strong>Cons:</strong> Highest cost and effort. Users must enter data twice (Double Entry), leading to fatigue and errors." },
+            { q: "What is an Associative Entity and why is it needed?", a: "It is a table used to resolve a Many-to-Many (M:N) relationship. Relational DBs cannot store M:N directly. The Associative Entity sits between them, holding the Primary Keys of both as Foreign Keys." },
+            { q: "Define Unit, Integration, and System Testing.", a: "<strong>Unit:</strong> Testing individual functions/modules in isolation. <br><strong>Integration:</strong> Testing if modules communicate correctly. <br><strong>System:</strong> Testing the full application against requirements." },
+            { q: "What is the difference between Aggregation and Composition in UML?", a: "<strong>Aggregation (Hollow Diamond):</strong> Weak 'Has-a'. Parts exist independently (e.g., Library/Book). <br><strong>Composition (Solid Diamond):</strong> Strong 'Part-of'. Parts die with the whole (e.g., House/Room)." },
+            { q: "Why is Maintenance the most expensive phase?", a: "It lasts the longest (years vs months). It involves fixing bugs (Corrective), adapting to new OS/Hardware (Adaptive), and adding new features requested by users (Perfective)." },
+            { q: "Explain the difference between XOR and AND gateways in Activity Diagrams.", a: "<strong>XOR (Diamond):</strong> Decision point. Only ONE path is taken. <br><strong>AND (Bar):</strong> Synchronization. ALL paths are taken in parallel." },
+            { q: "What is Alpha vs. Beta Testing?", a: "<strong>Alpha:</strong> Controlled testing by users with simulated data (Developer environment). <br><strong>Beta:</strong> Uncontrolled testing by users with REAL data (Live environment)." },
+            { q: "Explain the concept of 'Referential Integrity'.", a: "A database rule ensuring that a Foreign Key value must match a valid Primary Key value in the parent table. It prevents 'orphan' records." }
+        ];
+
+        
+        let currentQ = 0;
+        let score = 0;
+        const totalQ = finalMCQs.length;
+
+        
+        const qText = document.getElementById('q-text');
+        const qCounter = document.getElementById('q-counter');
+        const qModule = document.getElementById('q-module');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreBadge = document.getElementById('score-badge');
+        const essayGrid = document.getElementById('essay-grid');
+
+        
+        function loadQuestion(index) {
+            const data = finalMCQs[index];
+            
+            
+            qCounter.innerText = `Question ${index + 1} of ${totalQ}`;
+            qModule.innerText = `Module ${Math.floor(index / 10) + 7}`; 
+            if (index < 10) qModule.innerText = "Module 7"; 
+            else if (index < 20) qModule.innerText = "Module 8";
+            else if (index < 30) qModule.innerText = "Module 9";
+            else if (index < 40) qModule.innerText = "Module 10";
+            else if (index < 50) qModule.innerText = "Module 11";
+            else if (index < 60) qModule.innerText = "Module 12";
+            else qModule.innerText = "Module 13";
+
+            const progress = ((index + 1) / totalQ) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            
+            qText.innerHTML = data.q;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            
+            data.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-lg border border-slate-300 dark:border-slate-600 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-sm";
+                btn.innerHTML = `<span class="inline-block w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 text-center text-xs leading-6 mr-3 font-bold text-slate-500">${String.fromCharCode(65+i)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(i, btn, data);
+                optionsContainer.appendChild(btn);
+            });
+
+            
+            
+            if (window.MathJax && typeof window.MathJax.typeset === 'function') {
+                MathJax.typeset();
+            }
+        }
+
+        function checkAnswer(selectedIndex, btn, data) {
+            
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('cursor-default');
+            });
+
+            const isCorrect = selectedIndex === data.c;
+            
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                score++;
+                scoreBadge.innerText = score;
+                feedbackArea.className = "p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-emerald-700 dark:text-emerald-400">Correct!</span>`;
+            } else {
+                btn.classList.add('wrong-answer');
+                buttons[data.c].classList.add('correct-answer');
+                feedbackArea.className = "p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-red-700 dark:text-red-400">Incorrect.</span>`;
+            }
+
+            feedbackText.innerHTML = data.exp;
+            
+            
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        nextBtn.onclick = () => {
+            if (currentQ < totalQ - 1) {
+                currentQ++;
+                loadQuestion(currentQ);
+            } else {
+                alert(`Gauntlet Complete! Score: ${score}/${totalQ}`);
+            }
+        };
+
+        prevBtn.onclick = () => {
+            if (currentQ > 0) {
+                currentQ--;
+                loadQuestion(currentQ);
+            }
+        };
+
+        
+        function renderEssays() {
+            essays.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 border-l-4 border-yellow-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-yellow-600 dark:text-yellow-500 uppercase tracking-wider">Scenario ${index + 1}</h3>
+                        <button onclick="toggleEssay(${index})" class="text-xs font-bold px-3 py-1 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300 rounded hover:bg-yellow-200 transition-colors">
+                            Show Answer
+                        </button>
+                    </div>
+                    <p class="text-md font-medium text-slate-800 dark:text-slate-200 mb-4 leading-relaxed">
+                        ${item.q}
+                    </p>
+                    <div id="essay-ans-${index}" class="model-answer bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-2">Professor's Model Answer:</strong>
+                            ${item.a}
+                        </div>
+                    </div>
+                `;
+                essayGrid.appendChild(card);
+            });
+        }
+
+        window.toggleEssay = function(idx) {
+            const el = document.getElementById(`essay-ans-${idx}`);
+            el.classList.toggle('open');
+        };
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion(0);
+        renderEssays();
+
+    </script>
+</body>
+</html>

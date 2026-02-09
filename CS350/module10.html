@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Module 10: Views & Relational Algebra</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f59e0b;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        .sql-keyword { color: #f59e0b; font-weight: bold; }
+        .sql-string { color: #10b981; }
+        .sql-func { color: #3b82f6; }
+        
+        .code-block {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-calculator text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-infinity text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Theoretical Core: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Relational Algebra</span> & Views
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Understanding the mathematical engine beneath SQL (Relational Algebra) and mastering Virtual Tables (Views).
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Views (Virtual Tables)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Schema Evolution</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Selection ($\sigma$)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Projection ($\pi$)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Cartesian Product ($\times$)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Division ($\div$)</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">SQL Views</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    A <strong class="text-brand-600">View</strong> is a "Virtual Table". It does not store data physically; instead, it stores a query that generates the data dynamically when accessed.
+                </p>
+                <div class="code-block text-xs mb-4">
+<span class="sql-keyword">CREATE VIEW</span> WORKS_ON1
+<span class="sql-keyword">AS SELECT</span> Fname, Lname, Pname, Hours
+<span class="sql-keyword">FROM</span> EMPLOYEE, PROJECT, WORKS_ON
+<span class="sql-keyword">WHERE</span> Ssn = Essn <span class="sql-keyword">AND</span> Pno = Pnumber;
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <strong class="block text-green-600 mb-2">Advantages</strong>
+                        <ul class="list-disc list-inside text-xs text-gray-500">
+                            <li><strong>Simplification:</strong> Hides complex JOINs from users.</li>
+                            <li><strong>Security:</strong> Hides sensitive columns (e.g., Salary) by not including them in the view.</li>
+                            <li><strong>Consistency:</strong> Renaming columns for clarity.</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <strong class="block text-red-600 mb-2">Limitations</strong>
+                        <ul class="list-disc list-inside text-xs text-gray-500">
+                            <li><strong>Updates:</strong> Views involving multiple tables (JOINs) or Aggregates (SUM, COUNT) are generally NOT updatable.</li>
+                            <li><strong>Performance:</strong> The query runs every time the view is accessed.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Schema Evolution</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border-l-4 border-purple-500 mb-6">
+                <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">DROP Command Behavior</h3>
+                <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
+                    Deleting tables or views requires specifying behavior for dependent objects.
+                </p>
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
+                        <strong class="block mb-1">RESTRICT</strong>
+                        Default. Stops the drop if the object is referenced by other constraints or views.
+                    </div>
+                    <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
+                        <strong class="block mb-1">CASCADE</strong>
+                        Forces the drop. Automatically deletes all dependent constraints and views.
+                    </div>
+                </div>
+                <div class="code-block text-xs mt-3">
+<span class="sql-keyword">DROP TABLE</span> DEPENDENT <span class="sql-keyword">CASCADE</span>;
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Relational Algebra: Unary</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">SELECT ($\sigma$)</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Filters <strong>rows</strong> based on a condition.
+                        <br>SQL Equivalent: <code>WHERE</code>
+                    </p>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-center text-xl font-mono text-gray-900 dark:text-white">
+                        $\sigma_{Dno=4}(EMPLOYEE)$
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">PROJECT ($\pi$)</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        Filters <strong>columns</strong>. Removes duplicates by definition (Set theory).
+                        <br>SQL Equivalent: <code>SELECT DISTINCT</code>
+                    </p>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-center text-xl font-mono text-gray-900 dark:text-white">
+                        $\pi_{Fname, Lname}(EMPLOYEE)$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Set Operations</h2>
+            </div>
+
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                These require <strong class="text-brand-600">Union Compatibility</strong>: Relations must have the same degree (number of columns) and compatible data types.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-4 text-center">
+                <div class="glass-card p-4 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white">Union ($\cup$)</h4>
+                    <div class="text-2xl my-2 text-brand-500">$\cup$</div>
+                    <p class="text-xs text-gray-500">Tuples in R OR S.</p>
+                </div>
+                <div class="glass-card p-4 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white">Intersection ($\cap$)</h4>
+                    <div class="text-2xl my-2 text-brand-500">$\cap$</div>
+                    <p class="text-xs text-gray-500">Tuples in R AND S.</p>
+                </div>
+                <div class="glass-card p-4 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white">Difference ($-$)</h4>
+                    <div class="text-2xl my-2 text-brand-500">$-$</div>
+                    <p class="text-xs text-gray-500">Tuples in R but NOT in S.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Relational Operations</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Cartesian Product ($R \times S$)</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        Combines every tuple in R with every tuple in S.
+                        <br><strong>Size:</strong> If R has $n$ tuples and S has $m$ tuples, result has $n \times m$ tuples.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-blue-500">
+                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">JOIN ($\bowtie$)</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        Equivalent to a Cartesian Product followed by a Selection ($\sigma$).
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
+                            <strong>Equi-Join:</strong> Uses equality ($=$) only. Keeps both columns (e.g., Dno, Dnumber).
+                        </div>
+                        <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
+                            <strong>Natural Join ($*$)</strong> Removes duplicate columns. Requires same attribute names.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-red-500">
+                    <h4 class="font-bold text-red-600 dark:text-red-400 mb-2">DIVISION ($R \div S$)</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        Finds tuples in R that match <strong>ALL</strong> tuples in S.
+                        <br><em>Example:</em> "Find employees who work on ALL projects."
+                        <br>If $S$ contains projects {P1, P2}, division returns employees who work on P1 AND P2.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Relational vs SQL
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Algebra:</strong> $\pi$ (Project) creates a Set (removes duplicates).
+                            <br><strong>SQL:</strong> `SELECT` creates a Bag (keeps duplicates).
+                            <br>To make SQL behave like $\pi$, you MUST use `SELECT DISTINCT`.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Union Compatibility
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            You cannot `UNION` just any two tables. They must have the <strong>same number of columns</strong> and <strong>compatible data types</strong> in the same order.
+                            (Student $\cup$ Instructor is likely okay; Student $\cup$ Course is NOT).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Division Keyword
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            If an exam question uses the word <strong>"ALL"</strong> or <strong>"EVERY"</strong> (e.g., "Find students who took EVERY course"), it is a <strong>DIVISION</strong> operation ($\div$). In SQL, this is often solved with double `NOT EXISTS`.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Order of Ops
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            In Relational Algebra expression trees, we push <strong>Selections ($\sigma$)</strong> as far down as possible (perform them first). This reduces the size of intermediate results before doing expensive Joins ($\bowtie$).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

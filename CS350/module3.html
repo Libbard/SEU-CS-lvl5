@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Module 3: Relational Model</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f59e0b;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module2.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 3</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-table text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module4.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Core: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Relational Model & Constraints</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                The mathematical foundation of modern databases. Relations, Tuples, Keys, and Integrity Constraints.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Relation Schema</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Tuples & Domains</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Superkey vs Candidate Key</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Referential Integrity</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Entity Integrity</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Relational Terminology</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl overflow-hidden">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white">
+                        <tr>
+                            <th class="p-3">Formal Term</th>
+                            <th class="p-3">Informal (Common) Term</th>
+                            <th class="p-3">Definition</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-gray-600 dark:text-gray-300">
+                        <tr>
+                            <td class="p-3 font-bold text-brand-600">Relation</td>
+                            <td class="p-3">Table</td>
+                            <td class="p-3">A set of tuples. (The whole table).</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-brand-600">Tuple</td>
+                            <td class="p-3">Row / Record</td>
+                            <td class="p-3">An ordered set of values: $< v_1, v_2, ..., v_n >$.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-brand-600">Attribute</td>
+                            <td class="p-3">Column Header / Field</td>
+                            <td class="p-3">Role played by a domain in a relation.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-brand-600">Domain</td>
+                            <td class="p-3">Data Type / Set of Values</td>
+                            <td class="p-3">Set of atomic values (e.g., Integer, Date).</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-brand-600">Relation State</td>
+                            <td class="p-3">Populated Table</td>
+                            <td class="p-3">The set of tuples at a given moment in time.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Formal Definitions</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Relation State $r(R)$</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
+                        Formally, a relation state $r(R)$ is a subset of the <span class="smart-term" data-ar="الضرب الديكارتي">Cartesian Product</span> of the domains of its attributes.
+                    </p>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg font-mono text-xs text-brand-600 dark:text-brand-400">
+                        $r(R) \subseteq dom(A_1) \times dom(A_2) \times ... \times dom(A_n)$
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">
+                        Example: If $dom(A1)=\{0,1\}$ and $dom(A2)=\{a,b\}$, Cartesian Product has 4 tuples. A state might have only $\{<0,a>, <1,b>\}$.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Characteristics</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Ordering:</strong> Tuples are <em>unordered</em> (it's a Set). Attributes are ordered in the schema.</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Atomicity:</strong> Values are atomic (indivisible). No composite or multivalued attributes in a cell (1NF).</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Nulls:</strong> Represents unknown or inapplicable values.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Integrity Constraints</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
+                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">1. Key Constraints</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <strong class="block text-gray-900 dark:text-white">Superkey (SK)</strong>
+                            <span class="text-xs text-gray-500">Any set of attributes that uniquely identifies a tuple. No duplicates allowed.</span>
+                        </div>
+                        <div>
+                            <strong class="block text-gray-900 dark:text-white">Candidate Key (K)</strong>
+                            <span class="text-xs text-gray-500">A <strong>Minimal</strong> Superkey. If you remove any attribute, it loses uniqueness.</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-2 bg-blue-50 dark:bg-blue-900/20 rounded text-xs text-blue-700 dark:text-blue-300">
+                        <strong>Primary Key (PK):</strong> One of the candidate keys chosen to identify tuples. Underlined in schema.
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-green-500">
+                    <h3 class="text-lg font-bold text-green-600 dark:text-green-400 mb-2">2. Entity Integrity Constraint</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        The Primary Key attributes of a relation <strong>CANNOT have Null values</strong>.
+                        <br><em>Why?</em> Because PK is used to identify tuples. You cannot identify something with "Unknown".
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
+                    <h3 class="text-lg font-bold text-red-600 dark:text-red-400 mb-2">3. Referential Integrity Constraint</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        Specifies a relationship between two relations. A tuple in referencing relation $R_1$ referencing $R_2$ must refer to an <strong>existing</strong> tuple in $R_2$.
+                    </p>
+                    <div class="bg-red-50 dark:bg-red-900/20 p-3 rounded text-xs">
+                        <strong>Foreign Key (FK) Rule:</strong> Value of FK must be either:
+                        <ul class="list-disc list-inside ml-2">
+                            <li>An existing Primary Key value in the referenced relation.</li>
+                            <li>Null (if allowed).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Operations & Violations</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Basic operations: INSERT, DELETE, UPDATE. These can violate constraints.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-4 text-xs">
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-1">INSERT</strong>
+                        Can violate:
+                        <br>- Domain (wrong type)
+                        <br>- Key (duplicate PK)
+                        <br>- Entity Integrity (Null PK)
+                        <br>- Referential Integrity (FK not found)
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-1">DELETE</strong>
+                        Can violate:
+                        <br>- Referential Integrity only.
+                        <br>(If you delete a parent referenced by children).
+                    </div>
+                    <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
+                        <strong class="block text-brand-600 mb-1">UPDATE</strong>
+                        Can violate:
+                        <br>- All constraints depending on what is updated (PK or FK or non-key).
+                    </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                    <strong class="text-xs block mb-1">Handling Violations (Options):</strong>
+                    <ul class="text-xs list-disc list-inside text-gray-500">
+                        <li><strong>RESTRICT / REJECT:</strong> Stop the operation.</li>
+                        <li><strong>CASCADE:</strong> Propagate the update/delete (e.g., delete parent $\to$ delete children).</li>
+                        <li><strong>SET NULL:</strong> Set referencing FK to Null.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Superkey vs Key
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Is every Key a Superkey?</strong> YES.
+                            <br><strong>Is every Superkey a Key?</strong> NO. Only <em>minimal</em> superkeys are Keys.
+                            If a Superkey has redundant attributes (e.g., {SSN, Name}), it is NOT a Candidate Key.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Foreign Key Nulls
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "Can a Foreign Key be NULL?"
+                            <br><strong>YES</strong> (usually), unless it is part of the Primary Key of the referencing table.
+                            <br>"Can a Primary Key be NULL?"
+                            <br><strong>NEVER</strong> (Entity Integrity).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Self-Referencing
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            A Foreign Key can refer to the <strong>same</strong> table. This is called a recursive relationship (e.g., Employee table with `Supervisor_SSN` referencing `SSN` in the same table).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Delete Rules
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            If you delete a parent record (referenced by others), the DBMS blocks it by default (RESTRICT). If you want it to automatically delete children, you must define <strong>ON DELETE CASCADE</strong> in the schema.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

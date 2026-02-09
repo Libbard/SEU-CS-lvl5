@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Module 11: Normalization</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f59e0b;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module10.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 11</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-broom text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module12.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-filter-circle-dollar text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Normalization & FDs</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                The science of Good Design. Eliminating redundancy and anomalies using Functional Dependencies and Normal Forms.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Anomalies (Insert/Delete/Update)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Functional Dependency ($X \to Y$)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Armstrong's Axioms</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">1NF / 2NF / 3NF / BCNF</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prime Attributes</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Why Normalize? (Informal Rules)</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    Before math, we have intuitive "smells" of bad design. The goal is to measure quality and remove <span class="smart-term" data-ar="التكرار">Redundancy</span>.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 text-sm">
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-shapes text-brand-500 mr-2"></i>1. Semantics</h4>
+                        <p class="text-xs text-gray-500">
+                            Attributes in a table should belong together conceptually. Don't mix "Employee" facts with "Department" facts in one massive table.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-triangle-exclamation text-brand-500 mr-2"></i>2. Redundancy & Anomalies</h4>
+                        <p class="text-xs text-gray-500">
+                            Redundancy wastes space and causes <strong>Update Anomalies</strong>:
+                        </p>
+                        <ul class="list-disc list-inside text-xs text-gray-500 mt-1">
+                            <li><strong>Insert:</strong> Cannot add a new Dept if no Employee works there yet.</li>
+                            <li><strong>Delete:</strong> If the last Employee leaves, the Dept info is lost.</li>
+                            <li><strong>Modification:</strong> Updating Dept Manager requires changing 1000 Employee rows.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-ban text-brand-500 mr-2"></i>3. NULL Values</h4>
+                        <p class="text-xs text-gray-500">
+                            Avoid attributes that are frequently NULL. They waste space and complicate aggregation (COUNT, AVG). Place them in separate tables.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-ghost text-brand-500 mr-2"></i>4. Spurious Tuples</h4>
+                        <p class="text-xs text-gray-500">
+                            Design schemas so they can be joined with equality on Primary/Foreign Keys. Bad joins on non-keys create "fake" (spurious) data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Functional Dependencies</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Definition: $X \to Y$</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    A constraint between two sets of attributes $X$ and $Y$.
+                    <br>It states: If two tuples have the same value for $X$, they <strong>MUST</strong> have the same value for $Y$.
+                    <br><em>"X determines Y"</em>.
+                </p>
+                
+                <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center font-mono text-sm mb-4">
+                    $\{SSN\} \to \{Ename, Bdate, Address\}$
+                    <br>
+                    $\{Vin\_Number\} \to \{CarModel, Year\}$
+                </div>
+
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                    <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-2">Inference Rules (Armstrong's Axioms)</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                        <div class="p-3 bg-brand-50 dark:bg-brand-900/20 rounded">
+                            <strong class="block mb-1">1. Reflexive</strong>
+                            If $Y \subseteq X$, then $X \to Y$.
+                            <br>(e.g., $\{SSN, Name\} \to SSN$)
+                        </div>
+                        <div class="p-3 bg-brand-50 dark:bg-brand-900/20 rounded">
+                            <strong class="block mb-1">2. Augmentation</strong>
+                            If $X \to Y$, then $XZ \to YZ$.
+                        </div>
+                        <div class="p-3 bg-brand-50 dark:bg-brand-900/20 rounded">
+                            <strong class="block mb-1">3. Transitive</strong>
+                            If $X \to Y$ and $Y \to Z$, then $X \to Z$.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Normalization Steps</h2>
+            </div>
+
+            
+
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                <span class="smart-term" data-ar="التطبيع">Normalization</span> is the process of decomposing bad relations into good ones by breaking FDs.
+            </p>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-gray-500">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300">1NF (First Normal Form)</h3>
+                        <span class="text-xs font-mono bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">The Foundation</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <strong>Rule:</strong> All attribute values must be <strong class="text-brand-500">Atomic</strong>.
+                        <br>No composite attributes (Address), no multivalued attributes (Phones), no nested relations.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-blue-500">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400">2NF (Second Normal Form)</h3>
+                        <span class="text-xs font-mono bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-800 dark:text-blue-200">Removes Partial Dep</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <strong>Prerequisite:</strong> Must be in 1NF.
+                        <br><strong>Rule:</strong> Every <span class="text-gray-500 font-bold">Non-Prime</span> attribute must be <strong class="text-brand-500">Fully Functionally Dependent</strong> on the Primary Key.
+                        <br><em>Violation:</em> If PK is $\{A, B\}$ and $A \to C$, then $C$ is partially dependent. Move $C$ to a new table with $A$.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-green-500">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-green-600 dark:text-green-400">3NF (Third Normal Form)</h3>
+                        <span class="text-xs font-mono bg-green-100 dark:bg-green-900 px-2 py-1 rounded text-green-800 dark:text-green-200">Removes Transitive Dep</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <strong>Prerequisite:</strong> Must be in 2NF.
+                        <br><strong>Rule:</strong> No <span class="text-gray-500 font-bold">Transitive Dependency</span>.
+                        <br><em>Violation:</em> If $X \to Y$ and $Y \to Z$ (where $Y$ is not a key), then $Z$ depends transitively on $X$. Move $Z$ to a new table with $Y$.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-purple-500">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400">BCNF (Boyce-Codd)</h3>
+                        <span class="text-xs font-mono bg-purple-100 dark:bg-purple-900 px-2 py-1 rounded text-purple-800 dark:text-purple-200">Stricter 3NF</span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <strong>Rule:</strong> For every functional dependency $X \to A$, $X$ must be a <strong class="text-brand-500">Superkey</strong>.
+                        <br>Handles cases where a prime attribute depends on a non-prime attribute (rare but possible in 3NF).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Key Terminology</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div>
+                        <strong class="text-brand-600 block mb-1">Superkey</strong>
+                        A set of attributes that uniquely identifies a tuple. (Can contain extra/redundant attributes).
+                    </div>
+                    <div>
+                        <strong class="text-brand-600 block mb-1">Candidate Key</strong>
+                        A <strong>minimal</strong> Superkey. If you remove any attribute, it's no longer unique.
+                    </div>
+                    <div>
+                        <strong class="text-brand-600 block mb-1">Primary Key</strong>
+                        The Candidate Key chosen to identify tuples in the schema.
+                    </div>
+                    <div>
+                        <strong class="text-brand-600 block mb-1">Prime Attribute</strong>
+                        An attribute that is part of ANY Candidate Key.
+                        <br><em>Non-Prime:</em> Not part of any candidate key.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 2NF on Single Keys
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "Check if this table with PK `UserID` is in 2NF."
+                            <br><strong>Shortcut:</strong> If the Primary Key is a single attribute (not composite), the table is <strong>automatically in 2NF</strong>. Partial dependency requires a composite key.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 3NF vs BCNF
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Most tables in 3NF are also in BCNF. The only time they differ is if:
+                            <br>1. There are multiple candidate keys.
+                            <br>2. The keys are composite.
+                            <br>3. They overlap.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The "Prime" Trick
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            In 3NF, $X \to A$ is allowed if $A$ is a <strong>Prime Attribute</strong> (part of a candidate key), even if $X$ is not a key.
+                            <br>BCNF removes this loophole: $X$ <strong>MUST</strong> be a Superkey, even if $A$ is prime.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Decomposition
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Normalization is a decomposition process.
+                            <br>Rule: Always decompose into tables that preserve the original data (Lossless Join) and preserve the dependencies (Dependency Preservation).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

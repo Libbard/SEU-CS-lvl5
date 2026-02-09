@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351: Final Review (Mod 7-13)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                darkMode: true,
+                primaryColor: '#10b981',
+                lineColor: '#cbd5e1'
+            },
+            fontFamily: 'Inter',
+            securityLevel: 'loose'
+        });
+    </script>
+
+    <style>
+        
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.85); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(16, 185, 129, 0.2); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.15);
+        }
+
+        
+        @keyframes load {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .progress-anim {
+            animation: load 1.5s ease-out forwards;
+        }
+
+        
+        .raid-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+        .raid-disk {
+            background: #e2e8f0; 
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            text-align: center;
+            padding: 4px;
+            font-size: 0.7rem;
+            border-radius: 2px;
+        }
+        .dark .raid-disk {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        .parity { 
+            background: #d1fae5; border-color: #10b981; color: #065f46; 
+        }
+        .dark .parity {
+            background: #065f46; border-color: #10b981; color: white; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 transition-colors duration-300 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
+
+    <nav class="sticky top-0 z-50 glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="#" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-slate-400 dark:text-slate-500">Final Review</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-server text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="final-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <i class="fa-solid fa-flag-checkered"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-6">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-infinity text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                The Final <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-700">Compendium</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                Comprehensive coverage of Memory, Storage, Files, I/O, and Security. The essential knowledge base for the Final Exam.
+            </p>
+            
+            <div class="w-full max-w-md mx-auto bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 mt-4">
+                <div class="bg-brand-500 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
+            </div>
+            <p class="text-xs text-slate-500 mt-2">Modules 7-13</p>
+        </header>
+
+        <hr class="border-slate-200 dark:border-slate-800">
+
+        <section id="mod7">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 7: Main Memory</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Address Binding</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                        Mapping code to physical addresses.
+                    </p>
+                    <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-2">
+                        <li><strong>Compile Time:</strong> Absolute code. If start location changes, recompile.</li>
+                        <li><strong>Load Time:</strong> Relocatable code. Final binding when loaded.</li>
+                        <li><strong>Execution Time:</strong> Binding delayed until run time. Needs <strong>MMU</strong> (Relocation Register).</li>
+                    </ul>
+                    <div class="mt-4 p-2 bg-slate-100 dark:bg-slate-800 rounded text-center text-xs font-mono text-emerald-600 dark:text-emerald-400 border border-slate-200 dark:border-slate-700">
+                        Physical Addr = Logical Addr + Relocation Register
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Fragmentation</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 rounded text-center">
+                            <strong class="text-red-600 dark:text-red-400 block mb-1">External</strong>
+                            <span class="text-slate-600 dark:text-slate-300 text-xs">Total memory exists, but not contiguous.</span>
+                            <br><em class="text-xs text-slate-400">Solved by Paging.</em>
+                        </div>
+                        <div class="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-500/30 rounded text-center">
+                            <strong class="text-orange-600 dark:text-orange-400 block mb-1">Internal</strong>
+                            <span class="text-slate-600 dark:text-slate-300 text-xs">Allocated memory is slightly larger than requested.</span>
+                            <br><em class="text-xs text-slate-400">Unavoidable in Paging.</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod8">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 8: Virtual Memory</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass-card p-6 rounded-xl col-span-1 lg:col-span-2">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Effective Access Time (EAT)</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                        The performance of Demand Paging relies on the Page Fault Rate ($p$).
+                    </p>
+                    <div class="text-center p-4 bg-slate-100 dark:bg-slate-800 rounded-lg mb-4 border border-slate-200 dark:border-slate-700">
+                        $$EAT = (1 - p) \times \text{mem\_access} + p \times \text{fault\_overhead}$$
+                    </div>
+                    <p class="text-xs text-slate-500">
+                        *Fault overhead includes: Interrupt, Read Page (Disk I/O), Restart Process. Disk I/O (~8ms) is millions of times slower than RAM (~100ns).
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Replacement Algos</h3>
+                    <ul class="list-disc list-inside text-xs text-slate-700 dark:text-slate-300 space-y-2">
+                        <li><strong>FIFO:</strong> Oldest out. Suffers <em>Belady's Anomaly</em>.</li>
+                        <li><strong>Optimal:</strong> Replace page used furthest in future. (Benchmark only).</li>
+                        <li><strong>LRU:</strong> Replace least recently used. (Best approximation).</li>
+                        <li><strong>Thrashing:</strong> Busy swapping pages. $\sum$ Locality > Total Memory.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod9">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 9: Mass Storage</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">RAID Levels</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold text-slate-700 dark:text-white w-16">RAID 0</span>
+                            <div class="flex-1 raid-grid mx-2">
+                                <div class="raid-disk">A1</div><div class="raid-disk">A2</div><div class="raid-disk">A3</div>
+                            </div>
+                            <span class="text-xs text-slate-500 w-20 text-right">Striping (Fast)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold text-slate-700 dark:text-white w-16">RAID 1</span>
+                            <div class="flex-1 raid-grid mx-2">
+                                <div class="raid-disk">A1</div><div class="raid-disk">A1</div><div class="raid-disk text-slate-300">Empty</div>
+                            </div>
+                            <span class="text-xs text-slate-500 w-20 text-right">Mirroring (Safe)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-bold text-slate-700 dark:text-white w-16">RAID 5</span>
+                            <div class="flex-1 raid-grid mx-2">
+                                <div class="raid-disk">A1</div><div class="raid-disk">A2</div><div class="raid-disk parity">P</div>
+                            </div>
+                            <span class="text-xs text-slate-500 w-20 text-right">Parity (Balanced)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Disk Scheduling</h3>
+                    <p class="text-xs text-slate-500 mb-4">Goal: Minimize <strong>Seek Time</strong> (Arm movement).</p>
+                    <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-2">
+                        <li><strong>FCFS:</strong> Fair, but head jumps around wildly.</li>
+                        <li><strong>SCAN (Elevator):</strong> Head moves end-to-end. Biased distribution.</li>
+                        <li><strong>C-SCAN (Circular):</strong> Head moves end-to-end, then jumps back to start immediately. Provides <strong>Uniform Wait Time</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod10">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 10: I/O Systems</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-4 rounded-xl text-center">
+                    <i class="fa-solid fa-arrows-spin text-3xl text-blue-500 mb-2"></i>
+                    <h4 class="font-bold text-slate-800 dark:text-white">Polling</h4>
+                    <p class="text-xs text-slate-500 mt-2">Busy-wait loop. Good for fast devices. Wasteful for slow ones.</p>
+                </div>
+                <div class="glass-card p-4 rounded-xl text-center">
+                    <i class="fa-solid fa-bell text-3xl text-yellow-500 mb-2"></i>
+                    <h4 class="font-bold text-slate-800 dark:text-white">Interrupts</h4>
+                    <p class="text-xs text-slate-500 mt-2">Device signals CPU. CPU saves state, runs handler. Good for slow devices.</p>
+                </div>
+                <div class="glass-card p-4 rounded-xl text-center">
+                    <i class="fa-solid fa-truck-fast text-3xl text-emerald-500 mb-2"></i>
+                    <h4 class="font-bold text-slate-800 dark:text-white">DMA</h4>
+                    <p class="text-xs text-slate-500 mt-2">Direct Memory Access. Controller writes block to memory. Interrupt only at end.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod11">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 11: File Systems</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">On-Disk Structures</h3>
+                    <ul class="list-disc list-inside text-xs text-slate-700 dark:text-slate-300 space-y-1">
+                        <li><strong>Boot Control Block:</strong> Bootloader code.</li>
+                        <li><strong>Volume Control Block:</strong> Total blocks, free count.</li>
+                        <li><strong>Directory Structure:</strong> Maps File Names $\to$ FCBs.</li>
+                        <li><strong>FCB (Inode):</strong> Permissions, Size, Data Pointers.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Allocation Methods</h3>
+                    <table class="w-full text-xs text-left">
+                        <thead>
+                            <tr class="text-slate-500 border-b border-slate-300 dark:border-slate-700"><th class="pb-1">Method</th><th class="pb-1">Pros</th><th class="pb-1">Cons</th></tr>
+                        </thead>
+                        <tbody class="text-slate-700 dark:text-slate-300">
+                            <tr><td class="py-1">Contiguous</td><td>Fast read</td><td>External Frag</td></tr>
+                            <tr><td class="py-1">Linked</td><td>No Frag</td><td>Slow Seek</td></tr>
+                            <tr><td class="py-1">Indexed</td><td>Direct Access</td><td>Index Overhead</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="mod12-13">
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Mod 12/13: Security & Virtualization</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Access Matrix</h3>
+                    <p class="text-xs text-slate-500 mb-2">Rows = Domains, Columns = Objects.</p>
+                    <div class="text-xs text-slate-700 dark:text-slate-300">
+                        <strong>Implementation:</strong>
+                        <br>1. <span class="text-slate-900 dark:text-white font-bold">ACL (Column):</span> List on Object. "Who can access me?"
+                        <br>2. <span class="text-slate-900 dark:text-white font-bold">Capability (Row):</span> List on User. "What can I access?"
+                    </div>
+                </div>
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Hypervisors</h3>
+                    <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-2">
+                        <li><strong>Type 0:</strong> Hardware/Firmware based.</li>
+                        <li><strong>Type 1 (Bare Metal):</strong> Runs directly on hardware (ESXi, Hyper-V). Faster.</li>
+                        <li><strong>Type 2 (Hosted):</strong> Runs on Host OS (VirtualBox). Slower.</li>
+                        <li><strong>Technique:</strong> Trap-and-Emulate (Privileged instructions trap to VMM).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-16">
+            <div class="absolute inset-0 bg-brand-500/5 dark:bg-brand-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-brand-500/50 rounded-2xl p-8 overflow-hidden bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm shadow-xl">
+                <div class="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">PROFESSOR'S SECRETS</div>
+                
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">The Mega Vault: Final Exam Edition</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Belady's Anomaly</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Happens ONLY in <strong>FIFO</strong>. Increasing frame count can INCREASE page faults. Does NOT happen in LRU/Optimal (Stack Algorithms).
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>TLB Flush</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            Context Switching requires <strong>Flushing the TLB</strong> because virtual addresses of the new process map to different physical frames. This makes switching expensive.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>DMA & Caches</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            DMA writes directly to RAM, bypassing CPU Cache. This causes <strong>Cache Incoherency</strong> (CPU sees stale data). Hardware must invalidate cache lines.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Modify Bit</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            During Page Replacement, check the <strong>Modify (Dirty) Bit</strong>. If 0, no need to write back to disk. Saves 50% I/O overhead.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Hard vs Soft Link</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            <strong>Hard Link:</strong> Points to Inode. Valid if original file deleted.
+                            <strong>Soft Link:</strong> Points to Path. Broken (dangling) if original file deleted.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>RAID Parity</strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            RAID 5 protects against <strong>1 Disk Failure</strong>. It is NOT a backup. It protects Availability, not Data Integrity against corruption/virus.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="index.html" class="text-slate-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <a href="quiz.html" class="text-slate-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <a href="midterm-review.html" class="text-slate-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+            </div>
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>

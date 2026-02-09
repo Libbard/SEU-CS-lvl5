@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Final Gauntlet (Mod 7-13)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9); 
+            border: 1px solid #6ee7b7; 
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #4b5563;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        
+        .option-btn {
+            transition: all 0.2s;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+        .option-btn:hover:not(:disabled) {
+            border-color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+            transform: translateX(4px);
+        }
+        .dark .option-btn:hover:not(:disabled) { background-color: rgba(16, 185, 129, 0.2); }
+        
+        .correct-answer { border-color: #10b981 !important; background-color: rgba(16, 185, 129, 0.1) !important; color: #059669 !important; }
+        .dark .correct-answer { color: #34d399 !important; }
+        
+        .wrong-answer { border-color: #ef4444 !important; background-color: rgba(239, 68, 68, 0.1) !important; color: #dc2626 !important; }
+        .dark .wrong-answer { color: #f87171 !important; }
+
+        
+        .model-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.3s;
+        }
+        .model-answer.open { max-height: 1000px; }
+
+        
+        .min-h-quiz {
+            min-height: 600px; 
+        }
+        
+        
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0,0,0,0.1);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .dark code { background: rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <nav class="sticky top-0 z-50 glass-card !rounded-none !border-x-0 border-b border-slate-200 dark:border-slate-700 !bg-opacity-90 dark:!bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-slate-500 dark:text-slate-400">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">/</span>
+                    <a href="final-review.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors text-brand-600 dark:text-brand-400 font-bold">
+                        <i class="fa-solid fa-graduation-cap mr-2"></i>Review
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span class="text-xs font-bold text-slate-500 uppercase mr-2">Session Score</span>
+                        <span id="score-badge" class="text-brand-600 dark:text-brand-400 font-mono font-bold">0</span>
+                        <span class="text-slate-400 text-xs ml-1">/ 70</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-4 bg-brand-500/10 rounded-full mb-2">
+                <i class="fa-solid fa-flag-checkered text-4xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                The Final <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Gauntlet</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Test your mastery of Modules 7-13 (OS). 
+                <br><span class="text-sm font-bold text-brand-500">70 MCQs • 10 Essay Scenarios</span>
+            </p>
+        </header>
+
+        <section>
+            <div class="glass-card p-1 relative min-h-quiz flex flex-col">
+                <div class="h-1 bg-slate-100 dark:bg-slate-700 rounded-t-lg overflow-hidden shrink-0">
+                    <div id="progress-bar" class="h-full bg-brand-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+
+                <div class="p-6 md:p-8 flex flex-col flex-grow justify-between">
+                    
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <span id="q-counter" class="text-xs font-bold text-slate-400 uppercase tracking-widest">Question 1 of 70</span>
+                            <span id="q-module" class="px-2 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-[10px] font-bold uppercase rounded border border-brand-100 dark:border-brand-800">Module 7</span>
+                        </div>
+
+                        <h2 id="q-text" class="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100 mb-8 leading-relaxed min-h-[60px]">
+                            Loading Question...
+                        </h2>
+
+                        <div id="options-container" class="grid grid-cols-1 gap-3 mb-6">
+                            </div>
+                    </div>
+
+                    <div>
+                        <div id="feedback-area" class="hidden p-4 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-6 animate-fade-in">
+                            <div class="flex items-start">
+                                <div id="feedback-icon" class="mt-1 mr-3 text-lg"></div>
+                                <div>
+                                    <strong id="feedback-title" class="block text-sm font-bold mb-1"></strong>
+                                    <p id="feedback-text" class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700 mt-auto">
+                            <button id="prev-btn" class="px-4 py-2 text-sm font-medium text-slate-500 hover:text-brand-600 disabled:opacity-30 disabled:hover:text-slate-500 transition-colors">
+                                <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                            </button>
+                            <button id="next-btn" class="px-6 py-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold rounded-lg shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105">
+                                Next Question <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center space-x-3 mb-8">
+                <div class="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg text-brand-600 dark:text-brand-500">
+                    <i class="fa-solid fa-vault text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">The Concept Vault</h2>
+                    <p class="text-xs text-slate-500">Deep Dive Scenarios & Model Answers</p>
+                </div>
+            </div>
+
+            <div id="essay-grid" class="grid gap-6">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        const mcqBank = [
+            
+            { q: "Which register pair is used to protect user processes from each other?", o: ["Base and Limit", "PC and IR", "Stack and Heap", "Accumulator and Index"], c: 0, exp: "Base defines start address, Limit defines size. Hardware traps access outside this range." },
+            { q: "Mapping logical addresses to physical addresses at runtime is done by:", o: ["CPU", "MMU", "Compiler", "Loader"], c: 1, exp: "Memory Management Unit (Hardware)." },
+            { q: "Binding instructions to addresses at Compile Time generates:", o: ["Relocatable Code", "Absolute Code", "Logical Code", "Virtual Code"], c: 1, exp: "Absolute code implies fixed addresses." },
+            { q: "External Fragmentation occurs when:", o: ["Total memory is enough but not contiguous", "Total memory is insufficient", "Allocated memory is larger than request", "Paging is used"], c: 0, exp: "Holes between allocated blocks." },
+            { q: "Which allocation strategy picks the smallest hole that is big enough?", o: ["First Fit", "Best Fit", "Worst Fit", "Next Fit"], c: 1, exp: "Best Fit tries to minimize wasted space (leaves tiny holes)." },
+            { q: "In Paging, the logical address is divided into:", o: ["Segment and Offset", "Page Number and Offset", "Frame Number and Key", "Base and Limit"], c: 1, exp: "p (page number) and d (offset)." },
+            { q: "The size of a Page is typically equal to the size of a:", o: ["Frame", "Segment", "Process", "Disk Sector"], c: 0, exp: "Page size must match Frame size to map correctly." },
+            { q: "Internal Fragmentation is a characteristic of:", o: ["Segmentation", "Contiguous Allocation", "Paging", "Linked Allocation"], c: 2, exp: "The last frame allocated may not be completely full." },
+            { q: "The TLB is used to:", o: ["Store data", "Cache page table entries", "Execute code", "Manage disk I/O"], c: 1, exp: "Translation Look-aside Buffer speeds up address translation." },
+            { q: "If the TLB Hit Ratio is 99%, the Effective Access Time (EAT) is close to:", o: ["Disk Speed", "Memory Access Time", "2x Memory Access Time", "Zero"], c: 1, exp: "Hit means no extra memory lookup." },
+
+            
+            { q: "Virtual Memory allows the execution of processes that are:", o: ["Smaller than RAM", "Larger than physical memory", "Virus-free", "Kernel-mode only"], c: 1, exp: "It separates logical from physical memory." },
+            { q: "Demand Paging loads a page:", o: ["At program start", "Only when accessed", "When CPU is idle", "Randomly"], c: 1, exp: "Lazy loading." },
+            { q: "What happens if a process accesses a page marked 'Invalid'?", o: ["System Crash", "Page Fault Trap", "Context Switch", "Ignore"], c: 1, exp: "OS traps, checks validity, and loads page if valid." },
+            { q: "Copy-on-Write (COW) allows parent and child processes to:", o: ["Share pages until modification", "Never share pages", "Share stack only", "Write to disk directly"], c: 0, exp: "Speeds up process creation (fork)." },
+            { q: "Which Page Replacement Algorithm suffers from Belady's Anomaly?", o: ["LRU", "Optimal", "FIFO", "Clock"], c: 2, exp: "FIFO can perform worse with more frames." },
+            { q: "The Optimal Page Replacement Algorithm replaces the page that:", o: ["Is oldest", "Is least recently used", "Will not be used for longest time", "Is dirty"], c: 2, exp: "Needs future knowledge." },
+            { q: "LRU approximates Optimal by looking at:", o: ["The future", "The past", "The process ID", "The page size"], c: 1, exp: "Recent past behavior predicts near future." },
+            { q: "Thrashing occurs when a process:", o: ["Has too many frames", "Is waiting for I/O", "Spends more time paging than executing", "Terminates"], c: 2, exp: "High paging activity kills CPU utilization." },
+            { q: "The Working Set Model is used to prevent:", o: ["Deadlocks", "Thrashing", "Fragmentation", "Interrupts"], c: 1, exp: "By ensuring locality is covered." },
+            { q: "A 'Dirty Bit' indicates that:", o: ["Page is invalid", "Page has been modified", "Page is read-only", "Page is shared"], c: 1, exp: "Modified pages must be written to disk on replacement." },
+
+            
+            { q: "Which component moves the disk arm to the desired cylinder?", o: ["Platter", "Spindle", "Actuator", "Sector"], c: 2, exp: "The actuator moves the head arm." },
+            { q: "Seek Time is the time to:", o: ["Rotate the disk", "Move arm to cylinder", "Transfer data", "Boot OS"], c: 1, exp: "Mechanical movement of the arm." },
+            { q: "Rotational Latency depends on:", o: ["Arm speed", "Spindle (RPM) speed", "Bus width", "File size"], c: 1, exp: "How fast the platters spin." },
+            { q: "Which Disk Scheduling algorithm provides the most uniform wait time?", o: ["FCFS", "SSTF", "SCAN", "C-SCAN"], c: 3, exp: "C-SCAN treats cylinders as a circular list." },
+            { q: "SSTF selects the request:", o: ["First in queue", "Closest to current head position", "At the end of disk", "With highest priority"], c: 1, exp: "Shortest Seek Time First." },
+            { q: "RAID 0 provides:", o: ["Mirroring", "Parity", "Striping (Performance)", "Redundancy"], c: 2, exp: "Striping only. No reliability." },
+            { q: "RAID 1 provides:", o: ["Striping", "Mirroring (Redundancy)", "Parity", "Compression"], c: 1, exp: "100% Redundancy by duplication." },
+            { q: "RAID 5 requires a minimum of how many disks?", o: ["2", "3", "4", "5"], c: 1, exp: "3 disks (2 data + 1 parity distributed)." },
+            { q: "Flash memory (SSD) wears out due to:", o: ["Reading", "Writing/Erasing", "Spinning", "Heat"], c: 1, exp: "Program-Erase cycles damage the cells." },
+            { q: "What does NVMe connect via?", o: ["SATA", "PCIe bus", "USB", "Ethernet"], c: 1, exp: "Direct connection to CPU via PCIe." },
+
+            
+            { q: "Polling is efficient when:", o: ["Device is slow", "Device is fast", "CPU is busy", "Always"], c: 1, exp: "No overhead of interrupt handling." },
+            { q: "Which mechanism allows device to signal CPU 'I am done'?", o: ["Polling", "Interrupt", "DMA", "Spooling"], c: 1, exp: "Hardware Interrupt." },
+            { q: "DMA is used to avoid:", o: ["Programmed I/O for every byte", "Memory usage", "Bus contention", "Disk usage"], c: 0, exp: "Offloads transfer work from CPU." },
+            { q: "A Blocking I/O call:", o: ["Returns immediately", "Suspends process until done", "Runs in background", "Fails"], c: 1, exp: "Synchronous execution." },
+            { q: "Spooling is primarily used for:", o: ["Keyboards", "Printers", "Mouse", "Screen"], c: 1, exp: "Serialized output for shared devices." },
+            { q: "Which is NOT a function of the Kernel I/O Subsystem?", o: ["Scheduling", "Buffering", "Caching", "Compiling"], c: 3, exp: "Compiling is user-space." },
+            { q: "A Vectored Interrupt allows the CPU to:", o: ["Ignore interrupts", "Jump to specific handler", "Wait for I/O", "Reset device"], c: 1, exp: "Uses Interrupt Vector Table." },
+            { q: "Memory-Mapped I/O means:", o: ["I/O has separate instructions", "Device registers mapped to RAM addresses", "DMA only", "Virtual memory"], c: 1, exp: "Access devices using Load/Store." },
+            { q: "Which acts as a translator between OS and Hardware Controller?", o: ["Device Driver", "User App", "Bus", "Port"], c: 0, exp: "Drivers encapsulate device details." },
+            { q: "Double Buffering helps to:", o: ["Save memory", "Decouple producer/consumer speeds", "Prevent deadlocks", "Compress data"], c: 1, exp: "One buffer fills while other empties." },
+
+            
+            { q: "Which file attribute acts as a unique tag?", o: ["Name", "Identifier (Inode)", "Type", "Size"], c: 1, exp: "Identifier is machine-readable." },
+            { q: "Before a file system can be accessed, it must be:", o: ["Formatted", "Mounted", "Compiled", "Cleaned"], c: 1, exp: "Attached to the directory tree." },
+            { q: "Which directory structure allows shared files (aliasing)?", o: ["Single-Level", "Tree", "Acyclic Graph", "Two-Level"], c: 2, exp: "Allows links/pointers." },
+            { q: "The File Control Block (FCB) is also known as:", o: ["PCB", "Inode", "Boot block", "Superblock"], c: 1, exp: "Standard Unix term." },
+            { q: "Contiguous Allocation suffers from:", o: ["Internal Fragmentation", "External Fragmentation", "Slow reads", "Complexity"], c: 1, exp: "Dynamic storage allocation problem." },
+            { q: "Which allocation method supports efficient Direct Access?", o: ["Linked", "Contiguous", "Indexed", "Both B and C"], c: 3, exp: "Contiguous and Indexed are direct." },
+            { q: "Linked Allocation solves:", o: ["External Fragmentation", "Internal Fragmentation", "Speed", "Reliability"], c: 0, exp: "Blocks can be anywhere." },
+            { q: "A Hard Link is:", o: ["A pointer to the Inode", "A pointer to a path", "A copy of file", "A shortcut"], c: 0, exp: "Increases reference count." },
+            { q: "Free space management using a Bit Vector is efficient for:", o: ["Finding contiguous space", "Large disks", "Encryption", "Compression"], c: 0, exp: "Easy to find '000' patterns." },
+            { q: "The Virtual File System (VFS) allows:", o: ["Virtual Memory", "Different FS types to coexist", "Faster disk access", "RAID"], c: 1, exp: "Abstraction layer." },
+
+            
+            { q: "The Principle of Least Privilege states:", o: ["Give max access", "Give minimum necessary access", "No access", "Root access for all"], c: 1, exp: "Limits damage potential." },
+            { q: "A Trojan Horse is:", o: ["Self-replicating", "Useful program with malicious code", "Network worm", "Hardware bug"], c: 1, exp: "Relies on user execution." },
+            { q: "Which attack overflows the stack to overwrite return address?", o: ["DDOS", "Buffer Overflow", "Phishing", "Man-in-Middle"], c: 1, exp: "Injects shellcode." },
+            { q: "An Access Control List (ACL) is associated with:", o: ["The User", "The Domain", "The Object (File)", "The CPU"], c: 2, exp: "Columns of Access Matrix." },
+            { q: "A Capability List is associated with:", o: ["The Object", "The Domain (User)", "The OS", "The Network"], c: 1, exp: "Rows of Access Matrix (Ticket)." },
+            { q: "A Worm differs from a Virus because:", o: ["It modifies files", "It is standalone and uses network", "It is harmless", "It requires host"], c: 1, exp: "Worms propagate themselves." },
+            { q: "Confidentiality ensures:", o: ["Data is correct", "Data is accessible", "Data is not read by unauthorized", "Data is backed up"], c: 2, exp: "Secrecy." },
+            { q: "Integrity ensures:", o: ["Data is not modified unauthorized", "Data is secret", "System is running", "User is logged in"], c: 0, exp: "Correctness." },
+            { q: "Denial of Service (DoS) attacks target:", o: ["Confidentiality", "Integrity", "Availability", "Authentication"], c: 2, exp: "Prevents legitimate use." },
+            { q: "The 'Salt' in password hashing protects against:", o: ["Rainbow Table attacks", "Brute force", "Phishing", "Viruses"], c: 0, exp: "Makes precomputed tables useless." },
+
+            
+            { q: "A Hypervisor (VMM) allows:", o: ["Multiple OS on one hardware", "Faster CPU", "Better graphics", "Wireless power"], c: 0, exp: "Abstraction of hardware." },
+            { q: "Type 1 Hypervisor runs on:", o: ["Host OS", "Bare Metal", "Browser", "USB"], c: 1, exp: "Native performance." },
+            { q: "Trap-and-Emulate handles:", o: ["User instructions", "Privileged instructions in Guest", "Graphics", "Network"], c: 1, exp: "Traps to VMM." },
+            { q: "Live Migration means:", o: ["Moving VM without downtime", "Installing OS", "Copying files", "Booting"], c: 0, exp: "Seamless transfer." },
+            { q: "In Distributed Systems, Transparency means:", o: ["User sees glass", "User is unaware of distribution", "Everything is visible", "No security"], c: 1, exp: "Single system image." },
+            { q: "A Distributed File System (DFS) service:", o: ["Manages local disk", "Allows remote file access", "Compiles code", "Manages RAM"], c: 1, exp: "e.g., NFS." },
+            { q: "NFS is stateless, meaning:", o: ["Server remembers everything", "Server forgets clients between requests", "No file locking", "No caching"], c: 1, exp: "Crash recovery is easy." },
+            { q: "Location Independence in naming means:", o: ["File name reveals server", "File name does NOT reveal location", "Files have no names", "GPS tracking"], c: 1, exp: "Logical names mapped to physical." },
+            { q: "Paravirtualization requires:", o: ["No OS modification", "Modifying Guest OS", "New Hardware", "Type 2 VMM"], c: 1, exp: "Guest knows it is virtualized." },
+            { q: "Which is a benefit of Virtualization?", o: ["Isolation & Consolidation", "Faster hardware", "Infinite memory", "No bugs"], c: 0, exp: "Safety and Efficiency." }
+        ];
+
+        
+        const essays = [
+            { q: "Explain the difference between Internal and External Fragmentation. Which scheme solves which?", a: "<strong>External Fragmentation:</strong> Total memory space exists to satisfy a request, but it is not contiguous. It occurs in <strong>Contiguous Allocation</strong> and <strong>Segmentation</strong>. Solved by <strong>Compaction</strong> or <strong>Paging</strong>.<br><br><strong>Internal Fragmentation:</strong> Allocated memory is slightly larger than the requested memory. The difference is unused memory inside a partition. It occurs in <strong>Paging</strong> because frames are fixed-size." },
+            { q: "Describe the Translation Look-aside Buffer (TLB) and how it affects Effective Access Time (EAT).", a: "The <strong>TLB</strong> is a small, fast hardware cache inside the MMU that stores recent virtual-to-physical address translations. Without a TLB, every data access requires <strong>two</strong> memory accesses (one for the Page Table, one for the data). A high hit ratio (e.g., 99%) brings the EAT very close to the speed of standard memory access." },
+            { q: "What is Thrashing and how does the Working Set Model prevent it?", a: "<strong>Thrashing</strong> occurs when a process spends more time paging (swapping pages in/out) than executing. It happens when the total size of locality of all active processes exceeds total physical memory. <br>The <strong>Working Set Model</strong> estimates the number of frames a process is actually using. If sum of Working Sets > Total Frames, the OS suspends a process." },
+            { q: "Compare RAID 0, RAID 1, and RAID 5.", a: "<ul><li><strong>RAID 0 (Striping):</strong> Splits data across drives. Highest performance. <strong>Zero redundancy</strong>.</li><li><strong>RAID 1 (Mirroring):</strong> Duplicates data. 100% redundancy. <strong>Expensive</strong> (50% storage).</li><li><strong>RAID 5 (Parity):</strong> Stripes data + distributed parity. Survives 1 drive failure. Good balance.</li></ul>" },
+            { q: "Explain the difference between Polling, Interrupts, and DMA.", a: "<strong>Polling:</strong> CPU repeatedly checks device status (Busy Wait).<br><strong>Interrupts:</strong> Device signals CPU when done. Efficient for slow devices.<br><strong>DMA:</strong> Controller transfers blocks directly to memory. CPU interrupted only once per block. Essential for Disk/Network I/O." },
+            { q: "Discuss the advantages and disadvantages of Linked vs. Indexed File Allocation.", a: "<strong>Linked:</strong> No external frag, easy growth. But <strong>no random access</strong> and reliability issues (lost pointer).<br><strong>Indexed (Inodes):</strong> Supports <strong>Direct Access</strong> and no external frag. But overhead of index block (wasted space for small files)." },
+            { q: "How does the Principle of Least Privilege apply to OS Protection?", a: "Every program/user should operate with the <strong>minimum privileges</strong> necessary. Implemented via User IDs and Protection Domains. Limits damage if a component (like a web server) is compromised." },
+            { q: "Compare Type 1 and Type 2 Hypervisors.", a: "<strong>Type 1 (Bare Metal):</strong> Runs directly on Hardware (ESXi). High performance. Used in Datacenters.<br><strong>Type 2 (Hosted):</strong> Runs on top of a Host OS (VirtualBox). Lower performance due to extra layer. Used by developers." },
+            { q: "What is the difference between Access Control Lists (ACLs) and Capability Lists?", a: "<strong>ACL (Column-based):</strong> Stored with Object (File). 'Who can access me?'. Easy to revoke.<br><strong>Capability (Row-based):</strong> Stored with User (Domain). 'What can I access?' (Ticket). Efficient access, hard to revoke." },
+            { q: "Explain C-SCAN Disk Scheduling and why it provides uniform wait time.", a: "<strong>C-SCAN:</strong> The arm moves from one end to the other, servicing requests, then immediately returns to the beginning <em>without</em> servicing requests on the return trip. It treats cylinders as a circular list, ensuring every track waits at most one full scan cycle (Uniform Wait Time)." }
+        ];
+
+        
+        let currentQ = 0;
+        let score = 0;
+        const totalQ = mcqBank.length;
+
+        
+        const qText = document.getElementById('q-text');
+        const qCounter = document.getElementById('q-counter');
+        const qModule = document.getElementById('q-module');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreBadge = document.getElementById('score-badge');
+        const essayGrid = document.getElementById('essay-grid');
+
+        
+        function loadQuestion(index) {
+            const data = mcqBank[index];
+            
+            
+            qCounter.innerText = `Question ${index + 1} of ${totalQ}`;
+            
+            
+            let modName = "General";
+            if(index < 10) modName = "Mod 7: Memory";
+            else if(index < 20) modName = "Mod 8: Virtual Mem";
+            else if(index < 30) modName = "Mod 9: Storage";
+            else if(index < 40) modName = "Mod 10: I/O";
+            else if(index < 50) modName = "Mod 11: Files";
+            else if(index < 60) modName = "Mod 12: Security";
+            else modName = "Mod 13: Virtual/Dist";
+            
+            qModule.innerText = modName;
+
+            const progress = ((index + 1) / totalQ) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            
+            qText.innerHTML = data.q;
+            
+            
+            optionsContainer.innerHTML = '';
+            feedbackArea.classList.add('hidden');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            
+            data.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full p-4 rounded-lg border border-slate-300 dark:border-slate-600 text-left text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 shadow-sm";
+                btn.innerHTML = `<span class="inline-block w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 text-center text-xs leading-6 mr-3 font-bold text-slate-500">${String.fromCharCode(65+i)}</span> ${opt}`;
+                btn.onclick = () => checkAnswer(i, btn, data);
+                optionsContainer.appendChild(btn);
+            });
+
+            
+            if (window.MathJax && typeof window.MathJax.typeset === 'function') {
+                MathJax.typeset();
+            }
+        }
+
+        function checkAnswer(selectedIndex, btn, data) {
+            
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('cursor-default');
+            });
+
+            const isCorrect = selectedIndex === data.c;
+            
+            if (isCorrect) {
+                btn.classList.add('correct-answer');
+                score++;
+                scoreBadge.innerText = score;
+                feedbackArea.className = "p-4 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-emerald-700 dark:text-emerald-400">Correct!</span>`;
+            } else {
+                btn.classList.add('wrong-answer');
+                buttons[data.c].classList.add('correct-answer');
+                feedbackArea.className = "p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 mb-6 animate-fade-in block";
+                feedbackIcon.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-600 dark:text-red-400"></i>`;
+                feedbackTitle.innerHTML = `<span class="text-red-700 dark:text-red-400">Incorrect.</span>`;
+            }
+
+            feedbackText.innerHTML = data.exp;
+            
+            
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        nextBtn.onclick = () => {
+            if (currentQ < totalQ - 1) {
+                currentQ++;
+                loadQuestion(currentQ);
+            } else {
+                alert(`Gauntlet Complete! Score: ${score}/${totalQ}`);
+            }
+        };
+
+        prevBtn.onclick = () => {
+            if (currentQ > 0) {
+                currentQ--;
+                loadQuestion(currentQ);
+            }
+        };
+
+        
+        function renderEssays() {
+            essays.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 border-l-4 border-brand-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-brand-600 dark:text-brand-500 uppercase tracking-wider">Scenario ${index + 1}</h3>
+                        <button onclick="toggleEssay(${index})" class="text-xs font-bold px-3 py-1 bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded hover:bg-brand-200 transition-colors">
+                            Show Answer
+                        </button>
+                    </div>
+                    <p class="text-md font-medium text-slate-800 dark:text-slate-200 mb-4 leading-relaxed">
+                        ${item.q}
+                    </p>
+                    <div id="essay-ans-${index}" class="model-answer bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                        <div class="p-4 text-sm text-slate-600 dark:text-slate-300">
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-2">Professor's Model Answer:</strong>
+                            ${item.a}
+                        </div>
+                    </div>
+                `;
+                essayGrid.appendChild(card);
+            });
+        }
+
+        window.toggleEssay = function(idx) {
+            const el = document.getElementById(`essay-ans-${idx}`);
+            el.classList.toggle('open');
+        };
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        loadQuestion(0);
+        renderEssays();
+
+    </script>
+</body>
+</html>

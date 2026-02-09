@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS353 Module 8: Space and Time Trade-Offs</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e', 
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f43f5e;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f43f5e;
+            background-color: rgba(244, 63, 94, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes scale-tilt {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        .scale-anim {
+            animation: scale-tilt 4s infinite ease-in-out;
+            transform-origin: bottom center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module7.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 8</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-project-diagram text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module9.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-scale-unbalanced-flip text-3xl text-brand-500 scale-anim"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Space and Time <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Trade-Offs</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Spending memory to save time. We preprocess inputs or use extra structures to accelerate algorithms from brute force to blazing fast.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Input Enhancement</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prestructuring</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Distribution Counting</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Horspool's Algorithm</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Strategies for Trading Space</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 p-4 opacity-5">
+                        <i class="fa-solid fa-microchip text-9xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">1. Input Enhancement</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                        Preprocess the problem's input (in whole or part) and store additional info to use later.
+                    </p>
+                    <ul class="space-y-2 text-sm text-brand-600 dark:text-brand-400 font-semibold">
+                        <li><i class="fa-solid fa-check mr-2"></i>Counting Sorts</li>
+                        <li><i class="fa-solid fa-check mr-2"></i>String Searching (Horspool, Boyer-Moore)</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 p-4 opacity-5">
+                        <i class="fa-solid fa-layer-group text-9xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">2. Prestructuring</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                        Process the input to build a data structure that makes accessing elements easier or faster.
+                    </p>
+                    <ul class="space-y-2 text-sm text-blue-600 dark:text-blue-400 font-semibold">
+                        <li><i class="fa-solid fa-check mr-2"></i>Hashing</li>
+                        <li><i class="fa-solid fa-check mr-2"></i>Indexing Schemes (B-Trees)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Sorting by Counting</h2>
+            </div>
+
+            <div class="space-y-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                        <i class="fa-solid fa-list-ol text-gray-400 mr-2"></i> Method A: Comparison-Counting Sort
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        For each element $A[i]$, count how many elements are smaller than it. This count is its exact position in the sorted array .
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded font-mono text-xs">
+                            <span class="text-rose-500">for</span> i $\leftarrow$ 0 <span class="text-rose-500">to</span> n-2 <span class="text-rose-500">do</span><br>
+                            &nbsp;&nbsp;<span class="text-rose-500">for</span> j $\leftarrow$ i+1 <span class="text-rose-500">to</span> n-1 <span class="text-rose-500">do</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-rose-500">if</span> A[i] < A[j]<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Count[j] $\leftarrow$ Count[j] + 1<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-rose-500">else</span> Count[i] $\leftarrow$ Count[i] + 1<br>
+                            <span class="text-gray-500">// Copy to Result Array S</span><br>
+                            <span class="text-rose-500">for</span> i $\leftarrow$ 0 <span class="text-rose-500">to</span> n-1 <span class="text-rose-500">do</span> S[Count[i]] $\leftarrow$ A[i]
+                        </div>
+                        <div class="flex items-center justify-center bg-rose-50 dark:bg-rose-900/20 rounded p-4">
+                            <div class="text-center">
+                                <p class="text-xs uppercase font-bold text-rose-500 mb-1">Complexity</p>
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">$O(n^2)$</p>
+                                <p class="text-[10px] text-gray-500">No improvement over simple sorts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">
+                        <i class="fa-solid fa-chart-bar text-brand-500 mr-2"></i> Method B: Distribution Counting Sort
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Assume elements come from a small set of integers between $l$ and $u$. We compute frequencies, then cumulative frequencies (distribution), to calculate positions directly .
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2 text-xs">
+                                <span class="w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 font-bold">1</span>
+                                <span>Compute Frequencies ($F$).</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-xs">
+                                <span class="w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 font-bold">2</span>
+                                <span>Compute Distribution ($D$): $D[j] = D[j-1] + F[j]$.</span>
+                            </div>
+                            <div class="flex items-center space-x-2 text-xs">
+                                <span class="w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 font-bold">3</span>
+                                <span>Place elements: $S[D[A[i]-l]-1] = A[i]$.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center bg-emerald-50 dark:bg-emerald-900/20 rounded p-4">
+                            <div class="text-center">
+                                <p class="text-xs uppercase font-bold text-emerald-500 mb-1">Complexity</p>
+                                <p class="text-2xl font-bold text-gray-900 dark:text-white">$O(n)$</p>
+                                <p class="text-[10px] text-gray-500">Linear time! (If range is small)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">String Matching</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    Brute force string matching takes $O(nm)$. We can do better by <span class="smart-term font-bold text-brand-500" data-ar="المعالجة المسبقة">Preprocessing</span> the pattern to know how much to shift when a mismatch occurs.
+                </p>
+
+                <div class="border-l-4 border-brand-500 pl-4 mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Horspool's Algorithm</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        A simplified version of Boyer-Moore. It compares the pattern from <strong>Right-to-Left</strong>. If a mismatch occurs, it determines the shift size based on the character in the text aligned with the <strong>last character</strong> of the pattern.
+                    </p>
+
+                    <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm text-gray-300 mb-4">
+                        <div class="flex justify-between border-b border-gray-700 pb-2 mb-2">
+                            <span>Text:</span>
+                            <span>... <span class="text-white bg-red-600 px-1">B</span> A R B E R ...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Pattern:</span>
+                            <span><span class="text-gray-500">L E A D E</span> <span class="text-brand-400 font-bold border-b-2 border-brand-400">R</span></span>
+                        </div>
+                        <p class="mt-4 text-xs text-gray-500">
+                            Logic: Look at 'B' in Text (aligned with Pattern's end). 'B' is not in Pattern? Shift full length!
+                        </p>
+                    </div>
+
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">The Shift Table Construction</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">For each character $c$ in the alphabet:</p>
+                    <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                        <li>If $c$ is NOT in the pattern: Shift by pattern length $m$.</li>
+                        <li>If $c$ IS in the pattern: Shift by distance from right end ($m - 1 - k$).</li>
+                        <li>Note: Only consider the <strong>last occurrence</strong> of $c$ (excluding the very last character itself for calculation purposes) .</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Distribution Sort Range
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "Is Distribution Counting Sort always linear $O(n)$?"
+                            <br>
+                            <strong>NO!</strong> It depends on the range of values ($k$). The complexity is actually $O(n + k)$. If $k \approx n^2$, the algorithm becomes $O(n^2)$, which is worse than Mergesort.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Horspool's Lookup
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            When a mismatch occurs in Horspool, which character do you look up in the Shift Table?
+                            <br>
+                            <strong>NOT</strong> the mismatched character. You look at the character in the <strong>TEXT</strong> that is aligned with the <strong>LAST</strong> character of the pattern.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Comparison Counting
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Professors teach Comparison-Counting Sort ($O(n^2)$) not because it's useful (it's not), but to prove that simply throwing "extra space" at a problem doesn't automatically solve "time" efficiency. You need the <em>right</em> strategy (like Distribution Counting).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Worst Case Horspool
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Despite being very fast on average ($O(n)$), Horspool's (and Boyer-Moore's) worst case is still $O(nm)$, just like Brute Force. This happens with patterns like "AAAAA" in text "AAAAAAAA".
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

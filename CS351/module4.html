@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 4: Synchronization</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        .code-block {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module3.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 4</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-traffic-light text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module5.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-key text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Cooperation: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Synchronization Tools</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Solving the Race Condition. Understanding the Critical Section Problem, Mutex Locks, Semaphores, and Atomic Operations.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Race Condition</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Critical Section (CS)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Peterson's Solution</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Mutex Locks</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Semaphores</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Core Problem</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <div class="flex items-start">
+                    <div class="mr-4 p-3 bg-red-100 dark:bg-red-900/30 rounded-full text-red-600">
+                        <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Race Condition</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">
+                            A situation where several processes access and manipulate the same data concurrently, and the outcome depends on the <strong>particular order</strong> in which the access takes place.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 bg-gray-100 dark:bg-gray-800 p-4 rounded text-xs font-mono">
+                    <strong class="text-brand-500 block mb-2">// Example: Counter++ vs Counter--</strong>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-blue-400">Process A (count++)</span><br>
+                            1. reg1 = count<br>
+                            2. reg1 = reg1 + 1<br>
+                            3. count = reg1
+                        </div>
+                        <div>
+                            <span class="text-purple-400">Process B (count--)</span><br>
+                            1. reg2 = count<br>
+                            2. reg2 = reg2 - 1<br>
+                            3. count = reg2
+                        </div>
+                    </div>
+                    <p class="mt-3 text-gray-500 italic">If these instructions interleave (e.g., A1, B1, A2, B2...), the final value of count will be wrong.</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Critical Section (CS) Problem</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                    A segment of code where the process accesses shared resources.
+                </p>
+                <div class="code-block text-xs">
+do {
+    <span class="text-brand-500">entry section</span>
+        CRITICAL SECTION
+    <span class="text-brand-500">exit section</span>
+        REMAINDER SECTION
+} while (TRUE);
+                </div>
+                
+                <div class="mt-4">
+                    <strong class="block text-gray-900 dark:text-white text-xs uppercase mb-2">The 3 Requirements for a Solution:</strong>
+                    <ol class="list-decimal list-inside text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                        <li><strong>Mutual Exclusion:</strong> If Process P is in CS, no other process can be in CS.</li>
+                        <li><strong>Progress:</strong> If no one is in CS, and someone wants to enter, the selection cannot be postponed indefinitely.</li>
+                        <li><strong>Bounded Waiting:</strong> There is a limit on how many times others can enter CS before a specific process is granted access (No starvation).</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Solutions</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Peterson's Solution (Software)</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
+                        A classic software-based solution for 2 processes. Uses two variables: `turn` and `flag`.
+                    </p>
+                    <div class="code-block text-xs">
+flag[i] = true;
+turn = j;
+while (flag[j] && turn == j); // Busy Wait
+    /* CRITICAL SECTION */
+flag[i] = false;
+                    </div>
+                    <p class="text-[10px] text-red-400 mt-2">Note: May not work on modern architectures due to instruction reordering.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Hardware Support</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
+                        Modern systems provide special <strong class="text-brand-500">Atomic Instructions</strong> (Non-interruptible).
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-xs">
+                        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                            <strong class="block text-gray-900 dark:text-white">test_and_set()</strong>
+                            Reads a boolean value and sets it to TRUE atomically.
+                        </div>
+                        <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
+                            <strong class="block text-gray-900 dark:text-white">compare_and_swap()</strong>
+                            Compares content of memory with expected value; if equal, swaps it.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">OS Tools</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Mutex Locks</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
+                        Short for <strong>MUT</strong>ual <strong>EX</strong>clusion. The simplest tool.
+                        <br>A process must `acquire()` the lock before entering CS and `release()` it after.
+                    </p>
+                    <div class="code-block text-xs">
+acquire() {
+    while (!available); // Busy wait
+    available = false;
+}
+release() {
+    available = true;
+}
+                    </div>
+                    <p class="text-[10px] text-gray-500 mt-2">Often called "Spinlocks" because of busy waiting.</p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-orange-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Semaphores</h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
+                        More robust integer variable `S` accessed only via `wait()` (P) and `signal()` (V).
+                    </p>
+                    <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
+                        <li><strong>Counting Semaphore:</strong> Integer value unrestricted. Used for resource counting.</li>
+                        <li><strong>Binary Semaphore:</strong> 0 or 1. Equivalent to Mutex.</li>
+                    </ul>
+                    <div class="mt-4 bg-orange-50 dark:bg-orange-900/20 p-2 rounded text-xs">
+                        <strong>Avoiding Busy Wait:</strong>
+                        <br>Instead of spinning, a process can block itself and be placed in a waiting queue. `signal()` wakes it up.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Classic Synchronization Problems</h2>
+            </div>
+
+            
+
+            <div class="space-y-4">
+                <div class="glass-card p-4 rounded-xl flex items-center">
+                    <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded text-blue-600 mr-4 font-bold text-xl">1</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Bounded-Buffer Problem</h4>
+                        <p class="text-xs text-gray-500">Producer generates data, Consumer eats it. Must synchronize access to the buffer (Full/Empty slots).</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-xl flex items-center">
+                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded text-green-600 mr-4 font-bold text-xl">2</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Readers-Writers Problem</h4>
+                        <p class="text-xs text-gray-500">Many readers can read simultaneously. Only one writer can write at a time (exclusive access).</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-xl flex items-center">
+                    <div class="p-3 bg-red-100 dark:bg-red-900/30 rounded text-red-600 mr-4 font-bold text-xl">3</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Dining-Philosophers Problem</h4>
+                        <p class="text-xs text-gray-500">5 philosophers, 5 chopsticks. Need 2 to eat. How to prevent deadlock where everyone holds 1 stick?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Spinlock Usage
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            "When is a Spinlock (Busy Wait) actually good?"
+                            <br><strong>Answer:</strong> In Multiprocessor systems when the lock is held for a very short time. It avoids the expensive Context Switch required to put a process to sleep.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Deadlock vs Starvation
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Deadlock:</strong> Two or more processes are waiting indefinitely for an event that can only be caused by one of the waiting processes. (Everyone stuck).
+                            <br><strong>Starvation:</strong> Indefinite blocking. A process waits forever but the system isn't frozen (others are proceeding).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Semaphore Implementation
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Semaphores themselves must be atomic. How do we ensure `wait()` and `signal()` don't have race conditions?
+                            <br>We implement them using ... <strong>Critical Sections</strong> (Spinlocks/Interrupt disabling) inside the Kernel! It's recursion all the way down.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Atomic Variable
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Provides atomic updates on basic data types (integers, booleans) without explicit locks. Often used for counters.
+                            <br>Implemented via hardware CAS (Compare-And-Swap).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

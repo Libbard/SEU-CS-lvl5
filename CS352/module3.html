@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS352 Module 3: Project Planning & Selection</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6', 
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #3b82f6;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes funnel-drop {
+            0% { transform: translateY(-10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .funnel-item {
+            animation: funnel-drop 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module2.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 3</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-chess-board text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module4.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-filter-circle-dollar text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Project <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Identification & Selection</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Before we build, we must decide <em>what</em> to build. Aligning IT projects with corporate strategy to ensure value.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Top-Down vs Bottom-Up</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Value Chain Analysis</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Strategic Planning</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Incremental Commitment</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ISP Matrices</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">1. Identifying & Selecting Projects</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Sources of Potential Projects</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500">
+                            <span class="font-bold block text-blue-700 dark:text-blue-300">Top-Down (Strategic)</span>
+                            <ul class="text-xs text-gray-600 dark:text-gray-400 mt-1 list-disc list-inside">
+                                <li><strong>Top Management:</strong> Greater strategic focus, largest size/duration.</li>
+                                <li><strong>Steering Committee:</strong> Cross-functional focus, enterprise-wide consideration.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border-l-4 border-green-500">
+                            <span class="font-bold block text-green-700 dark:text-green-300">Bottom-Up (Operational)</span>
+                            <ul class="text-xs text-gray-600 dark:text-gray-400 mt-1 list-disc list-inside">
+                                <li><strong>User Departments:</strong> Narrow, non-strategic focus. Faster development.</li>
+                                <li><strong>Development Group:</strong> Integration with existing systems focus.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Evaluation Criteria</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Projects are ranked based on their relative merit. Key criteria include:
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-link text-brand-500 mt-1 mr-2"></i>
+                            <div>
+                                <strong>Value Chain Analysis:</strong>
+                                <span class="text-xs block text-gray-500">Does this activity add value or just cost? Comparison with competitors .</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-bullseye text-brand-500 mt-1 mr-2"></i>
+                            <div>
+                                <strong>Strategic Alignment:</strong>
+                                <span class="text-xs block text-gray-500">Does it help achieve long-term goals?.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-scale-balanced text-brand-500 mt-1 mr-2"></i>
+                            <div>
+                                <strong>Resource Availability:</strong>
+                                <span class="text-xs block text-gray-500">Do we have the people, time, and money?.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-gray-100 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-center">The Selection Decision Matrix</h4>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full font-bold text-sm"><i class="fa-solid fa-check mr-2"></i>Accept</span>
+                    <span class="px-4 py-2 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full font-bold text-sm"><i class="fa-solid fa-xmark mr-2"></i>Reject</span>
+                    <span class="px-4 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded-full font-bold text-sm"><i class="fa-solid fa-clock mr-2"></i>Delay</span>
+                    <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full font-bold text-sm"><i class="fa-solid fa-arrows-rotate mr-2"></i>Refocus</span>
+                    <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full font-bold text-sm"><i class="fa-solid fa-flask mr-2"></i>Proof of Concept</span>
+                </div>
+                <p class="text-xs text-gray-500 text-center mt-4">
+                    <span class="smart-term font-bold text-brand-500" data-ar="الالتزام التدريجي">Incremental Commitment</span>: The project is reviewed after each phase and re-justified.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">2. Corporate Strategy</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    Effective IS planning must align with the broader corporate strategy. It is a three-step process:
+                    <strong>Current Enterprise</strong> $\to$ <strong>Future Enterprise</strong> $\to$ <strong>Strategic Plan</strong> .
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">Key Definitions</h4>
+                        <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2">
+                            <li class="bg-gray-50 dark:bg-gray-900 p-2 rounded">
+                                <strong>Mission Statement:</strong> What business are we in? (e.g., "Selling high-quality wood furniture") .
+                            </li>
+                            <li class="bg-gray-50 dark:bg-gray-900 p-2 rounded">
+                                <strong>Objective Statements:</strong> Qualitative/Quantitative goals (e.g., "Increase market share").
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">Generic Competitive Strategies</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-[10px] text-left">
+                                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    <tr>
+                                        <td class="font-bold py-1">Low-Cost Producer</td>
+                                        <td class="py-1">Competing on price (e.g., Hyundai).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold py-1">Product Differentiation</td>
+                                        <td class="py-1">Competing on quality/style (e.g., Ford).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-bold py-1">Product Niche</td>
+                                        <td class="py-1">Narrow market focus (e.g., Convertibles).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">3. Information Systems Planning (ISP)</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
+                    <h3 class="font-bold text-lg mb-2">The ISP Process</h3>
+                    <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                        <li><strong>Assess Current Situation:</strong> Inventory of processes, data, and technology.</li>
+                        <li><strong>Define Future Situation:</strong> Blueprints of manual/automated processes and data.</li>
+                        <li><strong>Develop Schedule:</strong> Create a roadmap of projects to transition from Current to Future.</li>
+                    </ol>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-t-4 border-blue-500">
+                    <h3 class="font-bold text-lg mb-2">Planning Matrices</h3>
+                    <p class="text-xs text-gray-500 mb-2">Matrices map relationships between organizational elements to identify gaps and redundancies .</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>Location-to-Function:</strong> Where functions are performed.</div>
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>Function-to-Process:</strong> Which processes support functions.</div>
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>Data Entity-to-System:</strong> CRUD analysis (Create, Read, Update, Delete).</div>
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>System-to-Objective:</strong> Alignment check.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">E-Commerce Applications</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <i class="fa-solid fa-briefcase text-2xl text-blue-500 mb-2"></i>
+                        <h4 class="font-bold text-sm">B2B</h4>
+                        <p class="text-xs text-gray-500">Business to Business</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <i class="fa-solid fa-cart-shopping text-2xl text-green-500 mb-2"></i>
+                        <h4 class="font-bold text-sm">B2C</h4>
+                        <p class="text-xs text-gray-500">Business to Consumer</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                        <i class="fa-solid fa-users text-2xl text-purple-500 mb-2"></i>
+                        <h4 class="font-bold text-sm">C2C</h4>
+                        <p class="text-xs text-gray-500">Consumer to Consumer</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-4 text-center">
+                    Also includes B2G (Gov), G2C (Citizen), and T2T (IoT) . Design issues include connection speed, user location, and device type.
+                </p>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Top-Down vs Bottom-Up
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Top-Down:</strong> Strategic, broader perspective, better integration, but slower.
+                            <strong>Bottom-Up:</strong> Tactical, faster development, solves specific problems, but may lead to redundant/incompatible systems.
+                            <br>Don't confuse "Development Group" (Bottom-up) with "Steering Committee" (Top-down).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Incremental Commitment
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            The project is NOT fully approved at the start. It is reviewed after <strong>each phase</strong>. Just because you finish Analysis doesn't mean you automatically start Design; the project must be re-justified.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Value Chain Analysis
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            The purpose of Value Chain Analysis is to identify where an organization adds value to its products/services and where costs are incurred. It helps rank projects by asking: "Does this project optimize a high-value activity?".
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Matrices
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Matrices (like Process-to-Data) are the glue between Business Planning and IS Planning. They detect:
+                            <br>1. Missing systems (Function not supported).
+                            <br>2. Redundant data (Data created in multiple places).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

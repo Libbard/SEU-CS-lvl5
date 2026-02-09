@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS352 Module 10: Designing Forms & Reports</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6', 
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #3b82f6;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        @keyframes type-in {
+            0% { width: 0; }
+            50% { width: 100%; }
+            100% { width: 0; }
+        }
+        .typing-cursor {
+            border-right: 2px solid #3b82f6;
+            animation: type-in 3s steps(20, end) infinite;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-desktop text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-pen-to-square text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Forms & Reports</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                The interface between the user and the system. Designing for usability, clarity, and efficiency.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Forms vs Reports</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prototyping</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Formatting Guidelines</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Usability</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Wireframes</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Forms vs. Reports</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-blue-500">
+                    <div class="flex items-center mb-4">
+                        <i class="fa-regular fa-keyboard text-2xl text-blue-600 dark:text-blue-400 mr-3"></i>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Form</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        A business document that contains some predefined data and may include some areas where additional data are to be filled in.
+                    </p>
+                    <ul class="text-xs text-gray-500 list-disc list-inside">
+                        <li><strong>Flow:</strong> User $\to$ System (Input).</li>
+                        <li><strong>Example:</strong> Product Order Form, Employment Application.</li>
+                        <li><strong>Focus:</strong> Data Entry & Modification.</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-t-4 border-green-500">
+                    <div class="flex items-center mb-4">
+                        <i class="fa-solid fa-print text-2xl text-green-600 dark:text-green-400 mr-3"></i>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Report</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        A business document that contains only predefined data; it is a passive document used solely for reading or viewing.
+						<br><br>
+                    </p>
+                    <ul class="text-xs text-gray-500 list-disc list-inside">
+                        <li><strong>Flow:</strong> System $\to$ User (Output).</li>
+                        <li><strong>Example:</strong> Invoice, Weekly Sales Summary.</li>
+                        <li><strong>Focus:</strong> Data Presentation & Decision Support.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Design Process</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 text-sm">
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg w-full md:w-1/4">
+                        <i class="fa-solid fa-clipboard-list text-2xl text-brand-500 mb-2"></i>
+                        <h4 class="font-bold">1. Requirements</h4>
+                        <p class="text-xs text-gray-500">Understand user, task, and environment.</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block"></i>
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg w-full md:w-1/4">
+                        <i class="fa-solid fa-pencil-ruler text-2xl text-purple-500 mb-2"></i>
+                        <h4 class="font-bold">2. Structuring</h4>
+                        <p class="text-xs text-gray-500">Initial prototype (Paper or Wireframe).</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block"></i>
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg w-full md:w-1/4">
+                        <i class="fa-solid fa-user-check text-2xl text-green-500 mb-2"></i>
+                        <h4 class="font-bold">3. Usability</h4>
+                        <p class="text-xs text-gray-500">Test with users and refine.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded border-l-4 border-brand-500">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-1">Key Deliverable: Design Specifications</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        1. <strong>Narrative Overview:</strong> Why does this exist? Who uses it?
+                        <br>2. <strong>Sample Design:</strong> Visual layout.
+                        <br>3. <strong>Testing & Usability:</strong> How will we know it works?
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Formatting Guidelines</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-heading text-brand-500 mr-2"></i>Meaningful Titles</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Clear, specific titles. Include revision date/code to distinguish versions.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-info-circle text-brand-500 mr-2"></i>Meaningful Information</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Only display what is necessary. Do not clutter. Information should be usable without modification.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-scale-balanced text-brand-500 mr-2"></i>Balanced Layout</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Balance information on the screen. Ensure adequate spacing and margins. Use standard navigation.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-arrows-to-dot text-brand-500 mr-2"></i>Easy Navigation</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Clearly show how to move forward/backward. Follow user's mental model (e.g., Tab order matches reading order).
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-6 glass-card p-5 rounded-xl border-l-4 border-yellow-500">
+                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">When to use Highlighting?</h4>
+                <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                    Use highlighting (Bold, Color, Blinking) sparingly to draw attention to:
+                </p>
+                <div class="flex flex-wrap gap-2 text-xs text-gray-500">
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Errors</span>
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Warnings</span>
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Critical Data</span>
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Changes</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Assessing Usability</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    The overall evaluation of how a system performs in supporting a particular user for a particular task.
+                </p>
+                
+                <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">Success Factors:</h4>
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Consistency:</strong> Shortcuts/Terms same everywhere.</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Efficiency:</strong> Minimize effort/steps.</li>
+                    </ul>
+                    <ul class="space-y-1 text-gray-600 dark:text-gray-400">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Ease:</strong> Self-explanatory outputs.</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Error Reduction:</strong> Prevent mistakes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Forms vs Reports
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Form:</strong> Input mechanism (Write).
+                            <strong>Report:</strong> Output mechanism (Read-only).
+                            A "Turnaround Document" is a Report that becomes a Form (e.g., a bill stub you tear off and return).
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Prototyping
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Design is rarely done on paper alone anymore. We build prototypes. However, <strong>don't test with real data initially</strong>. Use realistic dummy data to test the layout without distraction.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Highlighting Rule
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            The rule of thumb for highlighting is <strong>Use Sparingly</strong>. If everything is bold/red, nothing is important. It loses its impact and fatigues the user.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Measures of Usability
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Memorize the 3 key measures:
+                            <br>1. <strong>Time to Learn:</strong> How fast can they master it?
+                            <br>2. <strong>Speed of Performance:</strong> How fast can they work?
+                            <br>3. <strong>Rate of Errors:</strong> How many mistakes do they make?
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

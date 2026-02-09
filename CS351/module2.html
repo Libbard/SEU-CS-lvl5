@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS351 Module 2: Processes & Threads</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+	
+	<script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(167, 243, 208, 0.6); 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #10b981;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        .terminal {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #10b981;
+            overflow-x: auto;
+        }
+        .terminal-prompt { color: #10b981; font-weight: bold; }
+        .terminal-cmd { color: #60a5fa; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module1.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 2</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-microchip text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module3.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Execution: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Processes & Threads</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Understanding the life cycle of a process, scheduling, context switching, and the power of multithreading.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">PCB</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Context Switch</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">IPC (Pipes/Shared Mem)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Threads</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Amdahl's Law</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Process</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                    A <strong class="text-brand-600 dark:text-brand-400">Process</strong> is a program in execution. It is the active entity, unlike a program (which is passive code on disk).
+                </p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wide">Process in Memory</h4>
+                        <div class="flex flex-col border-2 border-gray-700 rounded-lg overflow-hidden text-center text-xs font-mono">
+                            <div class="bg-red-500/20 p-2 border-b border-gray-700">Stack (Function calls, local vars) <br> <i class="fa-solid fa-arrow-down"></i></div>
+                            <div class="p-4 bg-transparent text-gray-500 italic">Free Space</div>
+                            <div class="bg-blue-500/20 p-2 border-t border-gray-700"><i class="fa-solid fa-arrow-up"></i> <br> Heap (Dynamic Allocation)</div>
+                            <div class="bg-green-500/20 p-2 border-t border-gray-700">Data (Global Variables)</div>
+                            <div class="bg-gray-500/20 p-2 border-t border-gray-700">Text (Code Instructions)</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wide">Process Control Block (PCB)</h4>
+                        <p class="text-xs text-gray-500 mb-2">The data structure the OS uses to manage a process.</p>
+                        <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-300 space-y-1 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                            <li><strong>Process State:</strong> Running, Waiting, etc.</li>
+                            <li><strong>Program Counter:</strong> Address of next instruction.</li>
+                            <li><strong>CPU Registers:</strong> Accumulators, index registers.</li>
+                            <li><strong>CPU Scheduling Info:</strong> Priority, pointers.</li>
+                            <li><strong>Memory Mgmt Info:</strong> Base/Limit registers.</li>
+                            <li><strong>Accounting Info:</strong> CPU time used.</li>
+                            <li><strong>I/O Status Info:</strong> List of open files.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 glass-card p-6 rounded-xl">
+                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">Process State Diagram</h4>
+                
+
+
+                <div class="mermaid flex justify-center">
+                    stateDiagram-v2
+                        [*] --> New: Create
+                        New --> Ready: Admitted
+                        Ready --> Running: Scheduler Dispatch
+                        Running --> Ready: Interrupt
+                        Running --> Waiting: I/O or Event Wait
+                        Waiting --> Ready: I/O or Event Completion
+                        Running --> Terminated: Exit
+                        Terminated --> [*]
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Scheduling</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Context Switch</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                        When CPU switches to another process, the system must <span class="text-red-500 font-bold">save the state</span> of the old process and <span class="text-green-500 font-bold">load the saved state</span> for the new process.
+                    </p>
+                    <p class="text-xs text-gray-500 mt-2 italic">
+                        *Pure overhead. The system does no useful work while switching.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Operations</h3>
+                    <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
+                        <li>
+                            <strong class="text-brand-600">Creation:</strong> Parent creates children, forming a tree.
+                            <br><span class="font-mono bg-gray-800 px-1 rounded text-green-400">fork()</span>: Creates a duplicate process.
+                            <br><span class="font-mono bg-gray-800 px-1 rounded text-green-400">exec()</span>: Loads a new binary into memory.
+                        </li>
+                        <li>
+                            <strong class="text-brand-600">Termination:</strong> Process executes last statement or `exit()`.
+                            <br><em>Zombie:</em> Terminated but parent hasn't called `wait()`.
+                            <br><em>Orphan:</em> Parent terminated without invoking `wait()`.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Inter-Process Communication (IPC)</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Processes can be <strong>Independent</strong> or <strong>Cooperating</strong>. Cooperating processes need IPC.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <strong class="block text-brand-600 mb-2"><i class="fa-solid fa-memory mr-2"></i>Shared Memory</strong>
+                        <ul class="list-disc list-inside text-gray-500 text-xs">
+                            <li>Fastest (memory speed).</li>
+                            <li>Convenient for large data.</li>
+                            <li>Complex synchronization required (locks).</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <strong class="block text-brand-600 mb-2"><i class="fa-solid fa-envelope mr-2"></i>Message Passing</strong>
+                        <ul class="list-disc list-inside text-gray-500 text-xs">
+                            <li>Implemented via OS Kernel (`send()`, `receive()`).</li>
+                            <li>No conflict issues (easier sync).</li>
+                            <li>Slower (System call overhead).</li>
+                            <li>Good for distributed systems.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Threads</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="flex-1">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Why Threads?</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            A thread is a basic unit of CPU utilization. It is "Lightweight" compared to a process.
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-2">
+                            <li><i class="fa-solid fa-bolt text-yellow-500 mr-1"></i> <strong>Responsiveness:</strong> UI stays active even if backend is blocked.</li>
+                            <li><i class="fa-solid fa-share-nodes text-blue-500 mr-1"></i> <strong>Resource Sharing:</strong> Threads share code/data by default.</li>
+                            <li><i class="fa-solid fa-money-bill text-green-500 mr-1"></i> <strong>Economy:</strong> Cheaper to create/switch than processes.</li>
+                            <li><i class="fa-solid fa-maximize text-purple-500 mr-1"></i> <strong>Scalability:</strong> Utilizing multicore architectures.</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 border-l border-gray-200 dark:border-gray-700 pl-0 md:pl-8">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Multithreading Models</h3>
+                        <ul class="space-y-4 text-xs">
+                            <li>
+                                <strong class="text-brand-500">Many-to-One:</strong> Many user threads mapped to 1 kernel thread.
+                                <br><span class="text-gray-500">Blocking one blocks all. No true parallel running.</span>
+                            </li>
+                            <li>
+                                <strong class="text-brand-500">One-to-One:</strong> Each user thread maps to a kernel thread.
+                                <br><span class="text-gray-500">True concurrency. Creating user thread creates kernel thread (overhead). Used by Linux/Windows.</span>
+                            </li>
+                            <li>
+                                <strong class="text-brand-500">Many-to-Many:</strong> Many user threads mapped to smaller/equal number of kernel threads.
+                                <br><span class="text-gray-500">Flexible but complex.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Amdahl's Law
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Adding cores does not mean linear speedup. The serial portion of the program limits the maximum speedup.
+                            <br><em>Formula:</em> $Speedup \le \frac{1}{S + \frac{1-S}{N}}$
+                            <br>If 25% of code is serial ($S=0.25$), even with infinite cores, max speedup is 4x.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Zombie vs Orphan
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <strong>Zombie:</strong> Child finished, parent running but hasn't called wait(). (Entry still in process table).
+                            <br><strong>Orphan:</strong> Parent finished without waiting, child still running. (Adopted by `init`).
+                            Do not confuse them!
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Context Switch Cost
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Context Switching is pure overhead. The system does NO useful work during switching. It depends on memory speed, number of registers, and hardware support.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Fork() Return Value
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            `fork()` creates a clone.
+                            <br>It returns <strong>0</strong> to the Child Process.
+                            <br>It returns the <strong>Child's PID</strong> (Non-zero) to the Parent Process.
+                            This is how you distinguish who you are in the code.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 1</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

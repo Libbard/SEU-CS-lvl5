@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350 Module 7: SQL DDL</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .smart-term {
+            cursor: help;
+            border-bottom: 2px dotted #f59e0b;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .smart-term:hover {
+            color: #f59e0b;
+            background-color: rgba(245, 158, 11, 0.1);
+        }
+        .smart-term::after {
+            content: attr(data-ar);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'Cairo', sans-serif;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+            z-index: 50;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .smart-term:hover::after {
+            opacity: 1;
+        }
+
+        
+        .sql-keyword { color: #f59e0b; font-weight: bold; }
+        .sql-string { color: #10b981; }
+        .sql-func { color: #3b82f6; }
+        
+        .code-block {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
+                        <i class="fa-solid fa-house text-xl"></i>
+                    </a>
+                    <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 7</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-2">
+                    <i class="fa-solid fa-database text-brand-500"></i>
+                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="module8.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
+                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+        <header class="text-center space-y-4">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
+                <i class="fa-solid fa-terminal text-3xl text-brand-500"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                Basic SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Data Definition (DDL)</span>
+            </h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Building the structure. Creating schemas, tables, and enforcing constraints with SQL.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-2 mt-6">
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Schema</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">CREATE TABLE</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Data Types (CHAR, VARCHAR)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Constraints (PK, FK)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ALTER & DROP</span>
+            </div>
+        </header>
+
+        <hr class="border-gray-200 dark:border-gray-800">
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">SQL Structure & Types</h2>
+            </div>
+            
+            <div class="glass-card p-6 rounded-xl mb-6">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    SQL (Structured Query Language) is the standard for relational databases. It is comprehensive, covering DDL (Definition), DML (Manipulation), and VDL (View Definition).
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 text-sm">
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Schema & Catalog</h4>
+                        <ul class="list-disc list-inside text-gray-500">
+                            <li><strong>Schema:</strong> Group of tables/views owned by a user.</li>
+                            <li><strong>Catalog:</strong> Collection of schemas.</li>
+                            <li><strong>Environment:</strong> Installation of SQL DBMS.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Key Data Types</h4>
+                        <ul class="text-gray-500 space-y-1 text-xs font-mono">
+                            <li><span class="text-purple-500">CHAR(n)</span>: Fixed length string.</li>
+                            <li><span class="text-purple-500">VARCHAR(n)</span>: Variable length string.</li>
+                            <li><span class="text-purple-500">INT/SMALLINT</span>: Integers.</li>
+                            <li><span class="text-purple-500">FLOAT/REAL</span>: Floating point.</li>
+                            <li><span class="text-purple-500">DATE/TIME</span>: YYYY-MM-DD / HH:MM:SS.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The CREATE Statement</h2>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-2 px-1">
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Example: Creating 'EMPLOYEE'</span>
+                    <button class="text-xs text-brand-500 hover:text-brand-400"><i class="fa-regular fa-copy"></i> Copy</button>
+                </div>
+                <div class="code-block">
+<span class="sql-keyword">CREATE TABLE</span> EMPLOYEE (
+    Fname     <span class="sql-keyword">VARCHAR</span>(15) <span class="sql-keyword">NOT NULL</span>,
+    Minit     <span class="sql-keyword">CHAR</span>,
+    Lname     <span class="sql-keyword">VARCHAR</span>(15) <span class="sql-keyword">NOT NULL</span>,
+    Ssn       <span class="sql-keyword">CHAR</span>(9)     <span class="sql-keyword">NOT NULL</span>,
+    Bdate     <span class="sql-keyword">DATE</span>,
+    Address   <span class="sql-keyword">VARCHAR</span>(30),
+    Sex       <span class="sql-keyword">CHAR</span>,
+    Salary    <span class="sql-keyword">DECIMAL</span>(10,2),
+    Super_ssn <span class="sql-keyword">CHAR</span>(9),
+    Dno       <span class="sql-keyword">INT</span>         <span class="sql-keyword">NOT NULL</span>,
+    
+    <span class="sql-keyword">PRIMARY KEY</span> (Ssn),
+    <span class="sql-keyword">FOREIGN KEY</span> (Super_ssn) <span class="sql-keyword">REFERENCES</span> EMPLOYEE(Ssn),
+    <span class="sql-keyword">FOREIGN KEY</span> (Dno) <span class="sql-keyword">REFERENCES</span> DEPARTMENT(Dnumber)
+);
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-xl border-l-4 border-blue-500">
+                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">Primary Key</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Uniquely identifies rows. Can be single or composite.
+                        <br><code class="bg-gray-200 dark:bg-gray-800 px-1 rounded">PRIMARY KEY (Ssn)</code>
+                        <br><code class="bg-gray-200 dark:bg-gray-800 px-1 rounded">PRIMARY KEY (Pno, Essn)</code>
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl border-l-4 border-green-500">
+                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2">Foreign Key</h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Links to another table (Referential Integrity).
+                        <br><code class="bg-gray-200 dark:bg-gray-800 px-1 rounded">FOREIGN KEY (Dno) REFERENCES DEPARTMENT(Dnumber)</code>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Handling Violations</h2>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl">
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    What happens when you delete a parent record (e.g., a Department) that is referenced by children (e.g., Employees)? You must specify the action.
+                </p>
+                
+                <div class="grid md:grid-cols-3 gap-4 text-xs text-center">
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <strong class="block text-red-500 text-sm mb-1">RESTRICT</strong>
+                        (Default). Reject the delete.
+                    </div>
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <strong class="block text-green-500 text-sm mb-1">CASCADE</strong>
+                        Delete the children too. (Dangerous!)
+                    </div>
+                    <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <strong class="block text-blue-500 text-sm mb-1">SET NULL</strong>
+                        Set the FK in children to NULL.
+                    </div>
+                </div>
+
+                <div class="mt-4 code-block text-xs">
+<span class="sql-keyword">FOREIGN KEY</span> (Dnumber) <span class="sql-keyword">REFERENCES</span> DEPARTMENT(Dnumber)
+    <span class="sql-keyword">ON DELETE SET NULL</span>
+    <span class="sql-keyword">ON UPDATE CASCADE</span>;
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Modifying the Schema</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-pen-to-square text-brand-500 mr-2"></i>ALTER TABLE</h4>
+                    <p class="text-xs text-gray-500 mb-3">Add or drop columns/constraints.</p>
+                    <div class="code-block text-[10px]">
+<span class="sql-keyword">ALTER TABLE</span> COMPANY.EMPLOYEE <span class="sql-keyword">ADD COLUMN</span> Job <span class="sql-keyword">VARCHAR</span>(12);
+<br>
+<span class="sql-keyword">ALTER TABLE</span> COMPANY.EMPLOYEE <span class="sql-keyword">DROP COLUMN</span> Address <span class="sql-keyword">CASCADE</span>;
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-xl">
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-trash text-red-500 mr-2"></i>DROP TABLE</h4>
+                    <p class="text-xs text-gray-500 mb-3">Deletes the table and data permanently.</p>
+                    <div class="code-block text-[10px]">
+<span class="sql-keyword">DROP TABLE</span> DEPENDENT <span class="sql-keyword">CASCADE</span>;
+                    </div>
+                    <p class="text-[9px] text-red-400 mt-2">*CASCADE removes constraints referencing this table.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative mt-12">
+            <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+                
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                    <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
+                        <i class="fa-solid fa-vault text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Circular References
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            If Table A refers to Table B, and Table B refers to Table A (e.g., Employee has Dept, Dept has Manager), you <strong>cannot create both with FKs immediately</strong>.
+                            <br><em>Solution:</em> Create tables without FKs first, then use `ALTER TABLE` to add the FK constraints later.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Default Action
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            If you don't specify `ON DELETE` or `ON UPDATE`, the default behavior is <strong>RESTRICT (REJECT)</strong>. The DBMS will throw an error if you try to delete a parent record that has children.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Constraint Naming
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            Always name your constraints (e.g., `CONSTRAINT EMP_PK PRIMARY KEY...`). If you let the system auto-name them (e.g., `SYS_C00123`), it will be a nightmare to `DROP` or `ALTER` them later because you won't know the name.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Catalog
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            All the `CREATE TABLE` commands don't just create storage buckets; they update the <strong>System Catalog</strong> (Data Dictionary). The DBMS checks this catalog every time a query is run to ensure valid syntax and permissions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <span class="text-gray-300 dark:text-gray-700">|</span>
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+            </div>
+            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        
+
+        const path = window.location.pathname;
+
+        
+
+        
+
+        
+
+        const match = path.match(/module(\d+)\.html/);
+
+        
+
+        if (match) {
+
+            const moduleNumber = match[1]; 
+
+            
+
+            
+
+            if (moduleNumber >= 1 && moduleNumber <= 13) {
+
+                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+
+                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
+
+            }
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
