@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Final Master Review (Mod 7-13)</title>
@@ -91,6 +100,33 @@
         .progress-anim {
             animation: load 1.5s ease-out forwards;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+
+        
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .sql-key,
+        [dir="rtl"] .sql-val {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -98,26 +134,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module13.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Final Review</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Final Review</span>
+                        <span class="lang-ar lang-hidden">مراجعة نهائية</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-server text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Database Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Database Systems</span>
+                        <span class="lang-ar lang-hidden">CS350 نظم قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="final-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Quiz</span>
+                            <span class="lang-ar lang-hidden">اختبار</span>
+                        </span>
                         <i class="fa-solid fa-flag-checkered"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -134,16 +185,21 @@
                 <i class="fa-solid fa-infinity text-4xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Knowledge Compendium</span>
+                <span class="lang-en">Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Knowledge Compendium</span></span>
+                <span class="lang-ar lang-hidden">المراجعة الشاملة <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">للاختبار النهائي</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                A complete synthesis of Modules 7 through 13. Mastering SQL, Relational Algebra, Normalization, and Security.
+                <span class="lang-en">A complete synthesis of Modules 7 through 13. Mastering SQL, Relational Algebra, Normalization, and Security.</span>
+                <span class="lang-ar lang-hidden">ملخص كامل للوحدات من 7 إلى 13. إتقان SQL، الجبر العلائقي، التطبيع (Normalization)، والأمن.</span>
             </p>
             
             <div class="w-full max-w-md mx-auto bg-gray-300 dark:bg-gray-800 rounded-full h-2.5 mt-4">
                 <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
             </div>
-            <p class="text-xs text-gray-500 mt-2">Covering Modules 7-13</p>
+            <p class="text-xs text-gray-500 mt-2">
+                <span class="lang-en">Covering Modules 7-13</span>
+                <span class="lang-ar lang-hidden">تغطية الوحدات 7-13</span>
+            </p>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
@@ -152,29 +208,42 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-blue-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">07. SQL Definition</h2>
-                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">DDL & Constraints</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">07. SQL Definition</span>
+                        <span class="lang-ar lang-hidden">07. تعريف SQL</span>
+                    </h2>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">DDL & Constraints</span>
+                        <span class="lang-ar lang-hidden">DDL & Constraints</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Creating Structures</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Creating Structures</span>
+                            <span class="lang-ar lang-hidden">إنشاء الهياكل</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            <span class="font-mono text-xs">CREATE TABLE</span> defines the schema. 
-                            <span class="font-mono text-xs">ALTER TABLE</span> modifies it (add/drop columns).
-                            <span class="font-mono text-xs">DROP TABLE</span> deletes it.
+                            <span class="font-mono text-xs">CREATE TABLE</span> <span class="lang-en">defines the schema.</span><span class="lang-ar lang-hidden"> يعرف المخطط.</span>
+                            <br><span class="font-mono text-xs">ALTER TABLE</span> <span class="lang-en">modifies it (add/drop columns).</span><span class="lang-ar lang-hidden"> يعدله (إضافة/حذف أعمدة).</span>
+                            <br><span class="font-mono text-xs">DROP TABLE</span> <span class="lang-en">deletes it.</span><span class="lang-ar lang-hidden"> يحذفه.</span>
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Constraint Actions</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Constraint Actions</span>
+                            <span class="lang-ar lang-hidden">إجراءات القيود</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            When deleting a parent record, what happens to the children?
+                            <span class="lang-en">When deleting a parent record, what happens to the children?</span>
+                            <span class="lang-ar lang-hidden">عند حذف سجل أب، ماذا يحدث للأبناء؟</span>
                         </p>
                         <ul class="text-xs text-gray-500 space-y-1">
-                            <li><strong>RESTRICT:</strong> Stop deletion (Default).</li>
-                            <li><strong>CASCADE:</strong> Delete children too.</li>
-                            <li><strong>SET NULL:</strong> Set child FK to NULL.</li>
+                            <li><strong class="lang-en">RESTRICT:</strong><strong class="lang-ar lang-hidden">RESTRICT:</strong> <span class="lang-en">Stop deletion (Default).</span><span class="lang-ar lang-hidden"> إيقاف الحذف (الافتراضي).</span></li>
+                            <li><strong class="lang-en">CASCADE:</strong><strong class="lang-ar lang-hidden">CASCADE:</strong> <span class="lang-en">Delete children too.</span><span class="lang-ar lang-hidden"> حذف الأبناء أيضاً.</span></li>
+                            <li><strong class="lang-en">SET NULL:</strong><strong class="lang-ar lang-hidden">SET NULL:</strong> <span class="lang-en">Set child FK to NULL.</span><span class="lang-ar lang-hidden"> تعيين FK الابن إلى NULL.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -182,14 +251,23 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-green-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">08. SQL Retrieval</h2>
-                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">DML & Basics</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">08. SQL Retrieval</span>
+                        <span class="lang-ar lang-hidden">08. استرجاع SQL</span>
+                    </h2>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">DML & Basics</span>
+                        <span class="lang-ar lang-hidden">DML & Basics</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The SELECT Block</h4>
-                        <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-xs">
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">The SELECT Block</span>
+                            <span class="lang-ar lang-hidden">كتلة SELECT</span>
+                        </h4>
+                        <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-xs text-left" dir="ltr">
                             <span class="sql-key">SELECT</span> columns<br>
                             <span class="sql-key">FROM</span> tables<br>
                             <span class="sql-key">WHERE</span> row_condition<br>
@@ -198,11 +276,14 @@
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Pattern Matching</h4>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Pattern Matching</span>
+                            <span class="lang-ar lang-hidden">مطابقة الأنماط</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                            <li><strong>LIKE:</strong> Used for strings.</li>
-                            <li><strong>%:</strong> Multi-char wildcard.</li>
-                            <li><strong>_:</strong> Single-char wildcard.</li>
+                            <li><strong class="lang-en">LIKE:</strong><strong class="lang-ar lang-hidden">LIKE:</strong> <span class="lang-en">Used for strings.</span><span class="lang-ar lang-hidden"> تستخدم للنصوص.</span></li>
+                            <li><strong class="lang-en">%:</strong><strong class="lang-ar lang-hidden">%:</strong> <span class="lang-en">Multi-char wildcard.</span><span class="lang-ar lang-hidden"> بدل متعدد الأحرف.</span></li>
+                            <li><strong class="lang-en">_:</strong><strong class="lang-ar lang-hidden">_:</strong> <span class="lang-en">Single-char wildcard.</span><span class="lang-ar lang-hidden"> بدل حرف واحد.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -210,25 +291,47 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-purple-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">09. Complex SQL</h2>
-                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded text-xs font-bold uppercase">Joins & Logic</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">09. Complex SQL</span>
+                        <span class="lang-ar lang-hidden">09. SQL المتقدمة</span>
+                    </h2>
+                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Joins & Logic</span>
+                        <span class="lang-ar lang-hidden">Joins & Logic</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Advanced Joins</h4>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Advanced Joins</span>
+                            <span class="lang-ar lang-hidden">Joins المتقدمة</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                            <li><strong>Inner Join:</strong> Only matching rows.</li>
-                            <li><strong>Left/Right Outer Join:</strong> Keep all rows from one side, fill missing matches with NULL.</li>
-                            <li><strong>Self Join:</strong> Joining table to itself (Requires Aliases).</li>
+                            <li>
+                                <strong class="lang-en">Inner Join:</strong><strong class="lang-ar lang-hidden">Inner Join:</strong>
+                                <span class="lang-en">Only matching rows.</span><span class="lang-ar lang-hidden"> الصفوف المتطابقة فقط.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Left/Right Outer Join:</strong><strong class="lang-ar lang-hidden">Left/Right Outer Join:</strong>
+                                <span class="lang-en">Keep all rows from one side, fill missing matches with NULL.</span>
+                                <span class="lang-ar lang-hidden">الاحتفاظ بجميع الصفوف من جانب واحد، وملء المفقودة بـ NULL.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Self Join:</strong><strong class="lang-ar lang-hidden">Self Join:</strong>
+                                <span class="lang-en">Joining table to itself (Requires Aliases).</span><span class="lang-ar lang-hidden"> ربط الجدول بنفسه (يتطلب Aliases).</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Grouping</h4>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Grouping</span>
+                            <span class="lang-ar lang-hidden">التجميع (Grouping)</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            <strong>WHERE</strong> filters rows before grouping.
-                            <br><strong>HAVING</strong> filters groups after grouping (allows Aggregates).
+                            <strong class="lang-en">WHERE</strong><strong class="lang-ar lang-hidden">WHERE</strong> <span class="lang-en">filters rows before grouping.</span><span class="lang-ar lang-hidden"> تصفي الصفوف قبل التجميع.</span>
+                            <br><strong class="lang-en">HAVING</strong><strong class="lang-ar lang-hidden">HAVING</strong> <span class="lang-en">filters groups after grouping (allows Aggregates).</span><span class="lang-ar lang-hidden"> تصفي المجموعات بعد التجميع (تسمح بـ Aggregates).</span>
                         </p>
                     </div>
                 </div>
@@ -236,25 +339,38 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-yellow-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">10. Theory & Views</h2>
-                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">Relational Algebra</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">10. Theory & Views</span>
+                        <span class="lang-ar lang-hidden">10. النظرية و Views</span>
+                    </h2>
+                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Relational Algebra</span>
+                        <span class="lang-ar lang-hidden">Relational Algebra</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Relational Algebra Ops</h4>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Relational Algebra Ops</span>
+                            <span class="lang-ar lang-hidden">عمليات Relational Algebra</span>
+                        </h4>
                         <div class="grid grid-cols-2 gap-2 text-xs">
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\sigma$ Select:</strong> Filter Rows.</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\pi$ Project:</strong> Filter Cols.</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\times$ Product:</strong> All combos.</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>$\div$ Division:</strong> "For All".</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">$\sigma$ Select:</strong><strong class="lang-ar lang-hidden">$\sigma$ Select:</strong> <span class="lang-en">Filter Rows.</span><span class="lang-ar lang-hidden">تصفية الصفوف.</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">$\pi$ Project:</strong><strong class="lang-ar lang-hidden">$\pi$ Project:</strong> <span class="lang-en">Filter Cols.</span><span class="lang-ar lang-hidden">تصفية الأعمدة.</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">$\times$ Product:</strong><strong class="lang-ar lang-hidden">$\times$ Product:</strong> <span class="lang-en">All combos.</span><span class="lang-ar lang-hidden">كل المجموعات.</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">$\div$ Division:</strong><strong class="lang-ar lang-hidden">$\div$ Division:</strong> <span class="lang-en">"For All".</span><span class="lang-ar lang-hidden">"للجميع" (For All).</span></div>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Views</h4>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Views</span>
+                            <span class="lang-ar lang-hidden">Views</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            Virtual tables. Saved queries. Hides complexity and enhances security. Generally read-only if they contain aggregates or joins.
+                            <span class="lang-en">Virtual tables. Saved queries. Hides complexity and enhances security. Generally read-only if they contain aggregates or joins.</span>
+                            <span class="lang-ar lang-hidden">جداول افتراضية. استعلامات محفوظة. تخفي التعقيد وتعزز الأمن. عادة ما تكون للقراءة فقط إذا كانت تحتوي على تجميعات أو joins.</span>
                         </p>
                     </div>
                 </div>
@@ -262,25 +378,37 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-cyan-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">11. Normalization I</h2>
-                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">1NF - 3NF</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">11. Normalization I</span>
+                        <span class="lang-ar lang-hidden">11. التطبيع (Normalization) 1</span>
+                    </h2>
+                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">1NF - 3NF</span>
+                        <span class="lang-ar lang-hidden">1NF - 3NF</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The Basics</h4>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">The Basics</span>
+                            <span class="lang-ar lang-hidden">الأساسيات</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                            <li><strong>1NF:</strong> Atomic values (No lists).</li>
-                            <li><strong>2NF:</strong> No Partial Dependency (Attribute depends on full PK).</li>
-                            <li><strong>3NF:</strong> No Transitive Dependency (Non-key depends on Non-key).</li>
+                            <li><strong class="lang-en">1NF:</strong><strong class="lang-ar lang-hidden">1NF:</strong> <span class="lang-en">Atomic values (No lists).</span><span class="lang-ar lang-hidden"> قيم ذرية (لا قوائم).</span></li>
+                            <li><strong class="lang-en">2NF:</strong><strong class="lang-ar lang-hidden">2NF:</strong> <span class="lang-en">No Partial Dependency (Attribute depends on full PK).</span><span class="lang-ar lang-hidden"> لا اعتماد جزئي (السمة تعتمد على الـ PK الكامل).</span></li>
+                            <li><strong class="lang-en">3NF:</strong><strong class="lang-ar lang-hidden">3NF:</strong> <span class="lang-en">No Transitive Dependency (Non-key depends on Non-key).</span><span class="lang-ar lang-hidden"> لا اعتماد متعدي (غير المفتاح يعتمد على غير المفتاح).</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Functional Dependency</h4>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Functional Dependency</span>
+                            <span class="lang-ar lang-hidden">Functional Dependency</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            $X \to Y$: If you know X, you determine Y.
-                            <br><strong>Armstrong's Axioms:</strong> Reflexive, Augmentation, Transitive.
+                            $X \to Y$: <span class="lang-en">If you know X, you determine Y.</span><span class="lang-ar lang-hidden"> إذا عرفت X، تحدد Y.</span>
+                            <br><strong class="lang-en">Armstrong's Axioms:</strong><strong class="lang-ar lang-hidden">مسلمات Armstrong:</strong> <span class="lang-en">Reflexive, Augmentation, Transitive.</span><span class="lang-ar lang-hidden"> الانعكاسية، الزيادة، التعدي.</span>
                         </p>
                     </div>
                 </div>
@@ -288,25 +416,37 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-rose-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">12. Normalization II</h2>
-                    <span class="bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 px-3 py-1 rounded text-xs font-bold uppercase">BCNF - 5NF</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">12. Normalization II</span>
+                        <span class="lang-ar lang-hidden">12. التطبيع (Normalization) 2</span>
+                    </h2>
+                    <span class="bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">BCNF - 5NF</span>
+                        <span class="lang-ar lang-hidden">BCNF - 5NF</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Advanced Forms</h4>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Advanced Forms</span>
+                            <span class="lang-ar lang-hidden">الأشكال المتقدمة</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                            <li><strong>BCNF:</strong> Stricter 3NF. Every determinant must be a Superkey.</li>
-                            <li><strong>4NF:</strong> No Multivalued Dependencies (MVD).</li>
-                            <li><strong>5NF:</strong> Join Dependencies (Rare).</li>
+                            <li><strong class="lang-en">BCNF:</strong><strong class="lang-ar lang-hidden">BCNF:</strong> <span class="lang-en">Stricter 3NF. Every determinant must be a Superkey.</span><span class="lang-ar lang-hidden"> 3NF أكثر صرامة. كل محدد يجب أن يكون Superkey.</span></li>
+                            <li><strong class="lang-en">4NF:</strong><strong class="lang-ar lang-hidden">4NF:</strong> <span class="lang-en">No Multivalued Dependencies (MVD).</span><span class="lang-ar lang-hidden"> لا اعتماديات متعددة القيم (MVD).</span></li>
+                            <li><strong class="lang-en">5NF:</strong><strong class="lang-ar lang-hidden">5NF:</strong> <span class="lang-en">Join Dependencies (Rare).</span><span class="lang-ar lang-hidden"> اعتماديات الربط (نادرة).</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Decomposition Properties</h4>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Decomposition Properties</span>
+                            <span class="lang-ar lang-hidden">خصائص التفكيك</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            <strong>Lossless Join:</strong> Rejoining tables must not create fake data.
-                            <br><strong>Dependency Preservation:</strong> FDs should be enforceable within a single table.
+                            <strong class="lang-en">Lossless Join:</strong><strong class="lang-ar lang-hidden">Lossless Join:</strong> <span class="lang-en">Rejoining tables must not create fake data.</span><span class="lang-ar lang-hidden"> إعادة ربط الجداول لا يجب أن تنشئ بيانات زائفة.</span>
+                            <br><strong class="lang-en">Dependency Preservation:</strong><strong class="lang-ar lang-hidden">Dependency Preservation:</strong> <span class="lang-en">FDs should be enforceable within a single table.</span><span class="lang-ar lang-hidden"> يجب أن تكون الـ FDs قابلة للتطبيق داخل جدول واحد.</span>
                         </p>
                     </div>
                 </div>
@@ -314,34 +454,56 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-gray-500 flex flex-col h-full lg:col-span-2">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">13. Database Security</h2>
-                    <span class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-3 py-1 rounded text-xs font-bold uppercase">Access Control</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">13. Database Security</span>
+                        <span class="lang-ar lang-hidden">13. أمن قواعد البيانات</span>
+                    </h2>
+                    <span class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Access Control</span>
+                        <span class="lang-ar lang-hidden">التحكم في الوصول</span>
+                    </span>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 flex-grow">
                     <div>
-                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Access Models</h4>
+                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Access Models</span>
+                            <span class="lang-ar lang-hidden">نماذج الوصول</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                            <li><strong>DAC:</strong> Identity-based (GRANT/REVOKE).</li>
-                            <li><strong>MAC:</strong> Clearance Levels (Top Secret). No Read Up, No Write Down.</li>
-                            <li><strong>RBAC:</strong> Role-based (Manager, Clerk).</li>
+                            <li><strong class="lang-en">DAC:</strong><strong class="lang-ar lang-hidden">DAC:</strong> <span class="lang-en">Identity-based (GRANT/REVOKE).</span><span class="lang-ar lang-hidden"> قائم على الهوية.</span></li>
+                            <li><strong class="lang-en">MAC:</strong><strong class="lang-ar lang-hidden">MAC:</strong> <span class="lang-en">Clearance Levels (Top Secret). No Read Up, No Write Down.</span><span class="lang-ar lang-hidden"> مستويات التصريح. لا قراءة للأعلى، لا كتابة للأسفل.</span></li>
+                            <li><strong class="lang-en">RBAC:</strong><strong class="lang-ar lang-hidden">RBAC:</strong> <span class="lang-en">Role-based (Manager, Clerk).</span><span class="lang-ar lang-hidden"> قائم على الأدوار.</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">CIA Triad</h4>
+                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">CIA Triad</span>
+                            <span class="lang-ar lang-hidden">ثالوث CIA</span>
+                        </h4>
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded text-center">
-                            <span class="block text-brand-500 font-bold">Confidentiality</span>
-                            <span class="block text-green-500 font-bold">Integrity</span>
-                            <span class="block text-blue-500 font-bold">Availability</span>
+                            <span class="block text-brand-500 font-bold">
+                                <span class="lang-en">Confidentiality</span><span class="lang-ar lang-hidden">السرية (Confidentiality)</span>
+                            </span>
+                            <span class="block text-green-500 font-bold">
+                                <span class="lang-en">Integrity</span><span class="lang-ar lang-hidden">النزاهة (Integrity)</span>
+                            </span>
+                            <span class="block text-blue-500 font-bold">
+                                <span class="lang-en">Availability</span><span class="lang-ar lang-hidden">التوافر (Availability)</span>
+                            </span>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">SQL Injection</h4>
+                        <h4 class="font-bold text-gray-600 dark:text-gray-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">SQL Injection</span>
+                            <span class="lang-ar lang-hidden">حقن SQL</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-300">
-                            Malicious code inserted via inputs. 
-                            <br><strong>Solution:</strong> Prepared Statements (Bind Variables).
+                            <span class="lang-en">Malicious code inserted via inputs.</span>
+                            <span class="lang-ar lang-hidden">كود خبيث يتم إدراجه عبر المدخلات.</span>
+                            <br><strong class="lang-en">Solution:</strong><strong class="lang-ar lang-hidden">الحل:</strong> <span class="lang-en">Prepared Statements (Bind Variables).</span><span class="lang-ar lang-hidden"> جمل جاهزة (Bind Variables).</span>
                         </p>
                     </div>
                 </div>
@@ -350,14 +512,20 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">SQL Order of Execution</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">SQL Order of Execution</span>
+                    <span class="lang-ar lang-hidden">ترتيب تنفيذ SQL</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <p class="text-sm text-gray-500 mb-4">SQL code is written in one order but executed in another.</p>
-                <div class="flex flex-wrap justify-center gap-4 text-xs font-mono font-bold text-gray-900 dark:text-white">
+                <p class="text-sm text-gray-500 mb-4">
+                    <span class="lang-en">SQL code is written in one order but executed in another.</span>
+                    <span class="lang-ar lang-hidden">كود SQL يكتب بترتيب معين ولكن ينفذ بترتيب آخر.</span>
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 text-xs font-mono font-bold text-gray-900 dark:text-white" dir="ltr">
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">1. FROM / JOIN</div>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">2. WHERE</div>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">3. GROUP BY</div>
@@ -373,75 +541,106 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Final Exam Mega Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Secrets for Mod 7-13</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Final Exam Mega Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار النهائي الكبرى</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Secrets for Mod 7-13</span>
+                            <span class="lang-ar lang-hidden">أسرار الوحدات 7-13</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 3NF vs BCNF
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 3NF vs BCNF</span>
+                            <span class="lang-ar lang-hidden">فخ: 3NF مقابل BCNF</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            If $X \to A$ and $X$ is NOT a superkey:
+                            <span class="lang-en">If $X \to A$ and $X$ is NOT a superkey:
                             <br>In <strong>3NF</strong>: Allowed if $A$ is Prime.
-                            <br>In <strong>BCNF</strong>: Forbidden. $X$ MUST be a superkey.
+                            <br>In <strong>BCNF</strong>: Forbidden. $X$ MUST be a superkey.</span>
+                            <span class="lang-ar lang-hidden">إذا $X \to A$ و $X$ ليس superkey:
+                            <br>في <strong>3NF</strong>: مسموح إذا كان $A$ أولي.
+                            <br>في <strong>BCNF</strong>: ممنوع. $X$ يجب أن يكون superkey.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: WHERE vs HAVING
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: WHERE vs HAVING</span>
+                            <span class="lang-ar lang-hidden">فخ: WHERE مقابل HAVING</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            You cannot use Aggregates (SUM, COUNT) in WHERE.
+                            <span class="lang-en">You cannot use Aggregates (SUM, COUNT) in WHERE.
                             <br>Wrong: `WHERE COUNT(*) > 5`
-                            <br>Right: `HAVING COUNT(*) > 5`
+                            <br>Right: `HAVING COUNT(*) > 5`</span>
+                            <span class="lang-ar lang-hidden">لا يمكنك استخدام Aggregates (SUM, COUNT) في WHERE.
+                            <br>خطأ: `WHERE COUNT(*) > 5`
+                            <br>صح: `HAVING COUNT(*) > 5`</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: NULL Comparisons
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: NULL Comparisons</span>
+                            <span class="lang-ar lang-hidden">فخ: مقارنات NULL</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            `Salary = NULL` is always FALSE (or Unknown).
-                            <br>You MUST use `Salary IS NULL`.
+                            <span class="lang-en">`Salary = NULL` is always FALSE (or Unknown).
+                            <br>You MUST use `Salary IS NULL`.</span>
+                            <span class="lang-ar lang-hidden">`Salary = NULL` دائماً خطأ (أو غير معروف).
+                            <br>يجب عليك استخدام `Salary IS NULL`.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Division Op
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The Division Op</span>
+                            <span class="lang-ar lang-hidden">سر: عملية Division</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            Any question with "Find students who took <strong>ALL</strong> courses" implies the <strong>Division ($\div$)</strong> operation. In SQL, this is solved using double `NOT EXISTS`.
+                            <span class="lang-en">Any question with "Find students who took <strong>ALL</strong> courses" implies the <strong>Division ($\div$)</strong> operation. In SQL, this is solved using double `NOT EXISTS`.</span>
+                            <span class="lang-ar lang-hidden">أي سؤال يحتوي على "أوجد الطلاب الذين أخذوا <strong>كل</strong> المواد" يشير إلى عملية <strong>Division ($\div$)</strong>. في SQL، يتم حلها باستخدام `NOT EXISTS` مزدوجة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-key mr-2"></i> SECRET: MAC Logic
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: MAC Logic</span>
+                            <span class="lang-ar lang-hidden">سر: منطق MAC</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            <strong>Bell-LaPadula (Confidentiality):</strong>
+                            <span class="lang-en"><strong>Bell-LaPadula (Confidentiality):</strong>
                             <br>No Read Up (Can't see above).
-                            <br>No Write Down (Can't leak to below).
+                            <br>No Write Down (Can't leak to below).</span>
+                            <span class="lang-ar lang-hidden"><strong>Bell-LaPadula (السرية):</strong>
+                            <br>لا قراءة للأعلى (لا يمكن رؤية ما هو أعلى).
+                            <br>لا كتابة للأسفل (لا يمكن التسريب للأسفل).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: Lossless Join
+                            <i class="fa-solid fa-lightbulb mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Lossless Join</span>
+                            <span class="lang-ar lang-hidden">سر: Lossless Join</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            Decomposition is only valid if it is <strong>Lossless</strong>. This means the common attribute between the two new tables MUST be a <strong>key</strong> in at least one of them.
+                            <span class="lang-en">Decomposition is only valid if it is <strong>Lossless</strong>. This means the common attribute between the two new tables MUST be a <strong>key</strong> in at least one of them.</span>
+                            <span class="lang-ar lang-hidden">التفكيك صالح فقط إذا كان <strong>Lossless</strong>. هذا يعني أن السمة المشتركة بين الجدولين الجديدين يجب أن تكون <strong>مفتاحاً</strong> في واحد منهما على الأقل.</span>
                         </p>
                     </div>
                 </div>
@@ -452,18 +651,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Quiz</span>
+                    <span class="lang-ar lang-hidden">الكويز النهائي</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Review</span>
+                    <span class="lang-ar lang-hidden">المراجعة النصفية</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -481,6 +693,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 </body>

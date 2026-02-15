@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 3: CPU Scheduling</title>
@@ -74,7 +83,7 @@
         .glass-card {
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(167, 243, 208, 0.6);
+            border: 1px solid rgba(167, 243, 208, 0.6); 
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
@@ -121,6 +130,34 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
+        
+        
+        [dir="rtl"] .mermaid, 
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -128,26 +165,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module2.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 3</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 3</span>
+                        <span class="lang-ar lang-hidden">الوحدة 3</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-stopwatch text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module4.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,32 +216,53 @@
                 <i class="fa-solid fa-clock-rotate-left text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Optimization: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">CPU Scheduling</span>
+                <span class="lang-en">Optimization: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">CPU Scheduling</span></span>
+                <span class="lang-ar lang-hidden">التحسين: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">جدولة وحدة المعالجة المركزية (CPU Scheduling)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Deciding which process runs next. Maximizing CPU utilization through smart algorithms.
+                <span class="lang-en">Deciding which process runs next. Maximizing CPU utilization through smart algorithms.</span>
+                <span class="lang-ar lang-hidden">اتخاذ القرار بشأن أي عملية ستعمل تالياً. تعظيم استخدام وحدة المعالجة المركزية من خلال خوارزميات ذكية.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Preemptive vs Non-Preemptive</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">FCFS</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">SJF</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Round Robin (RR)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Multilevel Queue</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Preemptive vs Non-Preemptive</span>
+                    <span class="lang-ar lang-hidden">Preemptive vs Non-Preemptive</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">FCFS</span>
+                    <span class="lang-ar lang-hidden">FCFS</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">SJF</span>
+                    <span class="lang-ar lang-hidden">SJF</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Round Robin (RR)</span>
+                    <span class="lang-ar lang-hidden">Round Robin (RR)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Multilevel Queue</span>
+                    <span class="lang-ar lang-hidden">Multilevel Queue</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Basic Concepts</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Basic Concepts</span>
+                    <span class="lang-ar lang-hidden">مفاهيم أساسية</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Process execution consists of a cycle of <span class="text-brand-500 font-bold">CPU execution</span> and <span class="text-brand-500 font-bold">I/O wait</span>.
+                    <span class="lang-en">Process execution consists of a cycle of <span class="text-brand-500 font-bold">CPU execution</span> and <span class="text-brand-500 font-bold">I/O wait</span>.</span>
+                    <span class="lang-ar lang-hidden">تنفيذ العملية يتكون من دورة من <span class="text-brand-500 font-bold">تنفيذ CPU</span> و <span class="text-brand-500 font-bold">انتظار I/O</span>.</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div class="mermaid">
@@ -202,70 +275,101 @@
                     </div>
                     <div class="space-y-4">
                         <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-xs">
-                            <strong class="block text-gray-900 dark:text-white mb-1">CPU-bound Process</strong>
-                            Spends more time doing computations. Few very long CPU bursts.
+                            <strong class="block text-gray-900 dark:text-white mb-1">
+                                <span class="lang-en">CPU-bound Process</span>
+                                <span class="lang-ar lang-hidden">CPU-bound Process</span>
+                            </strong>
+                            <span class="lang-en">Spends more time doing computations. Few very long CPU bursts.</span>
+                            <span class="lang-ar lang-hidden">تقضي وقتاً أطول في الحسابات. دفقات CPU (Bursts) قليلة وطويلة جداً.</span>
                         </div>
                         <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-xs">
-                            <strong class="block text-gray-900 dark:text-white mb-1">I/O-bound Process</strong>
-                            Spends more time doing I/O. Many short CPU bursts.
+                            <strong class="block text-gray-900 dark:text-white mb-1">
+                                <span class="lang-en">I/O-bound Process</span>
+                                <span class="lang-ar lang-hidden">I/O-bound Process</span>
+                            </strong>
+                            <span class="lang-en">Spends more time doing I/O. Many short CPU bursts.</span>
+                            <span class="lang-ar lang-hidden">تقضي وقتاً أطول في الإدخال/الإخراج. دفقات CPU كثيرة وقصيرة.</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Dispatcher</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">The Dispatcher</span>
+                    <span class="lang-ar lang-hidden">The Dispatcher (المرسل)</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300">
-                    The module that gives control of the CPU to the process selected by the short-term scheduler.
+                    <span class="lang-en">The module that gives control of the CPU to the process selected by the short-term scheduler.</span>
+                    <span class="lang-ar lang-hidden">الوحدة التي تعطي التحكم في وحدة المعالجة المركزية للعملية المختارة من قبل المجدول قصير الأجل (short-term scheduler).</span>
                 </p>
                 <ul class="list-disc list-inside mt-2 text-xs text-gray-500 space-y-1">
-                    <li>Switching context.</li>
-                    <li>Switching to user mode.</li>
-                    <li>Jumping to the proper location in the user program to restart that program.</li>
+                    <li><span class="lang-en">Switching context.</span><span class="lang-ar lang-hidden">تبديل السياق (Context).</span></li>
+                    <li><span class="lang-en">Switching to user mode.</span><span class="lang-ar lang-hidden">التحويل إلى وضع المستخدم.</span></li>
+                    <li><span class="lang-en">Jumping to the proper location in the user program to restart that program.</span><span class="lang-ar lang-hidden">القفز إلى الموقع المناسب في برنامج المستخدم لإعادة تشغيله.</span></li>
                 </ul>
-                <p class="text-xs font-bold text-red-500 mt-2">Dispatch Latency: Time it takes for the dispatcher to stop one process and start another.</p>
+                <p class="text-xs font-bold text-red-500 mt-2">
+                    <span class="lang-en">Dispatch Latency: Time it takes for the dispatcher to stop one process and start another.</span>
+                    <span class="lang-ar lang-hidden">Dispatch Latency: الوقت الذي يستغرقه الـ dispatcher لإيقاف عملية وبدء أخرى.</span>
+                </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Optimization Criteria</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Optimization Criteria</span>
+                    <span class="lang-ar lang-hidden">معايير التحسين</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                What are we trying to maximize or minimize?
+                <span class="lang-en">What are we trying to maximize or minimize?</span>
+                <span class="lang-ar lang-hidden">ما الذي نحاول تعظيمه أو تقليله؟</span>
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
                 <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded border border-green-200 dark:border-green-800">
                     <i class="fa-solid fa-arrow-trend-up text-green-500 mb-2"></i>
-                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">Maximize</h4>
+                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">
+                        <span class="lang-en">Maximize</span>
+                        <span class="lang-ar lang-hidden">تعظيم (Maximize)</span>
+                    </h4>
                     <p class="text-xs text-gray-500 mt-1">CPU Utilization</p>
                     <p class="text-xs text-gray-500">Throughput</p>
                 </div>
                 <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded border border-red-200 dark:border-red-800">
                     <i class="fa-solid fa-arrow-trend-down text-red-500 mb-2"></i>
-                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">Minimize</h4>
+                    <h4 class="font-bold text-sm text-gray-900 dark:text-white">
+                        <span class="lang-en">Minimize</span>
+                        <span class="lang-ar lang-hidden">تقليل (Minimize)</span>
+                    </h4>
                     <p class="text-xs text-gray-500 mt-1">Turnaround Time</p>
                     <p class="text-xs text-gray-500">Waiting Time</p>
                     <p class="text-xs text-gray-500">Response Time</p>
                 </div>
                 <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded border border-blue-200 dark:border-blue-800 md:col-span-2 lg:col-span-1">
-                    <h4 class="font-bold text-sm text-gray-900 dark:text-white mb-2">Definitions</h4>
+                    <h4 class="font-bold text-sm text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Definitions</span>
+                        <span class="lang-ar lang-hidden">تعريفات</span>
+                    </h4>
                     <div class="text-[10px] text-left space-y-1 text-gray-600 dark:text-gray-400">
-                        <p><strong>Throughput:</strong> # of processes completing per time unit.</p>
-                        <p><strong>Turnaround:</strong> Submission to Completion.</p>
-                        <p><strong>Waiting:</strong> Time spent in Ready Queue.</p>
+                        <p><strong class="lang-en">Throughput:</strong><strong class="lang-ar lang-hidden">Throughput:</strong> <span class="lang-en"># of processes completing per time unit.</span><span class="lang-ar lang-hidden"> عدد العمليات المكتملة لكل وحدة زمنية.</span></p>
+                        <p><strong class="lang-en">Turnaround:</strong><strong class="lang-ar lang-hidden">Turnaround:</strong> <span class="lang-en">Submission to Completion.</span><span class="lang-ar lang-hidden"> من التقديم إلى الإنجاز.</span></p>
+                        <p><strong class="lang-en">Waiting:</strong><strong class="lang-ar lang-hidden">Waiting:</strong> <span class="lang-en">Time spent in Ready Queue.</span><span class="lang-ar lang-hidden"> الوقت المستغرق في طابور الجاهزية.</span></p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Algorithms</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Algorithms</span>
+                    <span class="lang-ar lang-hidden">الخوارزميات (Algorithms)</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
@@ -276,7 +380,8 @@
                         <span class="text-xs bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-600 dark:text-gray-300">Non-Preemptive</span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        Processes are executed in the order they arrive. Simple (FIFO Queue) but can cause the <strong class="text-brand-500">Convoy Effect</strong> (short process stuck behind long process).
+                        <span class="lang-en">Processes are executed in the order they arrive. Simple (FIFO Queue) but can cause the <strong class="text-brand-500">Convoy Effect</strong> (short process stuck behind long process).</span>
+                        <span class="lang-ar lang-hidden">يتم تنفيذ العمليات بالترتيب الذي وصلت به. بسيطة (طابور FIFO) ولكن قد تسبب <strong class="text-brand-500">تأثير القافلة (Convoy Effect)</strong> (عملية قصيرة عالقة خلف عملية طويلة).</span>
                     </p>
                 </div>
 
@@ -286,14 +391,17 @@
                         <span class="text-xs bg-brand-100 dark:bg-brand-900 px-2 py-1 rounded text-brand-700 dark:text-brand-300">Optimal (Avg Wait)</span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        Associate with each process the length of its next CPU burst. Use these lengths to schedule the process with the shortest time.
+                        <span class="lang-en">Associate with each process the length of its next CPU burst. Use these lengths to schedule the process with the shortest time.</span>
+                        <span class="lang-ar lang-hidden">اربط كل عملية بطول دفق الـ CPU التالي لها. استخدم هذه الأطوال لجدولة العملية ذات الوقت الأقصر.</span>
                     </p>
                     <div class="mt-4 grid grid-cols-2 gap-4 text-xs">
                         <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
-                            <strong>Non-Preemptive SJF:</strong> Once CPU given, it cannot be preempted until completion.
+                            <strong class="lang-en">Non-Preemptive SJF:</strong><strong class="lang-ar lang-hidden">Non-Preemptive SJF:</strong> 
+                            <span class="lang-en">Once CPU given, it cannot be preempted until completion.</span><span class="lang-ar lang-hidden"> بمجرد إعطاء الـ CPU، لا يمكن مقاطعته حتى الانتهاء.</span>
                         </div>
                         <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
-                            <strong>Preemptive SJF (SRTF):</strong> If a new process arrives with shorter burst than remaining time of current, preempt! (Shortest Remaining Time First).
+                            <strong class="lang-en">Preemptive SJF (SRTF):</strong><strong class="lang-ar lang-hidden">Preemptive SJF (SRTF):</strong>
+                            <span class="lang-en">If a new process arrives with shorter burst than remaining time of current, preempt! (Shortest Remaining Time First).</span><span class="lang-ar lang-hidden"> إذا وصلت عملية جديدة بـ Burst أقصر من الوقت المتبقي للحالية، قاطعها!</span>
                         </div>
                     </div>
                 </div>
@@ -304,47 +412,62 @@
                         <span class="text-xs bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-700 dark:text-blue-300">Preemptive</span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        Designed for time-sharing. Each process gets a small unit of CPU time (<span class="font-mono text-brand-500">Time Quantum q</span>), usually 10-100ms. After this time, the process is preempted and added to the end of the ready queue.
+                        <span class="lang-en">Designed for time-sharing. Each process gets a small unit of CPU time (<span class="font-mono text-brand-500">Time Quantum q</span>), usually 10-100ms. After this time, the process is preempted and added to the end of the ready queue.</span>
+                        <span class="lang-ar lang-hidden">صممت للمشاركة الزمنية. تحصل كل عملية على وحدة صغيرة من وقت الـ CPU (<span class="font-mono text-brand-500">Time Quantum q</span>)، عادة 10-100 مللي ثانية. بعد هذا الوقت، تتم مقاطعة العملية وإضافتها إلى نهاية طابور الجاهزية.</span>
                     </p>
                     <p class="text-xs text-gray-500 mt-2 italic">
-                        *If q is too large $\to$ FCFS. If q is too small $\to$ Excessive context switch overhead.
+                        <span class="lang-en">*If q is too large $\to$ FCFS. If q is too small $\to$ Excessive context switch overhead.</span>
+                        <span class="lang-ar lang-hidden">*إذا كانت q كبيرة جداً $\to$ FCFS. إذا كانت q صغيرة جداً $\to$ تكلفة تبديل سياق مفرطة.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white">Priority Scheduling</h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        A priority number (integer) is associated with each process. CPU is allocated to the process with highest priority (smallest integer usually).
+                        <span class="lang-en">A priority number (integer) is associated with each process. CPU is allocated to the process with highest priority (smallest integer usually).
                         <br><span class="text-red-500 font-bold">Problem: Starvation</span> (Low priority processes may never execute).
-                        <br><span class="text-green-500 font-bold">Solution: Aging</span> (Increase priority as time progresses).
+                        <br><span class="text-green-500 font-bold">Solution: Aging</span> (Increase priority as time progresses).</span>
+                        <span class="lang-ar lang-hidden">رقم أولوية (عدد صحيح) يرتبط بكل عملية. يخصص الـ CPU للعملية ذات الأولوية الأعلى (عادة العدد الأصغر).
+                        <br><span class="text-red-500 font-bold">المشكلة: Starvation (المجاعة)</span> (العمليات ذات الأولوية المنخفضة قد لا تنفذ أبداً).
+                        <br><span class="text-green-500 font-bold">الحل: Aging (التقادم)</span> (زيادة الأولوية مع مرور الوقت).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Queuing</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Advanced Queuing</span>
+                    <span class="lang-ar lang-hidden">الاصطفاف المتقدم (Advanced Queuing)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Multilevel Queue</h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Ready queue is partitioned into separate queues (e.g., foreground/interactive, background/batch).
+                        <span class="lang-en">Ready queue is partitioned into separate queues (e.g., foreground/interactive, background/batch).
                         <br>Each queue has its own scheduling algorithm.
-                        <br>Scheduling must be done between queues (Fixed priority or Time slice).
+                        <br>Scheduling must be done between queues (Fixed priority or Time slice).</span>
+                        <span class="lang-ar lang-hidden">يتم تقسيم طابور الجاهزية إلى طوابير منفصلة (مثل: الأمامية/التفاعلية، الخلفية/الدفعية).
+                        <br>كل طابور له خوارزمية جدولة خاصة به.
+                        <br>يجب أن تتم الجدولة بين الطوابير (أولوية ثابتة أو شريحة زمنية).</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-orange-500">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Multilevel Feedback Queue</h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        A process can <strong>move between queues</strong>.
+                        <span class="lang-en">A process can <strong>move between queues</strong>.
                         <br>If a process uses too much CPU time $\to$ move to lower priority queue.
                         <br>If a process waits too long in lower priority queue $\to$ move to higher priority (Aging).
-                        <br>Most complex and general algorithm.
+                        <br>Most complex and general algorithm.</span>
+                        <span class="lang-ar lang-hidden">يمكن للعملية <strong>الانتقال بين الطوابير</strong>.
+                        <br>إذا استخدمت العملية وقتاً كبيراً من الـ CPU $\to$ تنتقل لطابور أولوية أقل.
+                        <br>إذا انتظرت العملية طويلاً في طابور أولوية منخفضة $\to$ تنتقل لأولوية أعلى (Aging).
+                        <br>الخوارزمية الأكثر تعقيداً وشمولاً.</span>
                     </p>
                 </div>
             </div>
@@ -354,54 +477,74 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: SJF Prediction
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: SJF Prediction</span>
+                            <span class="lang-ar lang-hidden">فخ: تنبؤ SJF</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            SJF is optimal, but we <strong>cannot know</strong> the length of the next CPU burst. We can only <strong>estimate</strong> it using exponential averaging:
+                            <span class="lang-en">SJF is optimal, but we <strong>cannot know</strong> the length of the next CPU burst. We can only <strong>estimate</strong> it using exponential averaging:
                             <br>$\tau_{n+1} = \alpha t_n + (1 - \alpha)\tau_n$
-                            <br>(New Estimate = $\alpha \times$ Actual Last + $(1-\alpha) \times$ Old Estimate).
+                            <br>(New Estimate = $\alpha \times$ Actual Last + $(1-\alpha) \times$ Old Estimate).</span>
+                            <span class="lang-ar lang-hidden">SJF مثالية، لكننا <strong>لا نستطيع معرفة</strong> طول دفق الـ CPU التالي. يمكننا فقط <strong>تقديره</strong> باستخدام المتوسط الأسي (exponential averaging).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Turnaround Time Calculation
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Turnaround Time Calculation</span>
+                            <span class="lang-ar lang-hidden">فخ: حساب Turnaround Time</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Turnaround Time = Completion Time - Arrival Time.
+                            <span class="lang-en">Turnaround Time = Completion Time - Arrival Time.
                             <br>Waiting Time = Turnaround Time - Burst Time.
-                            <br>Don't just sum up the waiting periods; using the formula is safer and faster.
+                            <br>Don't just sum up the waiting periods; using the formula is safer and faster.</span>
+                            <span class="lang-ar lang-hidden">Turnaround Time = وقت الانتهاء - وقت الوصول.
+                            <br>Waiting Time = Turnaround Time - وقت الـ Burst.
+                            <br>لا تقم فقط بجمع فترات الانتظار؛ استخدام المعادلة أكثر أماناً وسرعة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: FCFS Convoy Effect
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: FCFS Convoy Effect</span>
+                            <span class="lang-ar lang-hidden">سر: تأثير القافلة في FCFS</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If a CPU-bound process arrives first, all I/O-bound processes pile up behind it, leaving the I/O devices idle. When the CPU-bound process finally does I/O, the CPU sits idle. This lowers <strong>both</strong> CPU and I/O utilization.
+                            <span class="lang-en">If a CPU-bound process arrives first, all I/O-bound processes pile up behind it, leaving the I/O devices idle. When the CPU-bound process finally does I/O, the CPU sits idle. This lowers <strong>both</strong> CPU and I/O utilization.</span>
+                            <span class="lang-ar lang-hidden">إذا وصلت عملية CPU-bound أولاً، تتكدس جميع عمليات I/O-bound خلفها، مما يترك أجهزة I/O خاملة. عندما تقوم عملية الـ CPU-bound أخيراً بعمل I/O، يظل الـ CPU خاملاً. هذا يخفض استخدام <strong>كلاً من</strong> الـ CPU والـ I/O.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Context Switch
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Context Switch</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Context Switch</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Context Switch time is <strong>overhead</strong>. The system does no useful work. It depends on hardware support (multiple register sets).
+                            <span class="lang-en">Context Switch time is <strong>overhead</strong>. The system does no useful work. It depends on hardware support (multiple register sets).</span>
+                            <span class="lang-ar lang-hidden">وقت تبديل السياق هو <strong>overhead</strong>. النظام لا يقوم بأي عمل مفيد. يعتمد على دعم الأجهزة (مجموعات سجلات متعددة).</span>
                         </p>
                     </div>
                 </div>
@@ -412,18 +555,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 2</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 4</span>
+                    <span class="lang-ar lang-hidden">الوحدة 4</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -441,6 +597,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

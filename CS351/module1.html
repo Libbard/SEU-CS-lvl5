@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 1: OS Services</title>
@@ -125,6 +134,31 @@
         }
         .terminal-prompt { color: #10b981; font-weight: bold; }
         .terminal-cmd { color: #60a5fa; }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        
+        
+        [dir="rtl"] .terminal,
+        [dir="rtl"] .mermaid {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -132,23 +166,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 1</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 1</span>
+                        <span class="lang-ar lang-hidden">الوحدة 1</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-microchip text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module2.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -165,49 +214,103 @@
                 <i class="fa-solid fa-desktop text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Core Foundations: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">OS Architecture</span>
+                <span class="lang-en">Core Foundations: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">OS Architecture</span></span>
+                <span class="lang-ar lang-hidden">الأسس الجوهرية: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">بنية نظام التشغيل</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                What happens when you press the power button? Understanding the Kernel, System Calls, and the Dual-Mode Operation.
+                <span class="lang-en">What happens when you press the power button? Understanding the Kernel, System Calls, and the Dual-Mode Operation.</span>
+                <span class="lang-ar lang-hidden">ماذا يحدث عند الضغط على زر التشغيل؟ فهم الـ Kernel، و System Calls، و Dual-Mode Operation.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Kernel vs User Mode</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">System Calls</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Bootstrap Program</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Interrupts</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Virtualization</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Kernel vs User Mode</span>
+                    <span class="lang-ar lang-hidden">Kernel vs User Mode</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">System Calls</span>
+                    <span class="lang-ar lang-hidden">System Calls</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Bootstrap Program</span>
+                    <span class="lang-ar lang-hidden">Bootstrap Program</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Interrupts</span>
+                    <span class="lang-ar lang-hidden">Interrupts</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Virtualization</span>
+                    <span class="lang-ar lang-hidden">Virtualization</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">What is an Operating System?</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">What is an Operating System?</span>
+                    <span class="lang-ar lang-hidden">ما هو نظام التشغيل؟</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    An OS is a program that acts as an <span class="text-brand-500 font-bold">Intermediary</span> between the user and the hardware.
+                    <span class="lang-en">An OS is a program that acts as an <span class="text-brand-500 font-bold">Intermediary</span> between the user and the hardware.</span>
+                    <span class="lang-ar lang-hidden">نظام التشغيل هو برنامج يعمل كـ <span class="text-brand-500 font-bold">وسيط (Intermediary)</span> بين المستخدم والأجهزة (Hardware).</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-4">
-                        <h4 class="font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">Main Goals</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                            <span class="lang-en">Main Goals</span>
+                            <span class="lang-ar lang-hidden">الأهداف الرئيسية</span>
+                        </h4>
                         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                            <li><i class="fa-solid fa-check text-brand-500 mr-2"></i><strong>Convenience:</strong> Makes the computer easier to use (Abstraction). Turns "ugly hardware" into beautiful interfaces.</li>
-                            <li><i class="fa-solid fa-check text-brand-500 mr-2"></i><strong>Efficiency:</strong> Manages resources (CPU, Memory, Disk) optimally.</li>
-                            <li><i class="fa-solid fa-check text-brand-500 mr-2"></i><strong>Protection:</strong> Ensures security and reliability.</li>
+                            <li><i class="fa-solid fa-check text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                <strong class="lang-en">Convenience:</strong><strong class="lang-ar lang-hidden">Convenience (الراحة):</strong> 
+                                <span class="lang-en">Makes the computer easier to use (Abstraction). Turns "ugly hardware" into beautiful interfaces.</span>
+                                <span class="lang-ar lang-hidden">يجعل الحاسوب أسهل في الاستخدام (التجريد). يحول "الأجهزة المعقدة" إلى واجهات جميلة.</span>
+                            </li>
+                            <li><i class="fa-solid fa-check text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                <strong class="lang-en">Efficiency:</strong><strong class="lang-ar lang-hidden">Efficiency (الكفاءة):</strong>
+                                <span class="lang-en">Manages resources (CPU, Memory, Disk) optimally.</span>
+                                <span class="lang-ar lang-hidden">يدير الموارد (CPU، الذاكرة، القرص) بشكل مثالي.</span>
+                            </li>
+                            <li><i class="fa-solid fa-check text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                                <strong class="lang-en">Protection:</strong><strong class="lang-ar lang-hidden">Protection (الحماية):</strong>
+                                <span class="lang-en">Ensures security and reliability.</span>
+                                <span class="lang-ar lang-hidden">يضمن الأمن والموثوقية.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div class="space-y-4">
-                        <h4 class="font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">Key Definitions</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                            <span class="lang-en">Key Definitions</span>
+                            <span class="lang-ar lang-hidden">تعريفات رئيسية</span>
+                        </h4>
                         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                            <li><strong class="text-brand-600 dark:text-brand-400">Kernel:</strong> The one program running at all times. The core of the OS.</li>
-                            <li><strong class="text-brand-600 dark:text-brand-400">System Programs:</strong> Ships with the OS but not part of the kernel (e.g., File Manager).</li>
-                            <li><strong class="text-brand-600 dark:text-brand-400">Application Programs:</strong> User software (e.g., Chrome, Word). Not part of the OS.</li>
+                            <li><strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Kernel:</span><span class="lang-ar lang-hidden">Kernel (النواة):</span>
+                            </strong> 
+                            <span class="lang-en">The one program running at all times. The core of the OS.</span>
+                            <span class="lang-ar lang-hidden">البرنامج الوحيد الذي يعمل طوال الوقت. هو جوهر نظام التشغيل.</span>
+                            </li>
+                            <li><strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">System Programs:</span><span class="lang-ar lang-hidden">System Programs:</span>
+                            </strong> 
+                            <span class="lang-en">Ships with the OS but not part of the kernel (e.g., File Manager).</span>
+                            <span class="lang-ar lang-hidden">تأتي مع نظام التشغيل ولكنها ليست جزءاً من الـ Kernel (مثل مدير الملفات).</span>
+                            </li>
+                            <li><strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Application Programs:</span><span class="lang-ar lang-hidden">Application Programs:</span>
+                            </strong> 
+                            <span class="lang-en">User software (e.g., Chrome, Word). Not part of the OS.</span>
+                            <span class="lang-ar lang-hidden">برامج المستخدم (مثل Chrome, Word). ليست جزءاً من نظام التشغيل.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -215,39 +318,74 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">System Architecture</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">System Architecture</span>
+                    <span class="lang-ar lang-hidden">بنية النظام (System Architecture)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Bootstrap Program</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">The Bootstrap Program</span>
+                        <span class="lang-ar lang-hidden">The Bootstrap Program</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        The first code executed on power-up.
+                        <span class="lang-en">The first code executed on power-up.</span>
+                        <span class="lang-ar lang-hidden">أول كود يتم تنفيذه عند التشغيل.</span>
                     </p>
                     <ul class="list-disc list-inside mt-2 text-xs text-gray-500 space-y-1">
-                        <li>Stored in <span class="font-bold">ROM or EEPROM</span> (Firmware).</li>
-                        <li>Initializes all hardware (CPU, Memory, Controllers).</li>
-                        <li>Loads the <span class="font-bold text-blue-500">OS Kernel</span> into memory and starts execution.</li>
+                        <li>
+                            <span class="lang-en">Stored in <span class="font-bold">ROM or EEPROM</span> (Firmware).</span>
+                            <span class="lang-ar lang-hidden">يخزن في <span class="font-bold">ROM أو EEPROM</span> (برنامج ثابت Firmware).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Initializes all hardware (CPU, Memory, Controllers).</span>
+                            <span class="lang-ar lang-hidden">يهيئ جميع الأجهزة (CPU، الذاكرة، وحدات التحكم).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Loads the <span class="font-bold text-blue-500">OS Kernel</span> into memory and starts execution.</span>
+                            <span class="lang-ar lang-hidden">يحمل <span class="font-bold text-blue-500">OS Kernel</span> إلى الذاكرة ويبدأ التنفيذ.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Interrupts</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Interrupts</span>
+                        <span class="lang-ar lang-hidden">Interrupts (المقاطعات)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        The mechanism for Hardware/Software to signal the CPU.
+                        <span class="lang-en">The mechanism for Hardware/Software to signal the CPU.</span>
+                        <span class="lang-ar lang-hidden">آلية للأجهزة/البرمجيات لإرسال إشارة إلى الـ CPU.</span>
                     </p>
                     <ul class="list-disc list-inside mt-2 text-xs text-gray-500 space-y-1">
-                        <li><strong>Hardware Interrupt:</strong> Signal from device (e.g., Key press, Disk ready).</li>
-                        <li><strong>Software Interrupt (Trap/Exception):</strong> Signal from software (e.g., Error, System Call request).</li>
-                        <li><strong>Handling:</strong> CPU stops, saves state, jumps to <span class="font-bold text-red-500">Interrupt Service Routine (ISR)</span> via the Interrupt Vector.</li>
+                        <li>
+                            <strong class="lang-en">Hardware Interrupt:</strong><strong class="lang-ar lang-hidden">Hardware Interrupt:</strong>
+                            <span class="lang-en">Signal from device (e.g., Key press, Disk ready).</span>
+                            <span class="lang-ar lang-hidden">إشارة من جهاز (مثل ضغط مفتاح، القرص جاهز).</span>
+                        </li>
+                        <li>
+                            <strong class="lang-en">Software Interrupt (Trap/Exception):</strong><strong class="lang-ar lang-hidden">Software Interrupt (Trap):</strong>
+                            <span class="lang-en">Signal from software (e.g., Error, System Call request).</span>
+                            <span class="lang-ar lang-hidden">إشارة من برنامج (مثل خطأ، طلب System Call).</span>
+                        </li>
+                        <li>
+                            <strong class="lang-en">Handling:</strong><strong class="lang-ar lang-hidden">المعالجة (Handling):</strong>
+                            <span class="lang-en">CPU stops, saves state, jumps to <span class="font-bold text-red-500">Interrupt Service Routine (ISR)</span>.</span>
+                            <span class="lang-ar lang-hidden">يتوقف الـ CPU، يحفظ الحالة، ويقفز إلى <span class="font-bold text-red-500">Interrupt Service Routine (ISR)</span>.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="mt-8 glass-card p-6 rounded-xl">
-                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">I/O Operation Structure</h4>
+                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">
+                    <span class="lang-en">I/O Operation Structure</span>
+                    <span class="lang-ar lang-hidden">هيكل عملية الإدخال/الإخراج (I/O)</span>
+                </h4>
                 <div class="mermaid flex justify-center">
                     sequenceDiagram
                         participant CPU
@@ -264,69 +402,115 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Architecture Types</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Architecture Types</span>
+                    <span class="lang-ar lang-hidden">أنواع البنية</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Multiprocessor Systems (Parallel)</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Multiprocessor Systems (Parallel)</span>
+                        <span class="lang-ar lang-hidden">Multiprocessor Systems (Parallel)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
-                        Systems with 2 or more processors in close communication, sharing the computer bus, clock, memory, and peripherals.
+                        <span class="lang-en">Systems with 2 or more processors in close communication, sharing the computer bus, clock, memory, and peripherals.</span>
+                        <span class="lang-ar lang-hidden">أنظمة تحتوي على معالجين أو أكثر في اتصال وثيق، تتشارك في الناقل، الساعة، الذاكرة، والأجهزة الطرفية.</span>
                     </p>
                     <div class="grid grid-cols-2 gap-4 text-xs">
                         <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
-                            <strong class="block text-gray-900 dark:text-white mb-1">Asymmetric (Master-Slave)</strong>
-                            One Master CPU controls the system. Others look to the master for instruction.
+                            <strong class="block text-gray-900 dark:text-white mb-1">
+                                <span class="lang-en">Asymmetric (Master-Slave)</span>
+                                <span class="lang-ar lang-hidden">Asymmetric (Master-Slave)</span>
+                            </strong>
+                            <span class="lang-en">One Master CPU controls the system. Others look to the master for instruction.</span>
+                            <span class="lang-ar lang-hidden">معالج رئيسي (Master) يتحكم في النظام. المعالجات الأخرى تنتظر التعليمات منه.</span>
                         </div>
                         <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
-                            <strong class="block text-gray-900 dark:text-white mb-1">Symmetric (SMP)</strong>
-                            Most common. Each processor performs all tasks. All are peers.
+                            <strong class="block text-gray-900 dark:text-white mb-1">
+                                <span class="lang-en">Symmetric (SMP)</span>
+                                <span class="lang-ar lang-hidden">Symmetric (SMP)</span>
+                            </strong>
+                            <span class="lang-en">Most common. Each processor performs all tasks. All are peers.</span>
+                            <span class="lang-ar lang-hidden">الأكثر شيوعاً. كل معالج يؤدي جميع المهام. الجميع نظراء (Peers).</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Clustered Systems</h3>
+                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">
+                        <span class="lang-en">Clustered Systems</span>
+                        <span class="lang-ar lang-hidden">Clustered Systems</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Multiple individual systems (nodes) gathered together. Usually share storage via a Storage Area Network (SAN).
-                        <br><strong>High Availability:</strong> If one node fails, another takes over.
+                        <span class="lang-en">Multiple individual systems (nodes) gathered together. Usually share storage via a Storage Area Network (SAN).
+                        <br><strong>High Availability:</strong> If one node fails, another takes over.</span>
+                        <span class="lang-ar lang-hidden">أنظمة فردية متعددة (nodes) مجمعة معاً. عادة ما تشترك في التخزين عبر شبكة تخزين (SAN).
+                        <br><strong>High Availability:</strong> إذا فشلت عقدة واحدة، تتولى أخرى المهمة.</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">OS Operations</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">OS Operations</span>
+                    <span class="lang-ar lang-hidden">عمليات نظام التشغيل</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Dual-Mode Operation</h3>
-                    <span class="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 px-3 py-1 rounded text-xs font-bold">Critical Concept</span>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Dual-Mode Operation</span>
+                        <span class="lang-ar lang-hidden">Dual-Mode Operation</span>
+                    </h3>
+                    <span class="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 px-3 py-1 rounded text-xs font-bold">
+                        <span class="lang-en">Critical Concept</span>
+                        <span class="lang-ar lang-hidden">مفهوم جوهري</span>
+                    </span>
                 </div>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    To protect the OS from user errors, hardware provides two modes:
+                    <span class="lang-en">To protect the OS from user errors, hardware provides two modes:</span>
+                    <span class="lang-ar lang-hidden">لحماية نظام التشغيل من أخطاء المستخدم، توفر الأجهزة وضعين:</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-6 text-center">
                     <div class="p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg">
-                        <strong class="block text-lg text-gray-500">User Mode (Bit 1)</strong>
-                        <p class="text-xs mt-2 text-gray-400">Restricted access. Cannot execute privileged instructions (e.g., halting CPU, accessing I/O directly).</p>
+                        <strong class="block text-lg text-gray-500">
+                            <span class="lang-en">User Mode (Bit 1)</span>
+                            <span class="lang-ar lang-hidden">User Mode (Bit 1)</span>
+                        </strong>
+                        <p class="text-xs mt-2 text-gray-400">
+                            <span class="lang-en">Restricted access. Cannot execute privileged instructions (e.g., halting CPU, accessing I/O directly).</span>
+                            <span class="lang-ar lang-hidden">وصول مقيد. لا يمكن تنفيذ تعليمات ذات امتيازات (مثل إيقاف CPU، الوصول المباشر لـ I/O).</span>
+                        </p>
                     </div>
                     <div class="p-4 border-2 border-brand-500 rounded-lg bg-brand-500/10">
-                        <strong class="block text-lg text-brand-500">Kernel Mode (Bit 0)</strong>
-                        <p class="text-xs mt-2 text-gray-400">Full access. Executes privileged instructions. Entered via System Calls or Interrupts.</p>
+                        <strong class="block text-lg text-brand-500">
+                            <span class="lang-en">Kernel Mode (Bit 0)</span>
+                            <span class="lang-ar lang-hidden">Kernel Mode (Bit 0)</span>
+                        </strong>
+                        <p class="text-xs mt-2 text-gray-400">
+                            <span class="lang-en">Full access. Executes privileged instructions. Entered via System Calls or Interrupts.</span>
+                            <span class="lang-ar lang-hidden">وصول كامل. ينفذ التعليمات ذات الامتيازات. يتم الدخول إليه عبر System Calls أو Interrupts.</span>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">System Calls</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                    <span class="lang-en">System Calls</span>
+                    <span class="lang-ar lang-hidden">System Calls</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    The programming interface to the services provided by the OS. Typically written in C/C++.
+                    <span class="lang-en">The programming interface to the services provided by the OS. Typically written in C/C++.</span>
+                    <span class="lang-ar lang-hidden">واجهة البرمجة للخدمات التي يقدمها نظام التشغيل. تكتب عادة بـ C/C++.</span>
                 </p>
                 <div class="terminal">
                     <span class="terminal-prompt">user@os:~$</span> <span class="terminal-cmd">./app</span><br>
@@ -342,55 +526,78 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: System Call vs API
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: System Call vs API</span>
+                            <span class="lang-ar lang-hidden">فخ: System Call vs API</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>APIs</strong> (like `printf()` in C) are library functions running in <em>User Mode</em>.
+                            <span class="lang-en"><strong>APIs</strong> (like `printf()` in C) are library functions running in <em>User Mode</em>.
                             <br><strong>System Calls</strong> (like `write()`) are the actual OS entry points running in <em>Kernel Mode</em>.
-                            Most APIs eventually invoke System Calls, but they are not the same thing.
+                            Most APIs eventually invoke System Calls, but they are not the same thing.</span>
+                            <span class="lang-ar lang-hidden"><strong>APIs</strong> (مثل `printf()` في C) هي دوال مكتبة تعمل في <em>User Mode</em>.
+                            <br><strong>System Calls</strong> (مثل `write()`) هي نقاط الدخول الفعلية لنظام التشغيل وتعمل في <em>Kernel Mode</em>.
+                            معظم APIs تستدعي System Calls في النهاية، لكنهما ليسا نفس الشيء.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Mode Switching
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Mode Switching</span>
+                            <span class="lang-ar lang-hidden">فخ: تبديل الوضع (Mode Switching)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The switch from User to Kernel mode happens via a <strong>Trap (Software Interrupt)</strong>. It is hardware-triggered by a specific instruction. It is NOT just a simple function call jump.
+                            <span class="lang-en">The switch from User to Kernel mode happens via a <strong>Trap (Software Interrupt)</strong>. It is hardware-triggered by a specific instruction. It is NOT just a simple function call jump.</span>
+                            <span class="lang-ar lang-hidden">التبديل من User إلى Kernel mode يحدث عبر <strong>Trap (Software Interrupt)</strong>. يتم تشغيله بواسطة الأجهزة عبر تعليمة محددة. إنه ليس مجرد قفزة استدعاء دالة بسيطة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Timer
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The Timer</span>
+                            <span class="lang-ar lang-hidden">سر: المؤقت (The Timer)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            How does the OS prevent an infinite loop in a user program from freezing the whole system?
-                            <br><strong>The Timer Interrupt.</strong> The hardware timer periodically interrupts the CPU, giving control back to the OS scheduler. This ensures the OS always regains control.
+                            <span class="lang-en">How does the OS prevent an infinite loop in a user program from freezing the whole system?
+                            <br><strong>The Timer Interrupt.</strong> The hardware timer periodically interrupts the CPU, giving control back to the OS scheduler. This ensures the OS always regains control.</span>
+                            <span class="lang-ar lang-hidden">كيف يمنع نظام التشغيل حلقة لا نهائية في برنامج المستخدم من تجميد النظام بأكمله؟
+                            <br><strong>The Timer Interrupt.</strong> يقوم مؤقت الأجهزة بمقاطعة الـ CPU بشكل دوري، ويعيد التحكم إلى مجدول نظام التشغيل. هذا يضمن أن نظام التشغيل يستعيد التحكم دائماً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Virtualization
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Virtualization</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Virtualization</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Emulation</strong> runs code for a different CPU type (slow).
+                            <span class="lang-en"><strong>Emulation</strong> runs code for a different CPU type (slow).
                             <br><strong>Virtualization</strong> runs code for the SAME CPU type but isolates it (fast).
-                            The <strong>Hypervisor</strong> (VMM) sits between hardware and OS to manage VMs.
+                            The <strong>Hypervisor</strong> (VMM) sits between hardware and OS to manage VMs.</span>
+                            <span class="lang-ar lang-hidden"><strong>Emulation</strong> تشغل كوداً لنوع CPU مختلف (بطيء).
+                            <br><strong>Virtualization</strong> تشغل كوداً لنفس نوع CPU ولكن تعزله (سريع).
+                            يقع <strong>Hypervisor</strong> (VMM) بين الأجهزة ونظام التشغيل لإدارة الـ VMs.</span>
                         </p>
                     </div>
                 </div>
@@ -401,16 +608,26 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 2</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -428,6 +645,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

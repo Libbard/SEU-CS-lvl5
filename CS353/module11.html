@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 11: Greedy Technique</title>
@@ -50,6 +59,52 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -115,33 +170,63 @@
         .grab-anim:hover {
             animation: grab 0.5s ease-in-out;
         }
+		
+		
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module10.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 11</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 11</span>
+                        <span class="lang-ar lang-hidden">الوحدة 11</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module12.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -158,130 +243,218 @@
                 <i class="fa-solid fa-hand-holding-dollar text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                The <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Greedy</span> Technique
+                <span class="lang-en">The <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Greedy</span> Technique</span>
+                <span class="lang-ar lang-hidden">تقنية <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">الـ Greedy (الجشع)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Optimization by taking the best immediate choice. "Take what you can get now, and hope for the best."
+                <span class="lang-en">Optimization by taking the best immediate choice. "Take what you can get now, and hope for the best."</span>
+                <span class="lang-ar lang-hidden">التحسين (Optimization) عن طريق اتخاذ أفضل خيار فوري. "خذ ما يمكنك الحصول عليه الآن، وتأمل الأفضل."</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prim's Algorithm</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Kruskal's Algorithm</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Dijkstra's Algorithm</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Huffman Codes</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Prim's Algorithm</span>
+                    <span class="lang-ar lang-hidden">خوارزمية Prim</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Kruskal's Algorithm</span>
+                    <span class="lang-ar lang-hidden">خوارزمية Kruskal</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Dijkstra's Algorithm</span>
+                    <span class="lang-ar lang-hidden">خوارزمية Dijkstra</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Huffman Codes</span>
+                    <span class="lang-ar lang-hidden">أكواد Huffman</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Greedy Philosophy</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Greedy Philosophy</span>
+                    <span class="lang-ar lang-hidden">فلسفة الـ Greedy</span>
+                </h2>
             </div>
             
-            <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
+            <div class="glass-card p-6 rounded-xl border-l-4 rtl:border-l-0 rtl:border-r-4 border-l-brand-500">
                 <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                    
-                    Constructs a solution piece by piece through a sequence of choices that follow three strict rules:
+                    <span class="lang-en">Constructs a solution piece by piece through a sequence of choices that follow three strict rules:</span>
+                    <span class="lang-ar lang-hidden">تبني الحل قطعة بقطعة من خلال سلسلة من الخيارات التي تتبع ثلاث قواعد صارمة:</span>
                 </p>
                 <div class="grid md:grid-cols-3 gap-6 mt-6">
                     <div class="text-center">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400 mb-2">
                             <i class="fa-solid fa-check"></i>
                         </div>
-                        <h3 class="font-bold text-gray-900 dark:text-white">Feasible</h3>
-                        <p class="text-xs text-gray-500">Must satisfy problem constraints.</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Feasible</span>
+                            <span class="lang-ar lang-hidden">ممكن/مجد (Feasible)</span>
+                        </h3>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Must satisfy problem constraints.</span>
+                            <span class="lang-ar lang-hidden">يجب أن يلبي قيود المشكلة.</span>
+                        </p>
                     </div>
                     <div class="text-center">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400 mb-2">
                             <i class="fa-solid fa-crosshairs"></i>
                         </div>
-                        <h3 class="font-bold text-gray-900 dark:text-white">Locally Optimal</h3>
-                        <p class="text-xs text-gray-500">Best immediate choice (e.g., cheapest edge).</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Locally Optimal</span>
+                            <span class="lang-ar lang-hidden">أمثل محلياً (Locally Optimal)</span>
+                        </h3>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Best immediate choice (e.g., cheapest edge).</span>
+                            <span class="lang-ar lang-hidden">أفضل خيار فوري (مثل أرخص ضلع).</span>
+                        </p>
                     </div>
                     <div class="text-center">
                         <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400 mb-2">
                             <i class="fa-solid fa-lock"></i>
                         </div>
-                        <h3 class="font-bold text-gray-900 dark:text-white">Irrevocable</h3>
-                        <p class="text-xs text-gray-500">Once made, the choice cannot be changed.</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Irrevocable</span>
+                            <span class="lang-ar lang-hidden">غير قابل للرجوع (Irrevocable)</span>
+                        </h3>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Once made, the choice cannot be changed.</span>
+                            <span class="lang-ar lang-hidden">بمجرد اتخاذ الخيار، لا يمكن تغييره.</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Minimum Spanning Trees (MST)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Minimum Spanning Trees (MST)</span>
+                    <span class="lang-ar lang-hidden">أشجار الامتداد الأصغرية (MST)</span>
+                </h2>
             </div>
             
             <p class="mb-6 text-gray-600 dark:text-gray-400">
-                Connect all vertices with minimum total edge weight. No cycles allowed. $|E| = |V| - 1$.
+                <span class="lang-en">Connect all vertices with minimum total edge weight. No cycles allowed. $|E| = |V| - 1$.</span>
+                <span class="lang-ar lang-hidden">ربط جميع الرؤوس (Vertices) بأقل وزن إجمالي للأضلاع. غير مسموح بالحلقات (Cycles). المعادلة: $|E| = |V| - 1$.</span>
             </p>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-3 opacity-10">
+                    <div class="absolute top-0 right-0 rtl:left-0 rtl:right-auto p-3 opacity-10">
                         <i class="fa-solid fa-bacterium text-6xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-2">Prim's Algorithm</h3>
-                    <span class="text-xs font-mono bg-brand-100 dark:bg-brand-900 px-2 py-1 rounded text-brand-700 dark:text-brand-300">The "Mold" Strategy</span>
+                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Prim's Algorithm</span>
+                        <span class="lang-ar lang-hidden">خوارزمية Prim</span>
+                    </h3>
+                    <span class="text-xs font-mono bg-brand-100 dark:bg-brand-900 px-2 py-1 rounded text-brand-700 dark:text-brand-300">
+                        <span class="lang-en">The "Mold" Strategy</span>
+                        <span class="lang-ar lang-hidden" dir = 'RTL'>استراتيجية العفن (Mold Strategy)</span>
+                    </span>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 mb-4">
-                        Grow a single tree from a starting vertex. At each step, add the <strong>nearest</strong> vertex not yet in the tree.
+                        <span class="lang-en">Grow a single tree from a starting vertex. At each step, add the <strong>nearest</strong> vertex not yet in the tree.</span>
+                        <span class="lang-ar lang-hidden">تنمية شجرة واحدة من رأس البداية. في كل خطوة، أضف <strong>أقرب</strong> رأس ليس في الشجرة بعد.</span>
 						<br><br>
                     </p>
                     <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
-                        <li><i class="fa-solid fa-database text-gray-400 mr-2"></i>Data Structure: <strong>Priority Queue</strong>.</li>
-                        <li><i class="fa-solid fa-tachograph-digital text-gray-400 mr-2"></i>Complexity: $O(|E| \log |V|)$.</li>
+                        <li>
+                            <i class="fa-solid fa-database text-gray-400 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Data Structure: <strong>Priority Queue</strong>.</span>
+                            <span class="lang-ar lang-hidden">هيكل البيانات: <strong>Priority Queue</strong>.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-tachograph-digital text-gray-400 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Complexity: $O(|E| \log |V|)$.</span>
+                            <span class="lang-ar lang-hidden">التعقيد: $O(|E| \log |V|)$.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-3 opacity-10">
+                    <div class="absolute top-0 right-0 rtl:left-0 rtl:right-auto p-3 opacity-10">
                         <i class="fa-solid fa-tree text-6xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">Kruskal's Algorithm</h3>
-                    <span class="text-xs font-mono bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-700 dark:text-blue-300">The "Forest" Strategy</span>
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">Kruskal's Algorithm</span>
+                        <span class="lang-ar lang-hidden">خوارزمية Kruskal</span>
+                    </h3>
+                    <span class="text-xs font-mono bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-700 dark:text-blue-300">
+                        <span class="lang-en">The "Forest" Strategy</span>
+                        <span class="lang-ar lang-hidden" dir = 'RTL'>استراتيجية الغابة (Forest Strategy)</span>
+                    </span>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-4 mb-4">
-                        Sort all edges by weight. Add the <strong>cheapest</strong> edge anywhere, provided it doesn't create a cycle (connects two disjoint trees).
+                        <span class="lang-en">Sort all edges by weight. Add the <strong>cheapest</strong> edge anywhere, provided it doesn't create a cycle (connects two disjoint trees).</span>
+                        <span class="lang-ar lang-hidden">رتب جميع الأضلاع حسب الوزن. أضف <strong>أرخص</strong> ضلع في أي مكان، بشرط ألا ينشئ حلقة (يربط بين شجرتين منفصلتين).</span>
                     </p>
                     <ul class="text-sm space-y-2 text-gray-700 dark:text-gray-300">
-                        <li><i class="fa-solid fa-database text-gray-400 mr-2"></i>Data Structure: <strong>Union-Find</strong>.</li>
-                        <li><i class="fa-solid fa-tachograph-digital text-gray-400 mr-2"></i>Complexity: $O(|E| \log |E|)$.</li>
+                        <li>
+                            <i class="fa-solid fa-database text-gray-400 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Data Structure: <strong>Union-Find</strong>.</span>
+                            <span class="lang-ar lang-hidden">هيكل البيانات: <strong>Union-Find</strong>.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-tachograph-digital text-gray-400 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Complexity: $O(|E| \log |E|)$.</span>
+                            <span class="lang-ar lang-hidden">التعقيد: $O(|E| \log |E|)$.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Dijkstra's Algorithm</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Dijkstra's Algorithm</span>
+                    <span class="lang-ar lang-hidden">خوارزمية Dijkstra</span>
+                </h2>
             </div>
 
             <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                 <div class="flex items-start">
-                    <div class="flex-shrink-0 bg-emerald-100 dark:bg-emerald-900 text-emerald-500 p-3 rounded-lg mr-4">
+                    <div class="flex-shrink-0 bg-emerald-100 dark:bg-emerald-900 text-emerald-500 p-3 rounded-lg mr-4 rtl:ml-4 rtl:mr-0">
                         <i class="fa-solid fa-location-dot text-2xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Single-Source Shortest Path</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Single-Source Shortest Path</span>
+                            <span class="lang-ar lang-hidden">أقصر مسار من مصدر واحد</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            Finds the shortest path from a Source vertex to ALL other vertices. It is structurally almost identical to Prim's Algorithm, but the "Priority" label differs.
+                            <span class="lang-en">Finds the shortest path from a Source vertex to ALL other vertices. It is structurally almost identical to Prim's Algorithm, but the "Priority" label differs.</span>
+                            <span class="lang-ar lang-hidden">تجد أقصر مسار من رأس المصدر (Source) إلى جميع الرؤوس الأخرى. هي متطابقة هيكلياً تقريباً مع خوارزمية Prim، لكن تصنيف "الأولوية" يختلف.</span>
                         </p>
                         
                         <div class="grid grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-900 p-4 rounded-lg text-sm">
                             <div>
-                                <span class="block font-bold text-gray-500 text-xs uppercase">Prim's Priority</span>
+                                <span class="block font-bold text-gray-500 text-xs uppercase">
+                                    <span class="lang-en">Prim's Priority</span>
+                                    <span class="lang-ar lang-hidden">أولوية Prim</span>
+                                </span>
                                 <span class="font-mono text-brand-500">$w(u, v)$</span>
-                                <p class="text-xs text-gray-400">Distance from tree to vertex.</p>
+                                <p class="text-xs text-gray-400">
+                                    <span class="lang-en">Distance from tree to vertex.</span>
+                                    <span class="lang-ar lang-hidden">المسافة من الشجرة إلى الرأس.</span>
+                                </p>
                             </div>
                             <div>
-                                <span class="block font-bold text-gray-500 text-xs uppercase">Dijkstra's Priority</span>
+                                <span class="block font-bold text-gray-500 text-xs uppercase">
+                                    <span class="lang-en">Dijkstra's Priority</span>
+                                    <span class="lang-ar lang-hidden">أولوية Dijkstra</span>
+                                </span>
                                 <span class="font-mono text-emerald-500">$d_u + w(u, v)$</span>
-                                <p class="text-xs text-gray-400">Total distance from Source.</p>
+                                <p class="text-xs text-gray-400">
+                                    <span class="lang-en">Total distance from Source.</span>
+                                    <span class="lang-ar lang-hidden">إجمالي المسافة من المصدر.</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -290,34 +463,52 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Huffman Trees & Codes</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Huffman Trees & Codes</span>
+                    <span class="lang-ar lang-hidden">أشجار وأكواد Huffman</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-gray-900 dark:text-white">Data Compression</h3>
-                    <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 px-2 py-1 rounded">Prefix-Free Code</span>
+                    <h3 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Data Compression</span>
+                        <span class="lang-ar lang-hidden">ضغط البيانات (Data Compression)</span>
+                    </h3>
+                    <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-2 py-1 rounded">
+                        <span class="lang-en">Prefix-Free Code</span>
+                        <span class="lang-ar lang-hidden">كود خالي من البادئة (Prefix-Free)</span>
+                    </span>
                 </div>
                 
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Assigns shorter binary codes to frequent characters and longer codes to rare characters.
-                    
+                    <span class="lang-en">Assigns shorter binary codes to frequent characters and longer codes to rare characters.</span>
+                    <span class="lang-ar lang-hidden">يخصص أكواد ثنائية أقصر للأحرف المتكررة وأكواد أطول للأحرف النادرة.</span>
                 </p>
 
                 <div class="space-y-4">
                     <div class="flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-sm mr-3">1</div>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">Initialize $n$ one-node trees with frequencies.</p>
+                        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-sm mr-3 rtl:ml-3 rtl:mr-0">1</div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <span class="lang-en">Initialize $n$ one-node trees with frequencies.</span>
+                            <span class="lang-ar lang-hidden">تهيئة $n$ أشجار ذات عقدة واحدة مع الترددات.</span>
+                        </p>
                     </div>
                     <div class="flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-sm mr-3">2</div>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">Repeat $n-1$ times: Merge the two trees with <strong>smallest</strong> weights.</p>
+                        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-sm mr-3 rtl:ml-3 rtl:mr-0">2</div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <span class="lang-en">Repeat $n-1$ times: Merge the two trees with <strong>smallest</strong> weights.</span>
+                            <span class="lang-ar lang-hidden">كرر $n-1$ مرة: ادمج الشجرتين ذواتي <strong>أصغر</strong> أوزان.</span>
+                        </p>
                     </div>
                     <div class="flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-sm mr-3">3</div>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">Label left edges '0' and right edges '1'.</p>
+                        <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold text-sm mr-3 rtl:ml-3 rtl:mr-0">3</div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <span class="lang-en">Label left edges '0' and right edges '1'.</span>
+                            <span class="lang-ar lang-hidden">قم بتسمية الحواف اليسرى '0' والحواف اليمنى '1'.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -325,55 +516,76 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The Change-Making Fallacy
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: The Change-Making Fallacy</span>
+                            <span class="lang-ar lang-hidden">فخ: مغالطة صرف العملات (Change-Making)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Does Greedy always work for Change Making?" <br>
-                            <strong>NO.</strong> It works for standard coins (1, 5, 10, 25). But for denominations like $\{1, 3, 4\}$ and target $6$, Greedy gives $4+1+1$ (3 coins), while optimal is $3+3$ (2 coins).
+                            <span class="lang-en">"Does Greedy always work for Change Making?" <br>
+                            <strong>NO.</strong> It works for standard coins (1, 5, 10, 25). But for denominations like $\{1, 3, 4\}$ and target $6$, Greedy gives $4+1+1$ (3 coins), while optimal is $3+3$ (2 coins).</span>
+                            <span class="lang-ar lang-hidden">"هل تعمل الـ Greedy دائماً مع صرف العملات؟" <br>
+                            <strong>لا.</strong> تعمل مع العملات القياسية. لكن مع فئات مثل $\{1, 3, 4\}$ وهدف $6$، تعطي Greedy النتيجة $4+1+1$ (3 عملات)، بينما الحل الأمثل هو $3+3$ (عملتان).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Dijkstra & Negative Weights
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Dijkstra & Negative Weights</span>
+                            <span class="lang-ar lang-hidden">فخ: Dijkstra والأوزان السالبة</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Dijkstra's Algorithm <strong>FAILS</strong> if the graph has negative edge weights. Once a vertex is "visited" (finalized), Dijkstra assumes its distance cannot get shorter. A negative edge later could violate this. Use Bellman-Ford instead.
+                            <span class="lang-en">Dijkstra's Algorithm <strong>FAILS</strong> if the graph has negative edge weights. Once a vertex is "visited" (finalized), Dijkstra assumes its distance cannot get shorter. A negative edge later could violate this. Use Bellman-Ford instead.</span>
+                            <span class="lang-ar lang-hidden">خوارزمية Dijkstra <strong>تفشل</strong> إذا كان الرسم البياني يحتوي على أوزان سالبة. بمجرد "زيارة" الرأس (تثبيته)، تفترض Dijkstra أن مسافته لا يمكن أن تقصر. وجود ضلع سالب لاحقاً قد ينتهك هذا. استخدم Bellman-Ford بدلاً منها.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Prim vs Kruskal
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Prim vs Kruskal</span>
+                            <span class="lang-ar lang-hidden">سر: Prim مقابل Kruskal</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When to use which?
+                            <span class="lang-en">When to use which?
                             <br><strong>Dense Graphs ($|E| \approx |V|^2$):</strong> Use Prim's (with Matrix).
-                            <br><strong>Sparse Graphs ($|E| \approx |V|$):</strong> Use Kruskal's (it depends on $|E|$).
+                            <br><strong>Sparse Graphs ($|E| \approx |V|$):</strong> Use Kruskal's (it depends on $|E|$).</span>
+                            <span class="lang-ar lang-hidden">متى تستخدم أياً منهما؟
+                            <br><strong>الرسوم الكثيفة ($|E| \approx |V|^2$):</strong> استخدم Prim (مع مصفوفة).
+                            <br><strong>الرسوم المتناثرة ($|E| \approx |V|$):</strong> استخدم Kruskal (تعتمد على $|E|$).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Prefix-Free
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Prefix-Free</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: خالية من البادئة (Prefix-Free)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Huffman coding, no code is a prefix of another (e.g., if 'A' is 01, 'B' cannot be 011). This property ensures we can decode the stream without ambiguity and without "separator" markers.
+                            <span class="lang-en">In Huffman coding, no code is a prefix of another (e.g., if 'A' is 01, 'B' cannot be 011). This property ensures we can decode the stream without ambiguity and without "separator" markers.</span>
+                            <span class="lang-ar lang-hidden">في ترميز Huffman، لا يوجد كود هو بادئة لآخر (مثلاً، إذا كان 'A' هو 01، لا يمكن أن يكون 'B' هو 011). تضمن هذه الخاصية إمكانية فك تشفير البيانات دون غموض وبدون فواصل.</span>
                         </p>
                     </div>
                 </div>
@@ -384,18 +596,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 10</span>
+                    <span class="lang-ar lang-hidden">الوحدة 10</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 12</span>
+                    <span class="lang-ar lang-hidden">الوحدة 12</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -413,6 +638,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

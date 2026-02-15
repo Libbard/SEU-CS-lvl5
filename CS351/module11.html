@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 11: File Systems</title>
@@ -60,6 +69,57 @@
     </script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .border-l-4 { 
+            border-left-width: 0; 
+            border-right-width: 4px; 
+        }
+        [dir="rtl"] .border-r-4 { 
+            border-right-width: 0; 
+            border-left-width: 4px; 
+        }
+        
+        
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -128,26 +188,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module10.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 11</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 11</span>
+                        <span class="lang-ar lang-hidden">الوحدة 11</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-folder-tree text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module12.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,52 +239,107 @@
                 <i class="fa-solid fa-file-code text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Organization: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">File Systems</span>
+                <span class="lang-en">Organization: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">File Systems</span></span>
+                <span class="lang-ar lang-hidden">التنظيم: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">أنظمة الملفات (File Systems)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                The logical view of storage. Files, Directories, Mounting, and Allocation Methods (Contiguous vs Linked vs Indexed).
+                <span class="lang-en">The logical view of storage. Files, Directories, Mounting, and Allocation Methods (Contiguous vs Linked vs Indexed).</span>
+                <span class="lang-ar lang-hidden">العرض المنطقي للتخزين. الملفات، الأدلة (Directories)، التركيب (Mounting)، وطرق التخصيص (المتجاور مقابل المتصل مقابل المفهرس).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">File Attributes</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Directories (Single/Two-Level/Tree)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">FCB (Inode)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Allocation Methods</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Free Space Mgmt</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">File Attributes</span>
+                    <span class="lang-ar lang-hidden">سمات الملف (Attributes)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Directories (Single/Two-Level/Tree)</span>
+                    <span class="lang-ar lang-hidden">الأدلة (أحادي/ثنائي المستوى/شجري)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">FCB (Inode)</span>
+                    <span class="lang-ar lang-hidden">FCB (Inode)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Allocation Methods</span>
+                    <span class="lang-ar lang-hidden">طرق التخصيص</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Free Space Mgmt</span>
+                    <span class="lang-ar lang-hidden">إدارة المساحة الحرة</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">File Concepts</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">File Concepts</span>
+                    <span class="lang-ar lang-hidden">مفاهيم الملفات (File Concepts)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    A file is a named collection of related information recorded on secondary storage.
-                    <br><strong>Abstraction:</strong> The OS maps files to physical devices (blocks), hiding complexity.
+                    <span class="lang-en">A file is a named collection of related information recorded on secondary storage.
+                    <br><strong>Abstraction:</strong> The OS maps files to physical devices (blocks), hiding complexity.</span>
+                    <span class="lang-ar lang-hidden">الملف هو مجموعة مسماة من المعلومات المترابطة المسجلة على التخزين الثانوي.
+                    <br><strong>تجريد (Abstraction):</strong> يقوم نظام التشغيل بربط الملفات بالأجهزة المادية (الكتل)، مخفياً التعقيد.</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-6 text-sm">
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Attributes (Metadata)</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Attributes (Metadata)</span>
+                            <span class="lang-ar lang-hidden">السمات (Attributes/Metadata)</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                            <li>Name (Human readable)</li>
-                            <li>Identifier (Unique tag, Inode number)</li>
-                            <li>Type, Location, Size</li>
-                            <li>Protection (Access control)</li>
-                            <li>Time/Date (Creation, Modification)</li>
+                            <li>
+                                <span class="lang-en">Name (Human readable)</span>
+                                <span class="lang-ar lang-hidden">الاسم (مقروء للبشر)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Identifier (Unique tag, Inode number)</span>
+                                <span class="lang-ar lang-hidden">المعرف (علامة فريدة، رقم Inode)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Type, Location, Size</span>
+                                <span class="lang-ar lang-hidden">النوع، الموقع، الحجم</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Protection (Access control)</span>
+                                <span class="lang-ar lang-hidden">الحماية (التحكم في الوصول)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Time/Date (Creation, Modification)</span>
+                                <span class="lang-ar lang-hidden">الوقت/التاريخ (الإنشاء، التعديل)</span>
+                            </li>
                         </ul>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Operations</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Operations</span>
+                            <span class="lang-ar lang-hidden">العمليات (Operations)</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                            <li>Create, Write, Read, Reposition (Seek)</li>
-                            <li>Delete, Truncate</li>
-                            <li>Open ($F_i$): move attributes to memory.</li>
-                            <li>Close ($F_i$): flush buffers to disk.</li>
+                            <li>
+                                <span class="lang-en">Create, Write, Read, Reposition (Seek)</span>
+                                <span class="lang-ar lang-hidden">إنشاء، كتابة، قراءة، إعادة تموضع (Seek)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Delete, Truncate</span>
+                                <span class="lang-ar lang-hidden">حذف، اقتطاع (Truncate)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Open ($F_i$): move attributes to memory.</span>
+                                <span class="lang-ar lang-hidden">فتح ($F_i$): نقل السمات إلى الذاكرة.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Close ($F_i$): flush buffers to disk.</span>
+                                <span class="lang-ar lang-hidden">إغلاق ($F_i$): تفريغ المخازن المؤقتة إلى القرص.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -217,123 +347,205 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Directory Structure</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Directory Structure</span>
+                    <span class="lang-ar lang-hidden">هيكل الدليل (Directory Structure)</span>
+                </h2>
             </div>
-
-            
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Evolution of Directories</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Evolution of Directories</span>
+                        <span class="lang-ar lang-hidden">تطور الأدلة</span>
+                    </h3>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>Single-Level:</strong> All files in one directory. Name collisions, hard to manage.</li>
-                        <li><strong>Two-Level:</strong> Master File Directory + User File Directory. Solves name collision between users.</li>
-                        <li><strong>Tree-Structured:</strong> Arbitrary depth. Standard today. Efficient searching and grouping.</li>
-                        <li><strong>Acyclic Graph:</strong> Allows shared subdirectories/files (Aliasing/Links). Danger of dangling pointers.</li>
+                        <li>
+                            <span class="lang-en"><strong>Single-Level:</strong> All files in one directory. Name collisions, hard to manage.</span>
+                            <span class="lang-ar lang-hidden"><strong>مستوى واحد (Single-Level):</strong> كل الملفات في دليل واحد. تضارب الأسماء، وصعوبة الإدارة.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Two-Level:</strong> Master File Directory + User File Directory. Solves name collision between users.</span>
+                            <span class="lang-ar lang-hidden"><strong>مستويان (Two-Level):</strong> دليل ملف رئيسي + دليل ملف مستخدم. يحل تضارب الأسماء بين المستخدمين.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Tree-Structured:</strong> Arbitrary depth. Standard today. Efficient searching and grouping.</span>
+                            <span class="lang-ar lang-hidden"><strong>هيكل شجري (Tree-Structured):</strong> عمق عشوائي. المعيار اليوم. كفاءة في البحث والتجميع.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Acyclic Graph:</strong> Allows shared subdirectories/files (Aliasing/Links). Danger of dangling pointers.</span>
+                            <span class="lang-ar lang-hidden"><strong>رسم بياني لا دوري (Acyclic Graph):</strong> يسمح بمشاركة الأدلة الفرعية/الملفات (Aliasing/Links). خطر المؤشرات المعلقة.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Mounting</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Mounting</span>
+                        <span class="lang-ar lang-hidden">التركيب (Mounting)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        A file system must be <span class="text-brand-500 font-bold">Mounted</span> before it can be accessed.
-                        <br>The OS is given the name of the device and the <strong>Mount Point</strong> (location within the existing directory structure where the FS attaches).
+                        <span class="lang-en">A file system must be <span class="text-brand-500 font-bold">Mounted</span> before it can be accessed.
+                        <br>The OS is given the name of the device and the <strong>Mount Point</strong> (location within the existing directory structure where the FS attaches).</span>
+                        <span class="lang-ar lang-hidden">يجب أن يتم <span class="text-brand-500 font-bold">تركيب (Mount)</span> نظام الملفات قبل الوصول إليه.
+                        <br>يتم إعطاء نظام التشغيل اسم الجهاز و <strong>نقطة التركيب (Mount Point)</strong> (موقع داخل هيكل الدليل الحالي حيث يتصل نظام الملفات).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Implementation Details</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Implementation Details</span>
+                    <span class="lang-ar lang-hidden">تفاصيل التنفيذ</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <div class="flex-1">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">File Control Block (FCB)</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">File Control Block (FCB)</span>
+                            <span class="lang-ar lang-hidden">كتلة تحكم الملف (FCB)</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
-                            Also known as an <strong>Inode</strong> in UNIX.
-                            <br>Contains all details about a file: Permissions, dates, owner, size, and pointers to data blocks.
+                            <span class="lang-en">Also known as an <strong>Inode</strong> in UNIX.
+                            <br>Contains all details about a file: Permissions, dates, owner, size, and pointers to data blocks.</span>
+                            <span class="lang-ar lang-hidden">يعرف أيضاً بـ <strong>Inode</strong> في نظام UNIX.
+                            <br>يحتوي على كافة تفاصيل الملف: الأذونات، التواريخ، المالك، الحجم، ومؤشرات لكتل البيانات.</span>
                         </p>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded text-center text-xs w-full md:w-auto">
-                        <strong>On-Disk Structures:</strong>
-                        <br>Boot Control Block (Bootloader)
-                        <br>Volume Control Block (Total blocks, free block count)
-                        <br>Directory Structure (File names -> Inodes)
-                        <br>FCBs (Inodes)
+                        <strong class="block mb-1">
+                            <span class="lang-en">On-Disk Structures:</span>
+                            <span class="lang-ar lang-hidden">هياكل على القرص:</span>
+                        </strong>
+                        <span class="lang-en">Boot Control Block (Bootloader)</span>
+                        <span class="lang-ar lang-hidden">Boot Control Block (محمل الإقلاع)</span>
+                        <br>
+                        <span class="lang-en">Volume Control Block (Total blocks, free block count)</span>
+                        <span class="lang-ar lang-hidden">Volume Control Block (الكتل الكلية، عدد الكتل الحرة)</span>
+                        <br>
+                        <span class="lang-en">Directory Structure (File names -> Inodes)</span>
+                        <span class="lang-ar lang-hidden">هيكل الدليل (أسماء الملفات -> Inodes)</span>
+                        <br>
+                        <span class="lang-en">FCBs (Inodes)</span>
+                        <span class="lang-ar lang-hidden">FCBs (Inodes)</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Allocation Methods</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Allocation Methods</span>
+                    <span class="lang-ar lang-hidden">طرق التخصيص (Allocation Methods)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                How do we allocate disk blocks to files?
+                <span class="lang-en">How do we allocate disk blocks to files?</span>
+                <span class="lang-ar lang-hidden">كيف نخصص كتل القرص للملفات؟</span>
             </p>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Contiguous</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Contiguous</span>
+                        <span class="lang-ar lang-hidden">متجاور (Contiguous)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Each file occupies a set of contiguous blocks.
+                        <span class="lang-en">Each file occupies a set of contiguous blocks.
                         <br>Simple (Start, Length).
-                        <br>Excellent read performance.
+                        <br>Excellent read performance.</span>
+                        <span class="lang-ar lang-hidden">يشغل كل ملف مجموعة من الكتل المتجاورة.
+                        <br>بسيط (البداية، الطول).
+                        <br>أداء قراءة ممتاز.</span>
                     </p>
-                    <p class="text-[10px] text-red-500">Problems: External fragmentation, hard to grow files.</p>
+                    <p class="text-[10px] text-red-500">
+                        <span class="lang-en">Problems: External fragmentation, hard to grow files.</span>
+                        <span class="lang-ar lang-hidden">مشاكل: تجزئة خارجية (External fragmentation)، صعوبة تكبير الملفات.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Linked</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Linked</span>
+                        <span class="lang-ar lang-hidden">متصل (Linked)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Each file is a linked list of blocks.
+                        <span class="lang-en">Each file is a linked list of blocks.
                         <br>No external fragmentation.
-                        <br>Easy to grow.
+                        <br>Easy to grow.</span>
+                        <span class="lang-ar lang-hidden">كل ملف هو قائمة متصلة من الكتل.
+                        <br>لا توجد تجزئة خارجية.
+                        <br>سهل التكبير.</span>
                     </p>
-                    <p class="text-[10px] text-red-500">Problems: Slow random access (must traverse list), reliability (lost pointer = lost file).</p>
+                    <p class="text-[10px] text-red-500">
+                        <span class="lang-en">Problems: Slow random access (must traverse list), reliability (lost pointer = lost file).</span>
+                        <span class="lang-ar lang-hidden">مشاكل: وصول عشوائي بطيء (يجب اجتياز القائمة)، الموثوقية (مؤشر مفقود = ملف مفقود).</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-2 border-brand-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Indexed</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Indexed</span>
+                        <span class="lang-ar lang-hidden">مفهرس (Indexed)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Bring all pointers together into an <strong>Index Block</strong>.
+                        <span class="lang-en">Bring all pointers together into an <strong>Index Block</strong>.
                         <br>Supports direct access without external fragmentation.
-                        <br>Standard in modern systems (e.g., Inodes).
+                        <br>Standard in modern systems (e.g., Inodes).</span>
+                        <span class="lang-ar lang-hidden">تجميع كل المؤشرات في <strong>كتلة فهرس (Index Block)</strong>.
+                        <br>يدعم الوصول المباشر بدون تجزئة خارجية.
+                        <br>معياري في الأنظمة الحديثة (مثل Inodes).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Free Space Management</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Free Space Management</span>
+                    <span class="lang-ar lang-hidden">إدارة المساحة الحرة (Free Space Management)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6 text-sm">
                 <div class="glass-card p-6 rounded-xl">
-                    <h4 class="font-bold text-brand-600 mb-2">Bit Vector (Bit Map)</h4>
+                    <h4 class="font-bold text-brand-600 mb-2">
+                        <span class="lang-en">Bit Vector (Bit Map)</span>
+                        <span class="lang-ar lang-hidden">متجه البت (Bit Vector)</span>
+                    </h4>
                     <p class="text-xs text-gray-500">
-                        1 bit per block. (1 = free, 0 = occupied).
+                        <span class="lang-en">1 bit per block. (1 = free, 0 = occupied).
                         <br>Easy to find first free block.
-                        <br>Efficient if kept in memory.
+                        <br>Efficient if kept in memory.</span>
+                        <span class="lang-ar lang-hidden">بت واحد لكل كتلة. (1 = حر، 0 = مشغول).
+                        <br>من السهل العثور على أول كتلة حرة.
+                        <br>فعال إذا حفظ في الذاكرة.</span>
                     </p>
                 </div>
                 <div class="glass-card p-6 rounded-xl">
-                    <h4 class="font-bold text-brand-600 mb-2">Linked List</h4>
+                    <h4 class="font-bold text-brand-600 mb-2">
+                        <span class="lang-en">Linked List</span>
+                        <span class="lang-ar lang-hidden">قائمة متصلة (Linked List)</span>
+                    </h4>
                     <p class="text-xs text-gray-500">
-                        Link together all free blocks.
+                        <span class="lang-en">Link together all free blocks.
                         <br>No waste of space (store pointer in free block itself).
-                        <br>Inefficient to traverse.
+                        <br>Inefficient to traverse.</span>
+                        <span class="lang-ar lang-hidden">ربط كل الكتل الحرة معاً.
+                        <br>لا هدر للمساحة (تخزين المؤشر في الكتلة الحرة نفسها).
+                        <br>غير فعال للاجتياز.</span>
                     </p>
                 </div>
             </div>
@@ -343,51 +555,70 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار (Exam Vault)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Hard vs Soft Links
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Hard vs Soft Links</span>
+                            <span class="lang-ar lang-hidden">فخ: الروابط الصلبة مقابل اللينة</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Hard Link:</strong> Another directory entry pointing to the <em>same Inode</em>. Deleting the original filename does NOT delete the file data (until link count = 0).
-                            <br><strong>Soft (Symbolic) Link:</strong> A file containing the <em>path</em> to another file. If the original is deleted, the link becomes broken (dangling).
+                            <span class="lang-en"><strong>Hard Link:</strong> Another directory entry pointing to the <em>same Inode</em>. Deleting the original filename does NOT delete the file data (until link count = 0).
+                            <br><strong>Soft (Symbolic) Link:</strong> A file containing the <em>path</em> to another file. If the original is deleted, the link becomes broken (dangling).</span>
+                            <span class="lang-ar lang-hidden"><strong>Hard Link:</strong> إدخال دليل آخر يشير إلى <em>نفس الـ Inode</em>. حذف اسم الملف الأصلي لا يحذف بيانات الملف (حتى يصبح عدد الروابط = 0).
+                            <br><strong>Soft (Symbolic) Link:</strong> ملف يحتوي على <em>المسار</em> لملف آخر. إذا حذف الأصلي، يصبح الرابط مكسوراً (dangling).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: VFS
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: VFS</span>
+                            <span class="lang-ar lang-hidden">فخ: VFS</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Virtual File System (VFS):</strong> An abstraction layer. It allows different file systems (NTFS, FAT32, NFS) to coexist. The OS talks to VFS, VFS talks to specific FS drivers. It separates generic operations from implementation details.
+                            <span class="lang-en"><strong>Virtual File System (VFS):</strong> An abstraction layer. It allows different file systems (NTFS, FAT32, NFS) to coexist. The OS talks to VFS, VFS talks to specific FS drivers. It separates generic operations from implementation details.</span>
+                            <span class="lang-ar lang-hidden"><strong>Virtual File System (VFS):</strong> طبقة تجريد. تسمح لأنظمة ملفات مختلفة (NTFS, FAT32, NFS) بالتعايش. يتحدث نظام التشغيل مع VFS، ويتحدث VFS مع مشغلات FS المحددة. يفصل العمليات العامة عن تفاصيل التنفيذ.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Buffer Cache
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Buffer Cache</span>
+                            <span class="lang-ar lang-hidden">سر: Buffer Cache</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Modern OSs integrate the Virtual Memory system with the File System Buffer Cache. This is called <strong>Unified Buffer Cache</strong>. Memory-mapped I/O uses the same page cache as standard file I/O, preventing double caching (storing data twice in memory).
+                            <span class="lang-en">Modern OSs integrate the Virtual Memory system with the File System Buffer Cache. This is called <strong>Unified Buffer Cache</strong>. Memory-mapped I/O uses the same page cache as standard file I/O, preventing double caching (storing data twice in memory).</span>
+                            <span class="lang-ar lang-hidden">تدمج أنظمة التشغيل الحديثة نظام الذاكرة الافتراضية مع كاش نظام الملفات. يسمى هذا <strong>Unified Buffer Cache</strong>. يستخدم الـ Memory-mapped I/O نفس كاش الصفحة مثل الـ File I/O القياسي، مما يمنع التخزين المؤقت المزدوج (تخزين البيانات مرتين في الذاكرة).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: ZFS & Copy-on-Write
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: ZFS & Copy-on-Write</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: ZFS و Copy-on-Write</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Advanced file systems like ZFS never overwrite blocks in place. They write new data to a new block and then update the pointer. This makes the file system consistent at all times (no corruption on power loss) and enables instant snapshots.
+                            <span class="lang-en">Advanced file systems like ZFS never overwrite blocks in place. They write new data to a new block and then update the pointer. This makes the file system consistent at all times (no corruption on power loss) and enables instant snapshots.</span>
+                            <span class="lang-ar lang-hidden">أنظمة الملفات المتقدمة مثل ZFS لا تكتب فوق الكتل في مكانها أبداً. تكتب بيانات جديدة في كتلة جديدة ثم تحدث المؤشر. هذا يجعل نظام الملفات متسقاً في جميع الأوقات (لا فساد عند انقطاع الطاقة) ويمكن من أخذ لقطات (Snapshots) فورية.</span>
                         </p>
                     </div>
                 </div>
@@ -398,18 +629,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 10</span>
+                    <span class="lang-ar lang-hidden">الوحدة 10</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 12</span>
+                    <span class="lang-ar lang-hidden">الوحدة 12</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -428,46 +672,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar'); 
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en'); 
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

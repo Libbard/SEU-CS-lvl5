@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CS351 Module 6: Deadlocks</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +54,9 @@
         MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            chtml: {
+                displayAlign: 'left' 
             }
         };
     </script>
@@ -55,7 +67,8 @@
         mermaid.initialize({ 
             startOnLoad: true,
             theme: 'dark',
-            fontFamily: 'Inter'
+            fontFamily: 'Inter',
+            securityLevel: 'loose'
         });
     </script>
 
@@ -123,43 +136,115 @@
         }
 
         
+        .code-wrapper {
+            width: 100%;
+            overflow-x: auto; 
+            border-radius: 0.5rem;
+            background: #111827;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
         .matrix {
             font-family: 'JetBrains Mono', monospace;
-            background: #111827;
             color: #10b981;
             padding: 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.8rem;
+            font-size: 0.75rem; 
             white-space: pre;
-            overflow-x: auto;
+            display: inline-block; 
+            min-width: 100%;
+            border: none; 
+            border-radius: 0;
+            background: transparent;
+        }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+
+        
+        [dir="rtl"] mjx-container, 
+        [dir="rtl"] .MathJax,
+        
+        [dir="rtl"] code { 
+            direction: ltr !important; 
+            text-align: left !important;
+            display: inline-block; 
+        }
+        
+        
+        [dir="rtl"] .code-wrapper {
+            direction: ltr !important;
+            text-align: left !important;
+        }
+        [dir="rtl"] .matrix { 
+            direction: ltr !important;
+            text-align: left !important;
+        }
+
+        
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r { border-right-width: 0; border-left-width: 1px; }
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        
+        
+        .direction-ltr {
+            direction: ltr;
+            unicode-bidi: embed;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col w-full overflow-x-hidden">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module5.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 6</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 6</span>
+                        <span class="lang-ar lang-hidden">الوحدة 6</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-skull-crossbones text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -169,124 +254,203 @@
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 w-full">
 
         <header class="text-center space-y-4">
             <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
                 <i class="fa-solid fa-lock text-3xl text-brand-500"></i>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Crisis Management: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Deadlocks</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white break-words">
+                <span class="lang-en">Crisis Management: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600 block sm:inline">Deadlocks</span></span>
+                <span class="lang-ar lang-hidden">إدارة الأزمات: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600 block sm:inline">Deadlocks</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                When processes wait forever. Prevention, Avoidance (Banker's Algorithm), Detection, and Recovery.
+                <span class="lang-en">When processes wait forever. Prevention, Avoidance (Banker's Algorithm), Detection, and Recovery.</span>
+                <span class="lang-ar lang-hidden">عندما تنتظر العمليات إلى الأبد. المنع (Prevention)، التجنب (Banker's Algorithm)، الاكتشاف (Detection)، والاسترداد (Recovery).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Four Conditions</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Resource Allocation Graph (RAG)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prevention</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Banker's Algorithm</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Safe State</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Four Conditions</span>
+                    <span class="lang-ar lang-hidden">الشروط الأربعة</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Resource Allocation Graph (RAG)</span>
+                    <span class="lang-ar lang-hidden">Resource Allocation Graph (RAG)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Prevention</span>
+                    <span class="lang-ar lang-hidden">المنع (Prevention)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Banker's Algorithm</span>
+                    <span class="lang-ar lang-hidden">Banker's Algorithm</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Safe State</span>
+                    <span class="lang-ar lang-hidden">Safe State</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">What creates a Deadlock?</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">What creates a Deadlock?</span>
+                    <span class="lang-ar lang-hidden">ما الذي يسبب الـ Deadlock؟</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    A set of blocked processes each holding a resource and waiting to acquire a resource held by another process in the set.
-                    <br><strong class="text-red-500">Crucial Rule:</strong> Deadlock can arise IF AND ONLY IF four conditions hold simultaneously.
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6 break-words">
+                    <span class="lang-en">A set of blocked processes each holding a resource and waiting to acquire a resource held by another process in the set.</span>
+                    <span class="lang-ar lang-hidden">مجموعة من العمليات المحظورة (blocked)، كل واحدة منها تحتفظ بمورد وتنتظر الحصول على مورد آخر محتجز من قبل عملية أخرى في نفس المجموعة.</span>
+                    <br>
+                    <strong class="text-red-500">
+                        <span class="lang-en">Crucial Rule:</span>
+                        <span class="lang-ar lang-hidden">قاعدة جوهرية:</span>
+                    </strong> 
+                    <span class="lang-en">Deadlock can arise IF AND ONLY IF four conditions hold simultaneously.</span>
+                    <span class="lang-ar lang-hidden">يحدث الـ Deadlock إذا وفقط إذا تحققت أربعة شروط في وقت واحد.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-4 text-sm">
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">1. Mutual Exclusion</strong>
-                        At least one resource is non-sharable (only one process at a time).
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">1. Mutual Exclusion</span>
+                            <span class="lang-ar lang-hidden">1. Mutual Exclusion (الاستبعاد المتبادل)</span>
+                        </strong>
+                        <span class="lang-en">At least one resource is non-sharable (only one process at a time).</span>
+                        <span class="lang-ar lang-hidden">مورد واحد على الأقل غير قابل للمشاركة (عملية واحدة فقط في كل مرة).</span>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">2. Hold and Wait</strong>
-                        A process must be holding at least one resource and waiting for another.
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">2. Hold and Wait</span>
+                            <span class="lang-ar lang-hidden">2. Hold and Wait (الاحتفاظ والانتظار)</span>
+                        </strong>
+                        <span class="lang-en">A process must be holding at least one resource and waiting for another.</span>
+                        <span class="lang-ar lang-hidden">يجب أن تحتفظ العملية بمورد واحد على الأقل وتنتظر آخر.</span>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">3. No Preemption</strong>
-                        Resources cannot be forcibly taken. They must be released voluntarily.
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">3. No Preemption</span>
+                            <span class="lang-ar lang-hidden">3. No Preemption (عدم الاستيلاء)</span>
+                        </strong>
+                        <span class="lang-en">Resources cannot be forcibly taken. They must be released voluntarily.</span>
+                        <span class="lang-ar lang-hidden">لا يمكن أخذ الموارد بالقوة. يجب أن يتم تحريرها طوعاً.</span>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">4. Circular Wait</strong>
-                        A set $\{P_0, P_1, ..., P_n\}$ exists such that $P_0 \to P_1 \to ... \to P_n \to P_0$.
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">4. Circular Wait</span>
+                            <span class="lang-ar lang-hidden">4. Circular Wait (الانتظار الدائري)</span>
+                        </strong>
+                        <span class="lang-en">A set $\{P_0, P_1, ..., P_n\}$ exists such that $P_0 \to P_1 \to ... \to P_n \to P_0$.</span>
+                        <span class="lang-ar lang-hidden">توجد مجموعة $\{P_0, P_1, ..., P_n\}$ بحيث $P_0 \to P_1 \to ... \to P_n \to P_0$.</span>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Resource Allocation Graph (RAG)</h3>
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-blue-500">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Resource Allocation Graph (RAG)</span>
+                    <span class="lang-ar lang-hidden">Resource Allocation Graph (RAG)</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A graph where Processes are Circles and Resources are Rectangles (with dots for instances).
+                    <span class="lang-en">A graph where Processes are Circles and Resources are Rectangles (with dots for instances).</span>
+                    <span class="lang-ar lang-hidden">رسم بياني حيث العمليات (Processes) دوائر والموارد (Resources) مستطيلات (بها نقاط لتمثيل النسخ/Instances).</span>
                 </p>
                 
                 <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
-                    <div class="text-xs text-gray-500">
-                        <strong>Edges:</strong>
-                        <br>Request Edge: $P \to R$
-                        <br>Assignment Edge: $R \to P$
+                    <div class="text-xs text-gray-500 text-left rtl:text-right w-full md:w-auto min-w-0">
+                        <strong><span class="lang-en">Edges:</span><span class="lang-ar lang-hidden">الحواف (Edges):</span></strong>
+                        <br><span class="lang-en">Request Edge:</span><span class="lang-ar lang-hidden">Request Edge:</span> <span class="direction-ltr inline-block">$P \to R$</span>
+                        <br><span class="lang-en">Assignment Edge:</span><span class="lang-ar lang-hidden">Assignment Edge:</span> <span class="direction-ltr inline-block">$R \to P$</span>
                     </div>
                     
-
-                    <div class="text-xs font-bold text-brand-500 text-center border p-2 rounded border-brand-500">
-                        IF graph contains no cycles $\implies$ NO Deadlock.
-                        <br>IF graph contains a cycle:
-                        <br>- If only one instance per resource type $\implies$ DEADLOCK.
-                        <br>- If multiple instances $\implies$ POSSIBILITY of Deadlock.
+                    <div class="text-xs font-bold text-brand-500 text-center border p-2 rounded border-brand-500 w-full md:w-auto min-w-0 break-words">
+                        <span class="lang-en">IF graph contains no cycles $\implies$ NO Deadlock.</span>
+                        <span class="lang-ar lang-hidden">إذا لم يحتوي الرسم على دورات $\impliedby$ لا يوجد Deadlock.</span>
+                        <br>
+                        <span class="lang-en">IF graph contains a cycle:</span>
+                        <span class="lang-ar lang-hidden">إذا احتوى الرسم على دورة (Cycle):</span>
+                        <br><span class="lang-en">- If only one instance per resource type $\implies$ DEADLOCK.</span>
+                        <span class="lang-ar lang-hidden">- إذا كانت نسخة واحدة فقط لكل نوع مورد $\impliedby$ DEADLOCK.</span>
+                        <br><span class="lang-en">- If multiple instances $\implies$ POSSIBILITY of Deadlock.</span>
+                        <span class="lang-ar lang-hidden">- إذا كانت نسخ متعددة $\impliedby$ احتمالية (Possibility) لـ Deadlock.</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Handling Strategies</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Handling Strategies</span>
+                    <span class="lang-ar lang-hidden">استراتيجيات التعامل (Handling Strategies)</span>
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                 <div class="glass-card p-6 rounded-xl">
                     <i class="fa-solid fa-shield text-3xl text-blue-500 mb-2"></i>
-                    <h4 class="font-bold text-gray-900 dark:text-white">Prevention</h4>
-                    <p class="text-xs text-gray-500 mt-2">Invalidate one of the 4 conditions so deadlock is impossible.</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Prevention</span>
+                        <span class="lang-ar lang-hidden">المنع (Prevention)</span>
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-2 break-words">
+                        <span class="lang-en">Invalidate one of the 4 conditions so deadlock is impossible.</span>
+                        <span class="lang-ar lang-hidden">إبطال أحد الشروط الأربعة لجعل الـ Deadlock مستحيلاً.</span>
+                    </p>
                 </div>
                 <div class="glass-card p-6 rounded-xl">
                     <i class="fa-solid fa-traffic-light text-3xl text-yellow-500 mb-2"></i>
-                    <h4 class="font-bold text-gray-900 dark:text-white">Avoidance</h4>
-                    <p class="text-xs text-gray-500 mt-2">Use info about future requests to steer clear of "Unsafe States". (Banker's Algo).</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Avoidance</span>
+                        <span class="lang-ar lang-hidden">التجنب (Avoidance)</span>
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-2 break-words">
+                        <span class="lang-en">Use info about future requests to steer clear of "Unsafe States". (Banker's Algo).</span>
+                        <span class="lang-ar lang-hidden">استخدام معلومات حول الطلبات المستقبلية لتجنب "الحالات غير الآمنة". (Banker's Algo).</span>
+                    </p>
                 </div>
                 <div class="glass-card p-6 rounded-xl">
                     <i class="fa-solid fa-stethoscope text-3xl text-red-500 mb-2"></i>
-                    <h4 class="font-bold text-gray-900 dark:text-white">Detection & Recovery</h4>
-                    <p class="text-xs text-gray-500 mt-2">Let it happen, detect cycle, and kill process (Ostrich Algorithm: Ignore it).</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Detection & Recovery</span>
+                        <span class="lang-ar lang-hidden">Detection & Recovery</span>
+                    </h4>
+                    <p class="text-xs text-gray-500 mt-2 break-words">
+                        <span class="lang-en">Let it happen, detect cycle, and kill process (Ostrich Algorithm: Ignore it).</span>
+                        <span class="lang-ar lang-hidden">دعه يحدث، اكتشف الدورة، وانهِ العملية (Ostrich Algorithm: تجاهله).</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Banker's Algorithm</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Banker's Algorithm</span>
+                    <span class="lang-ar lang-hidden">The Banker's Algorithm (خوارزمية المصرفي)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Before granting a request, the OS checks: "If I give you this, will the system remain in a <strong>Safe State</strong>?"
-                    <br>A state is <strong class="text-green-500">Safe</strong> if there exists a sequence of execution where all processes can finish.
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 break-words">
+                    <span class="lang-en">Before granting a request, the OS checks: "If I give you this, will the system remain in a <strong>Safe State</strong>?"</span>
+                    <span class="lang-ar lang-hidden">قبل منح الطلب، يتحقق نظام التشغيل: "إذا أعطيتك هذا، هل سيبقى النظام في <strong>حالة آمنة (Safe State)</strong>؟"</span>
+                    <br>
+                    <span class="lang-en">A state is <strong class="text-green-500">Safe</strong> if there exists a sequence of execution where all processes can finish.</span>
+                    <span class="lang-ar lang-hidden">تكون الحالة <strong class="text-green-500">آمنة (Safe)</strong> إذا وجد تسلسل للتنفيذ يسمح لجميع العمليات بالانتهاء.</span>
                 </p>
 
-                <div class="matrix">
+                <div class="code-wrapper">
+                    <div class="matrix">
 Data Structures:
 n = processes, m = resource types
 
@@ -296,50 +460,101 @@ Allocation: n x m matrix. (Current allocation).
 Need: n x m matrix. (Max - Allocation).
 
 Need[i,j] = Max[i,j] - Allocation[i,j]
+                    </div>
                 </div>
             </div>
 
-            <div class="glass-card p-6 rounded-xl border-l-4 border-l-yellow-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Safety Algorithm (Simplified)</h3>
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-yellow-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-yellow-500">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Safety Algorithm (Simplified)</span>
+                    <span class="lang-ar lang-hidden">Safety Algorithm (مبسطة)</span>
+                </h3>
                 <ol class="list-decimal list-inside text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                    <li>Initialize `Work = Available` and `Finish[i] = false` for all i.</li>
-                    <li>Find a process $P_i$ such that:
-                        <br>- `Finish[i] == false`
-                        <br>- `Need[i] <= Work` (Can its request be satisfied?)
+                    <li>
+                        <span class="lang-en">Initialize `Work = Available` and `Finish[i] = false` for all i.</span>
+                        <span class="lang-ar lang-hidden">ابدأ بـ <span class="direction-ltr inline-block">`Work = Available`</span> و <span class="direction-ltr inline-block">`Finish[i] = false`</span> للكل.</span>
                     </li>
-                    <li>If found:
-                        <br>- Assume $P_i$ finishes and returns resources: `Work = Work + Allocation[i]`.
-                        <br>- Set `Finish[i] = true`.
-                        <br>- Repeat Step 2.
+                    <li>
+                        <span class="lang-en">Find a process $P_i$ such that:</span>
+                        <span class="lang-ar lang-hidden">جد عملية $P_i$ بحيث:</span>
+                        <br>- <span class="direction-ltr inline-block">`Finish[i] == false`</span>
+                        <br>- <span class="direction-ltr inline-block">`Need[i] <= Work`</span>
+                        <span class="lang-en">(Can its request be satisfied?)</span>
+                        <span class="lang-ar lang-hidden">(هل يمكن تلبية طلبها؟)</span>
                     </li>
-                    <li>If all `Finish[i] == true`, the system is in a <span class="text-green-500 font-bold">Safe State</span>.</li>
+                    <li>
+                        <span class="lang-en">If found:</span>
+                        <span class="lang-ar lang-hidden">إذا وجدت:</span>
+                        <br>- <span class="lang-en">Assume $P_i$ finishes and returns resources:</span>
+                        <span class="lang-ar lang-hidden">افترض أن $P_i$ تنتهي وتعيد الموارد:</span>
+                         <span class="direction-ltr inline-block">`Work = Work + Allocation[i]`</span>.
+                        <br>- <span class="direction-ltr inline-block">Set `Finish[i] = true`</span>.
+                        <br>- <span class="lang-en">Repeat Step 2.</span>
+                        <span class="lang-ar lang-hidden">كرر الخطوة 2.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en">If all `Finish[i] == true`, the system is in a <span class="text-green-500 font-bold">Safe State</span>.</span>
+                        <span class="lang-ar lang-hidden">إذا كان كل <span class="direction-ltr inline-block">`Finish[i] == true`</span>، فالنظام في <span class="text-green-500 font-bold">Safe State</span>.</span>
+                    </li>
                 </ol>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Recovery Strategies</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Recovery Strategies</span>
+                    <span class="lang-ar lang-hidden">استراتيجيات الاسترداد (Recovery Strategies)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Process Termination</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Process Termination</span>
+                        <span class="lang-ar lang-hidden">إنهاء العملية (Process Termination)</span>
+                    </h3>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>Abort All:</strong> Extreme, but effective. Loses all progress.</li>
-                        <li><strong>Abort One by One:</strong> Kill one, run detection, repeat until cycle breaks.
-                            <br><em>Victim Selection:</em> Priority, CPU usage, Resources held.
+                        <li>
+                            <strong class="text-gray-800 dark:text-gray-100"><span class="lang-en">Abort All:</span><span class="lang-ar lang-hidden">Abort All:</span></strong>
+                            <span class="lang-en">Extreme, but effective. Loses all progress.</span>
+                            <span class="lang-ar lang-hidden">متطرف ولكنه فعال. تفقد كل التقدم.</span>
+                        </li>
+                        <li>
+                            <strong class="text-gray-800 dark:text-gray-100"><span class="lang-en">Abort One by One:</span><span class="lang-ar lang-hidden">Abort One by One:</span></strong>
+                            <span class="lang-en">Kill one, run detection, repeat until cycle breaks.</span>
+                            <span class="lang-ar lang-hidden">اقتل واحدة، شغل الاكتشاف، كرر حتى تنكسر الدورة.</span>
+                            <br><em>
+                                <span class="lang-en">Victim Selection:</span>
+                                <span class="lang-ar lang-hidden">اختيار الضحية (Victim Selection):</span>
+                            </em> 
+                            <span class="lang-en">Priority, CPU usage, Resources held.</span>
+                            <span class="lang-ar lang-hidden">الأولوية، استخدام CPU، الموارد المحتجزة.</span>
                         </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Resource Preemption</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Resource Preemption</span>
+                        <span class="lang-ar lang-hidden">Resource Preemption (استيلاء الموارد)</span>
+                    </h3>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                        <li>Select a victim to steal resources from.</li>
-                        <li><strong>Rollback:</strong> Return process to a safe checkpoint and restart.</li>
-                        <li><strong>Starvation:</strong> Ensure same process isn't always the victim (include rollback count in cost factor).</li>
+                        <li>
+                            <span class="lang-en">Select a victim to steal resources from.</span>
+                            <span class="lang-ar lang-hidden">اختر ضحية لسرقة الموارد منها.</span>
+                        </li>
+                        <li>
+                            <strong class="text-gray-800 dark:text-gray-100"><span class="lang-en">Rollback:</span><span class="lang-ar lang-hidden">Rollback:</span></strong>
+                            <span class="lang-en">Return process to a safe checkpoint and restart.</span>
+                            <span class="lang-ar lang-hidden">أعد العملية إلى نقطة تفتيش آمنة وأعد التشغيل.</span>
+                        </li>
+                        <li>
+                            <strong class="text-gray-800 dark:text-gray-100"><span class="lang-en">Starvation:</span><span class="lang-ar lang-hidden">Starvation:</span></strong>
+                            <span class="lang-en">Ensure same process isn't always the victim (include rollback count in cost factor).</span>
+                            <span class="lang-ar lang-hidden">تأكد من أن نفس العملية لا تكون الضحية دائماً (ضمّن عدد الـ rollback في عامل التكلفة).</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -349,51 +564,70 @@ Need[i,j] = Max[i,j] - Allocation[i,j]
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider break-words">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Cycle != Deadlock
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Cycle != Deadlock</span>
+                            <span class="lang-ar lang-hidden">فخ: Cycle != Deadlock</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            A cycle in the Resource Allocation Graph (RAG) is a necessary condition, but <strong>NOT sufficient</strong> if resources have multiple instances. Deadlock only guaranteed if single instance per resource type.
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words">
+                            <span class="lang-en">A cycle in the Resource Allocation Graph (RAG) is a necessary condition, but <strong>NOT sufficient</strong> if resources have multiple instances. Deadlock only guaranteed if single instance per resource type.</span>
+                            <span class="lang-ar lang-hidden">الدورة (Cycle) في الرسم البياني (RAG) شرط ضروري، لكنه <strong>غير كافٍ</strong> إذا كانت الموارد لها نسخ متعددة. الـ Deadlock مضمون فقط إذا كانت نسخة واحدة لكل نوع مورد.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Unsafe != Deadlock
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Unsafe != Deadlock</span>
+                            <span class="lang-ar lang-hidden">فخ: Unsafe != Deadlock</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            An <strong>Unsafe State</strong> does not mean Deadlock exists <em>now</em>. It means Deadlock <em>could</em> happen if processes request their max resources in a specific order.
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words">
+                            <span class="lang-en">An <strong>Unsafe State</strong> does not mean Deadlock exists <em>now</em>. It means Deadlock <em>could</em> happen if processes request their max resources in a specific order.</span>
+                            <span class="lang-ar lang-hidden"><strong>الحالة غير الآمنة (Unsafe State)</strong> لا تعني وجود Deadlock <em>الآن</em>. تعني أن الـ Deadlock <em>قد</em> يحدث إذا طلبت العمليات مواردها القصوى بترتيب معين.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Circular Wait Prevention
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Circular Wait Prevention</span>
+                            <span class="lang-ar lang-hidden">سر: منع الانتظار الدائري</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The most practical way to prevent deadlock is to attack the <strong>Circular Wait</strong> condition.
-                            <br><em>Method:</em> Impose a total ordering of all resource types. Processes must request resources in increasing order of enumeration.
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words">
+                            <span class="lang-en">The most practical way to prevent deadlock is to attack the <strong>Circular Wait</strong> condition.
+                            <br><em>Method:</em> Impose a total ordering of all resource types. Processes must request resources in increasing order of enumeration.</span>
+                            <span class="lang-ar lang-hidden">الطريقة الأكثر عملية لمنع الـ deadlock هي مهاجمة شرط <strong>الانتظار الدائري (Circular Wait)</strong>.
+                            <br><em>الطريقة:</em> فرض ترتيب كلي لجميع أنواع الموارد. يجب أن تطلب العمليات الموارد بترتيب تصاعدي.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Need Matrix
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: The Need Matrix</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: The Need Matrix</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Banker's Algo problems, always calculate the <strong>NEED</strong> matrix first ($Max - Allocation$). Never compare Available against Max directly.
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words">
+                            <span class="lang-en">In Banker's Algo problems, always calculate the <strong>NEED</strong> matrix first ($Max - Allocation$). Never compare Available against Max directly.</span>
+                            <span class="lang-ar lang-hidden">في مسائل خوارزمية المصرفي (Banker's Algo)، احسب دائماً مصفوفة <strong>NEED</strong> أولاً ($Max - Allocation$). لا تقارن Available مع Max مباشرة أبداً.</span>
                         </p>
                     </div>
                 </div>
@@ -404,20 +638,67 @@ Need[i,j] = Max[i,j] - Allocation[i,j]
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 5</span>
+                    <span class="lang-ar lang-hidden">الوحدة 5</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Review</span>
+                    <span class="lang-ar lang-hidden">مراجعة المنتصف</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
         const htmlElement = document.documentElement;
+
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
 
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
@@ -436,43 +717,18 @@ Need[i,j] = Max[i,j] - Allocation[i,j]
         });
     </script>
 <script>
-
     document.addEventListener("DOMContentLoaded", function() {
-
-        
-
         const path = window.location.pathname;
-
-        
-
-        
-
-        
-
         const match = path.match(/module(\d+)\.html/);
-
         
-
         if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
+            const moduleNumber = match[1];
             if (moduleNumber >= 1 && moduleNumber <= 13) {
-
                 localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
                 console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
             }
-
         }
-
     });
-
 </script>
 
 </body>

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 10: I/O Systems</title>
@@ -61,6 +70,63 @@
 
     <style>
         
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .border-l-4 { 
+            border-left-width: 0; 
+            border-right-width: 4px; 
+        }
+        [dir="rtl"] .border-r-4 { 
+            border-right-width: 0; 
+            border-left-width: 4px; 
+        }
+
+        
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        
+        
+        [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
+        [dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
+        
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -87,40 +153,6 @@
             border-color: #10b981;
             box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
         }
-
-        
-        .smart-term {
-            cursor: help;
-            border-bottom: 2px dotted #10b981;
-            position: relative;
-            transition: all 0.2s;
-        }
-        .smart-term:hover {
-            color: #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
-        }
-        .smart-term::after {
-            content: attr(data-ar);
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2937;
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: 'Cairo', sans-serif;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            white-space: nowrap;
-            z-index: 50;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        .smart-term:hover::after {
-            opacity: 1;
-        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -128,26 +160,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 10</span>
+                        <span class="lang-ar lang-hidden">الوحدة 10</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-ethernet text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,68 +211,111 @@
                 <i class="fa-solid fa-print text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Input/Output: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">I/O Systems</span>
+                <span class="lang-en">Input/Output: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">I/O Systems</span></span>
+                <span class="lang-ar lang-hidden">الإدخال/الإخراج: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">أنظمة الـ I/O</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Managing external devices. Polling, Interrupts, DMA, and the Kernel I/O Subsystem.
+                <span class="lang-en">Managing external devices. Polling, Interrupts, DMA, and the Kernel I/O Subsystem.</span>
+                <span class="lang-ar lang-hidden">إدارة الأجهزة الخارجية. الـ Polling، المقاطعات (Interrupts)، الوصول المباشر للذاكرة (DMA)، ونظام الـ Kernel I/O الفرعي.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Port-Mapped I/O</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Polling</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Interrupts</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DMA</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Blocking/Non-blocking</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Port-Mapped I/O</span>
+                    <span class="lang-ar lang-hidden">Port-Mapped I/O</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Polling</span>
+                    <span class="lang-ar lang-hidden">Polling (التصويت)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Interrupts</span>
+                    <span class="lang-ar lang-hidden">Interrupts (المقاطعات)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">DMA</span>
+                    <span class="lang-ar lang-hidden">DMA</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Blocking/Non-blocking</span>
+                    <span class="lang-ar lang-hidden">Blocking/Non-blocking</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Hardware Interface</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Hardware Interface</span>
+                    <span class="lang-ar lang-hidden">واجهة الأجهزة (Hardware Interface)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    A typical I/O device has a <span class="text-brand-500 font-bold">Port</span> (connection point) and a <span class="text-brand-500 font-bold">Bus</span> (daisy chain or shared access).
-                    <br><strong>Device Controller:</strong> Electronics that operate the port/device. Has registers for data and control.
+                    <span class="lang-en">A typical I/O device has a <span class="text-brand-500 font-bold">Port</span> (connection point) and a <span class="text-brand-500 font-bold">Bus</span> (daisy chain or shared access).
+                    <br><strong>Device Controller:</strong> Electronics that operate the port/device. Has registers for data and control.</span>
+                    <span class="lang-ar lang-hidden">يحتوي جهاز الـ I/O النموذجي على <span class="text-brand-500 font-bold">منفذ (Port)</span> (نقطة اتصال) و <span class="text-brand-500 font-bold">ناقل (Bus)</span> (سلسلة متعاقبة أو وصول مشترك).
+                    <br><strong>Device Controller (وحدة تحكم الجهاز):</strong> الإلكترونيات التي تشغل المنفذ/الجهاز. تحتوي على سجلات (Registers) للبيانات والتحكم.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-6 text-sm">
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Memory-Mapped I/O</strong>
-                        Device registers are mapped to main memory addresses.
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Memory-Mapped I/O</span>
+                            <span class="lang-ar lang-hidden">Memory-Mapped I/O</span>
+                        </strong>
+                        <span class="lang-en">Device registers are mapped to main memory addresses.
                         <br><em>Access:</em> Standard load/store instructions (`MOV`, `LD`).
-                        <br><em>Example:</em> Video memory.
+                        <br><em>Example:</em> Video memory.</span>
+                        <span class="lang-ar lang-hidden">يتم ربط سجلات الجهاز بعناوين الذاكرة الرئيسية.
+                        <br><em>الوصول:</em> تعليمات التحميل/التخزين القياسية (`MOV`, `LD`).
+                        <br><em>مثال:</em> ذاكرة الفيديو.</span>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Port-Mapped I/O</strong>
-                        Uses special I/O instructions (`IN`, `OUT`) to access separate I/O address space.
-                        <br><em>Example:</em> Early x86 architecture.
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Port-Mapped I/O</span>
+                            <span class="lang-ar lang-hidden">Port-Mapped I/O</span>
+                        </strong>
+                        <span class="lang-en">Uses special I/O instructions (`IN`, `OUT`) to access separate I/O address space.
+                        <br><em>Example:</em> Early x86 architecture.</span>
+                        <span class="lang-ar lang-hidden">يستخدم تعليمات I/O خاصة (`IN`, `OUT`) للوصول إلى مساحة عناوين I/O منفصلة.
+                        <br><em>مثال:</em> معمارية x86 القديمة.</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Communication Methods</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Communication Methods</span>
+                    <span class="lang-ar lang-hidden">طرق التواصل (Communication Methods)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                How does the CPU talk to the device?
+                <span class="lang-en">How does the CPU talk to the device?</span>
+                <span class="lang-ar lang-hidden">كيف يتحدث المعالج (CPU) مع الجهاز؟</span>
             </p>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">1. Polling (Busy Wait)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">1. Polling (Busy Wait)</span>
+                        <span class="lang-ar lang-hidden">1. Polling (الانتظار النشط)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        CPU repeatedly checks the status register: "Are you ready? Are you ready?".
+                        <span class="lang-en">CPU repeatedly checks the status register: "Are you ready? Are you ready?".
                         <br><strong>Pros:</strong> Simple. Fast if device is fast.
-                        <br><strong>Cons:</strong> Wastes CPU cycles if device is slow.
+                        <br><strong>Cons:</strong> Wastes CPU cycles if device is slow.</span>
+                        <span class="lang-ar lang-hidden">يقوم الـ CPU بفحص سجل الحالة مراراً وتكراراً: "هل أنت جاهز؟ هل أنت جاهز؟".
+                        <br><strong>المزايا:</strong> بسيط. سريع إذا كان الجهاز سريعاً.
+                        <br><strong>العيوب:</strong> يضيع دورات المعالج إذا كان الجهاز بطيئاً.</span>
                     </p>
                     <div class="code-block text-[10px]">
 while (*status_reg == BUSY); // Spin loop
@@ -235,21 +325,34 @@ while (*status_reg == BUSY); // Spin loop
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">2. Interrupt-Driven I/O</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">2. Interrupt-Driven I/O</span>
+                        <span class="lang-ar lang-hidden">2. Interrupt-Driven I/O (المقاطعات)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        CPU issues command and goes to do other work.
+                        <span class="lang-en">CPU issues command and goes to do other work.
                         <br>When device is done, it raises an <strong>Interrupt Request Line</strong>.
                         <br>CPU stops, saves state, runs <strong>Interrupt Handler</strong>, restores state.
-                        <br><strong>Benefit:</strong> CPU not tied up waiting.
+                        <br><strong>Benefit:</strong> CPU not tied up waiting.</span>
+                        <span class="lang-ar lang-hidden">يصدر الـ CPU الأمر ويذهب للقيام بعمل آخر.
+                        <br>عندما ينتهي الجهاز، يرفع إشارة <strong>Interrupt Request Line</strong>.
+                        <br>يتوقف الـ CPU، يحفظ الحالة، يشغل <strong>Interrupt Handler</strong>، ويستعيد الحالة.
+                        <br><strong>الفائدة:</strong> لا ينشغل المعالج بالانتظار.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">3. Direct Memory Access (DMA)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">3. Direct Memory Access (DMA)</span>
+                        <span class="lang-ar lang-hidden">3. Direct Memory Access (DMA)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Used for high-speed devices (Disks, Network) to avoid interrupting CPU for <em>every byte</em>.
+                        <span class="lang-en">Used for high-speed devices (Disks, Network) to avoid interrupting CPU for <em>every byte</em>.
                         <br><strong>How:</strong> CPU programs DMA controller (Source, Dest, Count). DMA transfers block directly to memory.
-                        <br><strong>Result:</strong> Only one interrupt per block.
+                        <br><strong>Result:</strong> Only one interrupt per block.</span>
+                        <span class="lang-ar lang-hidden">يستخدم للأجهزة عالية السرعة (الأقراص، الشبكات) لتجنب مقاطعة المعالج لكل <em>بايت</em>.
+                        <br><strong>كيف:</strong> يبرمج الـ CPU وحدة تحكم DMA (المصدر، الوجهة، العدد). ينقل الـ DMA الكتلة مباشرة للذاكرة.
+                        <br><strong>النتيجة:</strong> مقاطعة واحدة فقط لكل كتلة.</span>
                     </p>
                     
                     <div class="mermaid text-center">
@@ -264,69 +367,128 @@ while (*status_reg == BUSY); // Spin loop
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Kernel I/O Subsystem</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Kernel I/O Subsystem</span>
+                    <span class="lang-ar lang-hidden">نظام الـ Kernel I/O الفرعي</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    The kernel provides generic services to hide hardware complexity.
+                    <span class="lang-en">The kernel provides generic services to hide hardware complexity.</span>
+                    <span class="lang-ar lang-hidden">يوفر الـ Kernel خدمات عامة لإخفاء تعقيدات الأجهزة.</span>
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">I/O Scheduling</strong>
-                        Reordering requests (queueing) to optimize performance (e.g., disk elevator).
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">I/O Scheduling</span>
+                            <span class="lang-ar lang-hidden">جدولة الإدخال/الإخراج (I/O Scheduling)</span>
+                        </strong>
+                        <span class="lang-en">Reordering requests (queueing) to optimize performance (e.g., disk elevator).</span>
+                        <span class="lang-ar lang-hidden">إعادة ترتيب الطلبات (Queueing) لتحسين الأداء (مثل مصعد القرص).</span>
                     </div>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">Buffering</strong>
-                        Store data in memory while transferring. Handles speed mismatch (modem vs SSD) and data size mismatch.
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">Buffering</span>
+                            <span class="lang-ar lang-hidden">التخزين المؤقت (Buffering)</span>
+                        </strong>
+                        <span class="lang-en">Store data in memory while transferring. Handles speed mismatch (modem vs SSD) and data size mismatch.</span>
+                        <span class="lang-ar lang-hidden">تخزين البيانات في الذاكرة أثناء النقل. يعالج عدم تطابق السرعة (Modem مقابل SSD) وحجم البيانات.</span>
                     </div>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">Caching</strong>
-                        Holding copies of data for faster access. (Buffer = copy, Cache = fast copy).
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">Caching</span>
+                            <span class="lang-ar lang-hidden">التخزين المخبأ (Caching)</span>
+                        </strong>
+                        <span class="lang-en">Holding copies of data for faster access. (Buffer = copy, Cache = fast copy).</span>
+                        <span class="lang-ar lang-hidden">الاحتفاظ بنسخ من البيانات للوصول السريع. (Buffer = نسخة، Cache = نسخة سريعة).</span>
                     </div>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded">
-                        <strong class="block text-brand-600 mb-1">Spooling</strong>
-                        Holding output for a device that can only serve one request at a time (e.g., Printer).
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">Spooling</span>
+                            <span class="lang-ar lang-hidden">Spooling</span>
+                        </strong>
+                        <span class="lang-en">Holding output for a device that can only serve one request at a time (e.g., Printer).</span>
+                        <span class="lang-ar lang-hidden">الاحتفاظ بالمخرجات لجهاز يمكنه خدمة طلب واحد فقط في كل مرة (مثل الطابعة).</span>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Blocking vs Non-Blocking</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                    <span class="lang-en">Blocking vs Non-Blocking</span>
+                    <span class="lang-ar lang-hidden">Blocking vs Non-Blocking</span>
+                </h3>
                 <div class="grid md:grid-cols-3 gap-6 text-center text-xs">
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="block text-red-500 mb-1">Blocking I/O</strong>
-                        Process suspended until I/O completed. Easy to use/understand.
+                        <strong class="block text-red-500 mb-1">
+                            <span class="lang-en">Blocking I/O</span>
+                            <span class="lang-ar lang-hidden">Blocking I/O</span>
+                        </strong>
+                        <span class="lang-en">Process suspended until I/O completed. Easy to use/understand.</span>
+                        <span class="lang-ar lang-hidden">يتم تعليق العملية حتى اكتمال الـ I/O. سهل الاستخدام/الفهم.</span>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="block text-yellow-500 mb-1">Non-Blocking I/O</strong>
-                        Call returns quickly with data count read (maybe 0). Process keeps running. Used in UIs/Video games.
+                        <strong class="block text-yellow-500 mb-1">
+                            <span class="lang-en">Non-Blocking I/O</span>
+                            <span class="lang-ar lang-hidden">Non-Blocking I/O</span>
+                        </strong>
+                        <span class="lang-en">Call returns quickly with data count read (maybe 0). Process keeps running. Used in UIs/Video games.</span>
+                        <span class="lang-ar lang-hidden">تعود الدالة بسرعة مع عدد البيانات المقروءة (ربما 0). تستمر العملية في العمل. يستخدم في واجهات المستخدم/الألعاب.</span>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="block text-green-500 mb-1">Asynchronous I/O</strong>
-                        Process runs while I/O executes. Signal tells process when I/O is done. Hard to program.
+                        <strong class="block text-green-500 mb-1">
+                            <span class="lang-en">Asynchronous I/O</span>
+                            <span class="lang-ar lang-hidden">Asynchronous I/O</span>
+                        </strong>
+                        <span class="lang-en">Process runs while I/O executes. Signal tells process when I/O is done. Hard to program.</span>
+                        <span class="lang-ar lang-hidden">تعمل العملية أثناء تنفيذ الـ I/O. إشارة تخبر العملية عند انتهاء الـ I/O. صعب البرمجة.</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Life Cycle of a Request</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Life Cycle of a Request</span>
+                    <span class="lang-ar lang-hidden">دورة حياة الطلب (Life Cycle of a Request)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <ol class="list-decimal list-inside space-y-3 text-xs text-gray-600 dark:text-gray-300">
-                    <li><strong>User Process:</strong> Issues read() system call.</li>
-                    <li><strong>Kernel:</strong> Checks parameters. Checks if data in cache. If not, requests device driver.</li>
-                    <li><strong>Device Driver:</strong> Issues commands to device controller registers. Blocks process.</li>
-                    <li><strong>Device Controller:</strong> Operates hardware. Transfers data. Generates <strong>Interrupt</strong> when done.</li>
-                    <li><strong>Interrupt Handler:</strong> Saves data, signals driver.</li>
-                    <li><strong>Kernel:</strong> Moves data to user space. Wakes up process.</li>
-                    <li><strong>User Process:</strong> read() returns.</li>
+                    <li>
+                        <span class="lang-en"><strong>User Process:</strong> Issues read() system call.</span>
+                        <span class="lang-ar lang-hidden"><strong>عملية المستخدم:</strong> تصدر نداء النظام read().</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Kernel:</strong> Checks parameters. Checks if data in cache. If not, requests device driver.</span>
+                        <span class="lang-ar lang-hidden"><strong>Kernel:</strong> يتحقق من المعاملات. يتحقق مما إذا كانت البيانات في الكاش. إذا لا، يطلب مشغل الجهاز (Device Driver).</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Device Driver:</strong> Issues commands to device controller registers. Blocks process.</span>
+                        <span class="lang-ar lang-hidden"><strong>Device Driver:</strong> يصدر أوامر لسجلات وحدة تحكم الجهاز. يحظر العملية.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Device Controller:</strong> Operates hardware. Transfers data. Generates <strong>Interrupt</strong> when done.</span>
+                        <span class="lang-ar lang-hidden"><strong>Device Controller:</strong> يشغل الجهاز. ينقل البيانات. يولد <strong>Interrupt</strong> عند الانتهاء.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Interrupt Handler:</strong> Saves data, signals driver.</span>
+                        <span class="lang-ar lang-hidden"><strong>Interrupt Handler:</strong> يحفظ البيانات، يرسل إشارة للمشغل.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>Kernel:</strong> Moves data to user space. Wakes up process.</span>
+                        <span class="lang-ar lang-hidden"><strong>Kernel:</strong> ينقل البيانات لمساحة المستخدم. يوقظ العملية.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en"><strong>User Process:</strong> read() returns.</span>
+                        <span class="lang-ar lang-hidden"><strong>عملية المستخدم:</strong> تعود الدالة read().</span>
+                    </li>
                 </ol>
             </div>
         </section>
@@ -335,53 +497,74 @@ while (*status_reg == BUSY); // Spin loop
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار (Exam Vault)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Interrupt Overhead
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Interrupt Overhead</span>
+                            <span class="lang-ar lang-hidden">فخ: تكلفة المقاطعات (Overhead)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Interrupts are good but have overhead (Context switch, Pipeline flush).
+                            <span class="lang-en">Interrupts are good but have overhead (Context switch, Pipeline flush).
                             <br>For very high-speed networks (e.g., 10Gbps), interrupts happen too often ("Livelock").
-                            <br><strong>Solution:</strong> Hybrid approach (Switch to Polling under high load).
+                            <br><strong>Solution:</strong> Hybrid approach (Switch to Polling under high load).</span>
+                            <span class="lang-ar lang-hidden">المقاطعات جيدة لكن لها تكلفة (Context switch, Pipeline flush).
+                            <br>للشبكات عالية السرعة جداً (مثل 10Gbps)، تحدث المقاطعات كثيراً ("Livelock").
+                            <br><strong>الحل:</strong> نهج هجين (التحول إلى Polling تحت الحمل العالي).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Double Buffering
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Double Buffering</span>
+                            <span class="lang-ar lang-hidden">فخ: التخزين المؤقت المزدوج (Double Buffering)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Often used in graphics/video. While one buffer is being displayed/written, the other is being filled. This decouples the producer and consumer rates.
+                            <span class="lang-en">Often used in graphics/video. While one buffer is being displayed/written, the other is being filled. This decouples the producer and consumer rates.</span>
+                            <span class="lang-ar lang-hidden">يستخدم غالباً في الرسوميات/الفيديو. بينما يتم عرض/كتابة أحد المخازن المؤقتة، يتم ملء الآخر. هذا يفصل معدلات المنتج والمستهلك.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: DMA & Caches
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: DMA & Caches</span>
+                            <span class="lang-ar lang-hidden">سر: DMA و الكاش</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            DMA writes directly to Main Memory, bypassing the CPU Cache. This creates a <strong>Cache Coherency</strong> problem (CPU reads stale data from cache).
-                            <br><em>Fix:</em> OS/Hardware must invalidate cache lines affected by DMA.
+                            <span class="lang-en">DMA writes directly to Main Memory, bypassing the CPU Cache. This creates a <strong>Cache Coherency</strong> problem (CPU reads stale data from cache).
+                            <br><em>Fix:</em> OS/Hardware must invalidate cache lines affected by DMA.</span>
+                            <span class="lang-ar lang-hidden">يكتب الـ DMA مباشرة إلى الذاكرة الرئيسية، متجاوزاً كاش المعالج. هذا يخلق مشكلة <strong>Cache Coherency</strong> (يقرأ المعالج بيانات قديمة من الكاش).
+                            <br><em>الحل:</em> يجب على نظام التشغيل/الأجهزة إبطال خطوط الكاش المتأثرة بالـ DMA.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Vectored Interrupt
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Vectored Interrupt</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: Vectored Interrupt</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Instead of a single "Interrupt" line where the CPU must poll every device to find who rang the bell, modern CPUs use an <strong>Interrupt Vector Table</strong>. The device sends an ID (Vector #), and CPU jumps directly to that device's specific handler.
+                            <span class="lang-en">Instead of a single "Interrupt" line where the CPU must poll every device to find who rang the bell, modern CPUs use an <strong>Interrupt Vector Table</strong>. The device sends an ID (Vector #), and CPU jumps directly to that device's specific handler.</span>
+                            <span class="lang-ar lang-hidden">بدلاً من خط "Interrupt" واحد حيث يجب على المعالج استطلاع كل جهاز لمعرفة من أطلق الجرس، تستخدم المعالجات الحديثة <strong>Interrupt Vector Table</strong>. يرسل الجهاز معرفاً (Vector #)، ويقفز المعالج مباشرة إلى الـ Handler الخاص بذلك الجهاز.</span>
                         </p>
                     </div>
                 </div>
@@ -392,18 +575,31 @@ while (*status_reg == BUSY); // Spin loop
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 11</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -422,46 +618,55 @@ while (*status_reg == BUSY); // Spin loop
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar'); 
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en'); 
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

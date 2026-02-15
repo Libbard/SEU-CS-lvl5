@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 10: Views & Relational Algebra</title>
@@ -49,6 +58,15 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
 
     <style>
         
@@ -128,6 +146,38 @@
             overflow-x: auto;
             position: relative;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+
+        
+        [dir="rtl"] .code-block {
+            direction: ltr !important;
+            text-align: left !important;
+        }
+        [dir="rtl"] .mermaid {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -135,26 +185,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 10</span>
+                        <span class="lang-ar lang-hidden">الوحدة 10</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-calculator text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -171,33 +236,57 @@
                 <i class="fa-solid fa-infinity text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Theoretical Core: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Relational Algebra</span> & Views
+                <span class="lang-en">Theoretical Core: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Relational Algebra</span> & Views</span>
+                <span class="lang-ar lang-hidden">الجوهر النظري: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Relational Algebra</span> & Views</span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Understanding the mathematical engine beneath SQL (Relational Algebra) and mastering Virtual Tables (Views).
+                <span class="lang-en">Understanding the mathematical engine beneath SQL (Relational Algebra) and mastering Virtual Tables (Views).</span>
+                <span class="lang-ar lang-hidden">فهم المحرك الرياضي الكامن خلف SQL (Relational Algebra) وإتقان الجداول الافتراضية (Views).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Views (Virtual Tables)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Schema Evolution</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Selection ($\sigma$)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Projection ($\pi$)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Cartesian Product ($\times$)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Division ($\div$)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Views (Virtual Tables)</span>
+                    <span class="lang-ar lang-hidden">Views (Virtual Tables)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Schema Evolution</span>
+                    <span class="lang-ar lang-hidden">Schema Evolution</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Selection ($\sigma$)</span>
+                    <span class="lang-ar lang-hidden">Selection ($\sigma$)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Projection ($\pi$)</span>
+                    <span class="lang-ar lang-hidden">Projection ($\pi$)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Cartesian Product ($\times$)</span>
+                    <span class="lang-ar lang-hidden">Cartesian Product ($\times$)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Division ($\div$)</span>
+                    <span class="lang-ar lang-hidden">Division ($\div$)</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">SQL Views</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">SQL Views</span>
+                    <span class="lang-ar lang-hidden">SQL Views</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A <strong class="text-brand-600">View</strong> is a "Virtual Table". It does not store data physically; instead, it stores a query that generates the data dynamically when accessed.
+                    <span class="lang-en">A <strong class="text-brand-600">View</strong> is a "Virtual Table". It does not store data physically; instead, it stores a query that generates the data dynamically when accessed.</span>
+                    <span class="lang-ar lang-hidden">الـ <strong class="text-brand-600">View</strong> عبارة عن "جدول افتراضي" (Virtual Table). لا يخزن البيانات فعلياً؛ بدلاً من ذلك، يخزن استعلاماً يولد البيانات ديناميكياً عند الوصول إليه.</span>
                 </p>
                 <div class="code-block text-xs mb-4">
 <span class="sql-keyword">CREATE VIEW</span> WORKS_ON1
@@ -208,18 +297,39 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-green-600 mb-2">Advantages</strong>
+                        <strong class="block text-green-600 mb-2">
+                            <span class="lang-en">Advantages</span>
+                            <span class="lang-ar lang-hidden">المزايا</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500">
-                            <li><strong>Simplification:</strong> Hides complex JOINs from users.</li>
-                            <li><strong>Security:</strong> Hides sensitive columns (e.g., Salary) by not including them in the view.</li>
-                            <li><strong>Consistency:</strong> Renaming columns for clarity.</li>
+                            <li>
+                                <strong class="lang-en">Simplification:</strong><strong class="lang-ar lang-hidden">Simplification (التبسيط):</strong>
+                                <span class="lang-en">Hides complex JOINs from users.</span><span class="lang-ar lang-hidden"> يخفي الـ JOINs المعقدة عن المستخدمين.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Security:</strong><strong class="lang-ar lang-hidden">Security (الأمان):</strong>
+                                <span class="lang-en">Hides sensitive columns (e.g., Salary) by not including them in the view.</span><span class="lang-ar lang-hidden"> يخفي الأعمدة الحساسة (مثل الراتب) بعدم تضمينها في الـ View.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Consistency:</strong><strong class="lang-ar lang-hidden">Consistency (الاتساق):</strong>
+                                <span class="lang-en">Renaming columns for clarity.</span><span class="lang-ar lang-hidden"> إعادة تسمية الأعمدة للوضوح.</span>
+                            </li>
                         </ul>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-red-600 mb-2">Limitations</strong>
+                        <strong class="block text-red-600 mb-2">
+                            <span class="lang-en">Limitations</span>
+                            <span class="lang-ar lang-hidden">القيود</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500">
-                            <li><strong>Updates:</strong> Views involving multiple tables (JOINs) or Aggregates (SUM, COUNT) are generally NOT updatable.</li>
-                            <li><strong>Performance:</strong> The query runs every time the view is accessed.</li>
+                            <li>
+                                <strong class="lang-en">Updates:</strong><strong class="lang-ar lang-hidden">Updates (التحديثات):</strong>
+                                <span class="lang-en">Views involving multiple tables (JOINs) or Aggregates (SUM, COUNT) are generally NOT updatable.</span><span class="lang-ar lang-hidden"> الـ Views التي تتضمن جداول متعددة (JOINs) أو دوال تجميع (Aggregates) عادة ما تكون غير قابلة للتحديث.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Performance:</strong><strong class="lang-ar lang-hidden">Performance (الأداء):</strong>
+                                <span class="lang-en">The query runs every time the view is accessed.</span><span class="lang-ar lang-hidden"> يتم تشغيل الاستعلام في كل مرة يتم فيها الوصول إلى الـ View.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -227,24 +337,33 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Schema Evolution</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Schema Evolution</span>
+                    <span class="lang-ar lang-hidden">تطور المخطط (Schema Evolution)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-purple-500 mb-6">
-                <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">DROP Command Behavior</h3>
+                <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">
+                    <span class="lang-en">DROP Command Behavior</span>
+                    <span class="lang-ar lang-hidden">سلوك أمر DROP</span>
+                </h3>
                 <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
-                    Deleting tables or views requires specifying behavior for dependent objects.
+                    <span class="lang-en">Deleting tables or views requires specifying behavior for dependent objects.</span>
+                    <span class="lang-ar lang-hidden">حذف الجداول أو الـ Views يتطلب تحديد السلوك للكائنات المعتمدة عليها.</span>
                 </p>
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
-                        <strong class="block mb-1">RESTRICT</strong>
-                        Default. Stops the drop if the object is referenced by other constraints or views.
+                        <strong class="block mb-1 text-purple-700 dark:text-purple-300">RESTRICT</strong>
+                        <span class="lang-en">Default. Stops the drop if the object is referenced by other constraints or views.</span>
+                        <span class="lang-ar lang-hidden">الافتراضي. يوقف الحذف إذا كان الكائن مشاراً إليه بواسطة قيود أو Views أخرى.</span>
                     </div>
                     <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded">
-                        <strong class="block mb-1">CASCADE</strong>
-                        Forces the drop. Automatically deletes all dependent constraints and views.
+                        <strong class="block mb-1 text-purple-700 dark:text-purple-300">CASCADE</strong>
+                        <span class="lang-en">Forces the drop. Automatically deletes all dependent constraints and views.</span>
+                        <span class="lang-ar lang-hidden">يفرض الحذف. يحذف تلقائياً جميع القيود والـ Views المعتمدة عليه.</span>
                     </div>
                 </div>
                 <div class="code-block text-xs mt-3">
@@ -254,17 +373,25 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Relational Algebra: Unary</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Relational Algebra: Unary</span>
+                    <span class="lang-ar lang-hidden">Relational Algebra: أحادية (Unary)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">SELECT ($\sigma$)</h4>
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">SELECT ($\sigma$)</span>
+                        <span class="lang-ar lang-hidden">SELECT ($\sigma$)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Filters <strong>rows</strong> based on a condition.
-                        <br>SQL Equivalent: <code>WHERE</code>
+                        <span class="lang-en">Filters <strong>rows</strong> based on a condition.
+                        <br>SQL Equivalent: <code>WHERE</code></span>
+                        <span class="lang-ar lang-hidden">يصفي <strong>الصفوف (rows)</strong> بناءً على شرط.
+                        <br>مكافئ SQL: <code>WHERE</code></span>
                     </p>
                     <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-center text-xl font-mono text-gray-900 dark:text-white">
                         $\sigma_{Dno=4}(EMPLOYEE)$
@@ -272,10 +399,15 @@
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">PROJECT ($\pi$)</h4>
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">PROJECT ($\pi$)</span>
+                        <span class="lang-ar lang-hidden">PROJECT ($\pi$)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Filters <strong>columns</strong>. Removes duplicates by definition (Set theory).
-                        <br>SQL Equivalent: <code>SELECT DISTINCT</code>
+                        <span class="lang-en">Filters <strong>columns</strong>. Removes duplicates by definition (Set theory).
+                        <br>SQL Equivalent: <code>SELECT DISTINCT</code></span>
+                        <span class="lang-ar lang-hidden">يصفي <strong>الأعمدة (columns)</strong>. يزيل التكرارات بحكم التعريف (نظرية المجموعات).
+                        <br>مكافئ SQL: <code>SELECT DISTINCT</code></span>
                     </p>
                     <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-center text-xl font-mono text-gray-900 dark:text-white">
                         $\pi_{Fname, Lname}(EMPLOYEE)$
@@ -285,70 +417,120 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Set Operations</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Set Operations</span>
+                    <span class="lang-ar lang-hidden">عمليات المجموعات (Set Operations)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                These require <strong class="text-brand-600">Union Compatibility</strong>: Relations must have the same degree (number of columns) and compatible data types.
+                <span class="lang-en">These require <strong class="text-brand-600">Union Compatibility</strong>: Relations must have the same degree (number of columns) and compatible data types.</span>
+                <span class="lang-ar lang-hidden">تتطلب هذه العمليات <strong class="text-brand-600">Union Compatibility</strong>: يجب أن يكون للعلاقات نفس الدرجة (عدد الأعمدة) وأنواع بيانات متوافقة.</span>
             </p>
 
             <div class="grid md:grid-cols-3 gap-4 text-center">
                 <div class="glass-card p-4 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white">Union ($\cup$)</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Union ($\cup$)</span>
+                        <span class="lang-ar lang-hidden">Union ($\cup$)</span>
+                    </h4>
                     <div class="text-2xl my-2 text-brand-500">$\cup$</div>
-                    <p class="text-xs text-gray-500">Tuples in R OR S.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Tuples in R OR S.</span>
+                        <span class="lang-ar lang-hidden">الصفوف في R أو S.</span>
+                    </p>
                 </div>
                 <div class="glass-card p-4 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white">Intersection ($\cap$)</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Intersection ($\cap$)</span>
+                        <span class="lang-ar lang-hidden">Intersection ($\cap$)</span>
+                    </h4>
                     <div class="text-2xl my-2 text-brand-500">$\cap$</div>
-                    <p class="text-xs text-gray-500">Tuples in R AND S.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Tuples in R AND S.</span>
+                        <span class="lang-ar lang-hidden">الصفوف في R و S.</span>
+                    </p>
                 </div>
                 <div class="glass-card p-4 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white">Difference ($-$)</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Difference ($-$)</span>
+                        <span class="lang-ar lang-hidden">Difference ($-$)</span>
+                    </h4>
                     <div class="text-2xl my-2 text-brand-500">$-$</div>
-                    <p class="text-xs text-gray-500">Tuples in R but NOT in S.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Tuples in R but NOT in S.</span>
+                        <span class="lang-ar lang-hidden">الصفوف في R ولكن ليست في S.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Relational Operations</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Relational Operations</span>
+                    <span class="lang-ar lang-hidden">العمليات العلائقية (Relational Operations)</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Cartesian Product ($R \times S$)</h4>
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Cartesian Product ($R \times S$)</span>
+                        <span class="lang-ar lang-hidden">Cartesian Product ($R \times S$)</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Combines every tuple in R with every tuple in S.
-                        <br><strong>Size:</strong> If R has $n$ tuples and S has $m$ tuples, result has $n \times m$ tuples.
+                        <span class="lang-en">Combines every tuple in R with every tuple in S.
+                        <br><strong>Size:</strong> If R has $n$ tuples and S has $m$ tuples, result has $n \times m$ tuples.</span>
+                        <span class="lang-ar lang-hidden">يدمج كل صف في R مع كل صف في S.
+                        <br><strong>الحجم:</strong> إذا كان R يحتوي على $n$ صفوف و S يحتوي على $m$ صفوف، النتيجة تكون $n \times m$ صفوف.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-blue-500">
-                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">JOIN ($\bowtie$)</h4>
+                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">JOIN ($\bowtie$)</span>
+                        <span class="lang-ar lang-hidden">JOIN ($\bowtie$)</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                        Equivalent to a Cartesian Product followed by a Selection ($\sigma$).
+                        <span class="lang-en">Equivalent to a Cartesian Product followed by a Selection ($\sigma$).</span>
+                        <span class="lang-ar lang-hidden">يعادل Cartesian Product متبوعاً بـ Selection ($\sigma$).</span>
                     </p>
                     <div class="grid grid-cols-2 gap-4 text-xs">
                         <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                            <strong>Equi-Join:</strong> Uses equality ($=$) only. Keeps both columns (e.g., Dno, Dnumber).
+                            <strong class="block text-blue-700 dark:text-blue-300">
+                                <span class="lang-en">Equi-Join:</span>
+                                <span class="lang-ar lang-hidden">Equi-Join:</span>
+                            </strong>
+                            <span class="lang-en">Uses equality ($=$) only. Keeps both columns (e.g., Dno, Dnumber).</span>
+                            <span class="lang-ar lang-hidden">يستخدم المساواة ($=$) فقط. يحتفظ بكلا العمودين (مثل Dno, Dnumber).</span>
                         </div>
                         <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                            <strong>Natural Join ($*$)</strong> Removes duplicate columns. Requires same attribute names.
+                            <strong class="block text-blue-700 dark:text-blue-300">
+                                <span class="lang-en">Natural Join ($*$)</span>
+                                <span class="lang-ar lang-hidden">Natural Join ($*$)</span>
+                            </strong>
+                            <span class="lang-en">Removes duplicate columns. Requires same attribute names.</span>
+                            <span class="lang-ar lang-hidden">يزيل الأعمدة المكررة. يتطلب نفس أسماء السمات.</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-red-500">
-                    <h4 class="font-bold text-red-600 dark:text-red-400 mb-2">DIVISION ($R \div S$)</h4>
+                    <h4 class="font-bold text-red-600 dark:text-red-400 mb-2">
+                        <span class="lang-en">DIVISION ($R \div S$)</span>
+                        <span class="lang-ar lang-hidden">DIVISION ($R \div S$)</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Finds tuples in R that match <strong>ALL</strong> tuples in S.
+                        <span class="lang-en">Finds tuples in R that match <strong>ALL</strong> tuples in S.
                         <br><em>Example:</em> "Find employees who work on ALL projects."
-                        <br>If $S$ contains projects {P1, P2}, division returns employees who work on P1 AND P2.
+                        <br>If $S$ contains projects {P1, P2}, division returns employees who work on P1 AND P2.</span>
+                        <span class="lang-ar lang-hidden">يجد الصفوف في R التي تطابق <strong>جميع (ALL)</strong> الصفوف في S.
+                        <br><em>مثال:</em> "أوجد الموظفين الذين يعملون في جميع المشاريع."
+                        <br>إذا كان $S$ يحتوي على المشاريع {P1, P2}، القسمة ترجع الموظفين الذين يعملون في P1 و P2 معاً.</span>
                     </p>
                 </div>
             </div>
@@ -358,53 +540,74 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Relational vs SQL
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Relational vs SQL</span>
+                            <span class="lang-ar lang-hidden">فخ: Relational vs SQL</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Algebra:</strong> $\pi$ (Project) creates a Set (removes duplicates).
+                            <span class="lang-en"><strong>Algebra:</strong> $\pi$ (Project) creates a Set (removes duplicates).
                             <br><strong>SQL:</strong> `SELECT` creates a Bag (keeps duplicates).
-                            <br>To make SQL behave like $\pi$, you MUST use `SELECT DISTINCT`.
+                            <br>To make SQL behave like $\pi$, you MUST use `SELECT DISTINCT`.</span>
+                            <span class="lang-ar lang-hidden"><strong>Algebra:</strong> $\pi$ (Project) تنشئ Set (تزيل التكرار).
+                            <br><strong>SQL:</strong> `SELECT` تنشئ Bag (تحتفظ بالتكرار).
+                            <br>لجعل SQL تتصرف مثل $\pi$، يجب استخدام `SELECT DISTINCT`.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Union Compatibility
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Union Compatibility</span>
+                            <span class="lang-ar lang-hidden">فخ: Union Compatibility</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            You cannot `UNION` just any two tables. They must have the <strong>same number of columns</strong> and <strong>compatible data types</strong> in the same order.
-                            (Student $\cup$ Instructor is likely okay; Student $\cup$ Course is NOT).
+                            <span class="lang-en">You cannot `UNION` just any two tables. They must have the <strong>same number of columns</strong> and <strong>compatible data types</strong> in the same order.
+                            (Student $\cup$ Instructor is likely okay; Student $\cup$ Course is NOT).</span>
+                            <span class="lang-ar lang-hidden">لا يمكنك عمل `UNION` لأي جدولين. يجب أن يكون لهما <strong>نفس عدد الأعمدة</strong> و <strong>أنواع بيانات متوافقة</strong> بنفس الترتيب.
+                            (Student $\cup$ Instructor غالباً صحيح؛ Student $\cup$ Course غير صحيح).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Division Keyword
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The Division Keyword</span>
+                            <span class="lang-ar lang-hidden">سر: كلمة Division</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If an exam question uses the word <strong>"ALL"</strong> or <strong>"EVERY"</strong> (e.g., "Find students who took EVERY course"), it is a <strong>DIVISION</strong> operation ($\div$). In SQL, this is often solved with double `NOT EXISTS`.
+                            <span class="lang-en">If an exam question uses the word <strong>"ALL"</strong> or <strong>"EVERY"</strong> (e.g., "Find students who took EVERY course"), it is a <strong>DIVISION</strong> operation ($\div$). In SQL, this is often solved with double `NOT EXISTS`.</span>
+                            <span class="lang-ar lang-hidden">إذا استخدم سؤال الاختبار كلمة <strong>"ALL"</strong> أو <strong>"EVERY"</strong> (مثل "أوجد الطلاب الذين أخذوا كل المواد")، فهي عملية <strong>DIVISION</strong> ($\div$). في SQL، غالباً ما تحل باستخدام `NOT EXISTS` مزدوجة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Order of Ops
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Order of Ops</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: ترتيب العمليات</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Relational Algebra expression trees, we push <strong>Selections ($\sigma$)</strong> as far down as possible (perform them first). This reduces the size of intermediate results before doing expensive Joins ($\bowtie$).
+                            <span class="lang-en">In Relational Algebra expression trees, we push <strong>Selections ($\sigma$)</strong> as far down as possible (perform them first). This reduces the size of intermediate results before doing expensive Joins ($\bowtie$).</span>
+                            <span class="lang-ar lang-hidden">في أشجار تعبيرات Relational Algebra، ندفع <strong>Selections ($\sigma$)</strong> للأسفل قدر الإمكان (لتنفيذها أولاً). هذا يقلل حجم النتائج الوسيطة قبل القيام بعمليات Joins ($\bowtie$) المكلفة.</span>
                         </p>
                     </div>
                 </div>
@@ -415,18 +618,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 11</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -444,6 +660,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

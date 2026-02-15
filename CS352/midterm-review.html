@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Midterm Visual Compendium</title>
@@ -50,6 +59,56 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] mjx-container {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .border-t-4 { border-top-width: 4px; }
+        
+        
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .ml-1 { margin-left: 0; margin-right: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -127,26 +186,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Midterm Review</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Midterm Review</span>
+                        <span class="lang-ar lang-hidden">مراجعة نصف الفصل</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-book-open-reader text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="midterm-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Quiz</span>
+                            <span class="lang-ar lang-hidden">الاختبار</span>
+                        </span>
                         <i class="fa-solid fa-flag-checkered"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -163,15 +237,20 @@
                 <i class="fa-solid fa-layer-group text-4xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Knowledge Compendium</span>
+                <span class="lang-en">Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Knowledge Compendium</span></span>
+                <span class="lang-ar lang-hidden">الموجز المعرفي <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">لمنتصف الفصل</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                A complete synthesis of Modules 1 through 6. This visual guide covers the Foundations, Planning, Analysis, and Process Modeling required for the Midterm Exam.
+                <span class="lang-en">A complete synthesis of Modules 1 through 6. This visual guide covers the Foundations, Planning, Analysis, and Process Modeling required for the Midterm Exam.</span>
+                <span class="lang-ar lang-hidden">توليفة كاملة للوحدات من 1 إلى 6. يغطي هذا الدليل المرئي الأساسيات، التخطيط، التحليل، ونمذجة العمليات المطلوبة لاختبار منتصف الفصل.</span>
             </p>
             
             <div class="w-full max-w-md mx-auto bg-gray-300 dark:bg-gray-800 rounded-full h-2.5 mt-4">
                 <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 46%"></div> </div>
-            <p class="text-xs text-gray-500 mt-2">Modules 1-6 Covered</p>
+            <p class="text-xs text-gray-500 mt-2">
+                <span class="lang-en">Modules 1-6 Covered</span>
+                <span class="lang-ar lang-hidden">تم تغطية الوحدات 1-6</span>
+            </p>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
@@ -180,32 +259,66 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-blue-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">01. Foundations</h2>
-                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">SDLC & Agile</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">01. Foundations</span>
+                        <span class="lang-ar lang-hidden">01. الأساسيات (Foundations)</span>
+                    </h2>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">SDLC & Agile</span>
+                        <span class="lang-ar lang-hidden">SDLC & Agile</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The SDLC Phases (Waterfall)</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">The SDLC Phases (Waterfall)</span>
+                            <span class="lang-ar lang-hidden">مراحل SDLC (الشلال - Waterfall)</span>
+                        </h4>
                         <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                            <li><strong class="text-gray-900 dark:text-white">1. Planning:</strong> Identify, analyze, prioritize needs.</li>
-                            <li><strong class="text-gray-900 dark:text-white">2. Analysis:</strong> Determine Requirements ("What").</li>
-                            <li><strong class="text-gray-900 dark:text-white">3. Design:</strong> Logical (Biz) & Physical (Tech) specs ("How").</li>
-                            <li><strong class="text-gray-900 dark:text-white">4. Implementation:</strong> Code, Test, Install, Support.</li>
-                            <li><strong class="text-gray-900 dark:text-white">5. Maintenance:</strong> Repair and improve (Repeats SDLC).</li>
+                            <li>
+                                <strong class="text-gray-900 dark:text-white"><span class="lang-en">1. Planning:</span><span class="lang-ar lang-hidden">1. التخطيط (Planning):</span></strong>
+                                <span class="lang-en">Identify, analyze, prioritize needs.</span>
+                                <span class="lang-ar lang-hidden">تحديد وتحليل وترتيب الأولويات.</span>
+                            </li>
+                            <li>
+                                <strong class="text-gray-900 dark:text-white"><span class="lang-en">2. Analysis:</span><span class="lang-ar lang-hidden">2. التحليل (Analysis):</span></strong>
+                                <span class="lang-en">Determine Requirements ("What").</span>
+                                <span class="lang-ar lang-hidden">تحديد المتطلبات ("ماذا").</span>
+                            </li>
+                            <li>
+                                <strong class="text-gray-900 dark:text-white"><span class="lang-en">3. Design:</span><span class="lang-ar lang-hidden">3. التصميم (Design):</span></strong>
+                                <span class="lang-en">Logical (Biz) & Physical (Tech) specs ("How").</span>
+                                <span class="lang-ar lang-hidden">المواصفات المنطقية (أعمال) والفيزيائية (تقنية) ("كيف").</span>
+                            </li>
+                            <li>
+                                <strong class="text-gray-900 dark:text-white"><span class="lang-en">4. Implementation:</span><span class="lang-ar lang-hidden">4. التنفيذ (Implementation):</span></strong>
+                                <span class="lang-en">Code, Test, Install, Support.</span>
+                                <span class="lang-ar lang-hidden">كتابة الكود، الاختبار، التثبيت، الدعم.</span>
+                            </li>
+                            <li>
+                                <strong class="text-gray-900 dark:text-white"><span class="lang-en">5. Maintenance:</span><span class="lang-ar lang-hidden">5. الصيانة (Maintenance):</span></strong>
+                                <span class="lang-en">Repair and improve (Repeats SDLC).</span>
+                                <span class="lang-ar lang-hidden">الإصلاح والتحسين (يكرر SDLC).</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Agile Methodologies</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Agile Methodologies</span>
+                            <span class="lang-ar lang-hidden">منهجيات Agile</span>
+                        </h4>
                         <div class="grid grid-cols-2 gap-4 text-xs">
                             <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
                                 <strong class="block text-gray-900 dark:text-white mb-1">eXtreme Programming (XP)</strong>
-                                Short cycles, Pair Programming, Automated Tests.
+                                <span class="lang-en">Short cycles, Pair Programming, Automated Tests.</span>
+                                <span class="lang-ar lang-hidden">دورات قصيرة، برمجة زوجية، اختبارات مؤتمتة.</span>
                             </div>
                             <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
                                 <strong class="block text-gray-900 dark:text-white mb-1">Scrum</strong>
-                                Sprints (2-4 weeks), Product Backlog, Daily Standup.
+                                <span class="lang-en">Sprints (2-4 weeks), Product Backlog, Daily Standup.</span>
+                                <span class="lang-ar lang-hidden">Sprints (2-4 أسابيع)، Product Backlog، اجتماع يومي.</span>
                             </div>
                         </div>
                     </div>
@@ -214,36 +327,61 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-indigo-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">02. Project Mgmt</h2>
-                    <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-3 py-1 rounded text-xs font-bold uppercase">Planning & Scheduling</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">02. Project Mgmt</span>
+                        <span class="lang-ar lang-hidden">02. إدارة المشاريع (PM)</span>
+                    </h2>
+                    <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Planning & Scheduling</span>
+                        <span class="lang-ar lang-hidden">التخطيط والجدولة</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">The 4 Phases</h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                            <strong>Initiation</strong> (Charter) $\to$ <strong>Planning</strong> (Baseline Plan, WBS) $\to$ <strong>Execution</strong> (Do work) $\to$ <strong>Closedown</strong> (Reviews).
+                        <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">The 4 Phases</span>
+                            <span class="lang-ar lang-hidden">المراحل الأربع</span>
+                        </h4>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 mb-2" dir="ltr">
+                            <strong class="lang-en">Initiation</strong><strong class="lang-ar lang-hidden">الاستهلال</strong> (Charter) $\to$ 
+                            <strong class="lang-en">Planning</strong><strong class="lang-ar lang-hidden">التخطيط</strong> (Baseline Plan, WBS) $\to$ 
+                            <strong class="lang-en">Execution</strong><strong class="lang-ar lang-hidden">التنفيذ</strong> (Do work) $\to$ 
+                            <strong class="lang-en">Closedown</strong><strong class="lang-ar lang-hidden">الإغلاق</strong> (Reviews).
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Scheduling Tools</h4>
+                        <h4 class="font-bold text-indigo-600 dark:text-indigo-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Scheduling Tools</span>
+                            <span class="lang-ar lang-hidden">أدوات الجدولة</span>
+                        </h4>
                         <div class="grid grid-cols-2 gap-4 text-sm">
                             <div>
                                 <strong class="block text-gray-900 dark:text-white">Gantt Charts</strong>
-                                <span class="text-xs text-gray-500">Bars vs Time. Shows overlap/duration. Good for progress tracking.</span>
+                                <span class="text-xs text-gray-500">
+                                    <span class="lang-en">Bars vs Time. Shows overlap/duration. Good for progress tracking.</span>
+                                    <span class="lang-ar lang-hidden">أشرطة مقابل الزمن. يظهر التداخل/المدة. جيد لتتبع التقدم.</span>
+                                </span>
                             </div>
                             <div>
                                 <strong class="block text-gray-900 dark:text-white">Network Diagrams</strong>
-                                <span class="text-xs text-gray-500">Nodes/Arrows. Shows dependencies. Essential for Critical Path.</span>
+                                <span class="text-xs text-gray-500">
+                                    <span class="lang-en">Nodes/Arrows. Shows dependencies. Essential for Critical Path.</span>
+                                    <span class="lang-ar lang-hidden">عقد/أسهم. يظهر الاعتماديات. أساسي للمسار الحرج.</span>
+                                </span>
                             </div>
                         </div>
                     </div>
 
                     <div class="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded border border-indigo-200 dark:border-indigo-800">
-                        <strong class="text-xs text-indigo-700 dark:text-indigo-400 block mb-1">KEY CONCEPT: Critical Path</strong>
+                        <strong class="text-xs text-indigo-700 dark:text-indigo-400 block mb-1">
+                            <span class="lang-en">KEY CONCEPT: Critical Path</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: المسار الحرج (Critical Path)</span>
+                        </strong>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            The sequence of tasks with <strong>Zero Slack</strong>. It is the <em>longest</em> path through the network but determines the <em>shortest</em> time to finish.
+                            <span class="lang-en">The sequence of tasks with <strong>Zero Slack</strong>. It is the <em>longest</em> path through the network but determines the <em>shortest</em> time to finish.</span>
+                            <span class="lang-ar lang-hidden">تسلسل المهام ذات <strong>فائض صفري (Zero Slack)</strong>. هو المسار <em>الأطول</em> عبر الشبكة ولكنه يحدد <em>أقصر</em> وقت للانتهاء.</span>
                         </p>
                     </div>
                 </div>
@@ -251,26 +389,58 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-cyan-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">03. Identification</h2>
-                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">Selection Strategy</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">03. Identification</span>
+                        <span class="lang-ar lang-hidden">03. تحديد المشاريع</span>
+                    </h2>
+                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Selection Strategy</span>
+                        <span class="lang-ar lang-hidden">استراتيجية الاختيار</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Project Sources</h4>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Project Sources</span>
+                            <span class="lang-ar lang-hidden">مصادر المشروع</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                            <li><strong class="text-gray-900 dark:text-white">Top-Down:</strong> Strategic, Upper Mgmt. Better integration, broader scope.</li>
-                            <li><strong class="text-gray-900 dark:text-white">Bottom-Up:</strong> Tactical, User Depts. Faster, solves specific pain points.</li>
+                            <li>
+                                <strong class="text-gray-900 dark:text-white"><span class="lang-en">Top-Down:</span><span class="lang-ar lang-hidden">من الأعلى للأسفل (Top-Down):</span></strong>
+                                <span class="lang-en">Strategic, Upper Mgmt. Better integration, broader scope.</span>
+                                <span class="lang-ar lang-hidden">استراتيجي، الإدارة العليا. تكامل أفضل، نطاق أوسع.</span>
+                            </li>
+                            <li>
+                                <strong class="text-gray-900 dark:text-white"><span class="lang-en">Bottom-Up:</span><span class="lang-ar lang-hidden">من الأسفل للأعلى (Bottom-Up):</span></strong>
+                                <span class="lang-en">Tactical, User Depts. Faster, solves specific pain points.</span>
+                                <span class="lang-ar lang-hidden">تكتيكي، أقسام المستخدمين. أسرع، يحل مشاكل محددة.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Evaluation Criteria</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Projects are selected based on Value Chain Analysis and Strategic Alignment.</p>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Evaluation Criteria</span>
+                            <span class="lang-ar lang-hidden">معايير التقييم</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            <span class="lang-en">Projects are selected based on Value Chain Analysis and Strategic Alignment.</span>
+                            <span class="lang-ar lang-hidden">يتم اختيار المشاريع بناءً على تحليل سلسلة القيمة (Value Chain) والمواءمة الاستراتيجية.</span>
+                        </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Value Chain</span>
-                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Resource Availability</span>
-                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">Potential ROI</span>
+                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">
+                                <span class="lang-en">Value Chain</span>
+                                <span class="lang-ar lang-hidden">سلسلة القيمة</span>
+                            </span>
+                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">
+                                <span class="lang-en">Resource Availability</span>
+                                <span class="lang-ar lang-hidden">توفر الموارد</span>
+                            </span>
+                            <span class="px-2 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">
+                                <span class="lang-en">Potential ROI</span>
+                                <span class="lang-ar lang-hidden">العائد المحتمل (ROI)</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -278,27 +448,40 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-teal-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">04. Initiation</h2>
-                    <span class="bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-300 px-3 py-1 rounded text-xs font-bold uppercase">Feasibility</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">04. Initiation</span>
+                        <span class="lang-ar lang-hidden">04. الاستهلال (Initiation)</span>
+                    </h2>
+                    <span class="bg-teal-100 dark:bg-teal-900 text-teal-600 dark:text-teal-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Feasibility</span>
+                        <span class="lang-ar lang-hidden">دراسة الجدوى</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-teal-600 dark:text-teal-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Six Types of Feasibility</h4>
+                        <h4 class="font-bold text-teal-600 dark:text-teal-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Six Types of Feasibility</span>
+                            <span class="lang-ar lang-hidden">الأنواع الستة للجدوى</span>
+                        </h4>
                         <ul class="grid grid-cols-2 gap-2 text-xs text-gray-700 dark:text-gray-300">
-                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Economic:</strong> ROI, NPV.</li>
-                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Technical:</strong> Risk/Skill.</li>
-                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Operational:</strong> Usage.</li>
-                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Schedule:</strong> Time.</li>
-                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Legal:</strong> Compliance.</li>
-                            <li><i class="fa-solid fa-check text-teal-500 mr-1"></i> <strong>Political:</strong> Stakeholders.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <strong class="lang-en">Economic:</strong><strong class="lang-ar lang-hidden">اقتصادية:</strong> ROI, NPV.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <strong class="lang-en">Technical:</strong><strong class="lang-ar lang-hidden">فنية:</strong> Risk/Skill.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <strong class="lang-en">Operational:</strong><strong class="lang-ar lang-hidden">تشغيلية:</strong> Usage.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <strong class="lang-en">Schedule:</strong><strong class="lang-ar lang-hidden">جدولية:</strong> Time.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <strong class="lang-en">Legal:</strong><strong class="lang-ar lang-hidden">قانونية:</strong> Compliance.</li>
+                            <li><i class="fa-solid fa-check text-teal-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <strong class="lang-en">Political:</strong><strong class="lang-ar lang-hidden">سياسية:</strong> Stakeholders.</li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-teal-600 dark:text-teal-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Baseline Project Plan (BPP)</h4>
+                        <h4 class="font-bold text-teal-600 dark:text-teal-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Baseline Project Plan (BPP)</span>
+                            <span class="lang-ar lang-hidden">خطة المشروع الأساسية (BPP)</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            The primary deliverable. It contains the best estimate of scope, benefits, costs, risks, and resource requirements.
+                            <span class="lang-en">The primary deliverable. It contains the best estimate of scope, benefits, costs, risks, and resource requirements.</span>
+                            <span class="lang-ar lang-hidden">التسليم الأساسي. تحتوي على أفضل تقدير للنطاق والفوائد والتكاليف والمخاطر ومتطلبات الموارد.</span>
                         </p>
                     </div>
                 </div>
@@ -306,26 +489,38 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-green-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">05. Requirements</h2>
-                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">Gathering</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">05. Requirements</span>
+                        <span class="lang-ar lang-hidden">05. المتطلبات (Requirements)</span>
+                    </h2>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Gathering</span>
+                        <span class="lang-ar lang-hidden">التجميع</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Traditional Methods</h4>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Traditional Methods</span>
+                            <span class="lang-ar lang-hidden">الطرق التقليدية</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                            <li><strong>Interviews:</strong> Open (Detail) vs Closed (Quantifiable).</li>
-                            <li><strong>Observation:</strong> "Informal" system. Risk: Hawthorne Effect.</li>
-                            <li><strong>Docs:</strong> "Formal" system procedures.</li>
+                            <li><strong class="lang-en">Interviews:</strong><strong class="lang-ar lang-hidden">المقابلات:</strong> <span class="lang-en">Open (Detail) vs Closed (Quantifiable).</span><span class="lang-ar lang-hidden">مفتوحة (تفاصيل) مقابل مغلقة (قابلة للقياس).</span></li>
+                            <li><strong class="lang-en">Observation:</strong><strong class="lang-ar lang-hidden">الملاحظة:</strong> <span class="lang-en">"Informal" system. Risk: Hawthorne Effect.</span><span class="lang-ar lang-hidden">النظام "غير الرسمي". الخطر: تأثير هوثورن.</span></li>
+                            <li><strong class="lang-en">Docs:</strong><strong class="lang-ar lang-hidden">الوثائق:</strong> <span class="lang-en">"Formal" system procedures.</span><span class="lang-ar lang-hidden">إجراءات النظام "الرسمية".</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Modern Methods</h4>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Modern Methods</span>
+                            <span class="lang-ar lang-hidden">الطرق الحديثة</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                            <li><strong>JAD:</strong> Off-site, intense group workshop. Conflict resolution.</li>
-                            <li><strong>Prototyping:</strong> Iterative. Good when reqs are unclear.</li>
-                            <li><strong>BPR:</strong> Radical change. "Obliterate don't automate."</li>
+                            <li><strong class="lang-en">JAD:</strong><strong class="lang-ar lang-hidden">JAD:</strong> <span class="lang-en">Off-site, intense group workshop. Conflict resolution.</span><span class="lang-ar lang-hidden">خارج الموقع، ورشة عمل جماعية مكثفة. حل النزاعات.</span></li>
+                            <li><strong class="lang-en">Prototyping:</strong><strong class="lang-ar lang-hidden">النماذج الأولية (Prototyping):</strong> <span class="lang-en">Iterative. Good when reqs are unclear.</span><span class="lang-ar lang-hidden">تكرارية. جيدة عندما تكون المتطلبات غير واضحة.</span></li>
+                            <li><strong class="lang-en">BPR:</strong><strong class="lang-ar lang-hidden">BPR:</strong> <span class="lang-en">Radical change. "Obliterate don't automate."</span><span class="lang-ar lang-hidden">تغيير جذري. "امحُ ولا تؤتمت".</span></li>
                         </ul>
                     </div>
                 </div>
@@ -333,25 +528,36 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-yellow-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">06. Process Modeling</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">06. Process Modeling</span>
+                        <span class="lang-ar lang-hidden">06. نمذجة العمليات</span>
+                    </h2>
                     <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">DFD</span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">DFD Symbols (Gane & Sarson)</h4>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">DFD Symbols (Gane & Sarson)</span>
+                            <span class="lang-ar lang-hidden">رموز DFD (Gane & Sarson)</span>
+                        </h4>
                         <div class="grid grid-cols-2 gap-2 text-xs text-gray-700 dark:text-gray-300">
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Process:</strong> Rounded Rect (Verb).</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Data Store:</strong> Open Rect (Noun).</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Source/Sink:</strong> Square (External).</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>Flow:</strong> Arrow (Data in motion).</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">Process:</strong><strong class="lang-ar lang-hidden">عملية (Process):</strong> <span class="lang-en">Rounded Rect (Verb).</span><span class="lang-ar lang-hidden">مستطيل دائري (فعل).</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">Data Store:</strong><strong class="lang-ar lang-hidden">مخزن بيانات:</strong> <span class="lang-en">Open Rect (Noun).</span><span class="lang-ar lang-hidden">مستطيل مفتوح (اسم).</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">Source/Sink:</strong><strong class="lang-ar lang-hidden">مصدر/مصب:</strong> <span class="lang-en">Square (External).</span><span class="lang-ar lang-hidden">مربع (خارجي).</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong class="lang-en">Flow:</strong><strong class="lang-ar lang-hidden">تدفق (Flow):</strong> <span class="lang-en">Arrow (Data in motion).</span><span class="lang-ar lang-hidden">سهم (بيانات متحركة).</span></div>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Logic Modeling</h4>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Logic Modeling</span>
+                            <span class="lang-ar lang-hidden">نمذجة المنطق</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
-                            <strong>Decision Tables:</strong> Matrix of Conditions and Actions. Used to document complex logic inside a Process.
+                            <strong class="lang-en">Decision Tables:</strong><strong class="lang-ar lang-hidden">جداول القرار:</strong>
+                            <span class="lang-en">Matrix of Conditions and Actions. Used to document complex logic inside a Process.</span>
+                            <span class="lang-ar lang-hidden">مصفوفة الشروط والإجراءات. تستخدم لتوثيق المنطق المعقد داخل العملية.</span>
                         </p>
                     </div>
                 </div>
@@ -360,35 +566,56 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Essential Formulas & Rules</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Essential Formulas & Rules</span>
+                    <span class="lang-ar lang-hidden">القواعد والصيغ الأساسية</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">PERT Expected Time</h4>
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">
+                        <span class="lang-en">PERT Expected Time</span>
+                        <span class="lang-ar lang-hidden">وقت PERT المتوقع</span>
+                    </h4>
                     <div class="text-2xl font-mono text-gray-900 dark:text-white mb-2">
                         $ET = \frac{o + 4r + p}{6}$
                     </div>
-                    <p class="text-xs text-gray-500">Weighted average of Optimistic (o), Realistic (r), and Pessimistic (p) times.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Weighted average of Optimistic (o), Realistic (r), and Pessimistic (p) times.</span>
+                        <span class="lang-ar lang-hidden">المتوسط المرجح للأوقات المتفائلة (o)، والواقعية (r)، والمتشائمة (p).</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Slack Time</h4>
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">
+                        <span class="lang-en">Slack Time</span>
+                        <span class="lang-ar lang-hidden">وقت الفائض (Slack Time)</span>
+                    </h4>
                     <div class="text-2xl font-mono text-gray-900 dark:text-white mb-2">
                         $Slack = T_L - T_E$
                     </div>
-                    <p class="text-xs text-gray-500">Latest Finish time minus Earliest Finish time. Critical Path has Zero Slack.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Latest Finish time minus Earliest Finish time. Critical Path has Zero Slack.</span>
+                        <span class="lang-ar lang-hidden">وقت الانتهاء المتأخر ناقص وقت الانتهاء المبكر. المسار الحرج لديه فائض صفري.</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">DFD Balancing Rule</h4>
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">
+                        <span class="lang-en">DFD Balancing Rule</span>
+                        <span class="lang-ar lang-hidden">قاعدة توازن DFD</span>
+                    </h4>
                     <div class="text-sm font-mono text-gray-900 dark:text-white mb-2">
                         Inputs(Parent) == Inputs(Child)
                         <br>Outputs(Parent) == Outputs(Child)
                     </div>
-                    <p class="text-xs text-gray-500">Data cannot magically appear or disappear when decomposing a process.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Data cannot magically appear or disappear when decomposing a process.</span>
+                        <span class="lang-ar lang-hidden">البيانات لا يمكن أن تظهر أو تختفي سحرياً عند تفكيك العملية.</span>
+                    </p>
                 </div>
             </div>
         </section>
@@ -397,75 +624,106 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Midterm Mega Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">All Secrets, Traps, and Tricks (Mod 1-6)</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Midterm Mega Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار النصفية الكبرى</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">All Secrets, Traps, and Tricks (Mod 1-6)</span>
+                            <span class="lang-ar lang-hidden">كل الأسرار، الفخاخ، والحيل (الوحدات 1-6)</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Analysis vs Design
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Analysis vs Design</span>
+                            <span class="lang-ar lang-hidden">فخ: التحليل مقابل التصميم</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            <strong>Analysis:</strong> Understanding the problem ("What"). Output: Requirements.
+                            <span class="lang-en"><strong>Analysis:</strong> Understanding the problem ("What"). Output: Requirements.
                             <br><strong>Design:</strong> Specifying the solution ("How"). Output: Blueprints.
-                            <br>Don't confuse "What the system does" with "How it is built".
+                            <br>Don't confuse "What the system does" with "How it is built".</span>
+                            <span class="lang-ar lang-hidden"><strong>التحليل:</strong> فهم المشكلة ("ماذا"). المخرج: المتطلبات.
+                            <br><strong>التصميم:</strong> تحديد الحل ("كيف"). المخرج: المخططات.
+                            <br>لا تخلط بين "ماذا يفعل النظام" وبين "كيف يتم بناؤه".</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The Critical Path
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: The Critical Path</span>
+                            <span class="lang-ar lang-hidden">فخ: المسار الحرج</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            It is the <strong>LONGEST</strong> path through the network diagram.
+                            <span class="lang-en">It is the <strong>LONGEST</strong> path through the network diagram.
                             However, it represents the <strong>SHORTEST</strong> possible time to complete the project.
-                            Shortening a non-critical task does NOT shorten the project.
+                            Shortening a non-critical task does NOT shorten the project.</span>
+                            <span class="lang-ar lang-hidden">هو المسار <strong>الأطول</strong> عبر مخطط الشبكة.
+                            ومع ذلك، فهو يمثل <strong>أقصر</strong> وقت ممكن لإكمال المشروع.
+                            تقصير مهمة غير حرجة لا يقصر مدة المشروع.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Illegal DFD Flows
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Illegal DFD Flows</span>
+                            <span class="lang-ar lang-hidden">فخ: تدفقات DFD غير القانونية</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            Data Store $\to$ Data Store (Illegal).
+                            <span class="lang-en">Data Store $\to$ Data Store (Illegal).
                             <br>External Entity $\to$ Data Store (Illegal).
                             <br>External Entity $\to$ External Entity (Illegal).
-                            <br><strong>ALL data must move through a PROCESS.</strong>
+                            <br><strong>ALL data must move through a PROCESS.</strong></span>
+                            <span class="lang-ar lang-hidden">مخزن بيانات $\leftarrow$ مخزن بيانات (غير قانوني).
+                            <br>كيان خارجي $\leftarrow$ مخزن بيانات (غير قانوني).
+                            <br>كيان خارجي $\leftarrow$ كيان خارجي (غير قانوني).
+                            <br><strong>كل البيانات يجب أن تتحرك عبر عملية (PROCESS).</strong></span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Incremental Commitment
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Incremental Commitment</span>
+                            <span class="lang-ar lang-hidden">سر: الالتزام التزايدي</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            The project is not approved once and for all at the beginning. It is re-evaluated after EVERY phase (Planning, Analysis, Design). It can be cancelled at any point.
+                            <span class="lang-en">The project is not approved once and for all at the beginning. It is re-evaluated after EVERY phase (Planning, Analysis, Design). It can be cancelled at any point.</span>
+                            <span class="lang-ar lang-hidden">لا يتم الموافقة على المشروع مرة واحدة وإلى الأبد في البداية. تتم إعادة تقييمه بعد كل مرحلة (التخطيط، التحليل، التصميم). يمكن إلغاؤه في أي نقطة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: JAD Locations
+                            <i class="fa-solid fa-lightbulb mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: JAD Locations</span>
+                            <span class="lang-ar lang-hidden">سر: مواقع JAD</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            Joint Application Design (JAD) sessions MUST be held <strong>off-site</strong>. The isolation from daily tasks and phone calls is critical for the intense collaboration required.
+                            <span class="lang-en">Joint Application Design (JAD) sessions MUST be held <strong>off-site</strong>. The isolation from daily tasks and phone calls is critical for the intense collaboration required.</span>
+                            <span class="lang-ar lang-hidden">جلسات تصميم التطبيقات المشتركة (JAD) يجب أن تعقد <strong>خارج الموقع</strong>. العزلة عن المهام اليومية والمكالمات ضرورية للتعاون المكثف المطلوب.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-key mr-2"></i> SECRET: Context Diagram Rules
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Context Diagram Rules</span>
+                            <span class="lang-ar lang-hidden">سر: قواعد مخطط السياق</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            A Context Diagram (Level 0) has only <strong>ONE</strong> process symbol (labeled "0"). It shows the system boundary. It does <strong>NOT</strong> show Data Stores (unless they are external to the system).
+                            <span class="lang-en">A Context Diagram (Level 0) has only <strong>ONE</strong> process symbol (labeled "0"). It shows the system boundary. It does <strong>NOT</strong> show Data Stores (unless they are external to the system).</span>
+                            <span class="lang-ar lang-hidden">مخطط السياق (Level 0) يحتوي على رمز عملية <strong>واحد</strong> فقط (يسمى "0"). يظهر حدود النظام. <strong>لا</strong> يظهر مخازن البيانات (إلا إذا كانت خارجية للنظام).</span>
                         </p>
                     </div>
                 </div>
@@ -476,18 +734,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز المادة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="midterm-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Quiz</a>
+                <a href="midterm-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Quiz</span>
+                    <span class="lang-ar lang-hidden">اختبار النصف نصفي</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Review</a>
+                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Review</span>
+                    <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -505,6 +776,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 </body>

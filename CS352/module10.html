@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 10: Designing Forms & Reports</title>
@@ -19,16 +28,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6', 
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
@@ -42,14 +44,41 @@
 
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] .mermaid, [dir="rtl"] .math-block, 
+        [dir="rtl"] .tech-term {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+            display: inline-block;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-chevron-left, 
+        [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-caret-right {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -79,40 +108,6 @@
         }
 
         
-        .smart-term {
-            cursor: help;
-            border-bottom: 2px dotted #3b82f6;
-            position: relative;
-            transition: all 0.2s;
-        }
-        .smart-term:hover {
-            color: #3b82f6;
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-        .smart-term::after {
-            content: attr(data-ar);
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2937;
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: 'Cairo', sans-serif;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            white-space: nowrap;
-            z-index: 50;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        .smart-term:hover::after {
-            opacity: 1;
-        }
-
-        
         @keyframes type-in {
             0% { width: 0; }
             50% { width: 100%; }
@@ -124,6 +119,10 @@
             white-space: nowrap;
             overflow: hidden;
         }
+        [dir="rtl"] .typing-cursor {
+            border-right: none;
+            border-left: 2px solid #3b82f6;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -131,24 +130,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 10</span>
+                        <span class="lang-ar lang-hidden">Module 10</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-desktop text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
@@ -167,172 +180,280 @@
                 <i class="fa-solid fa-pen-to-square text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Forms & Reports</span>
+                <span class="lang-en">Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Forms & Reports</span></span>
+                <span class="lang-ar lang-hidden">التصميم: <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-400 to-blue-600">النماذج والتقارير (Forms & Reports)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                The interface between the user and the system. Designing for usability, clarity, and efficiency.
+                <span class="lang-en">The interface between the user and the system. Designing for usability, clarity, and efficiency.</span>
+                <span class="lang-ar lang-hidden">الواجهة بين المستخدم والنظام. التصميم من أجل قابلية الاستخدام (Usability)، الوضوح، والكفاءة.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Forms vs Reports</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prototyping</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Formatting Guidelines</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Usability</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Wireframes</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Forms vs Reports</span>
+                    <span class="lang-ar lang-hidden">Forms vs Reports</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Prototyping</span>
+                    <span class="lang-ar lang-hidden">النمذجة الأولية (Prototyping)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Formatting Guidelines</span>
+                    <span class="lang-ar lang-hidden">إرشادات التنسيق</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Usability</span>
+                    <span class="lang-ar lang-hidden">قابلية الاستخدام (Usability)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Wireframes</span>
+                    <span class="lang-ar lang-hidden">الإطارات الهيكلية (Wireframes)</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Forms vs. Reports</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Forms vs. Reports</span>
+                    <span class="lang-ar lang-hidden">النماذج مقابل التقارير</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-blue-500">
                     <div class="flex items-center mb-4">
-                        <i class="fa-regular fa-keyboard text-2xl text-blue-600 dark:text-blue-400 mr-3"></i>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Form</h3>
+                        <i class="fa-regular fa-keyboard text-2xl text-blue-600 dark:text-blue-400 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Form</span>
+                            <span class="lang-ar lang-hidden">النموذج (Form)</span>
+                        </h3>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        A business document that contains some predefined data and may include some areas where additional data are to be filled in.
+                        <span class="lang-en">A business document that contains some predefined data and may include some areas where additional data are to be filled in.</span>
+                        <span class="lang-ar lang-hidden">وثيقة عمل تحتوي على بعض البيانات المحددة مسبقاً وقد تتضمن مناطق لملء بيانات إضافية.</span>
                     </p>
                     <ul class="text-xs text-gray-500 list-disc list-inside">
-                        <li><strong>Flow:</strong> User $\to$ System (Input).</li>
-                        <li><strong>Example:</strong> Product Order Form, Employment Application.</li>
-                        <li><strong>Focus:</strong> Data Entry & Modification.</li>
+                        <li>
+                            <span class="lang-en"><strong>Flow:</strong> User $\to$ System (Input).</span>
+                            <span class="lang-ar lang-hidden"><strong>التدفق:</strong> المستخدم $\to$ النظام (إدخال).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Example:</strong> Product Order Form, Employment Application.</span>
+                            <span class="lang-ar lang-hidden"><strong>مثال:</strong> نموذج طلب منتج، طلب توظيف.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Focus:</strong> Data Entry & Modification.</span>
+                            <span class="lang-ar lang-hidden"><strong>التركيز:</strong> إدخال وتعديل البيانات.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-green-500">
                     <div class="flex items-center mb-4">
-                        <i class="fa-solid fa-print text-2xl text-green-600 dark:text-green-400 mr-3"></i>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Report</h3>
+                        <i class="fa-solid fa-print text-2xl text-green-600 dark:text-green-400 mr-3 rtl:ml-3 rtl:mr-0"></i>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Report</span>
+                            <span class="lang-ar lang-hidden">التقرير (Report)</span>
+                        </h3>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        A business document that contains only predefined data; it is a passive document used solely for reading or viewing.
-						<br><br>
+                        <span class="lang-en">A business document that contains only predefined data; it is a passive document used solely for reading or viewing.</span>
+                        <span class="lang-ar lang-hidden">وثيقة عمل تحتوي فقط على بيانات محددة مسبقاً؛ وهي وثيقة سلبية تستخدم فقط للقراءة أو العرض.</span>
                     </p>
                     <ul class="text-xs text-gray-500 list-disc list-inside">
-                        <li><strong>Flow:</strong> System $\to$ User (Output).</li>
-                        <li><strong>Example:</strong> Invoice, Weekly Sales Summary.</li>
-                        <li><strong>Focus:</strong> Data Presentation & Decision Support.</li>
+                        <li>
+                            <span class="lang-en"><strong>Flow:</strong> System $\to$ User (Output).</span>
+                            <span class="lang-ar lang-hidden"><strong>التدفق:</strong> النظام $\to$ المستخدم (إخراج).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Example:</strong> Invoice, Weekly Sales Summary.</span>
+                            <span class="lang-ar lang-hidden"><strong>مثال:</strong> فاتورة، ملخص المبيعات الأسبوعي.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Focus:</strong> Data Presentation & Decision Support.</span>
+                            <span class="lang-ar lang-hidden"><strong>التركيز:</strong> عرض البيانات ودعم القرار.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Design Process</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Design Process</span>
+                    <span class="lang-ar lang-hidden">عملية التصميم</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 text-sm">
                     <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg w-full md:w-1/4">
                         <i class="fa-solid fa-clipboard-list text-2xl text-brand-500 mb-2"></i>
-                        <h4 class="font-bold">1. Requirements</h4>
-                        <p class="text-xs text-gray-500">Understand user, task, and environment.</p>
+                        <h4 class="font-bold">
+                            <span class="lang-en">1. Requirements</span>
+                            <span class="lang-ar lang-hidden">1. المتطلبات</span>
+                        </h4>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Understand user, task, and environment.</span>
+                            <span class="lang-ar lang-hidden">فهم المستخدم، المهمة، والبيئة.</span>
+                        </p>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block rtl:rotate-180"></i>
                     <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg w-full md:w-1/4">
                         <i class="fa-solid fa-pencil-ruler text-2xl text-purple-500 mb-2"></i>
-                        <h4 class="font-bold">2. Structuring</h4>
-                        <p class="text-xs text-gray-500">Initial prototype (Paper or Wireframe).</p>
+                        <h4 class="font-bold">
+                            <span class="lang-en">2. Structuring</span>
+                            <span class="lang-ar lang-hidden">2. الهيكلة</span>
+                        </h4>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Initial prototype (Paper or Wireframe).</span>
+                            <span class="lang-ar lang-hidden">نموذج أولي (ورقي أو Wireframe).</span>
+                        </p>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block"></i>
+                    <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block rtl:rotate-180"></i>
                     <div class="text-center p-4 bg-gray-50 dark:bg-gray-800 rounded-lg w-full md:w-1/4">
                         <i class="fa-solid fa-user-check text-2xl text-green-500 mb-2"></i>
-                        <h4 class="font-bold">3. Usability</h4>
-                        <p class="text-xs text-gray-500">Test with users and refine.</p>
+                        <h4 class="font-bold">
+                            <span class="lang-en">3. Usability</span>
+                            <span class="lang-ar lang-hidden">3. قابلية الاستخدام</span>
+                        </h4>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Test with users and refine.</span>
+                            <span class="lang-ar lang-hidden">الاختبار مع المستخدمين والتحسين.</span>
+                        </p>
                     </div>
                 </div>
                 
-                <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded border-l-4 border-brand-500">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-1">Key Deliverable: Design Specifications</h4>
+                <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded border-l-4 border-brand-500 rtl:border-l-0 rtl:border-r-4">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-1">
+                        <span class="lang-en">Key Deliverable: Design Specifications</span>
+                        <span class="lang-ar lang-hidden">المخرج الرئيسي: مواصفات التصميم</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        1. <strong>Narrative Overview:</strong> Why does this exist? Who uses it?
-                        <br>2. <strong>Sample Design:</strong> Visual layout.
-                        <br>3. <strong>Testing & Usability:</strong> How will we know it works?
+                        <span class="lang-en">1. <strong>Narrative Overview:</strong> Why does this exist? Who uses it?</span>
+                        <span class="lang-ar lang-hidden">1. <strong>نظرة عامة سردية:</strong> لماذا يوجد هذا؟ من يستخدمه؟</span>
+                        <br>
+                        <span class="lang-en">2. <strong>Sample Design:</strong> Visual layout.</span>
+                        <span class="lang-ar lang-hidden">2. <strong>تصميم عينة:</strong> التخطيط البصري.</span>
+                        <br>
+                        <span class="lang-en">3. <strong>Testing & Usability:</strong> How will we know it works?</span>
+                        <span class="lang-ar lang-hidden">3. <strong>الاختبار وقابلية الاستخدام:</strong> كيف سنعرف أنه يعمل؟</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Formatting Guidelines</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Formatting Guidelines</span>
+                    <span class="lang-ar lang-hidden">إرشادات التنسيق</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-heading text-brand-500 mr-2"></i>Meaningful Titles</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                        <i class="fa-solid fa-heading text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Meaningful Titles</span>
+                        <span class="lang-ar lang-hidden">عناوين ذات معنى</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Clear, specific titles. Include revision date/code to distinguish versions.
+                        <span class="lang-en">Clear, specific titles. Include revision date/code to distinguish versions.</span>
+                        <span class="lang-ar lang-hidden">عناوين واضحة ومحددة. قم بتضمين تاريخ المراجعة/الرمز لتمييز النسخ.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-info-circle text-brand-500 mr-2"></i>Meaningful Information</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                        <i class="fa-solid fa-info-circle text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Meaningful Information</span>
+                        <span class="lang-ar lang-hidden">معلومات ذات معنى</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Only display what is necessary. Do not clutter. Information should be usable without modification.
+                        <span class="lang-en">Only display what is necessary. Do not clutter. Information should be usable without modification.</span>
+                        <span class="lang-ar lang-hidden">اعرض فقط ما هو ضروري. لا تكدس المعلومات. يجب أن تكون المعلومات قابلة للاستخدام دون تعديل.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-scale-balanced text-brand-500 mr-2"></i>Balanced Layout</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                        <i class="fa-solid fa-scale-balanced text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Balanced Layout</span>
+                        <span class="lang-ar lang-hidden">تخطيط متوازن</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Balance information on the screen. Ensure adequate spacing and margins. Use standard navigation.
+                        <span class="lang-en">Balance information on the screen. Ensure adequate spacing and margins. Use standard navigation.</span>
+                        <span class="lang-ar lang-hidden">وازن المعلومات على الشاشة. تأكد من وجود مسافات وهوامش كافية. استخدم تنقلاً قياسياً.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-arrows-to-dot text-brand-500 mr-2"></i>Easy Navigation</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                        <i class="fa-solid fa-arrows-to-dot text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Easy Navigation</span>
+                        <span class="lang-ar lang-hidden">سهولة التنقل</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Clearly show how to move forward/backward. Follow user's mental model (e.g., Tab order matches reading order).
+                        <span class="lang-en">Clearly show how to move forward/backward. Follow user's mental model (e.g., Tab order matches reading order).</span>
+                        <span class="lang-ar lang-hidden">أظهر بوضوح كيفية التحرك للأمام/الخلف. اتبع النموذج الذهني للمستخدم (مثلاً: ترتيب زر Tab يطابق ترتيب القراءة).</span>
                     </p>
                 </div>
             </div>
             
-            <div class="mt-6 glass-card p-5 rounded-xl border-l-4 border-yellow-500">
-                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">When to use Highlighting?</h4>
+            <div class="mt-6 glass-card p-5 rounded-xl border-l-4 border-yellow-500 rtl:border-l-0 rtl:border-r-4">
+                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">
+                    <span class="lang-en">When to use Highlighting?</span>
+                    <span class="lang-ar lang-hidden">متى تستخدم التمييز (Highlighting)؟</span>
+                </h4>
                 <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                    Use highlighting (Bold, Color, Blinking) sparingly to draw attention to:
+                    <span class="lang-en">Use highlighting (Bold, Color, Blinking) sparingly to draw attention to:</span>
+                    <span class="lang-ar lang-hidden">استخدم التمييز (العريض، الألوان، الوميض) باعتدال لجذب الانتباه إلى:</span>
                 </p>
                 <div class="flex flex-wrap gap-2 text-xs text-gray-500">
-                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Errors</span>
-                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Warnings</span>
-                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Critical Data</span>
-                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Changes</span>
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"><span class="lang-en">Errors</span><span class="lang-ar lang-hidden">الأخطاء</span></span>
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"><span class="lang-en">Warnings</span><span class="lang-ar lang-hidden">التحذيرات</span></span>
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"><span class="lang-en">Critical Data</span><span class="lang-ar lang-hidden">البيانات الحرجة</span></span>
+                    <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded"><span class="lang-en">Changes</span><span class="lang-ar lang-hidden">التغييرات</span></span>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Assessing Usability</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Assessing Usability</span>
+                    <span class="lang-ar lang-hidden">تقييم قابلية الاستخدام (Usability)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    The overall evaluation of how a system performs in supporting a particular user for a particular task.
+                    <span class="lang-en">The overall evaluation of how a system performs in supporting a particular user for a particular task.</span>
+                    <span class="lang-ar lang-hidden">التقييم الشامل لأداء النظام في دعم مستخدم معين لمهمة معينة.</span>
                 </p>
                 
-                <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">Success Factors:</h4>
+                <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">
+                    <span class="lang-en">Success Factors:</span>
+                    <span class="lang-ar lang-hidden">عوامل النجاح:</span>
+                </h4>
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <ul class="space-y-1 text-gray-600 dark:text-gray-400">
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Consistency:</strong> Shortcuts/Terms same everywhere.</li>
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Efficiency:</strong> Minimize effort/steps.</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i><strong><span class="lang-en">Consistency:</span><span class="lang-ar lang-hidden">الاتساق (Consistency):</span></strong> <span class="lang-en">Shortcuts/Terms same everywhere.</span><span class="lang-ar lang-hidden">الاختصارات/المصطلحات موحدة في كل مكان.</span></li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i><strong><span class="lang-en">Efficiency:</span><span class="lang-ar lang-hidden">الكفاءة (Efficiency):</span></strong> <span class="lang-en">Minimize effort/steps.</span><span class="lang-ar lang-hidden">تقليل الجهد/الخطوات.</span></li>
                     </ul>
                     <ul class="space-y-1 text-gray-600 dark:text-gray-400">
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Ease:</strong> Self-explanatory outputs.</li>
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Error Reduction:</strong> Prevent mistakes.</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i><strong><span class="lang-en">Ease:</span><span class="lang-ar lang-hidden">السهولة:</span></strong> <span class="lang-en">Self-explanatory outputs.</span><span class="lang-ar lang-hidden">مخرجات تشرح نفسها.</span></li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i><strong><span class="lang-en">Error Reduction:</span><span class="lang-ar lang-hidden">تقليل الأخطاء:</span></strong> <span class="lang-en">Prevent mistakes.</span><span class="lang-ar lang-hidden">منع الأخطاء.</span></li>
                     </ul>
                 </div>
             </div>
@@ -342,55 +463,68 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبارات</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Forms vs Reports
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Forms vs Reports</span>
+                            <span class="lang-ar lang-hidden">فخ: النماذج مقابل التقارير</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Form:</strong> Input mechanism (Write).
-                            <strong>Report:</strong> Output mechanism (Read-only).
-                            A "Turnaround Document" is a Report that becomes a Form (e.g., a bill stub you tear off and return).
+                            <span class="lang-en"><strong>Form:</strong> Input mechanism (Write). <br><strong>Report:</strong> Output mechanism (Read-only). <br>A "Turnaround Document" is a Report that becomes a Form (e.g., a bill stub you tear off and return).</span>
+                            <span class="lang-ar lang-hidden"><strong>النموذج (Form):</strong> آلية إدخال (كتابة). <br><strong>التقرير (Report):</strong> آلية إخراج (قراءة فقط). <br>"Turnaround Document" هو تقرير يتحول إلى نموذج (مثل كعب الفاتورة الذي تفصله وتعيده).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Prototyping
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Prototyping</span>
+                            <span class="lang-ar lang-hidden">فخ: النمذجة (Prototyping)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Design is rarely done on paper alone anymore. We build prototypes. However, <strong>don't test with real data initially</strong>. Use realistic dummy data to test the layout without distraction.
+                            <span class="lang-en">Design is rarely done on paper alone anymore. We build prototypes. However, <strong>don't test with real data initially</strong>. Use realistic dummy data to test the layout without distraction.</span>
+                            <span class="lang-ar lang-hidden">نادراً ما يتم التصميم على الورق فقط الآن. نبني نماذج أولية. ومع ذلك، <strong>لا تختبر ببيانات حقيقية في البداية</strong>. استخدم بيانات وهمية (Dummy Data) واقعية لاختبار التخطيط دون تشتيت.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Highlighting Rule
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Highlighting Rule</span>
+                            <span class="lang-ar lang-hidden">سر: قاعدة التمييز (Highlighting Rule)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The rule of thumb for highlighting is <strong>Use Sparingly</strong>. If everything is bold/red, nothing is important. It loses its impact and fatigues the user.
+                            <span class="lang-en">The rule of thumb for highlighting is <strong>Use Sparingly</strong>. If everything is bold/red, nothing is important. It loses its impact and fatigues the user.</span>
+                            <span class="lang-ar lang-hidden">القاعدة الذهبية للتمييز هي <strong>استخدمه باعتدال (Use Sparingly)</strong>. إذا كان كل شيء عريضاً/أحمر، فلا شيء مهم. يفقد تأثيره ويرهق المستخدم.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Measures of Usability
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Measures of Usability</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: مقاييس قابلية الاستخدام</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Memorize the 3 key measures:
-                            <br>1. <strong>Time to Learn:</strong> How fast can they master it?
-                            <br>2. <strong>Speed of Performance:</strong> How fast can they work?
-                            <br>3. <strong>Rate of Errors:</strong> How many mistakes do they make?
+                            <span class="lang-en">Memorize the 3 key measures: <br>1. <strong>Time to Learn:</strong> How fast can they master it? <br>2. <strong>Speed of Performance:</strong> How fast can they work? <br>3. <strong>Rate of Errors:</strong> How many mistakes do they make?</span>
+                            <span class="lang-ar lang-hidden">احفظ المقاييس الثلاثة الرئيسية: <br>1. <strong>وقت التعلم:</strong> كم سرعة إتقانهم له؟ <br>2. <strong>سرعة الأداء:</strong> كم سرعة عملهم؟ <br>3. <strong>معدل الأخطاء:</strong> كم عدد الأخطاء التي يرتكبونها؟</span>
                         </p>
                     </div>
                 </div>
@@ -401,21 +535,35 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 11</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس CS. صممت للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        const langToggleBtn = document.getElementById('lang-toggle');
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -431,46 +579,42 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
-        
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
-
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('lang-hidden', lang === 'ar'));
+            document.querySelectorAll('.lang-ar').forEach(el => el.classList.toggle('lang-hidden', lang !== 'ar'));
         }
 
-    });
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        langToggleBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('lang');
+            setLanguage(current === 'en' ? 'ar' : 'en');
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} completed.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

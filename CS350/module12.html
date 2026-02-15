@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 12: Advanced Normalization</title>
@@ -49,6 +58,15 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            fontFamily: 'Inter'
+        });
+    </script>
 
     <style>
         
@@ -112,6 +130,39 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+
+        
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: center !important;
+        }
+        [dir="rtl"] .text-center .font-mono {
+            text-align: center !important;
+        }
+        [dir="rtl"] .grid .font-mono {
+            text-align: center !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -119,26 +170,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module11.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 12</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 12</span>
+                        <span class="lang-ar lang-hidden">الوحدة 12</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-microscope text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module13.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -155,55 +221,97 @@
                 <i class="fa-solid fa-vial-circle-check text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Design II: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Advanced Normalization</span>
+                <span class="lang-en">Design II: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Advanced Normalization</span></span>
+                <span class="lang-ar lang-hidden">التصميم 2: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Advanced Normalization</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Going beyond 3NF. Boyce-Codd (BCNF), Multi-valued Dependencies (4NF), and Join Dependencies (5NF).
+                <span class="lang-en">Going beyond 3NF. Boyce-Codd (BCNF), Multi-valued Dependencies (4NF), and Join Dependencies (5NF).</span>
+                <span class="lang-ar lang-hidden">ما بعد 3NF. Boyce-Codd (BCNF)، الاعتماديات متعددة القيم (4NF)، واعتماديات الربط (5NF).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">BCNF</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Multivalued Dependency (MVD)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">4NF</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Join Dependency (JD)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">5NF</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DKNF (Domain-Key)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">BCNF</span>
+                    <span class="lang-ar lang-hidden">BCNF</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Multivalued Dependency (MVD)</span>
+                    <span class="lang-ar lang-hidden">Multivalued Dependency (MVD)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">4NF</span>
+                    <span class="lang-ar lang-hidden">4NF</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Join Dependency (JD)</span>
+                    <span class="lang-ar lang-hidden">Join Dependency (JD)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">5NF</span>
+                    <span class="lang-ar lang-hidden">5NF</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">DKNF (Domain-Key)</span>
+                    <span class="lang-ar lang-hidden">DKNF (Domain-Key)</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Boyce-Codd Normal Form (BCNF)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Boyce-Codd Normal Form (BCNF)</span>
+                    <span class="lang-ar lang-hidden">Boyce-Codd Normal Form (BCNF)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    BCNF is a stricter version of 3NF. It handles a specific anomaly that 3NF misses: dependencies involving prime attributes (keys).
+                    <span class="lang-en">BCNF is a stricter version of 3NF. It handles a specific anomaly that 3NF misses: dependencies involving prime attributes (keys).</span>
+                    <span class="lang-ar lang-hidden">BCNF هي نسخة أكثر صرامة من 3NF. تعالج عيباً محدداً يفوته 3NF: الاعتماديات التي تتضمن سمات أولية (مفاتيح).</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-8 text-sm">
                     <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                        <strong class="block text-purple-700 dark:text-purple-300 mb-2">The Rule</strong>
-                        A relation is in BCNF if for every Functional Dependency (FD) $X \to A$:
-                        <br><span class="block mt-2 font-mono text-center bg-white dark:bg-gray-800 p-2 rounded border border-purple-200 dark:border-purple-800">$X$ must be a Superkey</span>
+                        <strong class="block text-purple-700 dark:text-purple-300 mb-2">
+                            <span class="lang-en">The Rule</span>
+                            <span class="lang-ar lang-hidden">القاعدة</span>
+                        </strong>
+                        <span class="lang-en">A relation is in BCNF if for every Functional Dependency (FD) $X \to A$:</span>
+                        <span class="lang-ar lang-hidden">تكون العلاقة في BCNF إذا كان لكل اعتماد وظيفي (FD) $X \to A$:</span>
+                        <br><span class="block mt-2 font-mono text-center bg-white dark:bg-gray-800 p-2 rounded border border-purple-200 dark:border-purple-800">
+                            <span class="lang-en">$X$ must be a Superkey</span>
+                            <span class="lang-ar lang-hidden">$X$ يجب أن يكون Superkey</span>
+                        </span>
                     </div>
 
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                        <strong class="block text-gray-900 dark:text-white mb-2">Difference from 3NF</strong>
-                        3NF allows $X \to A$ if $X$ is a superkey <strong class="text-red-500">OR</strong> if $A$ is a Prime Attribute.
-                        <br>BCNF removes the "OR". $X$ <strong>MUST</strong> be a superkey.
+                        <strong class="block text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Difference from 3NF</span>
+                            <span class="lang-ar lang-hidden">الفرق عن 3NF</span>
+                        </strong>
+                        <span class="lang-en">3NF allows $X \to A$ if $X$ is a superkey <strong class="text-red-500">OR</strong> if $A$ is a Prime Attribute.
+                        <br>BCNF removes the "OR". $X$ <strong>MUST</strong> be a superkey.</span>
+                        <span class="lang-ar lang-hidden">3NF تسمح بـ $X \to A$ إذا كان $X$ هو superkey <strong class="text-red-500">أو</strong> إذا كان $A$ سمة أولية (Prime Attribute).
+                        <br>BCNF تزيل "أو". $X$ <strong>يجب</strong> أن يكون superkey.</span>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-purple-500">
-                <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">BCNF Violation Example</h4>
+                <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                    <span class="lang-en">BCNF Violation Example</span>
+                    <span class="lang-ar lang-hidden">مثال على انتهاك BCNF</span>
+                </h4>
                 <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">
-                    Table `LOTS(Property_ID, County_Name, Lot_#)`
+                    <span class="lang-en">Table `LOTS(Property_ID, County_Name, Lot_#)`
                     <br>Key 1: `{Property_ID}` (Unique ID)
-                    <br>Key 2: `{County_Name, Lot_#}` (Lot numbers are unique per county)
+                    <br>Key 2: `{County_Name, Lot_#}` (Lot numbers are unique per county)</span>
+                    <span class="lang-ar lang-hidden">جدول `LOTS(Property_ID, County_Name, Lot_#)`
+                    <br>مفتاح 1: `{Property_ID}` (معرف فريد)
+                    <br>مفتاح 2: `{County_Name, Lot_#}` (أرقام القطع فريدة لكل مقاطعة)</span>
                 </p>
                 <div class="grid grid-cols-2 gap-4 text-xs font-mono">
                     <div class="p-2 border rounded border-red-200 dark:border-red-900">
@@ -216,48 +324,72 @@
                     </div>
                 </div>
                 <p class="text-xs text-gray-500 mt-3">
-                    If there was an FD `{Property_ID} -> Area` and Property_ID wasn't a key... (Wait, BCNF violations usually involve overlapping keys).
+                    <span class="lang-en">If there was an FD `{Property_ID} -> Area` and Property_ID wasn't a key... (Wait, BCNF violations usually involve overlapping keys).
                     <br><em>Classic Example:</em> Student, Course, Instructor.
                     <br>FD: `Instructor -> Course`. Key: `{Student, Course}`.
-                    <br>`Instructor` is NOT a superkey, but determines `Course` (a prime attribute). Valid in 3NF, <strong>Invalid in BCNF</strong>.
+                    <br>`Instructor` is NOT a superkey, but determines `Course` (a prime attribute). Valid in 3NF, <strong>Invalid in BCNF</strong>.</span>
+                    <span class="lang-ar lang-hidden">إذا كان هناك FD `{Property_ID} -> Area` و Property_ID لم يكن مفتاحاً... (انتهاكات BCNF عادة تتضمن مفاتيح متداخلة).
+                    <br><em>مثال كلاسيكي:</em> طالب، مقرر، مدرس.
+                    <br>FD: `Instructor -> Course`. المفتاح: `{Student, Course}`.
+                    <br>`Instructor` ليس superkey، لكنه يحدد `Course` (سمة أولية). صالح في 3NF، <strong>غير صالح في BCNF</strong>.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Fourth Normal Form (4NF)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Fourth Normal Form (4NF)</span>
+                    <span class="lang-ar lang-hidden">Fourth Normal Form (4NF)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                4NF deals with <span class="smart-term" data-ar="الاعتمادية متعددة القيم">Multivalued Dependencies (MVDs)</span>.
+                <span class="lang-en">4NF deals with <span class="smart-term" data-ar="الاعتمادية متعددة القيم">Multivalued Dependencies (MVDs)</span>.</span>
+                <span class="lang-ar lang-hidden">4NF يتعامل مع <span class="smart-term" data-ar="الاعتمادية متعددة القيم">Multivalued Dependencies (MVDs)</span>.</span>
             </p>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Multivalued Dependency ($X \twoheadrightarrow Y$)</h3>
+                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">Multivalued Dependency ($X \twoheadrightarrow Y$)</span>
+                        <span class="lang-ar lang-hidden">Multivalued Dependency ($X \twoheadrightarrow Y$)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Occurs when $X$ determines a <strong>set</strong> of values for $Y$, and this set is independent of other attributes ($Z$).
+                        <span class="lang-en">Occurs when $X$ determines a <strong>set</strong> of values for $Y$, and this set is independent of other attributes ($Z$).
                         <br><em>Notation:</em> $X \twoheadrightarrow Y$
-                        <br><em>Read:</em> "X multidetermines Y".
+                        <br><em>Read:</em> "X multidetermines Y".</span>
+                        <span class="lang-ar lang-hidden">يحدث عندما يحدد $X$ <strong>مجموعة</strong> من القيم لـ $Y$، وهذه المجموعة مستقلة عن السمات الأخرى ($Z$).
+                        <br><em>الرمز:</em> $X \twoheadrightarrow Y$
+                        <br><em>يقرأ:</em> "X يحدد بشكل متعدد Y".</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-green-600 dark:text-green-400 mb-2">4NF Rule</h3>
+                    <h3 class="text-lg font-bold text-green-600 dark:text-green-400 mb-2">
+                        <span class="lang-en">4NF Rule</span>
+                        <span class="lang-ar lang-hidden">قاعدة 4NF</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        A relation is in 4NF if for every nontrivial MVD $X \twoheadrightarrow Y$, $X$ is a <strong class="text-brand-500">Superkey</strong>.
-                        <br>Basically: Don't put two independent multivalued facts (e.g., Employee's Skills and Employee's Children) in the same table.
+                        <span class="lang-en">A relation is in 4NF if for every nontrivial MVD $X \twoheadrightarrow Y$, $X$ is a <strong class="text-brand-500">Superkey</strong>.
+                        <br>Basically: Don't put two independent multivalued facts (e.g., Employee's Skills and Employee's Children) in the same table.</span>
+                        <span class="lang-ar lang-hidden">تكون العلاقة في 4NF إذا كان لكل MVD غير بديهي (nontrivial) $X \twoheadrightarrow Y$، فإن $X$ هو <strong class="text-brand-500">Superkey</strong>.
+                        <br>ببساطة: لا تضع حقيقتين متعددتي القيم ومستقلتين (مثل مهارات الموظف وأطفال الموظف) في نفس الجدول.</span>
                     </p>
                 </div>
             </div>
 
             <div class="mt-6 glass-card p-6 rounded-xl bg-gray-50 dark:bg-gray-800">
-                <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-2">Problem: The "EMP" Table</h4>
+                <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Problem: The "EMP" Table</span>
+                    <span class="lang-ar lang-hidden">المشكلة: جدول "EMP"</span>
+                </h4>
                 <p class="text-xs text-gray-500 mb-2">
-                    Table `EMP(Ename, Pname, Dname)` where an employee works on many Projects (Pname) and has many Dependents (Dname).
-                    <br>These two are independent.
+                    <span class="lang-en">Table `EMP(Ename, Pname, Dname)` where an employee works on many Projects (Pname) and has many Dependents (Dname).
+                    <br>These two are independent.</span>
+                    <span class="lang-ar lang-hidden">جدول `EMP(Ename, Pname, Dname)` حيث يعمل الموظف في عدة مشاريع (Pname) ولديه عدة معالين (Dname).
+                    <br>هذان الاثنان مستقلان.</span>
                 </p>
                 <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono border-b pb-2 mb-2">
                     <div>Smith</div><div>ProjectX</div><div>John (Son)</div>
@@ -266,32 +398,46 @@
                     <div>Smith</div><div>ProjectY</div><div>Alice (Dau)</div>
                 </div>
                 <p class="text-xs text-red-500">
-                    <strong>Redundancy!</strong> Every project is repeated for every dependent. This is a violation of 4NF.
-                    <br><em>Solution:</em> Decompose into `(Ename, Pname)` and `(Ename, Dname)`.
+                    <span class="lang-en"><strong>Redundancy!</strong> Every project is repeated for every dependent. This is a violation of 4NF.
+                    <br><em>Solution:</em> Decompose into `(Ename, Pname)` and `(Ename, Dname)`.</span>
+                    <span class="lang-ar lang-hidden"><strong>تكرار!</strong> كل مشروع يتكرر لكل معال. هذا انتهاك لـ 4NF.
+                    <br><em>الحل:</em> فكك الجدول إلى `(Ename, Pname)` و `(Ename, Dname)`.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Fifth Normal Form (5NF)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Fifth Normal Form (5NF)</span>
+                    <span class="lang-ar lang-hidden">Fifth Normal Form (5NF)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="flex items-start">
-                    <div class="mr-4 p-3 bg-red-100 dark:bg-red-900/30 rounded-full text-red-600">
+                    <div class="mr-4 rtl:ml-4 rtl:mr-0 p-3 bg-red-100 dark:bg-red-900/30 rounded-full text-red-600">
                         <i class="fa-solid fa-puzzle-piece text-2xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Join Dependencies (JD)</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Join Dependencies (JD)</span>
+                            <span class="lang-ar lang-hidden">Join Dependencies (JD)</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            5NF deals with cases where a relation can be decomposed into 3 (or more) tables, but cannot be decomposed into just 2 without losing information (spurious tuples). This is rare.
+                            <span class="lang-en">5NF deals with cases where a relation can be decomposed into 3 (or more) tables, but cannot be decomposed into just 2 without losing information (spurious tuples). This is rare.</span>
+                            <span class="lang-ar lang-hidden">5NF تتعامل مع الحالات التي يمكن فيها تفكيك العلاقة إلى 3 (أو أكثر) جداول، ولكن لا يمكن تفكيكها إلى جدولين فقط دون فقدان المعلومات (صفوف زائفة). هذا نادر.</span>
                         </p>
                         <div class="p-3 border border-gray-200 dark:border-gray-700 rounded text-xs">
-                            <strong class="block text-brand-600 mb-1">Definition (Project-Join NF):</strong>
-                            A relation is in 5NF if every Join Dependency is implied by the candidate keys.
-                            <br>Basically: If you can losslessly decompose a table into smaller tables, you must do so unless the join is already enforced by a key.
+                            <strong class="block text-brand-600 mb-1">
+                                <span class="lang-en">Definition (Project-Join NF):</span>
+                                <span class="lang-ar lang-hidden">التعريف (Project-Join NF):</span>
+                            </strong>
+                            <span class="lang-en">A relation is in 5NF if every Join Dependency is implied by the candidate keys.
+                            <br>Basically: If you can losslessly decompose a table into smaller tables, you must do so unless the join is already enforced by a key.</span>
+                            <span class="lang-ar lang-hidden">تكون العلاقة في 5NF إذا كانت كل Join Dependency ضمنية بواسطة الـ candidate keys.
+                            <br>ببساطة: إذا كان بإمكانك تفكيك جدول إلى جداول أصغر دون فقدان البيانات (losslessly)، فيجب عليك فعل ذلك ما لم يكن الربط مفروضاً بالفعل بواسطة مفتاح.</span>
                         </div>
                     </div>
                 </div>
@@ -299,19 +445,28 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Ultimate: DKNF</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Ultimate: DKNF</span>
+                    <span class="lang-ar lang-hidden">القمة: DKNF</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl text-center">
-                <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-2">Domain-Key Normal Form</h4>
+                <h4 class="font-bold text-gray-900 dark:text-white text-xl mb-2">
+                    <span class="lang-en">Domain-Key Normal Form</span>
+                    <span class="lang-ar lang-hidden">Domain-Key Normal Form</span>
+                </h4>
                 <p class="text-sm text-gray-600 dark:text-gray-300 max-w-lg mx-auto">
-                    The "Holy Grail" of normalization.
-                    <br>A relation is in DKNF if <strong>every constraint</strong> is a logical consequence of <strong>Domain Constraints</strong> and <strong>Key Constraints</strong>.
+                    <span class="lang-en">The "Holy Grail" of normalization.
+                    <br>A relation is in DKNF if <strong>every constraint</strong> is a logical consequence of <strong>Domain Constraints</strong> and <strong>Key Constraints</strong>.</span>
+                    <span class="lang-ar lang-hidden">"الكأس المقدسة" للتطبيع.
+                    <br>تكون العلاقة في DKNF إذا كان <strong>كل قيد</strong> نتيجة منطقية لـ <strong>Domain Constraints</strong> و <strong>Key Constraints</strong>.</span>
                 </p>
                 <div class="mt-4 inline-block px-4 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-xs text-gray-500">
-                    Theoretical concept. Hard to achieve in practice.
+                    <span class="lang-en">Theoretical concept. Hard to achieve in practice.</span>
+                    <span class="lang-ar lang-hidden">مفهوم نظري. صعب التحقيق عملياً.</span>
                 </div>
             </div>
         </section>
@@ -320,55 +475,78 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 3NF vs BCNF Test
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 3NF vs BCNF Test</span>
+                            <span class="lang-ar lang-hidden">فخ: اختبار 3NF مقابل BCNF</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If you find a dependency $X \to A$ where $X$ is NOT a superkey:
+                            <span class="lang-en">If you find a dependency $X \to A$ where $X$ is NOT a superkey:
                             <br>- If $A$ is Prime (part of a key) $\to$ It violates BCNF but <strong>is valid 3NF</strong>.
-                            <br>- If $A$ is Non-Prime $\to$ It violates both 3NF and BCNF.
+                            <br>- If $A$ is Non-Prime $\to$ It violates both 3NF and BCNF.</span>
+                            <span class="lang-ar lang-hidden">إذا وجدت اعتمادية $X \to A$ حيث $X$ ليس superkey:
+                            <br>- إذا كان $A$ أولي (جزء من مفتاح) $\to$ ينتهك BCNF لكنه <strong>صالح كـ 3NF</strong>.
+                            <br>- إذا كان $A$ غير أولي $\to$ ينتهك كلاً من 3NF و BCNF.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 4NF Independence
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 4NF Independence</span>
+                            <span class="lang-ar lang-hidden">فخ: استقلالية 4NF</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            For a table to violate 4NF, it must contain <strong>TWO or more</strong> independent multivalued attributes.
+                            <span class="lang-en">For a table to violate 4NF, it must contain <strong>TWO or more</strong> independent multivalued attributes.
                             <br>Example: One employee, Many Skills, Many Languages.
-                            <br>Skills and Languages are independent $\to$ Cartesian Product Explosion $\to$ 4NF Violation.
+                            <br>Skills and Languages are independent $\to$ Cartesian Product Explosion $\to$ 4NF Violation.</span>
+                            <span class="lang-ar lang-hidden">لكي ينتهك جدول 4NF، يجب أن يحتوي على <strong>اثنين أو أكثر</strong> من السمات متعددة القيم المستقلة.
+                            <br>مثال: موظف واحد، مهارات متعددة، لغات متعددة.
+                            <br>المهارات واللغات مستقلة $\to$ انفجار الضرب الديكارتي $\to$ انتهاك 4NF.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Lossless Join
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Lossless Join</span>
+                            <span class="lang-ar lang-hidden">سر: Lossless Join</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When decomposing a table to fix normal forms (BCNF/4NF), the most critical property to preserve is <strong>Lossless Join</strong>.
-                            <br>Rule: $R1 \cap R2 \to R1$ OR $R1 \cap R2 \to R2$. (The common attribute must be a key in at least one table).
+                            <span class="lang-en">When decomposing a table to fix normal forms (BCNF/4NF), the most critical property to preserve is <strong>Lossless Join</strong>.
+                            <br>Rule: $R1 \cap R2 \to R1$ OR $R1 \cap R2 \to R2$. (The common attribute must be a key in at least one table).</span>
+                            <span class="lang-ar lang-hidden">عند تفكيك جدول لإصلاح الأشكال الطبيعية (BCNF/4NF)، الخاصية الأهم للحفاظ عليها هي <strong>Lossless Join</strong> (الربط غير الفاقد).
+                            <br>القاعدة: $R1 \cap R2 \to R1$ أو $R1 \cap R2 \to R2$. (السمة المشتركة يجب أن تكون مفتاحاً في جدول واحد على الأقل).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: MVD Triviality
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: MVD Triviality</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: بديهية MVD</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            An MVD $X \twoheadrightarrow Y$ is <strong>trivial</strong> if $Y \subseteq X$ or if $X \cup Y$ is the whole relation schema. Trivial MVDs do not violate 4NF.
+                            <span class="lang-en">An MVD $X \twoheadrightarrow Y$ is <strong>trivial</strong> if $Y \subseteq X$ or if $X \cup Y$ is the whole relation schema. Trivial MVDs do not violate 4NF.</span>
+                            <span class="lang-ar lang-hidden">الـ MVD $X \twoheadrightarrow Y$ يكون <strong>trivial (بديهي)</strong> إذا كان $Y \subseteq X$ أو إذا كان $X \cup Y$ هو مخطط العلاقة بالكامل. الـ MVDs البديهية لا تنتهك 4NF.</span>
                         </p>
                     </div>
                 </div>
@@ -379,18 +557,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 11</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module13.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 13</a>
+                <a href="module13.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 13</span>
+                    <span class="lang-ar lang-hidden">الوحدة 13</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -408,6 +599,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

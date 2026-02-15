@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 11: Normalization</title>
@@ -121,6 +130,33 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+
+        
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: center !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -128,26 +164,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module10.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 11</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 11</span>
+                        <span class="lang-ar lang-hidden">الوحدة 11</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-broom text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module12.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,65 +215,115 @@
                 <i class="fa-solid fa-filter-circle-dollar text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Normalization & FDs</span>
+                <span class="lang-en">Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Normalization & FDs</span></span>
+                <span class="lang-ar lang-hidden">التصميم: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Normalization & FDs</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                The science of Good Design. Eliminating redundancy and anomalies using Functional Dependencies and Normal Forms.
+                <span class="lang-en">The science of Good Design. Eliminating redundancy and anomalies using Functional Dependencies and Normal Forms.</span>
+                <span class="lang-ar lang-hidden">علم التصميم الجيد. القضاء على التكرار (Redundancy) والعيوب (Anomalies) باستخدام Functional Dependencies و Normal Forms.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Anomalies (Insert/Delete/Update)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Functional Dependency ($X \to Y$)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Armstrong's Axioms</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">1NF / 2NF / 3NF / BCNF</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prime Attributes</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Anomalies (Insert/Delete/Update)</span>
+                    <span class="lang-ar lang-hidden">Anomalies (الإضافة/الحذف/التحديث)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Functional Dependency ($X \to Y$)</span>
+                    <span class="lang-ar lang-hidden">Functional Dependency ($X \to Y$)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Armstrong's Axioms</span>
+                    <span class="lang-ar lang-hidden">Armstrong's Axioms</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">1NF / 2NF / 3NF / BCNF</span>
+                    <span class="lang-ar lang-hidden">1NF / 2NF / 3NF / BCNF</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Prime Attributes</span>
+                    <span class="lang-ar lang-hidden">Prime Attributes</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Why Normalize? (Informal Rules)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Why Normalize? (Informal Rules)</span>
+                    <span class="lang-ar lang-hidden">لماذا نستخدم Normalization؟ (قواعد غير رسمية)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Before math, we have intuitive "smells" of bad design. The goal is to measure quality and remove <span class="smart-term" data-ar="التكرار">Redundancy</span>.
+                    <span class="lang-en">Before math, we have intuitive "smells" of bad design. The goal is to measure quality and remove <span class="smart-term" data-ar="التكرار">Redundancy</span>.</span>
+                    <span class="lang-ar lang-hidden">قبل الرياضيات، لدينا مؤشرات حدسية للتصميم السيء. الهدف هو قياس الجودة وإزالة <span class="smart-term" data-ar="التكرار">Redundancy</span>.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-8 text-sm">
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-shapes text-brand-500 mr-2"></i>1. Semantics</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <i class="fa-solid fa-shapes text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">1. Semantics</span>
+                            <span class="lang-ar lang-hidden">1. Semantics (الدلالات)</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Attributes in a table should belong together conceptually. Don't mix "Employee" facts with "Department" facts in one massive table.
+                            <span class="lang-en">Attributes in a table should belong together conceptually. Don't mix "Employee" facts with "Department" facts in one massive table.</span>
+                            <span class="lang-ar lang-hidden">السمات في الجدول يجب أن تنتمي لبعضها مفاهيمياً. لا تخلط حقائق "Employee" مع حقائق "Department" في جدول ضخم واحد.</span>
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-triangle-exclamation text-brand-500 mr-2"></i>2. Redundancy & Anomalies</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <i class="fa-solid fa-triangle-exclamation text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">2. Redundancy & Anomalies</span>
+                            <span class="lang-ar lang-hidden">2. Redundancy & Anomalies (التكرار والعيوب)</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Redundancy wastes space and causes <strong>Update Anomalies</strong>:
+                            <span class="lang-en">Redundancy wastes space and causes <strong>Update Anomalies</strong>:</span>
+                            <span class="lang-ar lang-hidden">التكرار يهدر المساحة ويسبب <strong>Update Anomalies</strong> (عيوب التحديث):</span>
                         </p>
                         <ul class="list-disc list-inside text-xs text-gray-500 mt-1">
-                            <li><strong>Insert:</strong> Cannot add a new Dept if no Employee works there yet.</li>
-                            <li><strong>Delete:</strong> If the last Employee leaves, the Dept info is lost.</li>
-                            <li><strong>Modification:</strong> Updating Dept Manager requires changing 1000 Employee rows.</li>
+                            <li>
+                                <strong class="lang-en">Insert:</strong><strong class="lang-ar lang-hidden">Insert:</strong>
+                                <span class="lang-en">Cannot add a new Dept if no Employee works there yet.</span><span class="lang-ar lang-hidden"> لا يمكن إضافة Dept جديد إذا لم يعمل به موظف بعد.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Delete:</strong><strong class="lang-ar lang-hidden">Delete:</strong>
+                                <span class="lang-en">If the last Employee leaves, the Dept info is lost.</span><span class="lang-ar lang-hidden"> إذا غادر آخر موظف، تضيع معلومات الـ Dept.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Modification:</strong><strong class="lang-ar lang-hidden">Modification:</strong>
+                                <span class="lang-en">Updating Dept Manager requires changing 1000 Employee rows.</span><span class="lang-ar lang-hidden"> تحديث مدير الـ Dept يتطلب تغيير 1000 صف للموظفين.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-ban text-brand-500 mr-2"></i>3. NULL Values</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <i class="fa-solid fa-ban text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">3. NULL Values</span>
+                            <span class="lang-ar lang-hidden">3. NULL Values (القيم الفارغة)</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Avoid attributes that are frequently NULL. They waste space and complicate aggregation (COUNT, AVG). Place them in separate tables.
+                            <span class="lang-en">Avoid attributes that are frequently NULL. They waste space and complicate aggregation (COUNT, AVG). Place them in separate tables.</span>
+                            <span class="lang-ar lang-hidden">تجنب السمات التي تكون NULL بشكل متكرر. فهي تهدر المساحة وتعقد عمليات التجميع (COUNT, AVG). ضعها في جداول منفصلة.</span>
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-ghost text-brand-500 mr-2"></i>4. Spurious Tuples</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <i class="fa-solid fa-ghost text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">4. Spurious Tuples</span>
+                            <span class="lang-ar lang-hidden">4. Spurious Tuples (الصفوف الزائفة)</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Design schemas so they can be joined with equality on Primary/Foreign Keys. Bad joins on non-keys create "fake" (spurious) data.
+                            <span class="lang-en">Design schemas so they can be joined with equality on Primary/Foreign Keys. Bad joins on non-keys create "fake" (spurious) data.</span>
+                            <span class="lang-ar lang-hidden">صمم المخططات بحيث يمكن ربطها بالمساواة باستخدام Primary/Foreign Keys. الربط السيء على غير المفاتيح ينشئ بيانات "زائفة" (spurious).</span>
                         </p>
                     </div>
                 </div>
@@ -230,17 +331,26 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Functional Dependencies</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Functional Dependencies</span>
+                    <span class="lang-ar lang-hidden">Functional Dependencies (الاعتماد الوظيفي)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
-                <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Definition: $X \to Y$</h3>
+                <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                    <span class="lang-en">Definition: $X \to Y$</span>
+                    <span class="lang-ar lang-hidden">التعريف: $X \to Y$</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A constraint between two sets of attributes $X$ and $Y$.
+                    <span class="lang-en">A constraint between two sets of attributes $X$ and $Y$.
                     <br>It states: If two tuples have the same value for $X$, they <strong>MUST</strong> have the same value for $Y$.
-                    <br><em>"X determines Y"</em>.
+                    <br><em>"X determines Y"</em>.</span>
+                    <span class="lang-ar lang-hidden">قيد بين مجموعتين من السمات $X$ و $Y$.
+                    <br>ينص على: إذا كان لصفين نفس القيمة لـ $X$، <strong>يجب</strong> أن يكون لهما نفس القيمة لـ $Y$.
+                    <br><em>"X يحدد Y"</em>.</span>
                 </p>
                 
                 <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center font-mono text-sm mb-4">
@@ -250,20 +360,36 @@
                 </div>
 
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
-                    <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-2">Inference Rules (Armstrong's Axioms)</h4>
+                    <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Inference Rules (Armstrong's Axioms)</span>
+                        <span class="lang-ar lang-hidden">قواعد الاستنتاج (Armstrong's Axioms)</span>
+                    </h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                         <div class="p-3 bg-brand-50 dark:bg-brand-900/20 rounded">
-                            <strong class="block mb-1">1. Reflexive</strong>
-                            If $Y \subseteq X$, then $X \to Y$.
-                            <br>(e.g., $\{SSN, Name\} \to SSN$)
+                            <strong class="block mb-1">
+                                <span class="lang-en">1. Reflexive</span>
+                                <span class="lang-ar lang-hidden">1. Reflexive (انعكاسي)</span>
+                            </strong>
+                            <span class="lang-en">If $Y \subseteq X$, then $X \to Y$.
+                            <br>(e.g., $\{SSN, Name\} \to SSN$)</span>
+                            <span class="lang-ar lang-hidden">إذا كان $Y \subseteq X$، فإن $X \to Y$.
+                            <br>(مثال: $\{SSN, Name\} \to SSN$)</span>
                         </div>
                         <div class="p-3 bg-brand-50 dark:bg-brand-900/20 rounded">
-                            <strong class="block mb-1">2. Augmentation</strong>
-                            If $X \to Y$, then $XZ \to YZ$.
+                            <strong class="block mb-1">
+                                <span class="lang-en">2. Augmentation</span>
+                                <span class="lang-ar lang-hidden">2. Augmentation (الزيادة)</span>
+                            </strong>
+                            <span class="lang-en">If $X \to Y$, then $XZ \to YZ$.</span>
+                            <span class="lang-ar lang-hidden">إذا كان $X \to Y$، فإن $XZ \to YZ$.</span>
                         </div>
                         <div class="p-3 bg-brand-50 dark:bg-brand-900/20 rounded">
-                            <strong class="block mb-1">3. Transitive</strong>
-                            If $X \to Y$ and $Y \to Z$, then $X \to Z$.
+                            <strong class="block mb-1">
+                                <span class="lang-en">3. Transitive</span>
+                                <span class="lang-ar lang-hidden">3. Transitive (التعدي)</span>
+                            </strong>
+                            <span class="lang-en">If $X \to Y$ and $Y \to Z$, then $X \to Z$.</span>
+                            <span class="lang-ar lang-hidden">إذا كان $X \to Y$ و $Y \to Z$، فإن $X \to Z$.</span>
                         </div>
                     </div>
                 </div>
@@ -271,90 +397,146 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Normalization Steps</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Normalization Steps</span>
+                    <span class="lang-ar lang-hidden">خطوات Normalization</span>
+                </h2>
             </div>
 
-            
-
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                <span class="smart-term" data-ar="التطبيع">Normalization</span> is the process of decomposing bad relations into good ones by breaking FDs.
+                <span class="lang-en"><span class="smart-term" data-ar="التطبيع">Normalization</span> is the process of decomposing bad relations into good ones by breaking FDs.</span>
+                <span class="lang-ar lang-hidden"><span class="smart-term" data-ar="التطبيع">Normalization</span> هو عملية تفكيك العلاقات السيئة إلى علاقات جيدة عن طريق كسر الـ FDs.</span>
             </p>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl border-l-4 border-gray-500">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300">1NF (First Normal Form)</h3>
-                        <span class="text-xs font-mono bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">The Foundation</span>
+                        <h3 class="text-lg font-bold text-gray-700 dark:text-gray-300">
+                            <span class="lang-en">1NF (First Normal Form)</span>
+                            <span class="lang-ar lang-hidden">1NF (First Normal Form)</span>
+                        </h3>
+                        <span class="text-xs font-mono bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded">
+                            <span class="lang-en">The Foundation</span>
+                            <span class="lang-ar lang-hidden">الأساس</span>
+                        </span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        <strong>Rule:</strong> All attribute values must be <strong class="text-brand-500">Atomic</strong>.
-                        <br>No composite attributes (Address), no multivalued attributes (Phones), no nested relations.
+                        <span class="lang-en"><strong>Rule:</strong> All attribute values must be <strong class="text-brand-500">Atomic</strong>.
+                        <br>No composite attributes (Address), no multivalued attributes (Phones), no nested relations.</span>
+                        <span class="lang-ar lang-hidden"><strong>القاعدة:</strong> جميع قيم السمات يجب أن تكون <strong class="text-brand-500">Atomic</strong> (ذرية).
+                        <br>لا سمات مركبة (Address)، لا سمات متعددة القيم (Phones)، لا علاقات متداخلة.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-blue-500">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400">2NF (Second Normal Form)</h3>
-                        <span class="text-xs font-mono bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-800 dark:text-blue-200">Removes Partial Dep</span>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400">
+                            <span class="lang-en">2NF (Second Normal Form)</span>
+                            <span class="lang-ar lang-hidden">2NF (Second Normal Form)</span>
+                        </h3>
+                        <span class="text-xs font-mono bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-800 dark:text-blue-200">
+                            <span class="lang-en">Removes Partial Dep</span>
+                            <span class="lang-ar lang-hidden">يزيل Partial Dep</span>
+                        </span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        <strong>Prerequisite:</strong> Must be in 1NF.
+                        <span class="lang-en"><strong>Prerequisite:</strong> Must be in 1NF.
                         <br><strong>Rule:</strong> Every <span class="text-gray-500 font-bold">Non-Prime</span> attribute must be <strong class="text-brand-500">Fully Functionally Dependent</strong> on the Primary Key.
-                        <br><em>Violation:</em> If PK is $\{A, B\}$ and $A \to C$, then $C$ is partially dependent. Move $C$ to a new table with $A$.
+                        <br><em>Violation:</em> If PK is $\{A, B\}$ and $A \to C$, then $C$ is partially dependent. Move $C$ to a new table with $A$.</span>
+                        <span class="lang-ar lang-hidden"><strong>المتطلب السابق:</strong> يجب أن يكون في 1NF.
+                        <br><strong>القاعدة:</strong> كل سمة <span class="text-gray-500 font-bold">Non-Prime</span> يجب أن تكون <strong class="text-brand-500">معتمدة وظيفياً بالكامل (Fully Functionally Dependent)</strong> على الـ Primary Key.
+                        <br><em>انتهاك:</em> إذا كان PK هو $\{A, B\}$ و $A \to C$، فإن $C$ يعتمد جزئياً. انقل $C$ إلى جدول جديد مع $A$.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-green-500">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-green-600 dark:text-green-400">3NF (Third Normal Form)</h3>
-                        <span class="text-xs font-mono bg-green-100 dark:bg-green-900 px-2 py-1 rounded text-green-800 dark:text-green-200">Removes Transitive Dep</span>
+                        <h3 class="text-lg font-bold text-green-600 dark:text-green-400">
+                            <span class="lang-en">3NF (Third Normal Form)</span>
+                            <span class="lang-ar lang-hidden">3NF (Third Normal Form)</span>
+                        </h3>
+                        <span class="text-xs font-mono bg-green-100 dark:bg-green-900 px-2 py-1 rounded text-green-800 dark:text-green-200">
+                            <span class="lang-en">Removes Transitive Dep</span>
+                            <span class="lang-ar lang-hidden">يزيل Transitive Dep</span>
+                        </span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        <strong>Prerequisite:</strong> Must be in 2NF.
+                        <span class="lang-en"><strong>Prerequisite:</strong> Must be in 2NF.
                         <br><strong>Rule:</strong> No <span class="text-gray-500 font-bold">Transitive Dependency</span>.
-                        <br><em>Violation:</em> If $X \to Y$ and $Y \to Z$ (where $Y$ is not a key), then $Z$ depends transitively on $X$. Move $Z$ to a new table with $Y$.
+                        <br><em>Violation:</em> If $X \to Y$ and $Y \to Z$ (where $Y$ is not a key), then $Z$ depends transitively on $X$. Move $Z$ to a new table with $Y$.</span>
+                        <span class="lang-ar lang-hidden"><strong>المتطلب السابق:</strong> يجب أن يكون في 2NF.
+                        <br><strong>القاعدة:</strong> لا يوجد <span class="text-gray-500 font-bold">Transitive Dependency</span> (اعتماد متعدي).
+                        <br><em>انتهاك:</em> إذا كان $X \to Y$ و $Y \to Z$ (حيث $Y$ ليس مفتاحاً)، فإن $Z$ يعتمد بشكل متعدي على $X$. انقل $Z$ إلى جدول جديد مع $Y$.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-purple-500">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400">BCNF (Boyce-Codd)</h3>
-                        <span class="text-xs font-mono bg-purple-100 dark:bg-purple-900 px-2 py-1 rounded text-purple-800 dark:text-purple-200">Stricter 3NF</span>
+                        <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400">
+                            <span class="lang-en">BCNF (Boyce-Codd)</span>
+                            <span class="lang-ar lang-hidden">BCNF (Boyce-Codd)</span>
+                        </h3>
+                        <span class="text-xs font-mono bg-purple-100 dark:bg-purple-900 px-2 py-1 rounded text-purple-800 dark:text-purple-200">
+                            <span class="lang-en">Stricter 3NF</span>
+                            <span class="lang-ar lang-hidden">3NF أكثر صرامة</span>
+                        </span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        <strong>Rule:</strong> For every functional dependency $X \to A$, $X$ must be a <strong class="text-brand-500">Superkey</strong>.
-                        <br>Handles cases where a prime attribute depends on a non-prime attribute (rare but possible in 3NF).
+                        <span class="lang-en"><strong>Rule:</strong> For every functional dependency $X \to A$, $X$ must be a <strong class="text-brand-500">Superkey</strong>.
+                        <br>Handles cases where a prime attribute depends on a non-prime attribute (rare but possible in 3NF).</span>
+                        <span class="lang-ar lang-hidden"><strong>القاعدة:</strong> لكل اعتماد وظيفي $X \to A$، يجب أن يكون $X$ عبارة عن <strong class="text-brand-500">Superkey</strong>.
+                        <br>يعالج الحالات التي تعتمد فيها سمة أولية (prime) على سمة غير أولية (نادرة ولكن ممكنة في 3NF).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Key Terminology</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Key Terminology</span>
+                    <span class="lang-ar lang-hidden">مصطلحات رئيسية</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                     <div>
-                        <strong class="text-brand-600 block mb-1">Superkey</strong>
-                        A set of attributes that uniquely identifies a tuple. (Can contain extra/redundant attributes).
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Superkey</span>
+                            <span class="lang-ar lang-hidden">Superkey</span>
+                        </strong>
+                        <span class="lang-en">A set of attributes that uniquely identifies a tuple. (Can contain extra/redundant attributes).</span>
+                        <span class="lang-ar lang-hidden">مجموعة من السمات التي تحدد الصف بشكل فريد. (يمكن أن تحتوي على سمات إضافية/زائدة).</span>
                     </div>
                     <div>
-                        <strong class="text-brand-600 block mb-1">Candidate Key</strong>
-                        A <strong>minimal</strong> Superkey. If you remove any attribute, it's no longer unique.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Candidate Key</span>
+                            <span class="lang-ar lang-hidden">Candidate Key</span>
+                        </strong>
+                        <span class="lang-en">A <strong>minimal</strong> Superkey. If you remove any attribute, it's no longer unique.</span>
+                        <span class="lang-ar lang-hidden">هو <strong>minimal</strong> Superkey. إذا أزلت أي سمة، لم يعد فريداً.</span>
                     </div>
                     <div>
-                        <strong class="text-brand-600 block mb-1">Primary Key</strong>
-                        The Candidate Key chosen to identify tuples in the schema.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Primary Key</span>
+                            <span class="lang-ar lang-hidden">Primary Key</span>
+                        </strong>
+                        <span class="lang-en">The Candidate Key chosen to identify tuples in the schema.</span>
+                        <span class="lang-ar lang-hidden">الـ Candidate Key المختار لتعريف الصفوف في المخطط.</span>
                     </div>
                     <div>
-                        <strong class="text-brand-600 block mb-1">Prime Attribute</strong>
-                        An attribute that is part of ANY Candidate Key.
-                        <br><em>Non-Prime:</em> Not part of any candidate key.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Prime Attribute</span>
+                            <span class="lang-ar lang-hidden">Prime Attribute</span>
+                        </strong>
+                        <span class="lang-en">An attribute that is part of ANY Candidate Key.
+                        <br><em>Non-Prime:</em> Not part of any candidate key.</span>
+                        <span class="lang-ar lang-hidden">سمة تكون جزءاً من أي Candidate Key.
+                        <br><em>Non-Prime:</em> ليست جزءاً من أي candidate key.</span>
                     </div>
                 </div>
             </div>
@@ -364,56 +546,80 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 2NF on Single Keys
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 2NF on Single Keys</span>
+                            <span class="lang-ar lang-hidden">فخ: 2NF مع المفاتيح الفردية</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Check if this table with PK `UserID` is in 2NF."
-                            <br><strong>Shortcut:</strong> If the Primary Key is a single attribute (not composite), the table is <strong>automatically in 2NF</strong>. Partial dependency requires a composite key.
+                            <span class="lang-en">"Check if this table with PK `UserID` is in 2NF."
+                            <br><strong>Shortcut:</strong> If the Primary Key is a single attribute (not composite), the table is <strong>automatically in 2NF</strong>. Partial dependency requires a composite key.</span>
+                            <span class="lang-ar lang-hidden">"تحقق مما إذا كان هذا الجدول مع PK `UserID` في 2NF."
+                            <br><strong>اختصار:</strong> إذا كان الـ Primary Key سمة واحدة (ليس مركباً)، فإن الجدول <strong>تلقائياً في 2NF</strong>. الاعتماد الجزئي يتطلب مفتاحاً مركباً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 3NF vs BCNF
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 3NF vs BCNF</span>
+                            <span class="lang-ar lang-hidden">فخ: 3NF مقابل BCNF</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Most tables in 3NF are also in BCNF. The only time they differ is if:
+                            <span class="lang-en">Most tables in 3NF are also in BCNF. The only time they differ is if:
                             <br>1. There are multiple candidate keys.
                             <br>2. The keys are composite.
-                            <br>3. They overlap.
+                            <br>3. They overlap.</span>
+                            <span class="lang-ar lang-hidden">معظم الجداول في 3NF هي أيضاً في BCNF. الحالة الوحيدة التي يختلفان فيها هي إذا:
+                            <br>1. كان هناك عدة candidate keys.
+                            <br>2. المفاتيح مركبة.
+                            <br>3. تتداخل فيما بينها.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The "Prime" Trick
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The "Prime" Trick</span>
+                            <span class="lang-ar lang-hidden">سر: خدعة "Prime"</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In 3NF, $X \to A$ is allowed if $A$ is a <strong>Prime Attribute</strong> (part of a candidate key), even if $X$ is not a key.
-                            <br>BCNF removes this loophole: $X$ <strong>MUST</strong> be a Superkey, even if $A$ is prime.
+                            <span class="lang-en">In 3NF, $X \to A$ is allowed if $A$ is a <strong>Prime Attribute</strong> (part of a candidate key), even if $X$ is not a key.
+                            <br>BCNF removes this loophole: $X$ <strong>MUST</strong> be a Superkey, even if $A$ is prime.</span>
+                            <span class="lang-ar lang-hidden">في 3NF، يُسمح بـ $X \to A$ إذا كان $A$ عبارة عن <strong>Prime Attribute</strong> (جزء من candidate key)، حتى لو لم يكن $X$ مفتاحاً.
+                            <br>BCNF تزيل هذه الثغرة: $X$ <strong>يجب</strong> أن يكون Superkey، حتى لو كان $A$ أولياً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Decomposition
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Decomposition</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Decomposition</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Normalization is a decomposition process.
-                            <br>Rule: Always decompose into tables that preserve the original data (Lossless Join) and preserve the dependencies (Dependency Preservation).
+                            <span class="lang-en">Normalization is a decomposition process.
+                            <br>Rule: Always decompose into tables that preserve the original data (Lossless Join) and preserve the dependencies (Dependency Preservation).</span>
+                            <span class="lang-ar lang-hidden">التطبيع (Normalization) هو عملية تفكيك.
+                            <br>قاعدة: قم دائماً بالتفكيك إلى جداول تحفظ البيانات الأصلية (Lossless Join) وتحفظ التبعيات (Dependency Preservation).</span>
                         </p>
                     </div>
                 </div>
@@ -424,18 +630,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 10</span>
+                    <span class="lang-ar lang-hidden">الوحدة 10</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 12</span>
+                    <span class="lang-ar lang-hidden">الوحدة 12</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -453,6 +672,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

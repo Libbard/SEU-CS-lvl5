@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 2: Analysis Methods</title>
@@ -50,6 +59,50 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] svg text {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .pl-2 { padding-left: 0; padding-right: 0.5rem; }
+        [dir="rtl"] .pl-6 { padding-left: 0; padding-right: 1.5rem; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -132,31 +185,46 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module1.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 2</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 2</span>
+                        <span class="lang-ar lang-hidden">الوحدة 2</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module3.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -173,74 +241,147 @@
                 <i class="fa-solid fa-magnifying-glass-chart text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Algorithms <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Analysis Methods</span>
+                <span class="lang-en">Algorithms <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Analysis Methods</span></span>
+                <span class="lang-ar lang-hidden">طرق تحليل <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">الخوارزميات (Algorithms)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Mastering the framework to measure efficiency, asymptotic notations, and the mathematical analysis of recursive and non-recursive algorithms.
+                <span class="lang-en">Mastering the framework to measure efficiency, asymptotic notations, and the mathematical analysis of recursive and non-recursive algorithms.</span>
+                <span class="lang-ar lang-hidden">إتقان إطار العمل لقياس الكفاءة، والترميزات المقاربة (Asymptotic notations)، والتحليل الرياضي للخوارزميات العودية وغير العودية.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Time vs Space</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">O, Ω, Θ Notations</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Recurrence Relations</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Empirical Analysis</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Time vs Space</span>
+                    <span class="lang-ar lang-hidden">الوقت مقابل المساحة</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">O, Ω, Θ Notations</span>
+                    <span class="lang-ar lang-hidden">O, Ω, Θ Notations</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Recurrence Relations</span>
+                    <span class="lang-ar lang-hidden">Recurrence Relations</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Empirical Analysis</span>
+                    <span class="lang-ar lang-hidden">التحليل التجريبي</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Analysis Framework</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Analysis Framework</span>
+                    <span class="lang-ar lang-hidden">إطار عمل التحليل (Analysis Framework)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="space-y-6">
-                    <div class="glass-card p-5 rounded-xl border-l-4 border-l-brand-500">
-                        <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Two Types of Efficiency</h3>
+                    <div class="glass-card p-5 rounded-xl border-l-4 border-l-brand-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-brand-500">
+                        <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">Two Types of Efficiency</span>
+                            <span class="lang-ar lang-hidden">نوعان من الكفاءة</span>
+                        </h3>
                         <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
-                            <li><i class="fa-solid fa-clock w-6 text-center text-gray-400"></i> <strong>Time Efficiency:</strong> How fast the algorithm runs (Time Complexity).</li>
-                            <li><i class="fa-solid fa-memory w-6 text-center text-gray-400"></i> <strong>Space Efficiency:</strong> Memory units required for algorithm + input/output (Space Complexity).</li>
+                            <li>
+                                <i class="fa-solid fa-clock w-6 text-center text-gray-400 rtl:ml-2"></i> 
+                                <span class="lang-en"><strong>Time Efficiency:</strong> How fast the algorithm runs (Time Complexity).</span>
+                                <span class="lang-ar lang-hidden"><strong>كفاءة الوقت (Time Efficiency):</strong> مدى سرعة تشغيل الخوارزمية (تعقيد الوقت).</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-memory w-6 text-center text-gray-400 rtl:ml-2"></i> 
+                                <span class="lang-en"><strong>Space Efficiency:</strong> Memory units required for algorithm + input/output (Space Complexity).</span>
+                                <span class="lang-ar lang-hidden"><strong>كفاءة المساحة (Space Efficiency):</strong> وحدات الذاكرة المطلوبة للخوارزمية + المدخلات/المخرجات.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-gray-100 mb-2">Measuring Input Size ($n$)</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Input size depends on the problem type :</p>
-                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 pl-2">
-                            <li><strong>Polynomials:</strong> Degree of polynomial or number of coefficients.</li>
-                            <li><strong>Matrices:</strong> Dimensions ($n \times n$).</li>
-                            <li><strong>Primality Check:</strong> Number of bits $b = \lfloor \log_2 n \rfloor + 1$ (NOT the number value itself).</li>
+                        <h4 class="font-bold text-gray-900 dark:text-gray-100 mb-2">
+                            <span class="lang-en">Measuring Input Size ($n$)</span>
+                            <span class="lang-ar lang-hidden">قياس حجم المدخلات ($n$)</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                            <span class="lang-en">Input size depends on the problem type :</span>
+                            <span class="lang-ar lang-hidden">يعتمد حجم الإدخال على نوع المشكلة:</span>
+                        </p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 pl-2 rtl:pr-2 rtl:pl-0">
+                            <li>
+                                <span class="lang-en"><strong>Polynomials:</strong> Degree of polynomial or number of coefficients.</span>
+                                <span class="lang-ar lang-hidden"><strong>كثيرات الحدود (Polynomials):</strong> درجة كثير الحدود أو عدد المعاملات.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Matrices:</strong> Dimensions ($n \times n$).</span>
+                                <span class="lang-ar lang-hidden"><strong>المصفوفات (Matrices):</strong> الأبعاد ($n \times n$).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Primality Check:</strong> Number of bits $b = \lfloor \log_2 n \rfloor + 1$ (NOT the number value itself).</span>
+                                <span class="lang-ar lang-hidden"><strong>اختبار الأولية (Primality Check):</strong> عدد البتات $b = \lfloor \log_2 n \rfloor + 1$ (وليس قيمة الرقم نفسه).</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="bg-gray-900 text-gray-100 rounded-xl p-6 shadow-inner border border-gray-700">
-                    <h3 class="text-lg font-bold text-white mb-4"><i class="fa-solid fa-microchip mr-2 text-emerald-400"></i> The "Basic Operation"</h3>
+                    <h3 class="text-lg font-bold text-white mb-4">
+                        <i class="fa-solid fa-microchip mr-2 text-emerald-400 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">The "Basic Operation"</span>
+                        <span class="lang-ar lang-hidden">العملية الأساسية (Basic Operation)</span>
+                    </h3>
                     <p class="text-sm text-gray-400 mb-4">
-                        We <strong>DO NOT</strong> measure time in seconds or milliseconds because that depends on the computer speed, compiler, and quality of code .
+                        <span class="lang-en">We <strong>DO NOT</strong> measure time in seconds or milliseconds because that depends on the computer speed, compiler, and quality of code .</span>
+                        <span class="lang-ar lang-hidden">نحن <strong>لا</strong> نقيس الوقت بالثواني أو المللي ثانية لأن ذلك يعتمد على سرعة الكمبيوتر، المترجم (compiler)، وجودة الكود.</span>
                     </p>
                     <p class="text-sm text-gray-300 mb-6">
-                        Instead, we count the <strong>Basic Operation</strong>: the operation contributing most to running time (usually the most frequent one inside the innermost loop).
+                        <span class="lang-en">Instead, we count the <strong>Basic Operation</strong>: the operation contributing most to running time (usually the most frequent one inside the innermost loop).</span>
+                        <span class="lang-ar lang-hidden">بدلاً من ذلك، نحسب <strong>العملية الأساسية (Basic Operation)</strong>: العملية التي تساهم بشكل أكبر في وقت التشغيل (عادةً الأكثر تكراراً داخل الحلقة الأعمق).</span>
                     </p>
                     
                     <div class="bg-gray-800 rounded p-4 font-mono text-xs border border-gray-700">
                         <div class="flex justify-between border-b border-gray-700 pb-2 mb-2">
-                            <span class="text-emerald-400">Problem</span>
-                            <span class="text-brand-400">Basic Operation</span>
+                            <span class="text-emerald-400">
+                                <span class="lang-en">Problem</span>
+                                <span class="lang-ar lang-hidden">المشكلة</span>
+                            </span>
+                            <span class="text-brand-400">
+                                <span class="lang-en">Basic Operation</span>
+                                <span class="lang-ar lang-hidden">العملية الأساسية</span>
+                            </span>
                         </div>
                         <div class="flex justify-between mb-2">
-                            <span>Searching List</span>
-                            <span>Key Comparison</span>
+                            <span>
+                                <span class="lang-en">Searching List</span>
+                                <span class="lang-ar lang-hidden">البحث في القائمة</span>
+                            </span>
+                            <span>
+                                <span class="lang-en">Key Comparison</span>
+                                <span class="lang-ar lang-hidden">مقارنة المفاتيح</span>
+                            </span>
                         </div>
                         <div class="flex justify-between mb-2">
-                            <span>Matrix Multi.</span>
-                            <span>Multiplication</span>
+                            <span>
+                                <span class="lang-en">Matrix Multi.</span>
+                                <span class="lang-ar lang-hidden">ضرب المصفوفات</span>
+                            </span>
+                            <span>
+                                <span class="lang-en">Multiplication</span>
+                                <span class="lang-ar lang-hidden">الضرب</span>
+                            </span>
                         </div>
                         <div class="flex justify-between">
-                            <span>Graph Problem</span>
-                            <span>Visiting Vertex</span>
+                            <span>
+                                <span class="lang-en">Graph Problem</span>
+                                <span class="lang-ar lang-hidden">مشكلة الرسم البياني</span>
+                            </span>
+                            <span>
+                                <span class="lang-en">Visiting Vertex</span>
+                                <span class="lang-ar lang-hidden">زيارة الرأس (Vertex)</span>
+                            </span>
                         </div>
                     </div>
                     <div class="mt-2 text-right text-xs text-gray-500"></div>
@@ -249,19 +390,26 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Worst, Best, & Average Cases</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Worst, Best, & Average Cases</span>
+                    <span class="lang-ar lang-hidden">الحالات: الأسوأ، الأفضل، والمتوسطة</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity rtl:left-0 rtl:right-auto">
                         <i class="fa-solid fa-cloud-bolt text-6xl text-rose-500"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-rose-600 dark:text-rose-400 mb-2">Worst-Case</h3>
+                    <h3 class="text-lg font-bold text-rose-600 dark:text-rose-400 mb-2">
+                        <span class="lang-en">Worst-Case</span>
+                        <span class="lang-ar lang-hidden">الحالة الأسوأ (Worst-Case)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        The input that makes the algorithm run the longest. It provides an <strong>Upper Bound</strong> guarantee. The algorithm will never take longer than this .
+                        <span class="lang-en">The input that makes the algorithm run the longest. It provides an <strong>Upper Bound</strong> guarantee. The algorithm will never take longer than this .</span>
+                        <span class="lang-ar lang-hidden">الإدخال الذي يجعل الخوارزمية تعمل لأطول فترة. يوفر ضمان <strong>الحد الأعلى (Upper Bound)</strong>. الخوارزمية لن تستغرق وقتاً أطول من هذا أبداً.</span>
                     </p>
                     <div class="text-xs font-mono bg-rose-50 dark:bg-rose-900/20 p-2 rounded text-rose-800 dark:text-rose-200">
                         $C_{worst}(n)$
@@ -269,12 +417,16 @@
                 </div>
 
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity rtl:left-0 rtl:right-auto">
                         <i class="fa-solid fa-sun text-6xl text-emerald-500"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mb-2">Best-Case</h3>
+                    <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mb-2">
+                        <span class="lang-en">Best-Case</span>
+                        <span class="lang-ar lang-hidden">الحالة الأفضل (Best-Case)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        The input that makes the algorithm run the fastest. Usually trivial (e.g., finding the item at index 0) .
+                        <span class="lang-en">The input that makes the algorithm run the fastest. Usually trivial (e.g., finding the item at index 0) .</span>
+                        <span class="lang-ar lang-hidden">الإدخال الذي يجعل الخوارزمية تعمل بأسرع ما يمكن. عادة ما تكون بديهية (مثلاً، العثور على العنصر في الفهرس 0).</span>
 						<br><br>
                     </p>
                     <div class="text-xs font-mono bg-emerald-50 dark:bg-emerald-900/20 p-2 rounded text-emerald-800 dark:text-emerald-200">
@@ -283,12 +435,16 @@
                 </div>
 
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity rtl:left-0 rtl:right-auto">
                         <i class="fa-solid fa-scale-balanced text-6xl text-blue-500"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Average-Case</h3>
+                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">Average-Case</span>
+                        <span class="lang-ar lang-hidden">الحالة المتوسطة (Average-Case)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Based on probabilistic assumptions. Usually lies between Best and Worst. Requires knowing probability distribution of inputs .
+                        <span class="lang-en">Based on probabilistic assumptions. Usually lies between Best and Worst. Requires knowing probability distribution of inputs .</span>
+                        <span class="lang-ar lang-hidden">تعتمد على افتراضات احتمالية. عادة ما تقع بين الأفضل والأسوأ. تتطلب معرفة التوزيع الاحتمالي للمدخلات.</span>
                     </p>
                     <div class="text-xs font-mono bg-blue-50 dark:bg-blue-900/20 p-2 rounded text-blue-800 dark:text-blue-200">
                         $C_{avg}(n)$
@@ -296,33 +452,42 @@
                 </div>
             </div>
 
-            <div class="mt-6 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 border-l-4 border-amber-500">
+            <div class="mt-6 p-4 rounded-lg bg-gray-100 dark:bg-gray-800 border-l-4 border-amber-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-amber-500">
                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                    <strong><i class="fa-solid fa-chart-line text-amber-500 mr-2"></i>Amortized Efficiency:</strong> Not a single run, but the average cost over a <em>sequence</em> of operations. Useful when one expensive operation pays for many cheap ones (discovered by Robert Tarjan) .
+                    <span class="lang-en"><strong><i class="fa-solid fa-chart-line text-amber-500 mr-2 rtl:ml-2 rtl:mr-0"></i>Amortized Efficiency:</strong> Not a single run, but the average cost over a <em>sequence</em> of operations. Useful when one expensive operation pays for many cheap ones (discovered by Robert Tarjan) .</span>
+                    <span class="lang-ar lang-hidden"><strong><i class="fa-solid fa-chart-line text-amber-500 mr-2 rtl:ml-2 rtl:mr-0"></i>الكفاءة المطفأة (Amortized Efficiency):</strong> ليست تشغيلاً واحداً، بل متوسط التكلفة عبر <em>سلسلة</em> من العمليات. مفيدة عندما تدفع عملية واحدة مكلفة ثمن العديد من العمليات الرخيصة.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-8">
+            <div class="flex items-center space-x-3 mb-8 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Asymptotic Notations ($O, \Omega, \Theta$)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Asymptotic Notations ($O, \Omega, \Theta$)</span>
+                    <span class="lang-ar lang-hidden">الترميزات المقاربة ($O, \Omega, \Theta$)</span>
+                </h2>
             </div>
 
             <div class="space-y-12">
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <div class="md:w-1/2">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                            1. Big-O Notation <span class="text-brand-500">$O(g(n))$</span>
+                            <span class="lang-en">1. Big-O Notation <span class="text-brand-500">$O(g(n))$</span></span>
+                            <span class="lang-ar lang-hidden">1. Big-O Notation <span class="text-brand-500">$O(g(n))$</span></span>
                         </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            Upper Bound. $t(n)$ grows <strong>no faster than</strong> $g(n)$.
+                            <span class="lang-en">Upper Bound. $t(n)$ grows <strong>no faster than</strong> $g(n)$.</span>
+                            <span class="lang-ar lang-hidden">الحد الأعلى (Upper Bound). $t(n)$ تنمو <strong>ليس أسرع من</strong> $g(n)$.</span>
                         </p>
                         <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm mb-4">
                             $t(n) \le c \cdot g(n)$ for all $n \ge n_0$
                         </div>
                         <p class="text-xs text-gray-500"></p>
-                        <p class="text-sm mt-2 font-semibold text-rose-500">Use for Worst-Case Analysis.</p>
+                        <p class="text-sm mt-2 font-semibold text-rose-500">
+                            <span class="lang-en">Use for Worst-Case Analysis.</span>
+                            <span class="lang-ar lang-hidden">تستخدم لتحليل الحالة الأسوأ.</span>
+                        </p>
                     </div>
                     <div class="md:w-1/2 flex justify-center">
                         <svg width="300" height="200" viewBox="0 0 300 200" class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
@@ -340,16 +505,21 @@
                 <div class="flex flex-col md:flex-row-reverse gap-8 items-center">
                     <div class="md:w-1/2">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                            2. Big-Omega Notation <span class="text-emerald-500">$\Omega(g(n))$</span>
+                            <span class="lang-en">2. Big-Omega Notation <span class="text-emerald-500">$\Omega(g(n))$</span></span>
+                            <span class="lang-ar lang-hidden">2. Big-Omega Notation <span class="text-emerald-500">$\Omega(g(n))$</span></span>
                         </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            Lower Bound. $t(n)$ grows <strong>at least as fast as</strong> $g(n)$.
+                            <span class="lang-en">Lower Bound. $t(n)$ grows <strong>at least as fast as</strong> $g(n)$.</span>
+                            <span class="lang-ar lang-hidden">الحد الأدنى (Lower Bound). $t(n)$ تنمو <strong>على الأقل بنفس سرعة</strong> $g(n)$.</span>
                         </p>
                         <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm mb-4">
                             $t(n) \ge c \cdot g(n)$ for all $n \ge n_0$
                         </div>
                         <p class="text-xs text-gray-500"></p>
-                        <p class="text-sm mt-2 font-semibold text-emerald-500">Use for Best-Case Analysis.</p>
+                        <p class="text-sm mt-2 font-semibold text-emerald-500">
+                            <span class="lang-en">Use for Best-Case Analysis.</span>
+                            <span class="lang-ar lang-hidden">تستخدم لتحليل الحالة الأفضل.</span>
+                        </p>
                     </div>
                     <div class="md:w-1/2 flex justify-center">
                         <svg width="300" height="200" viewBox="0 0 300 200" class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
@@ -366,16 +536,21 @@
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <div class="md:w-1/2">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                            3. Big-Theta Notation <span class="text-blue-500">$\Theta(g(n))$</span>
+                            <span class="lang-en">3. Big-Theta Notation <span class="text-blue-500">$\Theta(g(n))$</span></span>
+                            <span class="lang-ar lang-hidden">3. Big-Theta Notation <span class="text-blue-500">$\Theta(g(n))$</span></span>
                         </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            Tight Bound. $t(n)$ grows <strong>at the same rate as</strong> $g(n)$.
+                            <span class="lang-en">Tight Bound. $t(n)$ grows <strong>at the same rate as</strong> $g(n)$.</span>
+                            <span class="lang-ar lang-hidden">الحد المحكم (Tight Bound). $t(n)$ تنمو <strong>بنفس معدل</strong> $g(n)$.</span>
                         </p>
                         <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 font-mono text-sm mb-4">
                             $c_2 \cdot g(n) \le t(n) \le c_1 \cdot g(n)$
                         </div>
                         <p class="text-xs text-gray-500"></p>
-                        <p class="text-sm mt-2 font-semibold text-blue-500">Use for Exact/Average Analysis.</p>
+                        <p class="text-sm mt-2 font-semibold text-blue-500">
+                            <span class="lang-en">Use for Exact/Average Analysis.</span>
+                            <span class="lang-ar lang-hidden">تستخدم للتحليل الدقيق/المتوسط.</span>
+                        </p>
                     </div>
                     <div class="md:w-1/2 flex justify-center">
                         <svg width="300" height="200" viewBox="0 0 300 200" class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
@@ -395,19 +570,37 @@
 
         <section class="grid md:grid-cols-2 gap-8">
             <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center space-x-3 mb-4">
+                <div class="flex items-center space-x-3 mb-4 rtl:space-x-reverse">
                     <div class="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg text-purple-600 dark:text-purple-300">
                         <i class="fa-solid fa-list-ol"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Non-Recursive Analysis</h3>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Non-Recursive Analysis</span>
+                        <span class="lang-ar lang-hidden">تحليل الخوارزميات غير العودية</span>
+                    </h3>
                 </div>
                 
-                <h4 class="font-semibold text-sm mb-2">Process :</h4>
-                <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4">
-                    <li>Decide on input parameter ($n$).</li>
-                    <li>Identify basic operation (innermost loop).</li>
-                    <li>Set up a <span class="smart-term font-bold text-brand-500" data-ar="مجموع">Summation</span> $\sum$.</li>
-                    <li>Solve the sum to find closed form.</li>
+                <h4 class="font-semibold text-sm mb-2">
+                    <span class="lang-en">Process :</span>
+                    <span class="lang-ar lang-hidden">العملية:</span>
+                </h4>
+                <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4 rtl:pr-4 rtl:pl-0">
+                    <li>
+                        <span class="lang-en">Decide on input parameter ($n$).</span>
+                        <span class="lang-ar lang-hidden">تحديد معلمة الإدخال ($n$).</span>
+                    </li>
+                    <li>
+                        <span class="lang-en">Identify basic operation (innermost loop).</span>
+                        <span class="lang-ar lang-hidden">تحديد العملية الأساسية (الحلقة الأعمق).</span>
+                    </li>
+                    <li>
+                        <span class="lang-en">Set up a <span class="smart-term font-bold text-brand-500" data-ar="مجموع">Summation</span> $\sum$.</span>
+                        <span class="lang-ar lang-hidden">إعداد <span class="smart-term font-bold text-brand-500" data-ar="مجموع">Summation</span> $\sum$.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en">Solve the sum to find closed form.</span>
+                        <span class="lang-ar lang-hidden">حل المجموع لإيجاد الصيغة المغلقة (Closed Form).</span>
+                    </li>
                 </ol>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-xs font-mono space-y-2">
@@ -418,19 +611,37 @@
             </div>
 
             <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center space-x-3 mb-4">
+                <div class="flex items-center space-x-3 mb-4 rtl:space-x-reverse">
                     <div class="p-2 bg-orange-100 dark:bg-orange-900 rounded-lg text-orange-600 dark:text-orange-300">
                         <i class="fa-solid fa-rotate-left"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Recursive Analysis</h3>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Recursive Analysis</span>
+                        <span class="lang-ar lang-hidden">تحليل الخوارزميات العودية</span>
+                    </h3>
                 </div>
                 
-                <h4 class="font-semibold text-sm mb-2">Process :</h4>
-                <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4">
-                    <li>Decide on input parameter ($n$).</li>
-                    <li>Identify basic operation.</li>
-                    <li>Set up a <span class="smart-term font-bold text-brand-500" data-ar="علاقة تكرارية">Recurrence Relation</span>.</li>
-                    <li>Solve using Backward Substitution.</li>
+                <h4 class="font-semibold text-sm mb-2">
+                    <span class="lang-en">Process :</span>
+                    <span class="lang-ar lang-hidden">العملية:</span>
+                </h4>
+                <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-1 mb-4 rtl:pr-4 rtl:pl-0">
+                    <li>
+                        <span class="lang-en">Decide on input parameter ($n$).</span>
+                        <span class="lang-ar lang-hidden">تحديد معلمة الإدخال ($n$).</span>
+                    </li>
+                    <li>
+                        <span class="lang-en">Identify basic operation.</span>
+                        <span class="lang-ar lang-hidden">تحديد العملية الأساسية.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en">Set up a <span class="smart-term font-bold text-brand-500" data-ar="علاقة تكرارية">Recurrence Relation</span>.</span>
+                        <span class="lang-ar lang-hidden">إعداد <span class="smart-term font-bold text-brand-500" data-ar="علاقة تكرارية">Recurrence Relation</span>.</span>
+                    </li>
+                    <li>
+                        <span class="lang-en">Solve using Backward Substitution.</span>
+                        <span class="lang-ar lang-hidden">الحل باستخدام التعويض العكسي (Backward Substitution).</span>
+                    </li>
                 </ol>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-xs font-mono space-y-2">
@@ -442,67 +653,92 @@
             </div>
         </section>
 
-        <section class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl border-l-4 border-gray-500">
+        <section class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl border-l-4 border-gray-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-gray-500">
             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                <i class="fa-solid fa-flask text-gray-500 mr-2"></i> Empirical Analysis
+                <i class="fa-solid fa-flask text-gray-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                <span class="lang-en">Empirical Analysis</span>
+                <span class="lang-ar lang-hidden">التحليل التجريبي (Empirical Analysis)</span>
             </h3>
             <p class="text-sm text-gray-600 dark:text-gray-300">
-                Used when mathematical analysis is too difficult. Involves generating random inputs, running the actual code, measuring time/count, and plotting results .
+                <span class="lang-en">Used when mathematical analysis is too difficult. Involves generating random inputs, running the actual code, measuring time/count, and plotting results .</span>
+                <span class="lang-ar lang-hidden">يستخدم عندما يكون التحليل الرياضي صعباً للغاية. يتضمن توليد مدخلات عشوائية، وتشغيل الكود الفعلي، وقياس الوقت/العدد، ورسم النتائج.</span>
             </p>
         </section>
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Value vs. Size
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Value vs. Size</span>
+                            <span class="lang-ar lang-hidden">فخ: القيمة (Value) مقابل الحجم (Size)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            For Primality Testing, if the input is $n = 1,000,000$, the input size is NOT $10^6$. It is the <strong>number of bits</strong>: $b = \log_2(10^6) \approx 20$. This is a classic trick question .
+                            <span class="lang-en">For Primality Testing, if the input is $n = 1,000,000$, the input size is NOT $10^6$. It is the <strong>number of bits</strong>: $b = \log_2(10^6) \approx 20$. This is a classic trick question .</span>
+                            <span class="lang-ar lang-hidden">في اختبار الأولية (Primality Testing)، إذا كان الإدخال $n = 1,000,000$، فإن حجم الإدخال ليس $10^6$. إنه <strong>عدد البتات</strong>: $b = \log_2(10^6) \approx 20$. هذا سؤال خادع كلاسيكي.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Inner Loops
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Inner Loops</span>
+                            <span class="lang-ar lang-hidden">فخ: الحلقات الداخلية (Inner Loops)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Don't just count the loops. Look at the <strong>limits</strong>.
+                            <span class="lang-en">Don't just count the loops. Look at the <strong>limits</strong>.
                             <br>
                             Loop $1..n$ inside Loop $1..n$ $\rightarrow O(n^2)$.
                             <br>
-                            Loop $1..n$ inside Loop $1..10$ $\rightarrow O(n)$ (because 10 is constant).
+                            Loop $1..n$ inside Loop $1..10$ $\rightarrow O(n)$ (because 10 is constant).</span>
+                            <span class="lang-ar lang-hidden">لا تقم فقط بعدّ الحلقات. انظر إلى <strong>الحدود (limits)</strong>.
+                            <br>
+                            حلقة $1..n$ داخل حلقة $1..n$ $\rightarrow O(n^2)$.
+                            <br>
+                            حلقة $1..n$ داخل حلقة $1..10$ $\rightarrow O(n)$ (لأن 10 ثابت).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Constant Factor
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The Constant Factor</span>
+                            <span class="lang-ar lang-hidden">سر: العامل الثابت (Constant Factor)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Asymptotic notation, constants ($c$) and lower order terms are ignored. $100n + 5 \in O(n^2)$ is technically true (loose bound), but $\Theta(n)$ is the tight (better) answer .
+                            <span class="lang-en">In Asymptotic notation, constants ($c$) and lower order terms are ignored. $100n + 5 \in O(n^2)$ is technically true (loose bound), but $\Theta(n)$ is the tight (better) answer .</span>
+                            <span class="lang-ar lang-hidden">في الترميز المقارب (Asymptotic notation)، يتم تجاهل الثوابت ($c$) والحدود ذات الرتبة المنخفضة. $100n + 5 \in O(n^2)$ صحيح تقنياً (حد فضفاض)، لكن $\Theta(n)$ هي الإجابة المحكمة (الأفضل).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Backward Substitution
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Backward Substitution</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: التعويض العكسي</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Master the "Method of Backward Substitution" for recursive relations. It is the primary method required for Module 2 exams to prove $M(n)=n$ or similar .
+                            <span class="lang-en">Master the "Method of Backward Substitution" for recursive relations. It is the primary method required for Module 2 exams to prove $M(n)=n$ or similar .</span>
+                            <span class="lang-ar lang-hidden">أتقن "طريقة التعويض العكسي" (Backward Substitution) للعلاقات العودية. إنها الطريقة الأساسية المطلوبة في اختبارات الوحدة 2 لإثبات $M(n)=n$ أو ما شابه.</span>
                         </p>
                     </div>
                 </div>
@@ -513,18 +749,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 1</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 1</span>
+                    <span class="lang-ar lang-hidden">الوحدة 1</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 3</span>
+                    <span class="lang-ar lang-hidden">الوحدة 3</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -543,46 +792,53 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

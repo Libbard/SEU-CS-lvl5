@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 11: Distributed & Internet Systems</title>
@@ -19,16 +28,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6', 
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
@@ -40,7 +42,43 @@
         }
     </script>
 
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] .mermaid, [dir="rtl"] .math-block, 
+        [dir="rtl"] .tech-term {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+            display: inline-block;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-chevron-left, 
+        [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-caret-right, [dir="rtl"] .fa-arrow-right-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -70,40 +108,6 @@
         }
 
         
-        .smart-term {
-            cursor: help;
-            border-bottom: 2px dotted #3b82f6;
-            position: relative;
-            transition: all 0.2s;
-        }
-        .smart-term:hover {
-            color: #3b82f6;
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-        .smart-term::after {
-            content: attr(data-ar);
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2937;
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: 'Cairo', sans-serif;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            white-space: nowrap;
-            z-index: 50;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        .smart-term:hover::after {
-            opacity: 1;
-        }
-
-        
         @keyframes cloud-float {
             0% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -119,24 +123,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module10.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 11</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 11</span>
+                        <span class="lang-ar lang-hidden">الوحدة 11</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-globe text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <a href="module12.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
@@ -155,60 +173,105 @@
                 <i class="fa-solid fa-cloud text-3xl text-brand-500 cloud-icon"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Distributed & Internet Systems</span>
+                <span class="lang-en">Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Distributed & Internet Systems</span></span>
+                <span class="lang-ar lang-hidden">التصميم: <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-400 to-blue-600">النظم الموزعة وشبكات الإنترنت</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Moving from monolithic systems to distributed architectures. LANs, Client/Server, Cloud Computing, and SOA.
+                <span class="lang-en">Moving from monolithic systems to distributed architectures. LANs, Client/Server, Cloud Computing, and SOA.</span>
+                <span class="lang-ar lang-hidden">الانتقال من الأنظمة الأحادية (Monolithic) إلى البنى الموزعة. LANs، Client/Server، الحوسبة السحابية، و SOA.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">LAN vs WAN</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Client/Server</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Cloud Computing</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Middleware</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">SOA</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">LAN vs WAN</span>
+                    <span class="lang-ar lang-hidden">LAN vs WAN</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Client/Server</span>
+                    <span class="lang-ar lang-hidden">Client/Server</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Cloud Computing</span>
+                    <span class="lang-ar lang-hidden">الحوسبة السحابية</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Middleware</span>
+                    <span class="lang-ar lang-hidden">البرمجيات الوسيطة</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">SOA</span>
+                    <span class="lang-ar lang-hidden">SOA</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Designing LAN Systems</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Designing LAN Systems</span>
+                    <span class="lang-ar lang-hidden">تصميم أنظمة LAN</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Local Area Networks (LANs) support workgroups. The design typically involves sharing resources (printers, databases) efficiently.
+                    <span class="lang-en">Local Area Networks (LANs) support workgroups. The design typically involves sharing resources (printers, databases) efficiently.</span>
+                    <span class="lang-ar lang-hidden">تدعم الشبكات المحلية (LANs) مجموعات العمل. يتضمن التصميم عادةً مشاركة الموارد (الطابعات، قواعد البيانات) بكفاءة.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">File Server Model</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">File Server Model</span>
+                            <span class="lang-ar lang-hidden">نموذج خادم الملفات (File Server)</span>
+                        </h4>
                         
                         <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                            The client requests a file, and the <strong>entire file</strong> is sent to the client for processing.
+                            <span class="lang-en">The client requests a file, and the <strong>entire file</strong> is sent to the client for processing.</span>
+                            <span class="lang-ar lang-hidden">يطلب العميل ملفاً، ويتم إرسال <strong>الملف بالكامل</strong> إلى العميل للمعالجة.</span>
                         </p>
                         <ul class="text-xs text-red-500 list-disc list-inside">
-                            <li>High network traffic.</li>
-                            <li>Client needs high processing power (Fat Client).</li>
-                            <li>Data integrity issues (concurrent updates).</li>
+                            <li>
+                                <span class="lang-en">High network traffic.</span>
+                                <span class="lang-ar lang-hidden">حركة مرور عالية في الشبكة.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Client needs high processing power (Fat Client).</span>
+                                <span class="lang-ar lang-hidden">يحتاج العميل إلى قوة معالجة عالية (Fat Client).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Data integrity issues (concurrent updates).</span>
+                                <span class="lang-ar lang-hidden">مشاكل تكامل البيانات (تحديثات متزامنة).</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Client/Server Model</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">Client/Server Model</span>
+                            <span class="lang-ar lang-hidden">نموذج العميل/الخادم (Client/Server)</span>
+                        </h4>
                         
-
-
                         <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                            The client requests data, the server <strong>processes</strong> the request (e.g., SQL query) and sends back only the <strong>result</strong>.
+                            <span class="lang-en">The client requests data, the server <strong>processes</strong> the request (e.g., SQL query) and sends back only the <strong>result</strong>.</span>
+                            <span class="lang-ar lang-hidden">يطلب العميل البيانات، يقوم الخادم <strong>بمعالجة</strong> الطلب (مثل استعلام SQL) ويرسل <strong>النتيجة</strong> فقط.</span>
                         </p>
                         <ul class="text-xs text-green-500 list-disc list-inside">
-                            <li>Lower network traffic.</li>
-                            <li>Processing is distributed.</li>
-                            <li>Better data integrity (DBMS handles locking).</li>
+                            <li>
+                                <span class="lang-en">Lower network traffic.</span>
+                                <span class="lang-ar lang-hidden">حركة مرور أقل في الشبكة.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Processing is distributed.</span>
+                                <span class="lang-ar lang-hidden">المعالجة موزعة.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Better data integrity (DBMS handles locking).</span>
+                                <span class="lang-ar lang-hidden">تكامل بيانات أفضل (DBMS يدير الأقفال).</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -216,49 +279,78 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Architectures</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Advanced Architectures</span>
+                    <span class="lang-ar lang-hidden">البنى المتقدمة</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Three-Tier Architecture</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Three-Tier Architecture</span>
+                        <span class="lang-ar lang-hidden">البنية ثلاثية الطبقات (Three-Tier Architecture)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Separating the application logic from the data and the user interface.
+                        <span class="lang-en">Separating the application logic from the data and the user interface.</span>
+                        <span class="lang-ar lang-hidden">فصل منطق التطبيق عن البيانات وواجهة المستخدم.</span>
                     </p>
                     <div class="flex flex-col md:flex-row justify-between items-center text-center gap-4 text-sm font-bold text-gray-600 dark:text-gray-400">
                         <div class="p-3 bg-blue-100 dark:bg-blue-900/30 rounded w-full border border-blue-200 dark:border-blue-800">
-                            1. Presentation Tier<br><span class="text-xs font-normal">(Client/Browser)</span>
+                            <span class="lang-en">1. Presentation Tier</span>
+                            <span class="lang-ar lang-hidden">1. طبقة العرض</span>
+                            <br><span class="text-xs font-normal">
+                                <span class="lang-en">(Client/Browser)</span>
+                                <span class="lang-ar lang-hidden">(العميل/المتصفح)</span>
+                            </span>
                         </div>
                         <i class="fa-solid fa-arrow-right-arrow-left"></i>
                         <div class="p-3 bg-purple-100 dark:bg-purple-900/30 rounded w-full border border-purple-200 dark:border-purple-800">
-                            2. Application Tier<br><span class="text-xs font-normal">(Business Logic/Web Server)</span>
+                            <span class="lang-en">2. Application Tier</span>
+                            <span class="lang-ar lang-hidden">2. طبقة التطبيق</span>
+                            <br><span class="text-xs font-normal">
+                                <span class="lang-en">(Business Logic/Web Server)</span>
+                                <span class="lang-ar lang-hidden">(منطق العمل/خادم الويب)</span>
+                            </span>
                         </div>
                         <i class="fa-solid fa-arrow-right-arrow-left"></i>
                         <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded w-full border border-green-200 dark:border-green-800">
-                            3. Data Tier<br><span class="text-xs font-normal">(Database Server)</span>
+                            <span class="lang-en">3. Data Tier</span>
+                            <span class="lang-ar lang-hidden">3. طبقة البيانات</span>
+                            <br><span class="text-xs font-normal">
+                                <span class="lang-en">(Database Server)</span>
+                                <span class="lang-ar lang-hidden">(خادم قاعدة البيانات)</span>
+                            </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-cyan-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Cloud Computing</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Cloud Computing</span>
+                        <span class="lang-ar lang-hidden">الحوسبة السحابية (Cloud Computing)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Provisioning computing resources (hardware, software) over the internet on-demand.
+                        <span class="lang-en">Provisioning computing resources (hardware, software) over the internet on-demand.</span>
+                        <span class="lang-ar lang-hidden">توفير موارد الحوسبة (الأجهزة، البرمجيات) عبر الإنترنت عند الطلب.</span>
                     </p>
                     <div class="grid md:grid-cols-3 gap-4 text-xs">
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
                             <strong class="block text-cyan-600 mb-1">IaaS</strong>
-                            Infrastructure as a Service. (Hardware, Storage, Network). e.g., AWS EC2.
+                            <span class="lang-en">Infrastructure as a Service. (Hardware, Storage, Network). e.g., AWS EC2.</span>
+                            <span class="lang-ar lang-hidden">البنية التحتية كخدمة. (الأجهزة، التخزين، الشبكة).</span>
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
                             <strong class="block text-cyan-600 mb-1">PaaS</strong>
-                            Platform as a Service. (OS, Runtime, Middleware). e.g., Google App Engine.
+                            <span class="lang-en">Platform as a Service. (OS, Runtime, Middleware). e.g., Google App Engine.</span>
+                            <span class="lang-ar lang-hidden">المنصة كخدمة. (نظام التشغيل، بيئة التشغيل، البرمجيات الوسيطة).</span>
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
                             <strong class="block text-cyan-600 mb-1">SaaS</strong>
-                            Software as a Service. (Applications). e.g., Salesforce, Gmail.
+                            <span class="lang-en">Software as a Service. (Applications). e.g., Salesforce, Gmail.</span>
+                            <span class="lang-ar lang-hidden">البرمجيات كخدمة. (التطبيقات). مثل Gmail.</span>
                         </div>
                     </div>
                 </div>
@@ -266,14 +358,21 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Designing Internet Systems</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Designing Internet Systems</span>
+                    <span class="lang-ar lang-hidden">تصميم أنظمة الإنترنت</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-code text-brand-500 mr-2"></i>Standards</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                        <i class="fa-solid fa-code text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Standards</span>
+                        <span class="lang-ar lang-hidden">المعايير (Standards)</span>
+                    </h4>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
                         <li><strong>BPEL:</strong> Business Process Execution Language.</li>
                         <li><strong>SOAP:</strong> Simple Object Access Protocol (XML based).</li>
@@ -282,46 +381,82 @@
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm"><i class="fa-solid fa-triangle-exclamation text-yellow-500 mr-2"></i>Key Issues</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Key Issues</span>
+                        <span class="lang-ar lang-hidden">قضايا رئيسية</span>
+                    </h4>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
-                        <li><strong>Security:</strong> Balancing ease of use with protection.</li>
-                        <li><strong>Performance:</strong> Variable connection speeds.</li>
-                        <li><strong>Integration:</strong> Combining legacy data with new web apps.</li>
+                        <li>
+                            <strong><span class="lang-en">Security:</span><span class="lang-ar lang-hidden">الأمان:</span></strong> 
+                            <span class="lang-en">Balancing ease of use with protection.</span>
+                            <span class="lang-ar lang-hidden">الموازنة بين سهولة الاستخدام والحماية.</span>
+                        </li>
+                        <li>
+                            <strong><span class="lang-en">Performance:</span><span class="lang-ar lang-hidden">الأداء:</span></strong> 
+                            <span class="lang-en">Variable connection speeds.</span>
+                            <span class="lang-ar lang-hidden">سرعات اتصال متغيرة.</span>
+                        </li>
+                        <li>
+                            <strong><span class="lang-en">Integration:</span><span class="lang-ar lang-hidden">التكامل:</span></strong> 
+                            <span class="lang-en">Combining legacy data with new web apps.</span>
+                            <span class="lang-ar lang-hidden">دمج البيانات القديمة مع تطبيقات الويب الجديدة.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
             
             <div class="mt-6 glass-card p-5 rounded-xl border-l-4 border-green-500">
-                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">Content Management Systems (CMS)</h4>
-                
-
-
+                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">
+                    <span class="lang-en">Content Management Systems (CMS)</span>
+                    <span class="lang-ar lang-hidden">أنظمة إدارة المحتوى (CMS)</span>
+                </h4>
                 <p class="text-xs text-gray-600 dark:text-gray-300">
-                    Software that collects, organizes, and publishes website content. It separates the <strong>content</strong> (text/images stored in DB) from the <strong>presentation</strong> (templates). This allows non-technical users to update sites without knowing HTML.
+                    <span class="lang-en">Software that collects, organizes, and publishes website content. It separates the <strong>content</strong> (text/images stored in DB) from the <strong>presentation</strong> (templates). This allows non-technical users to update sites without knowing HTML.</span>
+                    <span class="lang-ar lang-hidden">برمجيات تجمع وتنظم وتنشر محتوى الموقع. تفصل <strong>المحتوى</strong> (النصوص/الصور المخزنة في قاعدة البيانات) عن <strong>العرض</strong> (القوالب). يتيح ذلك للمستخدمين غير التقنيين تحديث المواقع دون معرفة HTML.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Service-Oriented Architecture (SOA)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Service-Oriented Architecture (SOA)</span>
+                    <span class="lang-ar lang-hidden">البنية الموجهة للخدمات (SOA)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="flex items-start">
-                    <div class="bg-purple-100 dark:bg-purple-900/30 text-purple-600 p-3 rounded-lg mr-4">
+                    <div class="bg-purple-100 dark:bg-purple-900/30 text-purple-600 p-3 rounded-lg mr-4 rtl:ml-4 rtl:mr-0">
                         <i class="fa-solid fa-cubes-stacked"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">SOA (Service-Oriented Architecture)</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">SOA (Service-Oriented Architecture)</span>
+                            <span class="lang-ar lang-hidden">SOA (البنية الموجهة للخدمات)</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                            Business processes broken down into individual <span class="smart-term font-bold text-purple-500" data-ar="خدمات">Services</span>.
+                            <span class="lang-en">Business processes broken down into individual <span class="smart-term font-bold text-purple-500" data-ar="خدمات">Services</span>.</span>
+                            <span class="lang-ar lang-hidden">عمليات تجارية مقسمة إلى <span class="font-bold text-purple-500">Services</span> فردية.</span>
                         </p>
                         <ul class="text-xs text-gray-600 dark:text-gray-400 list-disc list-inside">
-                            <li><strong>Reusability:</strong> A "Check Credit" service can be used by Sales, Finance, and Web Store.</li>
-                            <li><strong>Interoperability:</strong> Services communicate via standard protocols (like XML/SOAP), regardless of the language they were written in.</li>
-                            <li><strong>Componentization:</strong> Build systems like Lego blocks.</li>
+                            <li>
+                                <strong><span class="lang-en">Reusability:</span><span class="lang-ar lang-hidden">قابلية إعادة الاستخدام:</span></strong>
+                                <span class="lang-en">A "Check Credit" service can be used by Sales, Finance, and Web Store.</span>
+                                <span class="lang-ar lang-hidden">خدمة "التحقق من الرصيد" يمكن استخدامها من قبل المبيعات، المالية، والمتجر الإلكتروني.</span>
+                            </li>
+                            <li>
+                                <strong><span class="lang-en">Interoperability:</span><span class="lang-ar lang-hidden">قابلية التشغيل البيني:</span></strong>
+                                <span class="lang-en">Services communicate via standard protocols (like XML/SOAP), regardless of the language they were written in.</span>
+                                <span class="lang-ar lang-hidden">تتواصل الخدمات عبر بروتوكولات قياسية (مثل XML/SOAP)، بغض النظر عن لغة برمجتها.</span>
+                            </li>
+                            <li>
+                                <strong><span class="lang-en">Componentization:</span><span class="lang-ar lang-hidden">التركيب:</span></strong>
+                                <span class="lang-en">Build systems like Lego blocks.</span>
+                                <span class="lang-ar lang-hidden">بناء الأنظمة مثل مكعبات الليغو.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -332,53 +467,68 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبارات</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: File Server vs Client/Server
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: File Server vs Client/Server</span>
+                            <span class="lang-ar lang-hidden">فخ: File Server vs Client/Server</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>File Server:</strong> Sends the *whole file* to the client. Processing happens on the Client. (Bad for big data).
-                            <strong>Client/Server:</strong> Server processes the query and sends *only results*. Processing happens on the Server. (Good for big data).
+                            <span class="lang-en"><strong>File Server:</strong> Sends the *whole file* to the client. Processing happens on the Client. (Bad for big data). <br><strong>Client/Server:</strong> Server processes the query and sends *only results*. Processing happens on the Server. (Good for big data).</span>
+                            <span class="lang-ar lang-hidden"><strong>File Server:</strong> يرسل *الملف بالكامل* للعميل. المعالجة تتم عند العميل. (سيء للبيانات الضخمة). <br><strong>Client/Server:</strong> يعالج الخادم الاستعلام ويرسل *النتائج فقط*. المعالجة تتم في الخادم. (جيد للبيانات الضخمة).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Fat vs Thin Client
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Fat vs Thin Client</span>
+                            <span class="lang-ar lang-hidden">فخ: Fat vs Thin Client</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Fat Client:</strong> PC does most of the processing (Presentation + Logic). Server just holds data.
-                            <strong>Thin Client:</strong> PC only does Presentation (UI). Server does Logic + Data. (Easier to update software).
+                            <span class="lang-en"><strong>Fat Client:</strong> PC does most of the processing (Presentation + Logic). Server just holds data. <br><strong>Thin Client:</strong> PC only does Presentation (UI). Server does Logic + Data. (Easier to update software).</span>
+                            <span class="lang-ar lang-hidden"><strong>Fat Client (العميل الثري):</strong> الحاسوب الشخصي يقوم بمعظم المعالجة (العرض + المنطق). الخادم يحفظ البيانات فقط. <br><strong>Thin Client (العميل النحيف):</strong> الحاسوب الشخصي يقوم بالعرض فقط (UI). الخادم يقوم بالمنطق + البيانات. (أسهل في تحديث البرمجيات).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Middleware
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Middleware</span>
+                            <span class="lang-ar lang-hidden">سر: Middleware (البرمجيات الوسيطة)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Middleware is the "glue" that allows disparate systems to talk. It sits between the OS and the Application.
-                            <br>Example: <strong>ODBC/JDBC</strong> allows a Java program to talk to an Oracle Database without knowing Oracle-specific commands.
+                            <span class="lang-en">Middleware is the "glue" that allows disparate systems to talk. It sits between the OS and the Application. <br>Example: <strong>ODBC/JDBC</strong> allows a Java program to talk to an Oracle Database without knowing Oracle-specific commands.</span>
+                            <span class="lang-ar lang-hidden">الـ Middleware هو "الغراء" الذي يسمح للأنظمة المتباينة بالتحدث. يقع بين نظام التشغيل والتطبيق. <br>مثال: <strong>ODBC/JDBC</strong> يسمح لبرنامج Java بالتحدث مع قاعدة بيانات Oracle دون معرفة أوامر Oracle الخاصة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: SOA Benefits
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: SOA Benefits</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: فوائد SOA</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Why SOA? It decouples systems. If you change the "Credit Check" code, you don't break the Sales System, as long as the <strong>Service Interface</strong> (Input/Output) stays the same.
+                            <span class="lang-en">Why SOA? It decouples systems. If you change the "Credit Check" code, you don't break the Sales System, as long as the <strong>Service Interface</strong> (Input/Output) stays the same.</span>
+                            <span class="lang-ar lang-hidden">لماذا SOA؟ لأنها تفصل الأنظمة (Decouples). إذا غيرت كود "التحقق من الرصيد"، فلن تعطل نظام المبيعات، طالما بقيت <strong>واجهة الخدمة</strong> (المدخلات/المخرجات) كما هي.</span>
                         </p>
                     </div>
                 </div>
@@ -389,21 +539,35 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 10</span>
+                    <span class="lang-ar lang-hidden">الوحدة 10</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 12</span>
+                    <span class="lang-ar lang-hidden">الوحدة 12</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس CS. صممت للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        const langToggleBtn = document.getElementById('lang-toggle');
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -419,46 +583,42 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
-        
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
-
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('lang-hidden', lang === 'ar'));
+            document.querySelectorAll('.lang-ar').forEach(el => el.classList.toggle('lang-hidden', lang !== 'ar'));
         }
 
-    });
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        langToggleBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('lang');
+            setLanguage(current === 'en' ? 'ar' : 'en');
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} completed.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

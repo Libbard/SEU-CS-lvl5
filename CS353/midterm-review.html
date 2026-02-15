@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Midterm Master Review</title>
@@ -133,6 +142,36 @@
             -webkit-text-fill-color: transparent;
             animation: shimmer 3s infinite linear;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+
+        
+        [dir="rtl"] mjx-container, 
+        [dir="rtl"] .MathJax { 
+            direction: ltr !important; 
+            text-align: left !important;
+            display: inline-block;
+        }
+
+        
+        [dir="rtl"] .ml-1 { margin-left: 0; margin-right: 0.25rem; }
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-angle-right { transform: rotate(180deg); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -140,7 +179,7 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="../index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Main Dashboard">
                         <i class="fa-solid fa-layer-group text-xl"></i>
                     </a>
@@ -150,19 +189,34 @@
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Midterm Review</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Midterm Review</span>
+                        <span class="lang-ar lang-hidden">مراجعة المنتصف</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="midterm-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Quiz</span>
+                            <span class="lang-ar lang-hidden">الاختبار</span>
+                        </span>
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -179,78 +233,139 @@
                 <i class="fa-solid fa-book-open-reader text-4xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Master Review</span>
+                <span class="lang-en">Midterm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Master Review</span></span>
+                <span class="lang-ar lang-hidden">مراجعة <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">منتصف الفصل الشاملة</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Comprehensive summary of Modules 1 through 6. Everything you need to know about Analysis, Sorting, Brute Force, Divide & Conquer, and Transform strategies.
+                <span class="lang-en">Comprehensive summary of Modules 1 through 6. Everything you need to know about Analysis, Sorting, Brute Force, Divide & Conquer, and Transform strategies.</span>
+                <span class="lang-ar lang-hidden">ملخص شامل للوحدات من 1 إلى 6. كل ما تحتاج معرفته عن التحليل (Analysis)، الفرز (Sorting)، القوة الغاشمة (Brute Force)، فرق تسد (Divide & Conquer)، واستراتيجيات التحويل (Transform).</span>
             </p>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">1. Fundamentals & Analysis (Mod 1-2)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">1. Fundamentals & Analysis (Mod 1-2)</span>
+                    <span class="lang-ar lang-hidden">1. الأساسيات والتحليل (Mod 1-2)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4"><i class="fa-solid fa-chart-line mr-2 text-brand-500"></i> Asymptotic Notations</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        <i class="fa-solid fa-chart-line mr-2 rtl:ml-2 rtl:mr-0 text-brand-500"></i> 
+                        <span class="lang-en">Asymptotic Notations</span>
+                        <span class="lang-ar lang-hidden">Asymptotic Notations (الترميز التقاربي)</span>
+                    </h3>
                     <div class="space-y-4">
                         <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
                             <div>
                                 <span class="font-bold text-rose-500">$O(g(n))$</span>
-                                <span class="text-xs text-gray-500 block">Big-O</span>
+                                <span class="text-xs text-gray-500 block">
+                                    <span class="lang-en">Big-O</span>
+                                    <span class="lang-ar lang-hidden">Big-O</span>
+                                </span>
                             </div>
-                            <div class="text-right">
-                                <span class="text-sm font-mono">$t(n) \le c \cdot g(n)$</span>
-                                <span class="text-xs text-gray-500 block">Worst Case (Upper Bound)</span>
+                            <div class="text-right rtl:text-left">
+                                <span class="text-sm font-mono direction-ltr">$t(n) \le c \cdot g(n)$</span>
+                                <span class="text-xs text-gray-500 block">
+                                    <span class="lang-en">Worst Case (Upper Bound)</span>
+                                    <span class="lang-ar lang-hidden">الحالة الأسوأ (حد أعلى)</span>
+                                </span>
                             </div>
                         </div>
                         <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
                             <div>
                                 <span class="font-bold text-emerald-500">$\Omega(g(n))$</span>
-                                <span class="text-xs text-gray-500 block">Omega</span>
+                                <span class="text-xs text-gray-500 block">
+                                    <span class="lang-en">Omega</span>
+                                    <span class="lang-ar lang-hidden">Omega</span>
+                                </span>
                             </div>
-                            <div class="text-right">
-                                <span class="text-sm font-mono">$t(n) \ge c \cdot g(n)$</span>
-                                <span class="text-xs text-gray-500 block">Best Case (Lower Bound)</span>
+                            <div class="text-right rtl:text-left">
+                                <span class="text-sm font-mono direction-ltr">$t(n) \ge c \cdot g(n)$</span>
+                                <span class="text-xs text-gray-500 block">
+                                    <span class="lang-en">Best Case (Lower Bound)</span>
+                                    <span class="lang-ar lang-hidden">الحالة الأفضل (حد أدنى)</span>
+                                </span>
                             </div>
                         </div>
                         <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
                             <div>
                                 <span class="font-bold text-blue-500">$\Theta(g(n))$</span>
-                                <span class="text-xs text-gray-500 block">Theta</span>
+                                <span class="text-xs text-gray-500 block">
+                                    <span class="lang-en">Theta</span>
+                                    <span class="lang-ar lang-hidden">Theta</span>
+                                </span>
                             </div>
-                            <div class="text-right">
-                                <span class="text-sm font-mono">$c_1 g(n) \le t(n) \le c_2 g(n)$</span>
-                                <span class="text-xs text-gray-500 block">Average/Tight Bound</span>
+                            <div class="text-right rtl:text-left">
+                                <span class="text-sm font-mono direction-ltr">$c_1 g(n) \le t(n) \le c_2 g(n)$</span>
+                                <span class="text-xs text-gray-500 block">
+                                    <span class="lang-en">Average/Tight Bound</span>
+                                    <span class="lang-ar lang-hidden">المتوسط / حد محكم</span>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4"><i class="fa-solid fa-list-check mr-2 text-blue-500"></i> How to Analyze</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        <i class="fa-solid fa-list-check mr-2 rtl:ml-2 rtl:mr-0 text-blue-500"></i> 
+                        <span class="lang-en">How to Analyze</span>
+                        <span class="lang-ar lang-hidden">كيفية التحليل</span>
+                    </h3>
                     
                     <div class="mb-4">
-                        <span class="text-xs font-bold uppercase text-gray-500">Non-Recursive (Iterative)</span>
+                        <span class="text-xs font-bold uppercase text-gray-500">
+                            <span class="lang-en">Non-Recursive (Iterative)</span>
+                            <span class="lang-ar lang-hidden">غير تكراري (Iterative)</span>
+                        </span>
                         <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 mt-1 space-y-1">
-                            <li>Identify parameter $n$.</li>
-                            <li>Find the <strong>Basic Operation</strong> (innermost loop).</li>
-                            <li>Set up a sum $\sum$.</li>
-                            <li>Solve: $\sum_{i=1}^n 1 = n$, $\sum_{i=1}^n i \approx n^2/2$.</li>
+                            <li>
+                                <span class="lang-en">Identify parameter $n$.</span>
+                                <span class="lang-ar lang-hidden">حدد المعامل $n$.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Find the <strong>Basic Operation</strong> (innermost loop).</span>
+                                <span class="lang-ar lang-hidden">ابحث عن <strong>Basic Operation</strong> (الحلقة الداخلية).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Set up a sum $\sum$.</span>
+                                <span class="lang-ar lang-hidden">قم بإعداد المجموع $\sum$.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Solve: $\sum_{i=1}^n 1 = n$, $\sum_{i=1}^n i \approx n^2/2$.</span>
+                                <span class="lang-ar lang-hidden">حل: $\sum_{i=1}^n 1 = n$, $\sum_{i=1}^n i \approx n^2/2$.</span>
+                            </li>
                         </ol>
                     </div>
 
                     <div>
-                        <span class="text-xs font-bold uppercase text-gray-500">Recursive</span>
+                        <span class="text-xs font-bold uppercase text-gray-500">
+                            <span class="lang-en">Recursive</span>
+                            <span class="lang-ar lang-hidden">تكراري (Recursive)</span>
+                        </span>
                         <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 mt-1 space-y-1">
-                            <li>Identify parameter $n$.</li>
-                            <li>Set up recurrence relation (e.g., $M(n) = M(n-1) + 1$).</li>
-                            <li>Identify base case (e.g., $M(0) = 0$).</li>
-                            <li>Solve using <strong>Backward Substitution</strong>.</li>
+                            <li>
+                                <span class="lang-en">Identify parameter $n$.</span>
+                                <span class="lang-ar lang-hidden">حدد المعامل $n$.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Set up recurrence relation (e.g., $M(n) = M(n-1) + 1$).</span>
+                                <span class="lang-ar lang-hidden">أنشئ علاقة تكرارية (مثلاً $M(n) = M(n-1) + 1$).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Identify base case (e.g., $M(0) = 0$).</span>
+                                <span class="lang-ar lang-hidden">حدد الحالة الأساسية (Base case).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Solve using <strong>Backward Substitution</strong>.</span>
+                                <span class="lang-ar lang-hidden">حل باستخدام <strong>Backward Substitution</strong>.</span>
+                            </li>
                         </ol>
                     </div>
                 </div>
@@ -258,129 +373,283 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">2. The Sorting Landscape (Mod 3, 4, 5)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">2. The Sorting Landscape (Mod 3, 4, 5)</span>
+                    <span class="lang-ar lang-hidden">2. مشهد الفرز (Mod 3, 4, 5)</span>
+                </h2>
             </div>
 
             <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead class="bg-gray-50 dark:bg-gray-800">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Algorithm</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Strategy</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-emerald-500 uppercase tracking-wider">Best Case</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-blue-500 uppercase tracking-wider">Average</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-rose-500 uppercase tracking-wider">Worst Case</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Stable?</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">In-Place?</th>
+                            <th scope="col" class="px-6 py-3 text-left rtl:text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                <span class="lang-en">Algorithm</span>
+                                <span class="lang-ar lang-hidden">الخوارزمية</span>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left rtl:text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                <span class="lang-en">Strategy</span>
+                                <span class="lang-ar lang-hidden">الاستراتيجية</span>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left rtl:text-right text-xs font-bold text-emerald-500 uppercase tracking-wider">
+                                <span class="lang-en">Best Case</span>
+                                <span class="lang-ar lang-hidden">Best Case</span>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left rtl:text-right text-xs font-bold text-blue-500 uppercase tracking-wider">
+                                <span class="lang-en">Average</span>
+                                <span class="lang-ar lang-hidden">Average</span>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left rtl:text-right text-xs font-bold text-rose-500 uppercase tracking-wider">
+                                <span class="lang-en">Worst Case</span>
+                                <span class="lang-ar lang-hidden">Worst Case</span>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left rtl:text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                <span class="lang-en">Stable?</span>
+                                <span class="lang-ar lang-hidden">مستقر؟</span>
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left rtl:text-right text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                <span class="lang-en">In-Place?</span>
+                                <span class="lang-ar lang-hidden">في المكان؟</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800 text-sm">
                         <tr>
-                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Selection Sort</td>
-                            <td class="px-6 py-4 text-gray-500">Brute Force</td>
-                            <td class="px-6 py-4 font-mono">$O(n^2)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n^2)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n^2)$</td>
-                            <td class="px-6 py-4 text-rose-500"><i class="fa-solid fa-xmark"></i> No</td>
-                            <td class="px-6 py-4 text-emerald-500"><i class="fa-solid fa-check"></i> Yes</td>
+                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Selection Sort</span>
+                                <span class="lang-ar lang-hidden">Selection Sort</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-500">
+                                <span class="lang-en">Brute Force</span>
+                                <span class="lang-ar lang-hidden">Brute Force</span>
+                            </td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 text-rose-500">
+                                <i class="fa-solid fa-xmark"></i> 
+                                <span class="lang-en">No</span>
+                                <span class="lang-ar lang-hidden">لا</span>
+                            </td>
+                            <td class="px-6 py-4 text-emerald-500">
+                                <i class="fa-solid fa-check"></i> 
+                                <span class="lang-en">Yes</span>
+                                <span class="lang-ar lang-hidden">نعم</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Bubble Sort</td>
-                            <td class="px-6 py-4 text-gray-500">Brute Force</td>
-                            <td class="px-6 py-4 font-mono text-emerald-500">$O(n)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n^2)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n^2)$</td>
-                            <td class="px-6 py-4 text-emerald-500"><i class="fa-solid fa-check"></i> Yes</td>
-                            <td class="px-6 py-4 text-emerald-500"><i class="fa-solid fa-check"></i> Yes</td>
+                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Bubble Sort</span>
+                                <span class="lang-ar lang-hidden">Bubble Sort</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-500">
+                                <span class="lang-en">Brute Force</span>
+                                <span class="lang-ar lang-hidden">Brute Force</span>
+                            </td>
+                            <td class="px-6 py-4 font-mono text-emerald-500 direction-ltr text-left">$O(n)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 text-emerald-500">
+                                <i class="fa-solid fa-check"></i> 
+                                <span class="lang-en">Yes</span>
+                                <span class="lang-ar lang-hidden">نعم</span>
+                            </td>
+                            <td class="px-6 py-4 text-emerald-500">
+                                <i class="fa-solid fa-check"></i> 
+                                <span class="lang-en">Yes</span>
+                                <span class="lang-ar lang-hidden">نعم</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Insertion Sort</td>
-                            <td class="px-6 py-4 text-gray-500">Decrease (by 1)</td>
-                            <td class="px-6 py-4 font-mono text-emerald-500">$O(n)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n^2)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n^2)$</td>
-                            <td class="px-6 py-4 text-emerald-500"><i class="fa-solid fa-check"></i> Yes</td>
-                            <td class="px-6 py-4 text-emerald-500"><i class="fa-solid fa-check"></i> Yes</td>
+                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Insertion Sort</span>
+                                <span class="lang-ar lang-hidden">Insertion Sort</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-500">
+                                <span class="lang-en">Decrease (by 1)</span>
+                                <span class="lang-ar lang-hidden">Decrease (by 1)</span>
+                            </td>
+                            <td class="px-6 py-4 font-mono text-emerald-500 direction-ltr text-left">$O(n)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 text-emerald-500">
+                                <i class="fa-solid fa-check"></i> 
+                                <span class="lang-en">Yes</span>
+                                <span class="lang-ar lang-hidden">نعم</span>
+                            </td>
+                            <td class="px-6 py-4 text-emerald-500">
+                                <i class="fa-solid fa-check"></i> 
+                                <span class="lang-en">Yes</span>
+                                <span class="lang-ar lang-hidden">نعم</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Merge Sort</td>
-                            <td class="px-6 py-4 text-gray-500">Divide & Conquer</td>
-                            <td class="px-6 py-4 font-mono">$O(n \log n)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n \log n)$</td>
-                            <td class="px-6 py-4 font-mono text-emerald-500">$O(n \log n)$</td>
-                            <td class="px-6 py-4 text-emerald-500"><i class="fa-solid fa-check"></i> Yes</td>
-                            <td class="px-6 py-4 text-rose-500"><i class="fa-solid fa-xmark"></i> No</td>
+                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Merge Sort</span>
+                                <span class="lang-ar lang-hidden">Merge Sort</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-500">
+                                <span class="lang-en">Divide & Conquer</span>
+                                <span class="lang-ar lang-hidden">Divide & Conquer</span>
+                            </td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n \log n)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n \log n)$</td>
+                            <td class="px-6 py-4 font-mono text-emerald-500 direction-ltr text-left">$O(n \log n)$</td>
+                            <td class="px-6 py-4 text-emerald-500">
+                                <i class="fa-solid fa-check"></i> 
+                                <span class="lang-en">Yes</span>
+                                <span class="lang-ar lang-hidden">نعم</span>
+                            </td>
+                            <td class="px-6 py-4 text-rose-500">
+                                <i class="fa-solid fa-xmark"></i> 
+                                <span class="lang-en">No</span>
+                                <span class="lang-ar lang-hidden">لا</span>
+                            </td>
                         </tr>
                         <tr class="bg-brand-50 dark:bg-brand-900/10">
-                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Quick Sort</td>
-                            <td class="px-6 py-4 text-gray-500">Divide & Conquer</td>
-                            <td class="px-6 py-4 font-mono">$O(n \log n)$</td>
-                            <td class="px-6 py-4 font-mono">$O(n \log n)$</td>
-                            <td class="px-6 py-4 font-mono text-rose-500 font-bold">$O(n^2)$</td>
-                            <td class="px-6 py-4 text-rose-500"><i class="fa-solid fa-xmark"></i> No</td>
-                            <td class="px-6 py-4 text-emerald-500"><i class="fa-solid fa-check"></i> Yes</td>
+                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Quick Sort</span>
+                                <span class="lang-ar lang-hidden">Quick Sort</span>
+                            </td>
+                            <td class="px-6 py-4 text-gray-500">
+                                <span class="lang-en">Divide & Conquer</span>
+                                <span class="lang-ar lang-hidden">Divide & Conquer</span>
+                            </td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n \log n)$</td>
+                            <td class="px-6 py-4 font-mono direction-ltr text-left">$O(n \log n)$</td>
+                            <td class="px-6 py-4 font-mono text-rose-500 font-bold direction-ltr text-left">$O(n^2)$</td>
+                            <td class="px-6 py-4 text-rose-500">
+                                <i class="fa-solid fa-xmark"></i> 
+                                <span class="lang-en">No</span>
+                                <span class="lang-ar lang-hidden">لا</span>
+                            </td>
+                            <td class="px-6 py-4 text-emerald-500">
+                                <i class="fa-solid fa-check"></i> 
+                                <span class="lang-en">Yes</span>
+                                <span class="lang-ar lang-hidden">نعم</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="text-xs text-gray-500 mt-2 text-right">* Bubble/Insertion Best Case: Already Sorted Array. QuickSort Worst Case: Sorted Array with bad pivot.</p>
+            <p class="text-xs text-gray-500 mt-2 text-right rtl:text-left">
+                <span class="lang-en">* Bubble/Insertion Best Case: Already Sorted Array. QuickSort Worst Case: Sorted Array with bad pivot.</span>
+                <span class="lang-ar lang-hidden" dir = 'LTR'>* Bubble/Insertion Best Case: مصفوفة مرتبة بالفعل || QuickSort Worst Case: مصفوفة مرتبة مع محور (pivot) سيء.</span>
+            </p>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">3. Advanced Techniques (Mod 4-6)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">3. Advanced Techniques (Mod 4-6)</span>
+                    <span class="lang-ar lang-hidden">3. تقنيات متقدمة (Mod 4-6)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-5 rounded-xl border-t-4 border-emerald-500">
-                    <h3 class="font-bold text-lg mb-2">Decrease & Conquer</h3>
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">Decrease & Conquer</span>
+                        <span class="lang-ar lang-hidden">Decrease & Conquer</span>
+                    </h3>
                     <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                         <li>
-                            <strong class="text-emerald-600 dark:text-emerald-400">Decrease by Constant:</strong>
-                            <br>DFS, BFS, Topological Sort (Source Removal).
+                            <strong class="text-emerald-600 dark:text-emerald-400">
+                                <span class="lang-en">Decrease by Constant:</span>
+                                <span class="lang-ar lang-hidden">Decrease by Constant:</span>
+                            </strong>
+                            <br>
+                            <span class="lang-en">DFS, BFS, Topological Sort (Source Removal).</span>
+                            <span class="lang-ar lang-hidden">DFS, BFS, Topological Sort (إزالة المصدر).</span>
                         </li>
                         <li>
-                            <strong class="text-emerald-600 dark:text-emerald-400">Decrease by Factor:</strong>
-                            <br>Binary Search ($O(\log n)$). Recurrence: $T(n) = T(n/2) + 1$.
+                            <strong class="text-emerald-600 dark:text-emerald-400">
+                                <span class="lang-en">Decrease by Factor:</span>
+                                <span class="lang-ar lang-hidden">Decrease by Factor:</span>
+                            </strong>
+                            <br>
+                            <span class="lang-en">Binary Search ($O(\log n)$). Recurrence: $T(n) = T(n/2) + 1$.</span>
+                            <span class="lang-ar lang-hidden">Binary Search ($O(\log n)$). Recurrence: $T(n) = T(n/2) + 1$.</span>
                         </li>
                         <li>
-                            <strong class="text-emerald-600 dark:text-emerald-400">Variable Size:</strong>
-                            <br>Euclid's GCD, QuickSelect ($O(n)$ avg).
+                            <strong class="text-emerald-600 dark:text-emerald-400">
+                                <span class="lang-en">Variable Size:</span>
+                                <span class="lang-ar lang-hidden">Variable Size:</span>
+                            </strong>
+                            <br>
+                            <span class="lang-en">Euclid's GCD, QuickSelect ($O(n)$ avg).</span>
+                            <span class="lang-ar lang-hidden">Euclid's GCD, QuickSelect ($O(n)$ avg).</span>
                         </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl border-t-4 border-blue-500">
-                    <h3 class="font-bold text-lg mb-2">Divide & Conquer</h3>
-                    <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs font-mono mb-3">
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">Divide & Conquer</span>
+                        <span class="lang-ar lang-hidden">Divide & Conquer</span>
+                    </h3>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs font-mono mb-3 direction-ltr text-left">
                         Master Theorem:<br>
                         $T(n) = aT(n/b) + f(n)$
                     </div>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                        <li><i class="fa-solid fa-angle-right text-blue-500 mr-1"></i> If $a > b^d \to O(n^{\log_b a})$</li>
-                        <li><i class="fa-solid fa-angle-right text-blue-500 mr-1"></i> If $a = b^d \to O(n^d \log n)$</li>
-                        <li><i class="fa-solid fa-angle-right text-blue-500 mr-1"></i> If $a < b^d \to O(n^d)$</li>
+                        <li>
+                            <i class="fa-solid fa-angle-right text-blue-500 mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                            <span class="lang-en">If $a > b^d \to O(n^{\log_b a})$</span>
+                            <span class="lang-ar lang-hidden">If $a > b^d \to O(n^{\log_b a})$</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-angle-right text-blue-500 mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                            <span class="lang-en">If $a = b^d \to O(n^d \log n)$</span>
+                            <span class="lang-ar lang-hidden">If $a = b^d \to O(n^d \log n)$</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-angle-right text-blue-500 mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                            <span class="lang-en">If $a < b^d \to O(n^d)$</span>
+                            <span class="lang-ar lang-hidden">If $a < b^d \to O(n^d)$</span>
+                        </li>
                     </ul>
-                    <p class="text-xs text-gray-500 mt-2"><strong>Ex:</strong> Strassen's ($O(n^{2.8})$), Tree Traversals ($O(n)$).</p>
+                    <p class="text-xs text-gray-500 mt-2">
+                        <span class="lang-en"><strong>Ex:</strong> Strassen's ($O(n^{2.8})$), Tree Traversals ($O(n)$).</span>
+                        <span class="lang-ar lang-hidden"><strong>أمثلة:</strong> Strassen's ($O(n^{2.8})$), Tree Traversals ($O(n)$).</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl border-t-4 border-purple-500">
-                    <h3 class="font-bold text-lg mb-2">Transform & Conquer</h3>
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">Transform & Conquer</span>
+                        <span class="lang-ar lang-hidden">Transform & Conquer</span>
+                    </h3>
                     <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                         <li>
-                            <strong class="text-purple-600 dark:text-purple-400">Presorting:</strong>
-                            <br>Sort first ($n \log n$) to make searching ($O(\log n)$) or uniqueness check ($O(n)$) faster.
+                            <strong class="text-purple-600 dark:text-purple-400">
+                                <span class="lang-en">Presorting:</span>
+                                <span class="lang-ar lang-hidden">Presorting:</span>
+                            </strong>
+                            <br>
+                            <span class="lang-en">Sort first ($n \log n$) to make searching ($O(\log n)$) or uniqueness check ($O(n)$) faster.</span>
+                            <span class="lang-ar lang-hidden">الفرز أولاً ($n \log n$) لجعل البحث ($O(\log n)$) أو التحقق من التفرد ($O(n)$) أسرع.</span>
                         </li>
                         <li>
-                            <strong class="text-purple-600 dark:text-purple-400">Representation Change:</strong>
-                            <br>AVL Trees (Balanced BST). Height diff $\le 1$.
+                            <strong class="text-purple-600 dark:text-purple-400">
+                                <span class="lang-en">Representation Change:</span>
+                                <span class="lang-ar lang-hidden">Representation Change:</span>
+                            </strong>
+                            <br>
+                            <span class="lang-en">AVL Trees (Balanced BST). Height diff $\le 1$.</span>
+                            <span class="lang-ar lang-hidden">AVL Trees (Balanced BST). فرق الارتفاع $\le 1$.</span>
                         </li>
                         <li>
-                            <strong class="text-purple-600 dark:text-purple-400">Problem Reduction:</strong>
-                            <br>LCM via GCD ($LCM = u \cdot v / GCD$).
+                            <strong class="text-purple-600 dark:text-purple-400">
+                                <span class="lang-en">Problem Reduction:</span>
+                                <span class="lang-ar lang-hidden">Problem Reduction:</span>
+                            </strong>
+                            <br>
+                            <span class="lang-en">LCM via GCD ($LCM = u \cdot v / GCD$).</span>
+                            <span class="lang-ar lang-hidden">LCM عبر GCD ($LCM = u \cdot v / GCD$).</span>
                         </li>
                     </ul>
                 </div>
@@ -392,13 +661,19 @@
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
                 <div class="flex items-center justify-between mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
-                    <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-4 rtl:space-x-reverse">
                         <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                             <i class="fa-solid fa-vault text-2xl"></i>
                         </div>
                         <div>
-                            <h2 class="text-2xl font-bold vault-header">The Mega Exam Vault</h2>
-                            <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Top Tricks from Modules 1-6</p>
+                            <h2 class="text-2xl font-bold vault-header">
+                                <span class="lang-en">The Mega Exam Vault</span>
+                                <span class="lang-ar lang-hidden">خزنة الاختبار الكبرى</span>
+                            </h2>
+                            <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                                <span class="lang-en">Top Tricks from Modules 1-6</span>
+                                <span class="lang-ar lang-hidden">أهم الحيل من الوحدات 1-6</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -406,59 +681,81 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Input Size
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Input Size</span>
+                            <span class="lang-ar lang-hidden">فخ: حجم المدخلات (Input Size)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            For number problems (like Primality Test or factoring), the input size $n$ is the <strong>number of bits</strong> ($\log_2 \text{value}$), NOT the magnitude of the number itself.
+                            <span class="lang-en">For number problems (like Primality Test or factoring), the input size $n$ is the <strong>number of bits</strong> ($\log_2 \text{value}$), NOT the magnitude of the number itself.</span>
+                            <span class="lang-ar lang-hidden">في المشاكل الرقمية (مثل اختبار الأولية أو التحليل)، حجم المدخلات $n$ هو <strong>عدد البتات</strong> ($\log_2 \text{value}$)، وليس مقدار الرقم نفسه.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: DFS vs BFS Complexity
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: DFS vs BFS Complexity</span>
+                            <span class="lang-ar lang-hidden">فخ: تعقيد DFS vs BFS</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The complexity depends on the <strong>Data Structure</strong>.
+                            <span class="lang-en">The complexity depends on the <strong>Data Structure</strong>.
                             <br>Adjacency Matrix: $O(|V|^2)$.
                             <br>Adjacency List: $O(|V| + |E|)$.
-                            <br>Never just say "$O(N)$".
+                            <br>Never just say "$O(N)$".</span>
+                            <span class="lang-ar lang-hidden">التعقيد يعتمد على <strong>هيكل البيانات (Data Structure)</strong>.
+                            <br>Adjacency Matrix: $O(|V|^2)$.
+                            <br>Adjacency List: $O(|V| + |E|)$.
+                            <br>لا تقل أبداً "$O(N)$" فقط.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: QuickSort Worst Case
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: QuickSort Worst Case</span>
+                            <span class="lang-ar lang-hidden">فخ: QuickSort Worst Case</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Is QuickSort always $O(n \log n)$?" <br>
-                            <strong>NO.</strong> If the array is already sorted and you pick the first element as pivot, it becomes $O(n^2)$. Randomizing the pivot fixes this probabilistically.
+                            <span class="lang-en">"Is QuickSort always $O(n \log n)$?" <br>
+                            <strong>NO.</strong> If the array is already sorted and you pick the first element as pivot, it becomes $O(n^2)$. Randomizing the pivot fixes this probabilistically.</span>
+                            <span class="lang-ar lang-hidden">"هل QuickSort دائماً $O(n \log n)$؟" <br>
+                            <strong>لا.</strong> إذا كانت المصفوفة مرتبة بالفعل واخترت العنصر الأول كمحور (pivot)، يصبح $O(n^2)$. اختيار المحور عشوائياً يحل هذه المشكلة احتمالياً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Topo Sort Cycles
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Topo Sort Cycles</span>
+                            <span class="lang-ar lang-hidden">فخ: دورات Topo Sort</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Topological Sort is IMPOSSIBLE if the graph has a <strong>Cycle</strong>. It only works on DAGs. If an exam question asks for a topo sort of a cyclic graph, write "No Solution".
+                            <span class="lang-en">Topological Sort is IMPOSSIBLE if the graph has a <strong>Cycle</strong>. It only works on DAGs. If an exam question asks for a topo sort of a cyclic graph, write "No Solution".</span>
+                            <span class="lang-ar lang-hidden">الـ Topological Sort مستحيل إذا كان الرسم البياني يحتوي على <strong>دورة (Cycle)</strong>. يعمل فقط على الـ DAGs. إذا طلب الاختبار فرزاً طوبولوجياً لرسم بياني دوري، اكتب "لا يوجد حل (No Solution)".</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> SECRET: Binary Search Ceiling
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Binary Search Ceiling</span>
+                            <span class="lang-ar lang-hidden">سر: Binary Search Ceiling</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When calculating mid $\lfloor (L+R)/2 \rfloor$, if the array size is even, it picks the <em>left</em> middle. Be consistent in your trace tables.
+                            <span class="lang-en">When calculating mid $\lfloor (L+R)/2 \rfloor$, if the array size is even, it picks the <em>left</em> middle. Be consistent in your trace tables.</span>
+                            <span class="lang-ar lang-hidden">عند حساب المنتصف $\lfloor (L+R)/2 \rfloor$، إذا كان حجم المصفوفة زوجياً، فإنه يختار المنتصف <em>الأيسر</em>. كن متسقاً في جداول التتبع الخاصة بك.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> SECRET: Constant Factors
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Constant Factors</span>
+                            <span class="lang-ar lang-hidden">سر: العوامل الثابتة (Constant Factors)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Why use Insertion Sort if it's $O(n^2)$? Because for very small $n$ (like $n < 20$), its small constant factor makes it faster than MergeSort or QuickSort.
+                            <span class="lang-en">Why use Insertion Sort if it's $O(n^2)$? Because for very small $n$ (like $n < 20$), its small constant factor makes it faster than MergeSort or QuickSort.</span>
+                            <span class="lang-ar lang-hidden">لماذا نستخدم Insertion Sort إذا كان $O(n^2)$؟ لأنه بالنسبة لـ $n$ صغير جداً (مثل $n < 20$)، فإن عامله الثابت الصغير يجعله أسرع من MergeSort أو QuickSort.</span>
                         </p>
                     </div>
                 </div>
@@ -469,18 +766,62 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Subject Home</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Subject Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="midterm-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Quiz</a>
+                <a href="midterm-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Quiz</span>
+                    <span class="lang-ar lang-hidden">اختبار المنتصف</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
         const htmlElement = document.documentElement;
+
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
 
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 13: VMs & Distributed Systems</title>
@@ -60,6 +69,57 @@
     </script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .border-l-4 { 
+            border-left-width: 0; 
+            border-right-width: 4px; 
+        }
+        [dir="rtl"] .border-r-4 { 
+            border-right-width: 0; 
+            border-left-width: 4px; 
+        }
+        
+        
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -128,26 +188,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module12.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 13</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 13</span>
+                        <span class="lang-ar lang-hidden">الوحدة 13</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-server text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="final-review.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Final Review">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Final Review</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Final Review</span>
+                            <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                        </span>
                         <i class="fa-solid fa-graduation-cap"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,55 +239,100 @@
                 <i class="fa-solid fa-network-wired text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Abstraction: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">VMs & Distributed Systems</span>
+                <span class="lang-en">Abstraction: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">VMs & Distributed Systems</span></span>
+                <span class="lang-ar lang-hidden">التجريد: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">الآلات الافتراضية (VMs) والأنظمة الموزعة</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                The final frontier. Hypervisors, Virtualization Types, and the complexity of Distributed File Systems.
+                <span class="lang-en">The final frontier. Hypervisors, Virtualization Types, and the complexity of Distributed File Systems.</span>
+                <span class="lang-ar lang-hidden">الحدود النهائية. الـ Hypervisors، أنواع المحاكاة الافتراضية، وتعقيد أنظمة الملفات الموزعة (Distributed File Systems).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Hypervisor (VMM)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Type 0/1/2 Virtualization</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Trap-and-Emulate</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Binary Translation</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Distributed Systems</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DFS Consistency</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Hypervisor (VMM)</span>
+                    <span class="lang-ar lang-hidden">Hypervisor (VMM)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Type 0/1/2 Virtualization</span>
+                    <span class="lang-ar lang-hidden">محاكاة افتراضية (Type 0/1/2)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Trap-and-Emulate</span>
+                    <span class="lang-ar lang-hidden">Trap-and-Emulate</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Binary Translation</span>
+                    <span class="lang-ar lang-hidden">Binary Translation (الترجمة الثنائية)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Distributed Systems</span>
+                    <span class="lang-ar lang-hidden">الأنظمة الموزعة</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">DFS Consistency</span>
+                    <span class="lang-ar lang-hidden">DFS Consistency (اتساق نظام الملفات الموزع)</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Virtualization</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Virtualization</span>
+                    <span class="lang-ar lang-hidden">المحاكاة الافتراضية (Virtualization)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Virtualization abstracts the hardware of a single computer into several different execution environments.
+                    <span class="lang-en">Virtualization abstracts the hardware of a single computer into several different execution environments.
                     <br><strong>Host:</strong> The underlying hardware system.
                     <br><strong>Guest:</strong> The process or OS running within the VM.
-                    <br><strong>VMM (Hypervisor):</strong> The Virtual Machine Manager that creates and runs VMs.
+                    <br><strong>VMM (Hypervisor):</strong> The Virtual Machine Manager that creates and runs VMs.</span>
+                    <span class="lang-ar lang-hidden">تقوم المحاكاة الافتراضية بتجريد أجهزة الحاسوب الواحد إلى عدة بيئات تنفيذ مختلفة.
+                    <br><strong>المضيف (Host):</strong> نظام الأجهزة الأساسي.
+                    <br><strong>الضيف (Guest):</strong> العملية أو نظام التشغيل الذي يعمل داخل الـ VM.
+                    <br><strong>VMM (Hypervisor):</strong> مدير الآلة الافتراضية الذي ينشئ ويشغل الـ VMs.</span>
                 </p>
                 
-                
-
                 <div class="grid md:grid-cols-2 gap-6 text-sm">
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Benefits</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Benefits</span>
+                            <span class="lang-ar lang-hidden">الفوائد</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                            <li><strong>Isolation:</strong> One VM crash doesn't affect others.</li>
-                            <li><strong>Consolidation:</strong> Run multiple servers on one physical box (Save power/cooling).</li>
-                            <li><strong>Development:</strong> Test new OS without formatting.</li>
-                            <li><strong>Legacy Support:</strong> Run old apps on new hardware.</li>
+                            <li>
+                                <span class="lang-en"><strong>Isolation:</strong> One VM crash doesn't affect others.</span>
+                                <span class="lang-ar lang-hidden"><strong>العزل (Isolation):</strong> تعطل VM واحدة لا يؤثر على الآخرين.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Consolidation:</strong> Run multiple servers on one physical box (Save power/cooling).</span>
+                                <span class="lang-ar lang-hidden"><strong>الدمج (Consolidation):</strong> تشغيل خوادم متعددة على جهاز واحد (توفير الطاقة/التبريد).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Development:</strong> Test new OS without formatting.</span>
+                                <span class="lang-ar lang-hidden"><strong>التطوير:</strong> اختبار نظام تشغيل جديد دون إعادة التهيئة.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Legacy Support:</strong> Run old apps on new hardware.</span>
+                                <span class="lang-ar lang-hidden"><strong>دعم القديم (Legacy):</strong> تشغيل تطبيقات قديمة على أجهزة حديثة.</span>
+                            </li>
                         </ul>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">The Challenge</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">The Challenge</span>
+                            <span class="lang-ar lang-hidden">التحدي</span>
+                        </strong>
                         <p class="text-xs text-gray-500">
-                            The Host OS has 2 modes (User/Kernel). The Guest OS <em>thinks</em> it has 2 modes, but it actually runs in User Mode of the Host.
-                            <br>How to run privileged instructions from the Guest?
+                            <span class="lang-en">The Host OS has 2 modes (User/Kernel). The Guest OS <em>thinks</em> it has 2 modes, but it actually runs in User Mode of the Host.
+                            <br>How to run privileged instructions from the Guest?</span>
+                            <span class="lang-ar lang-hidden">نظام تشغيل المضيف لديه وضعين (مستخدم/نواة). نظام تشغيل الضيف <em>يعتقد</em> أن لديه وضعين، لكنه يعمل فعلياً في وضع المستخدم للمضيف.
+                            <br>كيف ننفذ التعليمات ذات الامتيازات من الضيف؟</span>
                         </p>
                     </div>
                 </div>
@@ -220,112 +340,184 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">How It Works</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">How It Works</span>
+                    <span class="lang-ar lang-hidden">كيف يعمل</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">1. Trap-and-Emulate</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">1. Trap-and-Emulate</span>
+                        <span class="lang-ar lang-hidden">1. Trap-and-Emulate</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        When Guest OS tries to execute a privileged instruction (e.g., disable interrupts), it causes a <strong>Trap</strong> (error) because it's running in User Mode on the Host.
-                        <br>The VMM catches the trap, <strong>emulates</strong> the action (simulates the effect on the virtual CPU), and returns control to the Guest.
+                        <span class="lang-en">When Guest OS tries to execute a privileged instruction (e.g., disable interrupts), it causes a <strong>Trap</strong> (error) because it's running in User Mode on the Host.
+                        <br>The VMM catches the trap, <strong>emulates</strong> the action (simulates the effect on the virtual CPU), and returns control to the Guest.</span>
+                        <span class="lang-ar lang-hidden">عندما يحاول نظام الضيف تنفيذ تعليمة ذات امتياز (مثل تعطيل المقاطعات)، يحدث <strong>Trap</strong> (خطأ) لأنه يعمل في وضع المستخدم على المضيف.
+                        <br>يلتقط الـ VMM هذا الخطأ، ويقوم بـ <strong>محاكاة (Emulate)</strong> الإجراء (يحاكي التأثير على المعالج الافتراضي)، ويعيد التحكم للضيف.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">2. Binary Translation</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">2. Binary Translation</span>
+                        <span class="lang-ar lang-hidden">2. Binary Translation (الترجمة الثنائية)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Used when the Guest CPU architecture is different or "trap-and-emulate" is too slow.
+                        <span class="lang-en">Used when the Guest CPU architecture is different or "trap-and-emulate" is too slow.
                         <br>The VMM scans the Guest's code blocks <em>before execution</em>, translates special instructions into safe Host instructions, and caches the result.
-                        <br><em>Example:</em> Running x86 Windows on ARM Mac.
+                        <br><em>Example:</em> Running x86 Windows on ARM Mac.</span>
+                        <span class="lang-ar lang-hidden">تستخدم عندما تكون معمارية معالج الضيف مختلفة أو عندما يكون "trap-and-emulate" بطيئاً جداً.
+                        <br>يقوم الـ VMM بمسح كتل كود الضيف <em>قبل التنفيذ</em>، ويترجم التعليمات الخاصة إلى تعليمات آمنة للمضيف، ويخزن النتيجة مؤقتاً.
+                        <br><em>مثال:</em> تشغيل x86 Windows على ARM Mac.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">3. Hardware Support (VT-x / AMD-V)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">3. Hardware Support (VT-x / AMD-V)</span>
+                        <span class="lang-ar lang-hidden">3. Hardware Support (دعم العتاد VT-x / AMD-V)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Modern CPUs have a special "Root Mode" (for VMM) and "Non-Root Mode" (for Guest).
-                        <br>The Guest can run privileged instructions directly in Non-Root mode without causing traps, drastically improving speed.
+                        <span class="lang-en">Modern CPUs have a special "Root Mode" (for VMM) and "Non-Root Mode" (for Guest).
+                        <br>The Guest can run privileged instructions directly in Non-Root mode without causing traps, drastically improving speed.</span>
+                        <span class="lang-ar lang-hidden">المعالجات الحديثة لديها "وضع الجذر" (لـ VMM) و "وضع غير الجذر" (للضيف).
+                        <br>يمكن للضيف تنفيذ التعليمات ذات الامتيازات مباشرة في وضع غير الجذر دون التسبب في Traps، مما يحسن السرعة بشكل كبير.</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Hypervisor Types</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Hypervisor Types</span>
+                    <span class="lang-ar lang-hidden">أنواع الـ Hypervisor</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6 text-center">
                 <div class="glass-card p-6 rounded-xl">
                     <strong class="block text-brand-600 text-lg mb-2">Type 0</strong>
-                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Hardware</span>
+                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        <span class="lang-en">Hardware</span>
+                        <span class="lang-ar lang-hidden">عتاد (Hardware)</span>
+                    </span>
                     <p class="text-xs text-gray-500 mt-2">
-                        Implemented in Firmware/Hardware.
-                        <br>LPARs, IBM Mainframes.
+                        <span class="lang-en">Implemented in Firmware/Hardware.
+                        <br>LPARs, IBM Mainframes.</span>
+                        <span class="lang-ar lang-hidden">منفذ في البرامج الثابتة/العتاد.
+                        <br>LPARs، حواسيب IBM الكبيرة.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-2 border-brand-500">
                     <strong class="block text-brand-600 text-lg mb-2">Type 1</strong>
-                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Bare Metal</span>
+                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        <span class="lang-en">Bare Metal</span>
+                        <span class="lang-ar lang-hidden">Bare Metal (مباشر)</span>
+                    </span>
                     <p class="text-xs text-gray-500 mt-2">
-                        Runs directly on hardware. No Host OS.
+                        <span class="lang-en">Runs directly on hardware. No Host OS.
                         <br>VMware ESXi, Xen, Hyper-V.
-                        <br><em>Use:</em> Datacenters.
+                        <br><em>Use:</em> Datacenters.</span>
+                        <span class="lang-ar lang-hidden">يعمل مباشرة على العتاد. لا يوجد نظام تشغيل مضيف.
+                        <br>VMware ESXi, Xen, Hyper-V.
+                        <br><em>الاستخدام:</em> مراكز البيانات.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
                     <strong class="block text-brand-600 text-lg mb-2">Type 2</strong>
-                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Hosted</span>
+                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        <span class="lang-en">Hosted</span>
+                        <span class="lang-ar lang-hidden">Hosted (مستضاف)</span>
+                    </span>
                     <p class="text-xs text-gray-500 mt-2">
-                        Runs as an app on a standard OS.
+                        <span class="lang-en">Runs as an app on a standard OS.
                         <br>VMware Workstation, VirtualBox.
-                        <br><em>Use:</em> Desktop/Dev.
+                        <br><em>Use:</em> Desktop/Dev.</span>
+                        <span class="lang-ar lang-hidden">يعمل كتطبيق على نظام تشغيل قياسي.
+                        <br>VMware Workstation, VirtualBox.
+                        <br><em>الاستخدام:</em> سطح المكتب/التطوير.</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Distributed Systems</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Distributed Systems</span>
+                    <span class="lang-ar lang-hidden">الأنظمة الموزعة (Distributed Systems)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A collection of loosely coupled processors interconnected by a communication network.
-                    <br><strong>Goal:</strong> Resource sharing, Computation speedup (Load balancing), Reliability, Communication.
+                    <span class="lang-en">A collection of loosely coupled processors interconnected by a communication network.
+                    <br><strong>Goal:</strong> Resource sharing, Computation speedup (Load balancing), Reliability, Communication.</span>
+                    <span class="lang-ar lang-hidden">مجموعة من المعالجات المقترنة بشكل غير وثيق والمترابطة عبر شبكة اتصال.
+                    <br><strong>الهدف:</strong> مشاركة الموارد، تسريع الحسابات (توزيع الحمل)، الموثوقية، الاتصال.</span>
                 </p>
                 <div class="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
-                    <strong class="text-brand-600 block mb-2">Design Issues</strong>
+                    <strong class="text-brand-600 block mb-2">
+                        <span class="lang-en">Design Issues</span>
+                        <span class="lang-ar lang-hidden">قضايا التصميم</span>
+                    </strong>
                     <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                        <li><strong>Transparency:</strong> Users shouldn't know resources are remote.</li>
-                        <li><strong>Reliability:</strong> Detect node failure, reconfigure, recover.</li>
-                        <li><strong>Scalability:</strong> Add nodes without stopping system.</li>
+                        <li>
+                            <span class="lang-en"><strong>Transparency:</strong> Users shouldn't know resources are remote.</span>
+                            <span class="lang-ar lang-hidden"><strong>الشفافية (Transparency):</strong> لا ينبغي للمستخدمين معرفة أن الموارد بعيدة.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Reliability:</strong> Detect node failure, reconfigure, recover.</span>
+                            <span class="lang-ar lang-hidden"><strong>الموثوقية (Reliability):</strong> اكتشاف فشل العقدة، إعادة التكوين، الاسترداد.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Scalability:</strong> Add nodes without stopping system.</span>
+                            <span class="lang-ar lang-hidden"><strong>القابلية للتوسع (Scalability):</strong> إضافة عقد دون إيقاف النظام.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-orange-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Distributed File Systems (DFS)</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Distributed File Systems (DFS)</span>
+                    <span class="lang-ar lang-hidden">أنظمة الملفات الموزعة (DFS)</span>
+                </h3>
                 <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
-                    Files are spread across multiple servers but appear as a single local tree. (e.g., NFS, AFS, Hadoop HDFS).
+                    <span class="lang-en">Files are spread across multiple servers but appear as a single local tree. (e.g., NFS, AFS, Hadoop HDFS).</span>
+                    <span class="lang-ar lang-hidden">تنتشر الملفات عبر خوادم متعددة ولكنها تظهر كشجرة محلية واحدة. (مثال: NFS, AFS, Hadoop HDFS).</span>
                 </p>
                 
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
-                        <strong>Naming:</strong> Mapping logical names to physical locations.
-                        <br><em>Location Independence:</em> Name doesn't reveal server.
+                        <strong class="block mb-1">
+                            <span class="lang-en">Naming:</span>
+                            <span class="lang-ar lang-hidden">التسمية:</span>
+                        </strong>
+                        <span class="lang-en">Mapping logical names to physical locations.
+                        <br><em>Location Independence:</em> Name doesn't reveal server.</span>
+                        <span class="lang-ar lang-hidden">ربط الأسماء المنطقية بالمواقع المادية.
+                        <br><em>استقلال الموقع:</em> الاسم لا يكشف الخادم.</span>
                     </div>
                     <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
-                        <strong>Caching:</strong> Store remote data locally for speed.
-                        <br><em>Problem:</em> Cache Consistency (What if server file changes?).
+                        <strong class="block mb-1">
+                            <span class="lang-en">Caching:</span>
+                            <span class="lang-ar lang-hidden">التخزين المؤقت:</span>
+                        </strong>
+                        <span class="lang-en">Store remote data locally for speed.
+                        <br><em>Problem:</em> Cache Consistency (What if server file changes?).</span>
+                        <span class="lang-ar lang-hidden">تخزين البيانات البعيدة محلياً للسرعة.
+                        <br><em>مشكلة:</em> اتساق الكاش (ماذا لو تغير ملف الخادم؟).</span>
                     </div>
                 </div>
             </div>
@@ -335,54 +527,76 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار (Exam Vault)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Type 1 vs Type 2 VMM
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Type 1 vs Type 2 VMM</span>
+                            <span class="lang-ar lang-hidden">فخ: Type 1 مقابل Type 2 VMM</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Type 1 (Bare Metal):</strong> Runs <em>below</em> the Operating Systems. Faster. Used in Cloud.
-                            <br><strong>Type 2 (Hosted):</strong> Runs <em>above</em> a Host OS (like an app). Slower due to extra layer.
+                            <span class="lang-en"><strong>Type 1 (Bare Metal):</strong> Runs <em>below</em> the Operating Systems. Faster. Used in Cloud.
+                            <br><strong>Type 2 (Hosted):</strong> Runs <em>above</em> a Host OS (like an app). Slower due to extra layer.</span>
+                            <span class="lang-ar lang-hidden"><strong>Type 1 (Bare Metal):</strong> يعمل <em>تحت</em> أنظمة التشغيل. أسرع. يستخدم في السحابة.
+                            <br><strong>Type 2 (Hosted):</strong> يعمل <em>فوق</em> نظام تشغيل مضيف (كتطبيق). أبطأ بسبب الطبقة الإضافية.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Stateful vs Stateless DFS
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Stateful vs Stateless DFS</span>
+                            <span class="lang-ar lang-hidden">فخ: Stateful مقابل Stateless DFS</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Stateful (AFS):</strong> Server tracks open files/clients. Pros: Performance/Consistency. Cons: Crash recovery is hard.
-                            <br><strong>Stateless (NFS):</strong> Server tracks nothing. Pros: Crash recovery easy (just retry). Cons: Every request needs full info (file path, offset).
+                            <span class="lang-en"><strong>Stateful (AFS):</strong> Server tracks open files/clients. Pros: Performance/Consistency. Cons: Crash recovery is hard.
+                            <br><strong>Stateless (NFS):</strong> Server tracks nothing. Pros: Crash recovery easy (just retry). Cons: Every request needs full info (file path, offset).</span>
+                            <span class="lang-ar lang-hidden"><strong>Stateful (AFS):</strong> يتتبع الخادم الملفات/العملاء المفتوحين. المزايا: الأداء/الاتساق. العيوب: الاسترداد من التعطل صعب.
+                            <br><strong>Stateless (NFS):</strong> لا يتتبع الخادم شيئاً. المزايا: الاسترداد سهل (فقط أعد المحاولة). العيوب: كل طلب يحتاج لمعلومات كاملة (مسار الملف، الإزاحة).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Live Migration
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Live Migration</span>
+                            <span class="lang-ar lang-hidden">سر: الهجرة الحية (Live Migration)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Modern VMMs can move a running VM from Server A to Server B without stopping it (zero downtime).
-                            <br>How? Copy memory pages to B while VM runs on A. Copy dirty pages repeatedly until delta is small. Pause A for milliseconds, copy final state, resume on B.
+                            <span class="lang-en">Modern VMMs can move a running VM from Server A to Server B without stopping it (zero downtime).
+                            <br>How? Copy memory pages to B while VM runs on A. Copy dirty pages repeatedly until delta is small. Pause A for milliseconds, copy final state, resume on B.</span>
+                            <span class="lang-ar lang-hidden">يمكن للـ VMMs الحديثة نقل VM قيد التشغيل من خادم A إلى خادم B دون إيقافها (توقف صفري).
+                            <br>كيف؟ نسخ صفحات الذاكرة إلى B أثناء تشغيل الـ VM على A. نسخ الصفحات المعدلة (Dirty Pages) بشكل متكرر حتى يصبح الفرق صغيراً. إيقاف A لمللي ثانية، نسخ الحالة النهائية، الاستئناف على B.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Paravirtualization
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Paravirtualization</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: Paravirtualization</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Standard virtualization tricks the Guest OS into thinking it's on real hardware (Full Virtualization).
-                            <br><strong>Paravirtualization:</strong> Modify the Guest OS to <em>know</em> it's virtualized. It makes special "Hypercalls" to the VMM instead of failing privileged instructions. Much faster.
+                            <span class="lang-en">Standard virtualization tricks the Guest OS into thinking it's on real hardware (Full Virtualization).
+                            <br><strong>Paravirtualization:</strong> Modify the Guest OS to <em>know</em> it's virtualized. It makes special "Hypercalls" to the VMM instead of failing privileged instructions. Much faster.</span>
+                            <span class="lang-ar lang-hidden">تخدع المحاكاة الافتراضية القياسية نظام الضيف ليعتقد أنه على عتاد حقيقي (Full Virtualization).
+                            <br><strong>Paravirtualization:</strong> تعديل نظام الضيف لـ <em>يعلم</em> أنه افتراضي. يقوم بإجراء "Hypercalls" خاصة للـ VMM بدلاً من فشل التعليمات ذات الامتيازات. أسرع بكثير.</span>
                         </p>
                     </div>
                 </div>
@@ -393,18 +607,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 12</span>
+                    <span class="lang-ar lang-hidden">الوحدة 12</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Review</span>
+                    <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -423,46 +650,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar'); 
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en'); 
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

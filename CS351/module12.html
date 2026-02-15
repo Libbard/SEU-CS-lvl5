@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 12: Security & Protection</title>
@@ -60,6 +69,57 @@
     </script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .border-l-4 { 
+            border-left-width: 0; 
+            border-right-width: 4px; 
+        }
+        [dir="rtl"] .border-r-4 { 
+            border-right-width: 0; 
+            border-left-width: 4px; 
+        }
+        
+        
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -128,26 +188,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module11.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 12</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 12</span>
+                        <span class="lang-ar lang-hidden">الوحدة 12</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-user-secret text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module13.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,55 +239,114 @@
                 <i class="fa-solid fa-lock text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Defense: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Security & Protection</span>
+                <span class="lang-en">Defense: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Security & Protection</span></span>
+                <span class="lang-ar lang-hidden">الدفاع: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">الأمن والحماية (Security & Protection)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Guarding the system. From Malware and Buffer Overflows to the Access Matrix and Protection Domains.
+                <span class="lang-en">Guarding the system. From Malware and Buffer Overflows to the Access Matrix and Protection Domains.</span>
+                <span class="lang-ar lang-hidden">حماية النظام. من البرمجيات الخبيثة وتجاوز سعة المخزن المؤقت (Buffer Overflows) إلى مصفوفة الوصول ونطاقات الحماية.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Threats vs Attacks</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Trojan Horse / Virus / Worm</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Buffer Overflow</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Least Privilege</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Access Matrix</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ACL vs Capability List</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Threats vs Attacks</span>
+                    <span class="lang-ar lang-hidden">التهديدات مقابل الهجمات</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Trojan Horse / Virus / Worm</span>
+                    <span class="lang-ar lang-hidden">حصان طروادة / فيروس / دودة</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Buffer Overflow</span>
+                    <span class="lang-ar lang-hidden">Buffer Overflow</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Least Privilege</span>
+                    <span class="lang-ar lang-hidden">الأقل امتيازاً (Least Privilege)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Access Matrix</span>
+                    <span class="lang-ar lang-hidden">مصفوفة الوصول (Access Matrix)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">ACL vs Capability List</span>
+                    <span class="lang-ar lang-hidden">ACL مقابل Capability List</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Security Violations</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Security Violations</span>
+                    <span class="lang-ar lang-hidden">الانتهاكات الأمنية</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    A system is secure if resources are used and accessed as intended.
+                    <span class="lang-en">A system is secure if resources are used and accessed as intended.
                     <br><strong>Threat:</strong> Potential for violation.
-                    <br><strong>Attack:</strong> Attempt to breach security (Accidental or Malicious).
+                    <br><strong>Attack:</strong> Attempt to breach security (Accidental or Malicious).</span>
+                    <span class="lang-ar lang-hidden">يكون النظام آمناً إذا تم استخدام الموارد والوصول إليها كما هو مخطط.
+                    <br><strong>تهديد (Threat):</strong> احتمالية حدوث انتهاك.
+                    <br><strong>هجوم (Attack):</strong> محاولة لخرق الأمن (عرضية أو خبيثة).</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-6 text-sm">
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Breach Categories</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Breach Categories</span>
+                            <span class="lang-ar lang-hidden">فئات الخرق</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                            <li><strong>Confidentiality:</strong> Unauthorized reading.</li>
-                            <li><strong>Integrity:</strong> Unauthorized modification.</li>
-                            <li><strong>Availability:</strong> Destruction of data.</li>
-                            <li><strong>Theft of Service:</strong> Unauthorized use (e.g., crypto mining).</li>
-                            <li><strong>Denial of Service (DoS):</strong> Preventing legitimate use.</li>
+                            <li>
+                                <span class="lang-en"><strong>Confidentiality:</strong> Unauthorized reading.</span>
+                                <span class="lang-ar lang-hidden"><strong>السرية (Confidentiality):</strong> قراءة غير مصرح بها.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Integrity:</strong> Unauthorized modification.</span>
+                                <span class="lang-ar lang-hidden"><strong>النزاهة (Integrity):</strong> تعديل غير مصرح به.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Availability:</strong> Destruction of data.</span>
+                                <span class="lang-ar lang-hidden"><strong>التوافر (Availability):</strong> تدمير البيانات.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Theft of Service:</strong> Unauthorized use (e.g., crypto mining).</span>
+                                <span class="lang-ar lang-hidden"><strong>سرقة الخدمة:</strong> استخدام غير مصرح به (مثل تعدين العملات).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Denial of Service (DoS):</strong> Preventing legitimate use.</span>
+                                <span class="lang-ar lang-hidden"><strong>هجوم الحرمان من الخدمة (DoS):</strong> منع الاستخدام المشروع.</span>
+                            </li>
                         </ul>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Attack Surface</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Attack Surface</span>
+                            <span class="lang-ar lang-hidden">أسطح الهجوم (Attack Surface)</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                            <li><strong>Masquerading:</strong> Pretending to be someone else.</li>
-                            <li><strong>Replay Attack:</strong> Repeating a valid transmission.</li>
-                            <li><strong>Man-in-the-Middle:</strong> Intercepting/modifying data.</li>
-                            <li><strong>Session Hijacking:</strong> Taking over an active session.</li>
+                            <li>
+                                <span class="lang-en"><strong>Masquerading:</strong> Pretending to be someone else.</span>
+                                <span class="lang-ar lang-hidden"><strong>انتحال الشخصية (Masquerading):</strong> التظاهر بأنك شخص آخر.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Replay Attack:</strong> Repeating a valid transmission.</span>
+                                <span class="lang-ar lang-hidden"><strong>هجوم الإعادة (Replay Attack):</strong> تكرار إرسال صالح.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Man-in-the-Middle:</strong> Intercepting/modifying data.</span>
+                                <span class="lang-ar lang-hidden"><strong>الرجل في المنتصف (MITM):</strong> اعتراض/تعديل البيانات.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Session Hijacking:</strong> Taking over an active session.</span>
+                                <span class="lang-ar lang-hidden"><strong>اختطاف الجلسة:</strong> الاستيلاء على جلسة نشطة.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -220,112 +354,172 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Program Threats</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Program Threats</span>
+                    <span class="lang-ar lang-hidden">تهديدات البرامج</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Trojan Horse</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Trojan Horse</span>
+                        <span class="lang-ar lang-hidden">Trojan Horse (حصان طروادة)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Code segment that misuses its environment.
-                        <br>Looks like a useful program (e.g., game, editor) but performs malicious acts using the <strong>user's privileges</strong>.
+                        <span class="lang-en">Code segment that misuses its environment.
+                        <br>Looks like a useful program (e.g., game, editor) but performs malicious acts using the <strong>user's privileges</strong>.</span>
+                        <span class="lang-ar lang-hidden">جزء من كود يسيء استخدام بيئته.
+                        <br>يبدو كبرنامج مفيد (مثل لعبة، محرر نصوص) لكنه يقوم بأعمال خبيثة باستخدام <strong>صلاحيات المستخدم</strong>.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Virus</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Virus</span>
+                        <span class="lang-ar lang-hidden">Virus (فيروس)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Fragment of code embedded in a legitimate program.
+                        <span class="lang-en">Fragment of code embedded in a legitimate program.
                         <br><strong>Key Feature:</strong> Self-replicating. Infects other programs.
-                        <br>Specific to CPU architecture / OS.
+                        <br>Specific to CPU architecture / OS.</span>
+                        <span class="lang-ar lang-hidden">جزء من كود مضمن في برنامج شرعي.
+                        <br><strong>الميزة الرئيسية:</strong> تكرار ذاتي. يصيب البرامج الأخرى.
+                        <br>محدد بمعمارية المعالج / نظام التشغيل.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-orange-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Worm</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Worm</span>
+                        <span class="lang-ar lang-hidden">Worm (دودة)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Standalone program. Uses the <strong>network</strong> to replicate itself.
+                        <span class="lang-en">Standalone program. Uses the <strong>network</strong> to replicate itself.
                         <br>Consumes system resources (CPU, Network Bandwidth) causing DoS.
-                        <br>Example: Morris Worm.
+                        <br>Example: Morris Worm.</span>
+                        <span class="lang-ar lang-hidden">برنامج مستقل. يستخدم <strong>الشبكة</strong> لنسخ نفسه.
+                        <br>يستهلك موارد النظام (المعالج، عرض النطاق الترددي للشبكة) مسبباً DoS.
+                        <br>مثال: دودة Morris.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Stack & Buffer Overflow</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Stack & Buffer Overflow</span>
+                        <span class="lang-ar lang-hidden">Stack & Buffer Overflow</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Exploits a bug where input exceeds the buffer size.
-                        <br>Overwrites the <strong>Return Address</strong> on the stack to point to malicious code (Shellcode).
+                        <span class="lang-en">Exploits a bug where input exceeds the buffer size.
+                        <br>Overwrites the <strong>Return Address</strong> on the stack to point to malicious code (Shellcode).</span>
+                        <span class="lang-ar lang-hidden">يستغل خطأ حيث يتجاوز الإدخال حجم المخزن المؤقت (Buffer).
+                        <br>يكتب فوق <strong>عنوان العودة (Return Address)</strong> في الـ Stack ليشير إلى كود خبيث (Shellcode).</span>
                     </p>
                     
                     <div class="p-2 bg-purple-50 dark:bg-purple-900/20 rounded text-[10px] text-purple-700 dark:text-purple-300">
-                        <strong>Prevention:</strong> Bounds checking (Java/C#), Stack Randomization (ASLR), Non-executable Stack (NX bit).
+                        <span class="lang-en"><strong>Prevention:</strong> Bounds checking (Java/C#), Stack Randomization (ASLR), Non-executable Stack (NX bit).</span>
+                        <span class="lang-ar lang-hidden"><strong>الوقاية:</strong> فحص الحدود (Java/C#)، عشوائية الـ Stack (ASLR)، الـ Stack غير القابل للتنفيذ (NX bit).</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Protection Mechanisms</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Protection Mechanisms</span>
+                    <span class="lang-ar lang-hidden">آليات الحماية</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <div class="flex items-start">
-                    <i class="fa-solid fa-shield-halved text-2xl text-brand-500 mr-4 mt-1"></i>
+                    <i class="fa-solid fa-shield-halved text-2xl text-brand-500 mr-4 mt-1 rtl:ml-4 rtl:mr-0"></i>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Principle of Least Privilege</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Principle of Least Privilege</span>
+                            <span class="lang-ar lang-hidden">مبدأ الأقل امتيازاً (Least Privilege)</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
-                            Programs, users, and systems should be given just enough privileges to perform their tasks.
-                            <br>Limits the damage if a component is compromised.
+                            <span class="lang-en">Programs, users, and systems should be given just enough privileges to perform their tasks.
+                            <br>Limits the damage if a component is compromised.</span>
+                            <span class="lang-ar lang-hidden">يجب منح البرامج والمستخدمين والأنظمة صلاحيات كافية فقط لأداء مهامهم.
+                            <br>يحد من الضرر إذا تم اختراق مكون ما.</span>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Domain of Protection</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Domain of Protection</span>
+                    <span class="lang-ar lang-hidden">نطاق الحماية (Domain of Protection)</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A computer system is a collection of processes and objects.
+                    <span class="lang-en">A computer system is a collection of processes and objects.
                     <br><strong>Domain:</strong> A set of Access Rights.
-                    <br><em>Access Right:</em> <object-name, rights-set> (e.g., <file1, {read, write}>).
+                    <br><em>Access Right:</em> &lt;object-name, rights-set&gt; (e.g., &lt;file1, {read, write}&gt;).</span>
+                    <span class="lang-ar lang-hidden">نظام الحاسوب هو مجموعة من العمليات والكائنات.
+                    <br><strong>النطاق (Domain):</strong> مجموعة من حقوق الوصول.
+                    <br><em>حق الوصول:</em> &lt;اسم الكائن، مجموعة الحقوق&gt; (مثال: &lt;file1, {read, write}&gt;).</span>
                 </p>
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
-                        <strong>User = Domain:</strong>
-                        <br>Domain changes when user ID changes.
+                        <strong class="block mb-1">
+                            <span class="lang-en">User = Domain:</span>
+                            <span class="lang-ar lang-hidden">مستخدم = نطاق:</span>
+                        </strong>
+                        <span class="lang-en">Domain changes when user ID changes.</span>
+                        <span class="lang-ar lang-hidden">يتغير النطاق عند تغير معرف المستخدم.</span>
                     </div>
                     <div class="p-3 border border-gray-200 dark:border-gray-700 rounded">
-                        <strong>Process = Domain:</strong>
-                        <br>Domain changes when process ID changes.
+                        <strong class="block mb-1">
+                            <span class="lang-en">Process = Domain:</span>
+                            <span class="lang-ar lang-hidden">عملية = نطاق:</span>
+                        </strong>
+                        <span class="lang-en">Domain changes when process ID changes.</span>
+                        <span class="lang-ar lang-hidden">يتغير النطاق عند تغير معرف العملية.</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Access Matrix</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Access Matrix</span>
+                    <span class="lang-ar lang-hidden">مصفوفة الوصول (Access Matrix)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                A general model of protection.
+                <span class="lang-en">A general model of protection.
                 <br><strong>Rows:</strong> Domains (Users/Processes).
-                <br><strong>Columns:</strong> Objects (Files/Printers).
+                <br><strong>Columns:</strong> Objects (Files/Printers).</span>
+                <span class="lang-ar lang-hidden">نموذج عام للحماية.
+                <br><strong>الصفوف:</strong> النطاقات (مستخدمون/عمليات).
+                <br><strong>الأعمدة:</strong> الكائنات (ملفات/طابعات).</span>
             </p>
 
             <div class="glass-card p-6 rounded-xl overflow-x-auto">
                 <table class="w-full text-xs text-left">
                     <thead class="border-b border-gray-200 dark:border-gray-700 text-brand-600 dark:text-brand-400">
                         <tr>
-                            <th class="p-2">Domain / Object</th>
+                            <th class="p-2">
+                                <span class="lang-en">Domain / Object</span>
+                                <span class="lang-ar lang-hidden">نطاق / كائن</span>
+                            </th>
                             <th class="p-2">File 1</th>
                             <th class="p-2">File 2</th>
                             <th class="p-2">File 3</th>
-                            <th class="p-2">Printer</th>
+                            <th class="p-2">
+                                <span class="lang-en">Printer</span>
+                                <span class="lang-ar lang-hidden">طابعة</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 dark:text-gray-300">
@@ -356,21 +550,35 @@
 
             <div class="mt-6 grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Access Control List (ACL)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Access Control List (ACL)</span>
+                        <span class="lang-ar lang-hidden">قائمة التحكم في الوصول (ACL)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Store the matrix by <strong>Column</strong> (Object).
+                        <span class="lang-en">Store the matrix by <strong>Column</strong> (Object).
                         <br>Each object keeps a list: (Domain, Rights).
                         <br><em>Example:</em> File1: {(D1, Read), (D3, RW)}.
-                        <br>Efficient for: "Who can access this file?"
+                        <br>Efficient for: "Who can access this file?"</span>
+                        <span class="lang-ar lang-hidden">تخزين المصفوفة حسب <strong>العمود</strong> (الكائن).
+                        <br>يحتفظ كل كائن بقائمة: (النطاق، الحقوق).
+                        <br><em>مثال:</em> File1: {(D1, Read), (D3, RW)}.
+                        <br>فعال لـ: "من يستطيع الوصول لهذا الملف؟"</span>
                     </p>
                 </div>
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Capability List</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Capability List</span>
+                        <span class="lang-ar lang-hidden">قائمة القدرات (Capability List)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Store the matrix by <strong>Row</strong> (Domain).
+                        <span class="lang-en">Store the matrix by <strong>Row</strong> (Domain).
                         <br>Each domain keeps a list of objects it can access.
                         <br><em>Example:</em> D1: {(File1, Read), (File3, Read)}.
-                        <br>Efficient for: "What can this user do?" (Hard to revoke).
+                        <br>Efficient for: "What can this user do?" (Hard to revoke).</span>
+                        <span class="lang-ar lang-hidden">تخزين المصفوفة حسب <strong>الصف</strong> (النطاق).
+                        <br>يحتفظ كل نطاق بقائمة كائنات يمكنه الوصول إليها.
+                        <br><em>مثال:</em> D1: {(File1, Read), (File3, Read)}.
+                        <br>فعال لـ: "ماذا يستطيع هذا المستخدم فعله؟" (صعب الإلغاء).</span>
                     </p>
                 </div>
             </div>
@@ -380,57 +588,82 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار (Exam Vault)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Protection vs Security
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Protection vs Security</span>
+                            <span class="lang-ar lang-hidden">فخ: الحماية مقابل الأمن</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Protection:</strong> Internal mechanism. Controls access of processes to resources (Access Matrix).
+                            <span class="lang-en"><strong>Protection:</strong> Internal mechanism. Controls access of processes to resources (Access Matrix).
                             <br><strong>Security:</strong> External/Total mechanism. Dealing with threats (Virus, Worms, Physical theft).
-                            Protection is a <em>tool</em> for Security.
+                            Protection is a <em>tool</em> for Security.</span>
+                            <span class="lang-ar lang-hidden"><strong>الحماية (Protection):</strong> آلية داخلية. تتحكم في وصول العمليات للموارد (Access Matrix).
+                            <br><strong>الأمن (Security):</strong> آلية خارجية/شاملة. التعامل مع التهديدات (فيروسات، ديدان، سرقة مادية).
+                            الحماية هي <em>أداة</em> للأمن.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Virus vs Worm
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Virus vs Worm</span>
+                            <span class="lang-ar lang-hidden">فخ: الفيروس مقابل الدودة</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Virus:</strong> Needs a host program to run. Infects files.
-                            <br><strong>Worm:</strong> Standalone program. Uses network to spread. Does not need to infect files.
+                            <span class="lang-en"><strong>Virus:</strong> Needs a host program to run. Infects files.
+                            <br><strong>Worm:</strong> Standalone program. Uses network to spread. Does not need to infect files.</span>
+                            <span class="lang-ar lang-hidden"><strong>الفيروس:</strong> يحتاج لبرنامج مضيف ليعمل. يصيب الملفات.
+                            <br><strong>الدودة:</strong> برنامج مستقل. تستخدم الشبكة للانتشار. لا تحتاج لإصابة ملفات.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Revocation
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Revocation</span>
+                            <span class="lang-ar lang-hidden">سر: الإلغاء (Revocation)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Revoking access in an <strong>ACL</strong> system is easy (just delete the entry from the file's list).
-                            <br>Revoking access in a <strong>Capability List</strong> system is hard (you have to find the user's capability pointer and delete it, which is distributed across the system).
+                            <span class="lang-en">Revoking access in an <strong>ACL</strong> system is easy (just delete the entry from the file's list).
+                            <br>Revoking access in a <strong>Capability List</strong> system is hard (you have to find the user's capability pointer and delete it, which is distributed across the system).</span>
+                            <span class="lang-ar lang-hidden">إلغاء الوصول في نظام <strong>ACL</strong> سهل (فقط احذف الإدخال من قائمة الملف).
+                            <br>إلغاء الوصول في نظام <strong>Capability List</strong> صعب (يجب أن تجد مؤشر القدرة الخاص بالمستخدم وتحذفه، وهو موزع عبر النظام).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Lock-Key Mechanism
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Lock-Key Mechanism</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: آلية القفل والمفتاح</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            A compromise between ACL and Capability Lists.
+                            <span class="lang-en">A compromise between ACL and Capability Lists.
                             <br>Each Object has a "Lock" (bit pattern).
                             <br>Each Domain has a "Key".
-                            <br>Access allowed only if Key matches Lock.
+                            <br>Access allowed only if Key matches Lock.</span>
+                            <span class="lang-ar lang-hidden">حل وسط بين ACL وقوائم القدرات.
+                            <br>كل كائن لديه "قفل" (نمط بت).
+                            <br>كل نطاق لديه "مفتاح".
+                            <br>يسمح بالوصول فقط إذا طابق المفتاح القفل.</span>
                         </p>
                     </div>
                 </div>
@@ -441,18 +674,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 11</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <a href="module13.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 13</span>
+                    <span class="lang-ar lang-hidden">الوحدة 13</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -471,46 +717,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar'); 
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en'); 
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

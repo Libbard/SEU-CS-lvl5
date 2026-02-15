@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 6: Logical Process Modeling</title>
@@ -19,16 +28,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6', 
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
@@ -42,14 +44,38 @@
 
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] .mermaid, [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        
+        
+        [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-chevron-left, 
+        [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-caret-right {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -128,24 +154,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module5.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 6</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 6</span>
+                        <span class="lang-ar lang-hidden">الوحدة 6</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-diagram-project text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
@@ -164,103 +204,175 @@
                 <i class="fa-solid fa-network-wired text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Analysis: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Logical Modeling</span>
+                <span class="lang-en">Analysis: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Logical Modeling</span></span>
+                <span class="lang-ar lang-hidden">التحليل: <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-400 to-blue-600">النمذجة المنطقية (Logical Modeling)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Visualizing how data moves and transforms. From Data Flow Diagrams (DFD) to Decision Tables and Use Cases.
+                <span class="lang-en">Visualizing how data moves and transforms. From Data Flow Diagrams (DFD) to Decision Tables and Use Cases.</span>
+                <span class="lang-ar lang-hidden">تصور كيفية انتقال البيانات وتحولها. من مخططات تدفق البيانات (DFD) إلى جداول القرار (Decision Tables) وحالات الاستخدام (Use Cases).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DFD Mechanics</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Context Diagrams</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Decision Tables</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Use Cases</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Activity Diagrams</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">DFD Mechanics</span>
+                    <span class="lang-ar lang-hidden">ميكانيكا DFD</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Context Diagrams</span>
+                    <span class="lang-ar lang-hidden">مخططات السياق</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Decision Tables</span>
+                    <span class="lang-ar lang-hidden">جداول القرار</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Use Cases</span>
+                    <span class="lang-ar lang-hidden">Use Cases</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Activity Diagrams</span>
+                    <span class="lang-ar lang-hidden">مخططات النشاط</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Process Modeling</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Process Modeling</span>
+                    <span class="lang-ar lang-hidden">نمذجة العمليات (Process Modeling)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Graphically representing the processes that capture, manipulate, store, and distribute data between a system and its environment.
+                    <span class="lang-en">Graphically representing the processes that capture, manipulate, store, and distribute data between a system and its environment.</span>
+                    <span class="lang-ar lang-hidden">التمثيل الرسومي للعمليات التي تلتقط وتعالج وتخزن وتوزع البيانات بين النظام وبيئته.</span>
                 </p>
                 <div class="flex items-center justify-between text-xs font-mono bg-gray-100 dark:bg-gray-800 p-3 rounded-lg">
-                    <span class="font-bold text-brand-600">The Core Tool:</span>
-                    <span class="text-gray-500">Data Flow Diagram (DFD)</span>
+                    <span class="font-bold text-brand-600">
+                        <span class="lang-en">The Core Tool:</span>
+                        <span class="lang-ar lang-hidden">الأداة الأساسية:</span>
+                    </span>
+                    <span class="text-gray-500">
+                        <span class="lang-en">Data Flow Diagram (DFD)</span>
+                        <span class="lang-ar lang-hidden">مخطط تدفق البيانات (DFD)</span>
+                    </span>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">DFD Mechanics</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">DFD Mechanics</span>
+                    <span class="lang-ar lang-hidden">ميكانيكا DFD</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">DFD Symbols (Gane & Sarson)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="lang-en">DFD Symbols (Gane & Sarson)</span>
+                        <span class="lang-ar lang-hidden">رموز DFD (Gane & Sarson)</span>
+                    </h3>
                     <div class="space-y-4 text-sm">
                         <div class="flex items-center">
-                            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 rounded-lg mr-4 bg-white dark:bg-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 rounded-lg mr-4 rtl:ml-4 rtl:mr-0 bg-white dark:bg-gray-900">
                                 <i class="fa-solid fa-database text-gray-500"></i>
                             </div>
                             <div>
-                                <strong class="text-gray-900 dark:text-white">Data Store</strong>
-                                <p class="text-xs text-gray-500">Data at rest (File, DB table). [D1]</p>
+                                <strong class="text-gray-900 dark:text-white">
+                                    <span class="lang-en">Data Store</span>
+                                    <span class="lang-ar lang-hidden">مخزن البيانات (Data Store)</span>
+                                </strong>
+                                <p class="text-xs text-gray-500">
+                                    <span class="lang-en">Data at rest (File, DB table). [D1]</span>
+                                    <span class="lang-ar lang-hidden">بيانات في حالة راحة (ملف، جدول قاعدة بيانات). [D1]</span>
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 rounded-full mr-4 bg-white dark:bg-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 rounded-full mr-4 rtl:ml-4 rtl:mr-0 bg-white dark:bg-gray-900">
                                 <i class="fa-solid fa-gear text-gray-500"></i>
                             </div>
                             <div>
-                                <strong class="text-gray-900 dark:text-white">Process</strong>
-                                <p class="text-xs text-gray-500">Work/Action performed on data. [Verb Phrase]</p>
+                                <strong class="text-gray-900 dark:text-white">
+                                    <span class="lang-en">Process</span>
+                                    <span class="lang-ar lang-hidden">العملية (Process)</span>
+                                </strong>
+                                <p class="text-xs text-gray-500">
+                                    <span class="lang-en">Work/Action performed on data. [Verb Phrase]</span>
+                                    <span class="lang-ar lang-hidden">العمل/الإجراء المنفذ على البيانات. [جملة فعلية]</span>
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 mr-4 bg-white dark:bg-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center border-2 border-gray-400 mr-4 rtl:ml-4 rtl:mr-0 bg-white dark:bg-gray-900">
                                 <i class="fa-solid fa-user text-gray-500"></i>
                             </div>
                             <div>
-                                <strong class="text-gray-900 dark:text-white">Source/Sink (External Entity)</strong>
-                                <p class="text-xs text-gray-500">Origin/Destination of data outside the system.</p>
+                                <strong class="text-gray-900 dark:text-white">
+                                    <span class="lang-en">Source/Sink (External Entity)</span>
+                                    <span class="lang-ar lang-hidden">المصدر/المصب (كيان خارجي)</span>
+                                </strong>
+                                <p class="text-xs text-gray-500">
+                                    <span class="lang-en">Origin/Destination of data outside the system.</span>
+                                    <span class="lang-ar lang-hidden">مصدر أو وجهة البيانات خارج حدود النظام.</span>
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <div class="w-12 h-1 bg-gray-400 mr-4 relative">
-                                <i class="fa-solid fa-caret-right absolute right-0 -top-1.5 text-gray-400"></i>
+                            <div class="w-12 h-1 bg-gray-400 mr-4 rtl:ml-4 rtl:mr-0 relative">
+                                <i class="fa-solid fa-caret-right absolute right-0 -top-1.5 text-gray-400 rtl:left-0 rtl:right-auto rtl:rotate-180"></i>
                             </div>
                             <div>
-                                <strong class="text-gray-900 dark:text-white">Data Flow</strong>
-                                <p class="text-xs text-gray-500">Arrows depicting data movement.</p>
+                                <strong class="text-gray-900 dark:text-white">
+                                    <span class="lang-en">Data Flow</span>
+                                    <span class="lang-ar lang-hidden">تدفق البيانات (Flow)</span>
+                                </strong>
+                                <p class="text-xs text-gray-500">
+                                    <span class="lang-en">Arrows depicting data movement.</span>
+                                    <span class="lang-ar lang-hidden">أسهم تصور حركة البيانات.</span>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-blue-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Hierarchy of DFDs</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="lang-en">Hierarchy of DFDs</span>
+                        <span class="lang-ar lang-hidden">تسلسل مخططات DFD</span>
+                    </h3>
                     <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                         <li class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
-                            <strong class="text-blue-600 dark:text-blue-400 block mb-1">Context Diagram (Level 0)</strong>
-                            Overview. Shows the system boundary, external entities, and major data flows. Only ONE process (The System). No data stores shown.
+                            <strong class="text-blue-600 dark:text-blue-400 block mb-1">
+                                <span class="lang-en">Context Diagram (Level 0)</span>
+                                <span class="lang-ar lang-hidden">مخطط السياق (Context Diagram)</span>
+                            </strong>
+                            <span class="lang-en">Overview. Shows the system boundary, external entities, and major data flows. Only ONE process (The System). No data stores shown.</span>
+                            <span class="lang-ar lang-hidden">نظرة عامة. يُظهر حدود النظام، والكيانات الخارجية، وتدفقات البيانات الرئيسية. عملية واحدة فقط (النظام). لا تظهر مخازن البيانات.</span>
                         </li>
                         <li class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
-                            <strong class="text-blue-600 dark:text-blue-400 block mb-1">Level-0 Diagram</strong>
-                            Zooms in. Shows the system's major processes, data flows, and data stores.
+                            <strong class="text-blue-600 dark:text-blue-400 block mb-1">
+                                <span class="lang-en">Level-0 Diagram</span>
+                                <span class="lang-ar lang-hidden">المخطط الصفري (Level-0 Diagram)</span>
+                            </strong>
+                            <span class="lang-en">Zooms in. Shows the system's major processes, data flows, and data stores.</span>
+                            <span class="lang-ar lang-hidden">تكبير للتفاصيل. يُظهر العمليات الرئيسية للنظام، وتدفقات البيانات، ومخازن البيانات.</span>
                         </li>
                         <li class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
-                            <strong class="text-blue-600 dark:text-blue-400 block mb-1">Functional Decomposition</strong>
-                            Breaking down high-level processes into more detailed DFDs (Level-1, Level-2...).
+                            <strong class="text-blue-600 dark:text-blue-400 block mb-1">
+                                <span class="lang-en">Functional Decomposition</span>
+                                <span class="lang-ar lang-hidden">التفكيك الوظيفي (Decomposition)</span>
+                            </strong>
+                            <span class="lang-en">Breaking down high-level processes into more detailed DFDs (Level-1, Level-2...).</span>
+                            <span class="lang-ar lang-hidden">تقسيم العمليات عالية المستوى إلى مخططات DFD أكثر تفصيلاً (المستوى 1، المستوى 2...).</span>
                         </li>
                     </ul>
                 </div>
@@ -268,22 +380,32 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Modelling Logic</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Modelling Logic</span>
+                    <span class="lang-ar lang-hidden">نمذجة المنطق (Modelling Logic)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Decision Tables</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Decision Tables</span>
+                    <span class="lang-ar lang-hidden">جداول القرار (Decision Tables)</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A matrix representation of the logic of a decision. It specifies the possible <span class="smart-term font-bold text-brand-500" data-ar="الظروف">Conditions</span> for the decision and the resulting <span class="smart-term font-bold text-brand-500" data-ar="أجراءات">Actions</span> .
+                    <span class="lang-en">A matrix representation of the logic of a decision. It specifies the possible <span class="smart-term font-bold text-brand-500" data-ar="الشروط">Conditions</span> for the decision and the resulting <span class="smart-term font-bold text-brand-500" data-ar="الإجراءات">Actions</span>.</span>
+                    <span class="lang-ar lang-hidden">تمثيل مصفوفي لمنطق القرار. يحدد الـ <span class="font-bold text-brand-500">Conditions</span> الممكنة للقرار والـ <span class="font-bold text-brand-500">Actions</span> الناتجة عنها.</span>
                 </p>
                 
                 <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 rounded-lg">
                     <table class="w-full text-xs text-center">
                         <thead class="bg-gray-100 dark:bg-gray-800 font-bold">
                             <tr>
-                                <th class="p-2 text-left">Conditions / Rules</th>
+                                <th class="p-2 text-left rtl:text-right">
+                                    <span class="lang-en">Conditions / Rules</span>
+                                    <span class="lang-ar lang-hidden">الشروط / القواعد</span>
+                                </th>
                                 <th class="p-2">1</th>
                                 <th class="p-2">2</th>
                                 <th class="p-2">3</th>
@@ -291,25 +413,37 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             <tr>
-                                <td class="p-2 text-left font-bold">Condition A</td>
+                                <td class="p-2 text-left rtl:text-right font-bold">
+                                    <span class="lang-en">Condition A</span>
+                                    <span class="lang-ar lang-hidden">الشرط (أ)</span>
+                                </td>
                                 <td>Y</td>
                                 <td>Y</td>
                                 <td>N</td>
                             </tr>
                             <tr>
-                                <td class="p-2 text-left font-bold">Condition B</td>
+                                <td class="p-2 text-left rtl:text-right font-bold">
+                                    <span class="lang-en">Condition B</span>
+                                    <span class="lang-ar lang-hidden">الشرط (ب)</span>
+                                </td>
                                 <td>Y</td>
                                 <td>N</td>
                                 <td>-</td>
                             </tr>
                             <tr class="bg-gray-50 dark:bg-gray-900">
-                                <td class="p-2 text-left font-bold text-brand-600">Action 1</td>
+                                <td class="p-2 text-left rtl:text-right font-bold text-brand-600">
+                                    <span class="lang-en">Action 1</span>
+                                    <span class="lang-ar lang-hidden">إجراء 1</span>
+                                </td>
                                 <td>X</td>
                                 <td></td>
                                 <td>X</td>
                             </tr>
                             <tr class="bg-gray-50 dark:bg-gray-900">
-                                <td class="p-2 text-left font-bold text-brand-600">Action 2</td>
+                                <td class="p-2 text-left rtl:text-right font-bold text-brand-600">
+                                    <span class="lang-en">Action 2</span>
+                                    <span class="lang-ar lang-hidden">إجراء 2</span>
+                                </td>
                                 <td></td>
                                 <td>X</td>
                                 <td></td>
@@ -321,35 +455,59 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Use Case Modeling</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Use Case Modeling</span>
+                    <span class="lang-ar lang-hidden">نمذجة حالات الاستخدام (Use Case Modeling)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
                 <div class="flex justify-between items-start mb-4">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Use Cases</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Use Cases</span>
+                        <span class="lang-ar lang-hidden">حالات الاستخدام (Use Cases)</span>
+                    </h3>
                     <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 px-2 py-1 rounded">UML</span>
                 </div>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Describes system behavior from the user's perspective.
+                    <span class="lang-en">Describes system behavior from the user's perspective.</span>
+                    <span class="lang-ar lang-hidden">تصف سلوك النظام من منظور الـ User.</span>
                 </p>
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
-                        <strong class="block text-purple-600 dark:text-purple-400 mb-1">Actor</strong>
-                        External entity (human or system) interacting with the system. Stick figure symbol.
+                        <strong class="block text-purple-600 dark:text-purple-400 mb-1">
+                            <span class="lang-en">Actor</span>
+                            <span class="lang-ar lang-hidden">الفاعل (Actor)</span>
+                        </strong>
+                        <span class="lang-en">External entity (human or system) interacting with the system. Stick figure symbol.</span>
+                        <span class="lang-ar lang-hidden">كيان خارجي (بشري أو نظام) يتفاعل مع النظام. رمز الشكل العصوي.</span>
                     </div>
                     <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded">
-                        <strong class="block text-purple-600 dark:text-purple-400 mb-1">Use Case</strong>
-                        A sequence of actions providing value to an actor. Oval symbol.
+                        <strong class="block text-purple-600 dark:text-purple-400 mb-1">
+                            <span class="lang-en">Use Case</span>
+                            <span class="lang-ar lang-hidden">حالة الاستخدام</span>
+                        </strong>
+                        <span class="lang-en">A sequence of actions providing value to an actor. Oval symbol.</span>
+                        <span class="lang-ar lang-hidden">سلسلة من الإجراءات التي توفر قيمة للفاعل. رمز بيضاوي.</span>
                     </div>
                 </div>
                 
-                <div class="mt-4 bg-gray-100 dark:bg-gray-900 p-3 rounded text-xs border-l-2 border-purple-400">
-                    <strong class="block mb-1">Relationships:</strong>
+                <div class="mt-4 bg-gray-100 dark:bg-gray-900 p-3 rounded text-xs border-l-2 border-purple-400 rtl:border-l-0 rtl:border-r-2 rtl:border-purple-400">
+                    <strong class="block mb-1">
+                        <span class="lang-en">Relationships:</span>
+                        <span class="lang-ar lang-hidden">العلاقات:</span>
+                    </strong>
                     <ul class="list-disc list-inside space-y-1">
-                        <li><strong>Include:</strong> A use case <em>always</em> uses another (Mandatory).</li>
-                        <li><strong>Extend:</strong> A use case <em>might</em> use another (Optional/Conditional).</li>
+                        <li>
+                            <span class="lang-en"><strong>Include:</strong> A use case <em>always</em> uses another (Mandatory).</span>
+                            <span class="lang-ar lang-hidden"><strong>Include:</strong> حالة استخدام تستخدم <em>دائماً</em> حالة أخرى (إجباري).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Extend:</strong> A use case <em>might</em> use another (Optional/Conditional).</span>
+                            <span class="lang-ar lang-hidden"><strong>Extend:</strong> حالة استخدام <em>قد</em> تستخدم حالة أخرى (اختياري/مشروط).</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -359,56 +517,68 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">The Exam Vault (خزنة الاختبارات)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The Black Hole
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: The Black Hole</span>
+                            <span class="lang-ar lang-hidden">TRAP: The Black Hole</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In DFDs, a Process must have both inputs and outputs.
-                            <br><strong>Black Hole:</strong> Inputs but NO outputs (Data disappears).
-                            <br><strong>Miracle:</strong> Outputs but NO inputs (Data created from nothing).
-                            Both are errors!
+                            <span class="lang-en">In DFDs, a Process must have both inputs and outputs. <br><strong>Black Hole:</strong> Inputs but NO outputs (Data disappears). <br><strong>Miracle:</strong> Outputs but NO inputs (Data created from nothing). Both are errors!</span>
+                            <span class="lang-ar lang-hidden">في DFDs، يجب أن يكون للعملية مدخلات ومخرجات. <br><strong>Black Hole:</strong> مدخلات بلا مخرجات (تختفي البيانات). <br><strong>Miracle:</strong> مخرجات بلا مدخلات (تخلق البيانات من العدم). كلاهما أخطاء!</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Data Store Rules
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Data Store Rules</span>
+                            <span class="lang-ar lang-hidden">TRAP: Data Store Rules</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Data cannot move directly from one Data Store to another. It MUST go through a Process.
-                            <br>Similarly, data cannot move directly from an External Entity to a Data Store. It requires a Process to receive and store it.
+                            <span class="lang-en">Data cannot move directly from one Data Store to another. It MUST go through a Process. <br>Similarly, data cannot move directly from an External Entity to a Data Store. It requires a Process to receive and store it.</span>
+                            <span class="lang-ar lang-hidden">لا يمكن للبيانات الانتقال مباشرة من مخزن بيانات لآخر. يجب أن تمر عبر عملية (Process). <br>بالمثل، لا يمكن للبيانات الانتقال مباشرة من كيان خارجي إلى مخزن بيانات. تتطلب عملية لاستلامها وتخزينها.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Context vs Level-0
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Context vs Level-0</span>
+                            <span class="lang-ar lang-hidden">SECRET: Context vs Level-0</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Context Diagram:</strong> ONE process box (System 0). No Data Stores.
-                            <strong>Level-0:</strong> Multiple process boxes (1.0, 2.0...). Shows Data Stores.
-                            Don't mix them up!
+                            <span class="lang-en"><strong>Context Diagram:</strong> ONE process box (System 0). No Data Stores. <strong>Level-0:</strong> Multiple process boxes (1.0, 2.0...). Shows Data Stores. Don't mix them up!</span>
+                            <span class="lang-ar lang-hidden"><strong>Context Diagram:</strong> صندوق عملية واحد فقط (النظام 0). لا مخازن بيانات. <strong>Level-0:</strong> عدة صناديق عمليات (1.0، 2.0...). يظهر مخازن البيانات. لا تخلط بينهما!</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Balancing
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Balancing</span>
+                            <span class="lang-ar lang-hidden">KEY CONCEPT: Balancing</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>DFD Balancing:</strong> Inputs and outputs on a child diagram must match the inputs and outputs of the parent process on the higher-level diagram. If Process 1 has 2 inputs and 1 output, its Decomposition Diagram must essentially have those same net flows.
+                            <span class="lang-en"><strong>DFD Balancing:</strong> Inputs and outputs on a child diagram must match the inputs and outputs of the parent process on the higher-level diagram. If Process 1 has 2 inputs and 1 output, its Decomposition Diagram must essentially have those same net flows.</span>
+                            <span class="lang-ar lang-hidden"><strong>DFD Balancing:</strong> المدخلات والمخرجات في المخطط الفرعي يجب أن تطابق مدخلات ومخرجات العملية الأم في المستوى الأعلى. إذا كان للـ Process 1 مدخلان ومخرج واحد، يجب أن يكون لمخطط تفكيكها نفس التدفقات الصافية.</span>
                         </p>
                     </div>
                 </div>
@@ -419,21 +589,35 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 5</span>
+                    <span class="lang-ar lang-hidden">Module 5</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">Course Hub</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 7</span>
+                    <span class="lang-ar lang-hidden">Module 7</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صممت للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        const langToggleBtn = document.getElementById('lang-toggle');
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -449,46 +633,42 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
-        
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
-
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('lang-hidden', lang === 'ar'));
+            document.querySelectorAll('.lang-ar').forEach(el => el.classList.toggle('lang-hidden', lang !== 'ar'));
         }
 
-    });
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        langToggleBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('lang');
+            setLanguage(current === 'en' ? 'ar' : 'en');
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} completed.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 9: Mass Storage</title>
@@ -61,6 +70,63 @@
 
     <style>
         
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .border-l-4 { 
+            border-left-width: 0; 
+            border-right-width: 4px; 
+        }
+        [dir="rtl"] .border-r-4 { 
+            border-right-width: 0; 
+            border-left-width: 4px; 
+        }
+
+        
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        
+        
+        [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
+        [dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
+        
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -87,40 +153,6 @@
             border-color: #10b981;
             box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
         }
-
-        
-        .smart-term {
-            cursor: help;
-            border-bottom: 2px dotted #10b981;
-            position: relative;
-            transition: all 0.2s;
-        }
-        .smart-term:hover {
-            color: #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
-        }
-        .smart-term::after {
-            content: attr(data-ar);
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2937;
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: 'Cairo', sans-serif;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s;
-            white-space: nowrap;
-            z-index: 50;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        .smart-term:hover::after {
-            opacity: 1;
-        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -128,26 +160,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module8.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 9</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 9</span>
+                        <span class="lang-ar lang-hidden">الوحدة 9</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-hard-drive text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module10.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,18 +211,35 @@
                 <i class="fa-solid fa-server text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Persistence: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Mass-Storage Systems</span>
+                <span class="lang-en">Persistence: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Mass-Storage Systems</span></span>
+                <span class="lang-ar lang-hidden">الاستدامة: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">أنظمة التخزين الشامل (Mass-Storage)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Managing Secondary Storage. HDD vs SSD mechanics, Disk Scheduling algorithms, and RAID redundancy.
+                <span class="lang-en">Managing Secondary Storage. HDD vs SSD mechanics, Disk Scheduling algorithms, and RAID redundancy.</span>
+                <span class="lang-ar lang-hidden">إدارة التخزين الثانوي. ميكانيكية HDD مقابل SSD، خوارزميات جدولة القرص (Disk Scheduling)، وتكرار RAID.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">HDD Structure (Tracks/Sectors)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">NVM / SSD</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Disk Scheduling (SCAN, C-SCAN)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Formatting</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">RAID Levels</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">HDD Structure (Tracks/Sectors)</span>
+                    <span class="lang-ar lang-hidden">هيكلية HDD (Tracks/Sectors)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">NVM / SSD</span>
+                    <span class="lang-ar lang-hidden">NVM / SSD</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Disk Scheduling (SCAN, C-SCAN)</span>
+                    <span class="lang-ar lang-hidden">جدولة القرص (SCAN, C-SCAN)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Formatting</span>
+                    <span class="lang-ar lang-hidden">التهيئة (Formatting)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">RAID Levels</span>
+                    <span class="lang-ar lang-hidden">مستويات RAID</span>
+                </span>
             </div>
         </header>
 
@@ -184,33 +248,65 @@
         <section>
             <div class="flex items-center space-x-3 mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Physical Storage</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Physical Storage</span>
+                    <span class="lang-ar lang-hidden">التخزين الفيزيائي (Physical Storage)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Hard Disk Drive (HDD)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Hard Disk Drive (HDD)</span>
+                        <span class="lang-ar lang-hidden">Hard Disk Drive (HDD)</span>
+                    </h3>
                     
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Mechanical device. Magnetic platters spin under a moving read-write arm.
+                        <span class="lang-en">Mechanical device. Magnetic platters spin under a moving read-write arm.</span>
+                        <span class="lang-ar lang-hidden">جهاز ميكانيكي. تدور الأقراص الممغنطة (Platters) تحت ذراع قراءة/كتابة متحرك.</span>
                     </p>
                     <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                        <li><strong>Track:</strong> Concentric circle on a platter.</li>
-                        <li><strong>Sector:</strong> Smallest unit of transfer (e.g., 512 bytes).</li>
-                        <li><strong>Cylinder:</strong> Set of tracks at same arm position across all platters.</li>
-                        <li><strong>Seek Time:</strong> Time to move arm to cylinder. (Major bottleneck).</li>
+                        <li>
+                            <span class="lang-en"><strong>Track:</strong> Concentric circle on a platter.</span>
+                            <span class="lang-ar lang-hidden"><strong>Track:</strong> دائرة متحدة المركز على القرص.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Sector:</strong> Smallest unit of transfer (e.g., 512 bytes).</span>
+                            <span class="lang-ar lang-hidden"><strong>Sector:</strong> أصغر وحدة للنقل (مثال: 512 بايت).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Cylinder:</strong> Set of tracks at same arm position across all platters.</span>
+                            <span class="lang-ar lang-hidden"><strong>Cylinder:</strong> مجموعة من الـ Tracks في نفس موضع الذراع عبر جميع الأقراص.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Seek Time:</strong> Time to move arm to cylinder. (Major bottleneck).</span>
+                            <span class="lang-ar lang-hidden"><strong>Seek Time:</strong> الوقت اللازم لتحريك الذراع إلى الـ Cylinder. (عائق رئيسي).</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-green-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Non-Volatile Memory (NVM)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Non-Volatile Memory (NVM)</span>
+                        <span class="lang-ar lang-hidden">Non-Volatile Memory (NVM)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Electrical device. No moving parts. Faster, more reliable, less power. Used in SSDs, USBs.
+                        <span class="lang-en">Electrical device. No moving parts. Faster, more reliable, less power. Used in SSDs, USBs.</span>
+                        <span class="lang-ar lang-hidden">جهاز كهربائي. لا توجد أجزاء متحركة. أسرع وأكثر موثوقية ويستهلك طاقة أقل. يستخدم في SSD و USB.</span>
                     </p>
                     <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                        <li><strong>Flash NAND:</strong> Data stored in cells.</li>
-                        <li><strong>Write Endurance:</strong> Cells wear out after many writes.</li>
-                        <li><strong>Garbage Collection:</strong> NVM cannot overwrite directly; must erase block first. Valid data in block is copied elsewhere, then block is erased.</li>
+                        <li>
+                            <span class="lang-en"><strong>Flash NAND:</strong> Data stored in cells.</span>
+                            <span class="lang-ar lang-hidden"><strong>Flash NAND:</strong> يتم تخزين البيانات في خلايا (Cells).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Write Endurance:</strong> Cells wear out after many writes.</span>
+                            <span class="lang-ar lang-hidden"><strong>Write Endurance:</strong> تتآكل الخلايا بعد عمليات كتابة كثيرة.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Garbage Collection:</strong> NVM cannot overwrite directly; must erase block first. Valid data in block is copied elsewhere, then block is erased.</span>
+                            <span class="lang-ar lang-hidden"><strong>Garbage Collection:</strong> لا يمكن للـ NVM الكتابة الفوقية مباشرة؛ يجب مسح الكتلة (Block) أولاً. يتم نسخ البيانات الصالحة إلى مكان آخر، ثم مسح الكتلة.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -219,31 +315,51 @@
         <section>
             <div class="flex items-center space-x-3 mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">HDD Scheduling</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">HDD Scheduling</span>
+                    <span class="lang-ar lang-hidden">جدولة القرص الصلب (HDD Scheduling)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                The OS must minimize seek time. Given a queue of requests (e.g., Cylinders 98, 183, 37...), which one to serve next?
+                <span class="lang-en">The OS must minimize seek time. Given a queue of requests (e.g., Cylinders 98, 183, 37...), which one to serve next?</span>
+                <span class="lang-ar lang-hidden">يجب على نظام التشغيل تقليل وقت البحث (Seek Time). بالنظر إلى طابور من الطلبات (مثال: Cylinders 98, 183, 37...)، أيهم يجب خدمته تالياً؟</span>
             </p>
 
             <div class="space-y-6">
                 <div class="glass-card p-4 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">FCFS (First-Come First-Served)</h4>
-                    <p class="text-xs text-gray-500">Fair, but slow. Head swings wildly across the disk.</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                        <span class="lang-en">FCFS (First-Come First-Served)</span>
+                        <span class="lang-ar lang-hidden">FCFS (من يأتي أولاً يُخدم أولاً)</span>
+                    </h4>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Fair, but slow. Head swings wildly across the disk.</span>
+                        <span class="lang-ar lang-hidden">عادلة، لكنها بطيئة. يتأرجح الرأس بشكل عشوائي عبر القرص.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-4 rounded-xl border-l-4 border-l-blue-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">SCAN (Elevator Algorithm)</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                        <span class="lang-en">SCAN (Elevator Algorithm)</span>
+                        <span class="lang-ar lang-hidden">SCAN (خوارزمية المصعد)</span>
+                    </h4>
                     <p class="text-xs text-gray-500">
-                        Disk arm starts at one end and moves toward the other, servicing requests. At the end, it reverses direction.
+                        <span class="lang-en">Disk arm starts at one end and moves toward the other, servicing requests. At the end, it reverses direction.</span>
+                        <span class="lang-ar lang-hidden">يبدأ ذراع القرص من طرف ويتحرك نحو الآخر، خادماً الطلبات في طريقه. عند النهاية، يعكس اتجاهه.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-4 rounded-xl border-l-4 border-l-purple-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">C-SCAN (Circular SCAN)</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                        <span class="lang-en">C-SCAN (Circular SCAN)</span>
+                        <span class="lang-ar lang-hidden">C-SCAN (المسح الدائري)</span>
+                    </h4>
                     <p class="text-xs text-gray-500">
-                        Like SCAN, but when it reaches the end, it immediately returns to the beginning <strong>without servicing</strong> requests on the return trip.
-                        <br>Provides more uniform wait time.
+                        <span class="lang-en">Like SCAN, but when it reaches the end, it immediately returns to the beginning <strong>without servicing</strong> requests on the return trip.</span>
+                        <span class="lang-ar lang-hidden">مثل SCAN، لكن عند الوصول للنهاية، يعود فوراً للبداية <strong>دون خدمة</strong> أي طلبات في رحلة العودة.</span>
+                        <br>
+                        <span class="lang-en">Provides more uniform wait time.</span>
+                        <span class="lang-ar lang-hidden">توفر وقت انتظار أكثر انتظاماً.</span>
                     </p>
                 </div>
             </div>
@@ -252,26 +368,46 @@
         <section>
             <div class="flex items-center space-x-3 mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Device Management</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Device Management</span>
+                    <span class="lang-ar lang-hidden">إدارة الأجهزة (Device Management)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Formatting</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Formatting</span>
+                        <span class="lang-ar lang-hidden">التهيئة (Formatting)</span>
+                    </h3>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>Low-Level (Physical) Formatting:</strong> Dividing disk into sectors. Done at factory.</li>
-                        <li><strong>Partitioning:</strong> Dividing disk into groups of cylinders (e.g., C:, D:).</li>
-                        <li><strong>Logical Formatting:</strong> Making a file system (NTFS, EXT4). Initializing data structures.</li>
+                        <li>
+                            <span class="lang-en"><strong>Low-Level (Physical) Formatting:</strong> Dividing disk into sectors. Done at factory.</span>
+                            <span class="lang-ar lang-hidden"><strong>Low-Level (Physical) Formatting:</strong> تقسيم القرص إلى قطاعات (Sectors). يتم في المصنع.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Partitioning:</strong> Dividing disk into groups of cylinders (e.g., C:, D:).</span>
+                            <span class="lang-ar lang-hidden"><strong>Partitioning:</strong> تقسيم القرص إلى مجموعات من الـ Cylinders (مثل C: و D:).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Logical Formatting:</strong> Making a file system (NTFS, EXT4). Initializing data structures.</span>
+                            <span class="lang-ar lang-hidden"><strong>Logical Formatting:</strong> إنشاء نظام ملفات (NTFS, EXT4) وتهيئة هياكل البيانات.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Swap-Space Management</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Swap-Space Management</span>
+                        <span class="lang-ar lang-hidden">إدارة مساحة التبادل (Swap-Space)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Extension of main memory.
+                        <span class="lang-en">Extension of main memory.</span>
+                        <span class="lang-ar lang-hidden">امتداد للذاكرة الرئيسية (RAM).</span>
                     </p>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs text-gray-500">
-                        Can be a raw partition (faster, no FS overhead) or a large file in the file system (easier to resize).
+                        <span class="lang-en">Can be a raw partition (faster, no FS overhead) or a large file in the file system (easier to resize).</span>
+                        <span class="lang-ar lang-hidden">يمكن أن يكون قسماً خاماً (Raw Partition - أسرع) أو ملفاً كبيراً داخل نظام الملفات (أسهل في تغيير الحجم).</span>
                     </div>
                 </div>
             </div>
@@ -280,41 +416,69 @@
         <section>
             <div class="flex items-center space-x-3 mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">RAID (Redundant Array of Independent Disks)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">RAID (Redundant Array of Independent Disks)</span>
+                    <span class="lang-ar lang-hidden">RAID (مصفوفة الأقراص المستقلة المتكررة)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                Using multiple disks together to improve <strong>Reliability</strong> (Redundancy) and <strong>Performance</strong> (Parallelism).
+                <span class="lang-en">Using multiple disks together to improve <strong>Reliability</strong> (Redundancy) and <strong>Performance</strong> (Parallelism).</span>
+                <span class="lang-ar lang-hidden">استخدام عدة أقراص معاً لتحسين <strong>الموثوقية</strong> (التكرار) و <strong>الأداء</strong> (التوازي).</span>
             </p>
 
             <div class="grid md:grid-cols-3 gap-6 text-center">
                 <div class="glass-card p-6 rounded-xl">
                     <strong class="block text-brand-600 text-lg mb-2">RAID 0</strong>
-                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Striping</span>
+                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        <span class="lang-en">Striping</span>
+                        <span class="lang-ar lang-hidden">Striping (تقسيم)</span>
+                    </span>
                     <p class="text-xs text-gray-500 mt-2">
-                        Data spread across disks.
-                        <br>+ Very Fast.
-                        <br>- No Redundancy (1 failure = data loss).
+                        <span class="lang-en">Data spread across disks.</span>
+                        <span class="lang-ar lang-hidden">توزيع البيانات عبر الأقراص.</span>
+                        <br>
+                        <span class="lang-en">+ Very Fast.</span>
+                        <span class="lang-ar lang-hidden">+ سريع جداً.</span>
+                        <br>
+                        <span class="lang-en">- No Redundancy (1 failure = data loss).</span>
+                        <span class="lang-ar lang-hidden">- لا يوجد تكرار (فشل واحد = فقدان البيانات).</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
                     <strong class="block text-brand-600 text-lg mb-2">RAID 1</strong>
-                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Mirroring</span>
+                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        <span class="lang-en">Mirroring</span>
+                        <span class="lang-ar lang-hidden">Mirroring (نسخ متطابق)</span>
+                    </span>
                     <p class="text-xs text-gray-500 mt-2">
-                        Copy data to second disk.
-                        <br>+ Very Reliable.
-                        <br>- Expensive (Uses 50% capacity).
+                        <span class="lang-en">Copy data to second disk.</span>
+                        <span class="lang-ar lang-hidden">نسخ البيانات إلى قرص ثانٍ.</span>
+                        <br>
+                        <span class="lang-en">+ Very Reliable.</span>
+                        <span class="lang-ar lang-hidden">+ موثوق للغاية.</span>
+                        <br>
+                        <span class="lang-en">- Expensive (Uses 50% capacity).</span>
+                        <span class="lang-ar lang-hidden">- مكلف (يستخدم 50% من السعة).</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-2 border-brand-500">
                     <strong class="block text-brand-600 text-lg mb-2">RAID 5</strong>
-                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Parity</span>
+                    <span class="text-xs font-bold uppercase bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">
+                        <span class="lang-en">Parity</span>
+                        <span class="lang-ar lang-hidden">Parity (تكافؤ)</span>
+                    </span>
                     <p class="text-xs text-gray-500 mt-2">
-                        Striping with Parity distributed across disks.
-                        <br>+ Good balance of Speed, Space, and Safety.
-                        <br>Can survive 1 disk failure.
+                        <span class="lang-en">Striping with Parity distributed across disks.</span>
+                        <span class="lang-ar lang-hidden">Striping مع توزيع الـ Parity عبر الأقراص.</span>
+                        <br>
+                        <span class="lang-en">+ Good balance of Speed, Space, and Safety.</span>
+                        <span class="lang-ar lang-hidden">+ توازن جيد بين السرعة، المساحة، والأمان.</span>
+                        <br>
+                        <span class="lang-en">Can survive 1 disk failure.</span>
+                        <span class="lang-ar lang-hidden">يمكنه الصمود أمام فشل قرص واحد.</span>
                     </p>
                 </div>
             </div>
@@ -329,48 +493,72 @@
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار (Exam Vault)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Seek vs Latency
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Seek vs Latency</span>
+                            <span class="lang-ar lang-hidden">فخ: Seek مقابل Latency</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Seek Time:</strong> Moving the ARM to the correct cylinder (Mechanical, Slow).
-                            <br><strong>Rotational Latency:</strong> Waiting for the SECTOR to spin under the head.
-                            <br>Scheduling algorithms (SCAN) optimize Seek Time, not Latency.
+                            <span class="lang-en"><strong>Seek Time:</strong> Moving the ARM to the correct cylinder (Mechanical, Slow).</span>
+                            <span class="lang-ar lang-hidden"><strong>Seek Time:</strong> تحريك الذراع (ARM) إلى الـ Cylinder الصحيح (ميكانيكي، بطيء).</span>
+                            <br>
+                            <span class="lang-en"><strong>Rotational Latency:</strong> Waiting for the SECTOR to spin under the head.</span>
+                            <span class="lang-ar lang-hidden"><strong>Rotational Latency:</strong> انتظار دوران الـ SECTOR تحت الرأس.</span>
+                            <br>
+                            <span class="lang-en">Scheduling algorithms (SCAN) optimize Seek Time, not Latency.</span>
+                            <span class="lang-ar lang-hidden">خوارزميات الجدولة (SCAN) تحسن الـ Seek Time وليس الـ Latency.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: RAID Reliability
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: RAID Reliability</span>
+                            <span class="lang-ar lang-hidden">فخ: موثوقية RAID</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            RAID protects against <strong>Disk Failure</strong> (Hardware), not human error, virus, or fire.
-                            <br>It is NOT a backup solution. You still need backups.
+                            <span class="lang-en">RAID protects against <strong>Disk Failure</strong> (Hardware), not human error, virus, or fire.</span>
+                            <span class="lang-ar lang-hidden">RAID يحمي من <strong>فشل القرص</strong> (Hardware)، ليس من الخطأ البشري، الفيروسات، أو الحريق.</span>
+                            <br>
+                            <span class="lang-en">It is NOT a backup solution. You still need backups.</span>
+                            <span class="lang-ar lang-hidden">إنه ليس حلاً للنسخ الاحتياطي (Backup). ما زلت بحاجة لنسخ احتياطية.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: SSD Scheduling
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: SSD Scheduling</span>
+                            <span class="lang-ar lang-hidden">سر: جدولة SSD</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Disk scheduling algorithms (SCAN, C-SCAN) are useless for SSDs because SSDs have no moving parts. Random access is as fast as sequential access. The OS typically uses simple FCFS or merging for SSDs.
+                            <span class="lang-en">Disk scheduling algorithms (SCAN, C-SCAN) are useless for SSDs because SSDs have no moving parts. Random access is as fast as sequential access. The OS typically uses simple FCFS or merging for SSDs.</span>
+                            <span class="lang-ar lang-hidden">خوارزميات جدولة القرص (SCAN, C-SCAN) غير مجدية للـ SSD لعدم وجود أجزاء متحركة. الوصول العشوائي سريع كالوصول المتسلسل. يستخدم نظام التشغيل عادة FCFS البسيط للـ SSD.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Boot Block
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Boot Block</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: Boot Block</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The computer starts by running the <strong>Bootstrap</strong> program from ROM. This program must know how to load the full OS from disk. The OS is stored in the <strong>Boot Block</strong> (usually first sector) of the storage device.
+                            <span class="lang-en">The computer starts by running the <strong>Bootstrap</strong> program from ROM. This program must know how to load the full OS from disk. The OS is stored in the <strong>Boot Block</strong> (usually first sector) of the storage device.</span>
+                            <span class="lang-ar lang-hidden">يبدأ الحاسوب بتشغيل برنامج <strong>Bootstrap</strong> من الـ ROM. يجب أن يعرف هذا البرنامج كيفية تحميل نظام التشغيل الكامل من القرص. يُخزن نظام التشغيل في <strong>Boot Block</strong> (عادة أول قطاع) من جهاز التخزين.</span>
                         </p>
                     </div>
                 </div>
@@ -381,18 +569,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 8</span>
+                    <span class="lang-ar lang-hidden">الوحدة 8</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 10</span>
+                    <span class="lang-ar lang-hidden">الوحدة 10</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -411,46 +612,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar'); 
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en'); 
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 13: Coping with Limitations</title>
@@ -50,6 +59,55 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] mjx-container {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .border-t-4 { border-top-width: 4px; }
+        
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-arrow-turn-up {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -115,33 +173,63 @@
         .pruned {
             animation: prune-fade 2s forwards;
         }
+		
+		
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module12.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 13</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 13</span>
+                        <span class="lang-ar lang-hidden">الوحدة 13</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="final-review.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Final Review">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Finals</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Finals</span>
+                            <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                        </span>
                         <i class="fa-solid fa-flag-checkered"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -158,73 +246,125 @@
                 <i class="fa-solid fa-scissors text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Coping with <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Limitations</span>
+                <span class="lang-en">Coping with <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Limitations</span></span>
+                <span class="lang-ar lang-hidden">التعامل مع <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">القيود (Limitations)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                When a problem is NP-Hard, we have two choices: find an exact solution intelligently (Backtracking/Branch-and-Bound) or settle for a "good enough" approximation.
+                <span class="lang-en">When a problem is NP-Hard, we have two choices: find an exact solution intelligently (Backtracking/Branch-and-Bound) or settle for a "good enough" approximation.</span>
+                <span class="lang-ar lang-hidden">عندما تكون المشكلة NP-Hard، لدينا خياران: إيجاد حل دقيق بذكاء (Backtracking/Branch-and-Bound) أو القبول بتقريب "جيد بما فيه الكفاية".</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Backtracking</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">State-Space Trees</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Branch-and-Bound</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Approximation Algorithms</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Backtracking</span>
+                    <span class="lang-ar lang-hidden">التراجع (Backtracking)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">State-Space Trees</span>
+                    <span class="lang-ar lang-hidden">أشجار فضاء الحالة</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Branch-and-Bound</span>
+                    <span class="lang-ar lang-hidden">التفرع والحد (Branch-and-Bound)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Approximation Algorithms</span>
+                    <span class="lang-ar lang-hidden">خوارزميات التقريب</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Two Approaches to NP-Hard Problems</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Two Approaches to NP-Hard Problems</span>
+                    <span class="lang-ar lang-hidden">نهجان لمشاكل NP-Hard</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-rose-500">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">1. Exact Solutions</h3>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">1. Exact Solutions</span>
+                            <span class="lang-ar lang-hidden">1. الحلول الدقيقة</span>
+                        </h3>
                         <i class="fa-solid fa-crosshairs text-rose-500 text-xl"></i>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        We want the <strong>optimal</strong> answer, even if it takes a long time. We try to be smarter than Brute Force by eliminating bad options early.
+                        <span class="lang-en">We want the <strong>optimal</strong> answer, even if it takes a long time. We try to be smarter than Brute Force by eliminating bad options early.</span>
+                        <span class="lang-ar lang-hidden">نريد الإجابة <strong>المثلى (Optimal)</strong>، حتى لو استغرقت وقتاً طويلاً. نحاول أن نكون أذكى من القوة الغاشمة (Brute Force) عن طريق استبعاد الخيارات السيئة مبكراً.</span>
                     </p>
                     <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                        <li><i class="fa-solid fa-arrow-turn-up text-rose-500 mr-2"></i><strong>Backtracking:</strong> Depth-First Search with pruning.</li>
-                        <li><i class="fa-solid fa-code-branch text-rose-500 mr-2"></i><strong>Branch-and-Bound:</strong> Optimization with bounding functions.</li>
+                        <li>
+                            <i class="fa-solid fa-arrow-turn-up text-rose-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Backtracking:</strong><strong class="lang-ar lang-hidden">التراجع (Backtracking):</strong>
+                            <span class="lang-en">Depth-First Search with pruning.</span>
+                            <span class="lang-ar lang-hidden">بحث العمق أولاً (DFS) مع التقليم.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-code-branch text-rose-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Branch-and-Bound:</strong><strong class="lang-ar lang-hidden">التفرع والحد:</strong>
+                            <span class="lang-en">Optimization with bounding functions.</span>
+                            <span class="lang-ar lang-hidden">التحسين باستخدام دوال الحد (Bounding Functions).</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-emerald-500">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">2. Approximations</h3>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">2. Approximations</span>
+                            <span class="lang-ar lang-hidden">2. التقريبات (Approximations)</span>
+                        </h3>
                         <i class="fa-solid fa-compress text-emerald-500 text-xl"></i>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        We accept a <strong>sub-optimal</strong> answer if we can find it in <strong>Polynomial Time</strong>.
+                        <span class="lang-en">We accept a <strong>sub-optimal</strong> answer if we can find it in <strong>Polynomial Time</strong>.</span>
+                        <span class="lang-ar lang-hidden">نقبل بإجابة <strong>دون المستوى الأمثل (Sub-optimal)</strong> إذا تمكنا من العثور عليها في <strong>وقت كثير الحدود</strong>.</span>
 						<br><br>
                     </p>
                     <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                        <li><i class="fa-solid fa-percent text-emerald-500 mr-2"></i><strong>Accuracy Ratio:</strong> How close are we to optimal?</li>
-                        <li><i class="fa-solid fa-bolt text-emerald-500 mr-2"></i><strong>Heuristics:</strong> Greedy strategies (Nearest Neighbor).</li>
+                        <li>
+                            <i class="fa-solid fa-percent text-emerald-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Accuracy Ratio:</strong><strong class="lang-ar lang-hidden">نسبة الدقة:</strong>
+                            <span class="lang-en">How close are we to optimal?</span>
+                            <span class="lang-ar lang-hidden">كم نحن قريبون من الحل الأمثل؟</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-bolt text-emerald-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Heuristics:</strong><strong class="lang-ar lang-hidden">الاستدلال (Heuristics):</strong>
+                            <span class="lang-en">Greedy strategies (Nearest Neighbor).</span>
+                            <span class="lang-ar lang-hidden">استراتيجيات الجشع (أقرب جار).</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Backtracking</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Backtracking</span>
+                    <span class="lang-ar lang-hidden">التراجع (Backtracking)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-gray-700 dark:text-gray-300 mb-4">
-                    Builds the solution component by component (e.g., $x_1, x_2, \dots, x_n$). If a partial solution $(x_1, \dots, x_i)$ cannot lead to a complete valid solution, we <span class="smart-term font-bold text-brand-500" data-ar="تقليم">Prune</span> that node (terminate that branch) and backtrack to try a different choice for $x_i$.
+                    <span class="lang-en">Builds the solution component by component (e.g., $x_1, x_2, \dots, x_n$). If a partial solution $(x_1, \dots, x_i)$ cannot lead to a complete valid solution, we <span class="smart-term font-bold text-brand-500" data-ar="تقليم">Prune</span> that node (terminate that branch) and backtrack to try a different choice for $x_i$.</span>
+                    <span class="lang-ar lang-hidden">يبني الحل مكوناً تلو الآخر (مثل $x_1, x_2, \dots, x_n$). إذا كان الحل الجزئي $(x_1, \dots, x_i)$ لا يمكن أن يؤدي إلى حل صالح كامل، نقوم بـ <span class="smart-term font-bold text-brand-500" data-ar="Prune">تقليم (Prune)</span> تلك العقدة (إنهاء ذلك الفرع) والتراجع لتجربة خيار مختلف لـ $x_i$.</span>
                 </p>
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex flex-col items-center">
-                    <h4 class="font-bold text-sm text-gray-500 mb-2">Example: 3-Queens Problem</h4>
-                    <div class="flex flex-col items-center text-xs font-mono">
+                    <h4 class="font-bold text-sm text-gray-500 mb-2">
+                        <span class="lang-en">Example: 3-Queens Problem</span>
+                        <span class="lang-ar lang-hidden">مثال: مشكلة الملكات الثلاث</span>
+                    </h4>
+                    <div class="flex flex-col items-center text-xs font-mono" dir="ltr">
                         <div class="border border-gray-400 p-1 rounded mb-2 bg-white dark:bg-gray-700">Root</div>
                         <div class="flex space-x-8">
                             <div class="flex flex-col items-center">
@@ -253,57 +393,82 @@
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">N-Queens Problem</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">N-Queens Problem</span>
+                        <span class="lang-ar lang-hidden">مشكلة الملكات الـ N (N-Queens)</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
-                        Place $n$ queens on an $n \times n$ board so no two attack each other.
-                        <br><strong>Constraint:</strong> No two queens share a row, column, or diagonal.
+                        <span class="lang-en">Place $n$ queens on an $n \times n$ board so no two attack each other.
+                        <br><strong>Constraint:</strong> No two queens share a row, column, or diagonal.</span>
+                        <span class="lang-ar lang-hidden">ضع $n$ ملكات على لوحة $n \times n$ بحيث لا تهاجم أي اثنتين بعضهما البعض.
+                        <br><strong>القيد:</strong> لا تشترك أي ملكتين في صف أو عمود أو قطر.</span>
                     </p>
                 </div>
                 <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">Hamiltonian Circuit</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Hamiltonian Circuit</span>
+                        <span class="lang-ar lang-hidden">دائرة هاميلتون (Hamiltonian Circuit)</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
-                        Find a cycle visiting every vertex exactly once. Backtracking explores paths and prunes if a vertex is visited twice or no edge exists.
+                        <span class="lang-en">Find a cycle visiting every vertex exactly once. Backtracking explores paths and prunes if a vertex is visited twice or no edge exists.</span>
+                        <span class="lang-ar lang-hidden">العثور على دورة تزور كل رأس مرة واحدة بالضبط. يستكشف Backtracking المسارات ويقوم بالتقليم إذا تمت زيارة الرأس مرتين أو لم تكن هناك حافة.</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Branch-and-Bound</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Branch-and-Bound</span>
+                    <span class="lang-ar lang-hidden">التفرع والحد (Branch-and-Bound)</span>
+                </h2>
             </div>
             
             <p class="mb-6 text-gray-600 dark:text-gray-400">
-                Similar to Backtracking but used for <span class="smart-term font-bold text-brand-500" data-ar="مشاكل التحسين">Optimization Problems</span> (finding the best solution, not just any solution).
+                <span class="lang-en">Similar to Backtracking but used for <span class="smart-term font-bold text-brand-500" data-ar="مشاكل التحسين">Optimization Problems</span> (finding the best solution, not just any solution).</span>
+                <span class="lang-ar lang-hidden">مشابه لـ Backtracking ولكنه يستخدم لـ <span class="smart-term font-bold text-brand-500" data-ar="Optimization Problems">مشاكل التحسين</span> (إيجاد الحل الأفضل، وليس مجرد أي حل).</span>
             </p>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-3">Key Components</h3>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-3">
+                            <span class="lang-en">Key Components</span>
+                            <span class="lang-ar lang-hidden">المكونات الرئيسية</span>
+                        </h3>
                         <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                             <li class="flex items-start">
-                                <i class="fa-solid fa-ruler-combined text-blue-500 mt-1 mr-2"></i>
+                                <i class="fa-solid fa-ruler-combined text-blue-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
                                 <div>
-                                    <strong>Bounding Function:</strong> Calculates a lower (for minimization) or upper (for maximization) bound on the optimal solution obtainable from a node.
+                                    <strong class="lang-en">Bounding Function:</strong><strong class="lang-ar lang-hidden">دالة الحد (Bounding Function):</strong>
+                                    <span class="lang-en">Calculates a lower (for minimization) or upper (for maximization) bound on the optimal solution obtainable from a node.</span>
+                                    <span class="lang-ar lang-hidden">تحسب حداً أدنى (للتقليل) أو أعلى (للتعظيم) للحل الأمثل الذي يمكن الحصول عليه من عقدة.</span>
                                 </div>
                             </li>
                             <li class="flex items-start">
-                                <i class="fa-solid fa-ban text-rose-500 mt-1 mr-2"></i>
+                                <i class="fa-solid fa-ban text-rose-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
                                 <div>
-                                    <strong>Pruning Rule:</strong> If a node's bound is worse than the best solution found so far, kill the node.
+                                    <strong class="lang-en">Pruning Rule:</strong><strong class="lang-ar lang-hidden">قاعدة التقليم:</strong>
+                                    <span class="lang-en">If a node's bound is worse than the best solution found so far, kill the node.</span>
+                                    <span class="lang-ar lang-hidden">إذا كان حد العقدة أسوأ من أفضل حل تم العثور عليه حتى الآن، اقتل العقدة.</span>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg border-l-4 border-blue-500">
-                        <h4 class="font-bold text-sm text-gray-700 dark:text-gray-300 mb-2">Knapsack Example (Max Value)</h4>
+                    <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg border-l-4 rtl:border-l-0 rtl:border-r-4 border-blue-500">
+                        <h4 class="font-bold text-sm text-gray-700 dark:text-gray-300 mb-2">
+                            <span class="lang-en">Knapsack Example (Max Value)</span>
+                            <span class="lang-ar lang-hidden">مثال الحقيبة (قيمة قصوى)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                            To find the <strong>Upper Bound</strong> for a node (partial selection), we relax the integer constraint: imagine we can take fractions of the remaining items (Greedy approach).
+                            <span class="lang-en">To find the <strong>Upper Bound</strong> for a node (partial selection), we relax the integer constraint: imagine we can take fractions of the remaining items (Greedy approach).</span>
+                            <span class="lang-ar lang-hidden">للعثور على <strong>الحد الأعلى (Upper Bound)</strong> لعقدة (اختيار جزئي)، نخفف قيد العدد الصحيح: تخيل أننا يمكن أن نأخذ كسوراً من العناصر المتبقية (نهج Greedy).</span>
                         </p>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            If $UB < Best\_Value\_So\_Far$, prune!
+                            <span class="lang-en">If $UB < Best\_Value\_So\_Far$, prune!</span>
+                            <span class="lang-ar lang-hidden">إذا كان $UB < Best\_Value\_So\_Far$، قلم!</span>
                         </p>
                     </div>
                 </div>
@@ -311,42 +476,61 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Approximation Algorithms</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Approximation Algorithms</span>
+                    <span class="lang-ar lang-hidden">خوارزميات التقريب</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Performance Ratio ($\rho$)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Performance Ratio ($\rho$)</span>
+                        <span class="lang-ar lang-hidden">نسبة الأداء ($\rho$)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        We measure quality by the ratio of the approximate solution cost ($f(s_a)$) to the optimal cost ($f(s^*)$).
+                        <span class="lang-en">We measure quality by the ratio of the approximate solution cost ($f(s_a)$) to the optimal cost ($f(s^*)$).</span>
+                        <span class="lang-ar lang-hidden">نقيس الجودة بنسبة تكلفة الحل التقريبي ($f(s_a)$) إلى التكلفة المثلى ($f(s^*)$).</span>
                     </p>
                     <div class="text-center font-mono text-lg bg-gray-100 dark:bg-gray-900 p-2 rounded">
-						$\rho(n) = \frac{f(s_a)}{f(s^*)}$ (for minimization)
+						$\rho(n) = \frac{f(s_a)}{f(s^*)}$ 
+                        <span class="lang-en">(for minimization)</span>
+                        <span class="lang-ar lang-hidden" dir = 'RTL'>(للتقليل)</span>
 					</div>
                 </div>
 
-                <div class="glass-card p-6 rounded-xl border-l-4 border-emerald-500">
+                <div class="glass-card p-6 rounded-xl border-l-4 rtl:border-l-0 rtl:border-r-4 border-emerald-500">
                     <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-bold text-gray-900 dark:text-white">TSP: Nearest Neighbor</h3>
-                        <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-600 px-2 py-1 rounded">Greedy</span>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">TSP: Nearest Neighbor</span>
+                            <span class="lang-ar lang-hidden">TSP: أقرب جار</span>
+                        </h3>
+                        <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 px-2 py-1 rounded">Greedy</span>
                     </div>
                     
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        <strong>Strategy:</strong> Always go to the nearest unvisited city.
-                        <br><strong>Accuracy:</strong> For general graphs, the error is unbounded (can be $\infty$). For <strong>Euclidean</strong> graphs (triangle inequality holds), it satisfies $\rho(n) \le \frac{1}{2}(\lceil \log_2 n \rceil + 1)$.
+                        <span class="lang-en"><strong>Strategy:</strong> Always go to the nearest unvisited city.
+                        <br><strong>Accuracy:</strong> For general graphs, the error is unbounded (can be $\infty$). For <strong>Euclidean</strong> graphs (triangle inequality holds), it satisfies $\rho(n) \le \frac{1}{2}(\lceil \log_2 n \rceil + 1)$.</span>
+                        <span class="lang-ar lang-hidden"><strong>الاستراتيجية:</strong> اذهب دائماً إلى أقرب مدينة لم تتم زيارتها.
+                        <br><strong>الدقة:</strong> للرسوم العامة، الخطأ غير محدود (قد يكون $\infty$). للرسوم <strong>الإقليدية</strong> (تنطبق متباينة المثلث)، تحقق $\rho(n) \le \frac{1}{2}(\lceil \log_2 n \rceil + 1)$.</span>
                     </p>
                 </div>
 
-                <div class="glass-card p-6 rounded-xl border-l-4 border-blue-500">
+                <div class="glass-card p-6 rounded-xl border-l-4 rtl:border-l-0 rtl:border-r-4 border-blue-500">
                     <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-bold text-gray-900 dark:text-white">Knapsack: Greedy Ratio</h3>
-                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 px-2 py-1 rounded">Greedy</span>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Knapsack: Greedy Ratio</span>
+                            <span class="lang-ar lang-hidden">الحقيبة: نسبة الجشع</span>
+                        </h3>
+                        <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-2 py-1 rounded">Greedy</span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        <strong>Strategy:</strong> Sort items by value-to-weight ratio ($v_i/w_i$) and pick the best ones.
-                        <br><strong>Accuracy:</strong> The performance ratio is bounded (usually $\le 2$).
+                        <span class="lang-en"><strong>Strategy:</strong> Sort items by value-to-weight ratio ($v_i/w_i$) and pick the best ones.
+                        <br><strong>Accuracy:</strong> The performance ratio is bounded (usually $\le 2$).</span>
+                        <span class="lang-ar lang-hidden"><strong>الاستراتيجية:</strong> رتب العناصر حسب نسبة القيمة إلى الوزن ($v_i/w_i$) واختر الأفضل.
+                        <br><strong>الدقة:</strong> نسبة الأداء محدودة (عادة $\le 2$).</span>
                     </p>
                 </div>
             </div>
@@ -354,54 +538,74 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Worst Case Backtracking
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Worst Case Backtracking</span>
+                            <span class="lang-ar lang-hidden">فخ: أسوأ حالة للتراجع</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Is Backtracking efficient?"
-                            <br>In practice, yes (it prunes many branches). But in the <strong>Worst Case</strong>, it visits every node, so it is still Exponential ($O(2^n)$ or $O(n!)$). Do not call it "Polynomial Time".
+                            <span class="lang-en">"Is Backtracking efficient?"
+                            <br>In practice, yes (it prunes many branches). But in the <strong>Worst Case</strong>, it visits every node, so it is still Exponential ($O(2^n)$ or $O(n!)$). Do not call it "Polynomial Time".</span>
+                            <span class="lang-ar lang-hidden">"هل التراجع فعال؟"
+                            <br>عملياً، نعم (يقلم العديد من الفروع). لكن في <strong>الحالة الأسوأ</strong>، يزور كل عقدة، لذا فهو لا يزال أسياً ($O(2^n)$ أو $O(n!)$). لا تسمه "وقت كثير الحدود".</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Approximation Ratio
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Approximation Ratio</span>
+                            <span class="lang-ar lang-hidden">فخ: نسبة التقريب</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            For maximization problems (Knapsack), the ratio is usually defined as $f(s^*)/f(s_a) \ge 1$. For minimization (TSP), it is $f(s_a)/f(s^*) \ge 1$. Always check the direction of the inequality so your ratio is $\ge 1$.
+                            <span class="lang-en">For maximization problems (Knapsack), the ratio is usually defined as $f(s^*)/f(s_a) \ge 1$. For minimization (TSP), it is $f(s_a)/f(s^*) \ge 1$. Always check the direction of the inequality so your ratio is $\ge 1$.</span>
+                            <span class="lang-ar lang-hidden">لمشاكل التعظيم (الحقيبة)، تعرف النسبة عادة كـ $f(s^*)/f(s_a) \ge 1$. للتقليل (TSP)، هي $f(s_a)/f(s^*) \ge 1$. تحقق دائماً من اتجاه المتباينة لتكون النسبة $\ge 1$.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: B&B vs Backtracking
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: B&B vs Backtracking</span>
+                            <span class="lang-ar lang-hidden">سر: B&B مقابل التراجع</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Backtracking</strong> is for non-optimization (decision) problems or finding <em>all</em> solutions.
-                            <br><strong>Branch-and-Bound</strong> is for optimization problems (Min/Max). It uses the numeric bound to prune. This distinction is crucial for definitions.
+                            <span class="lang-en"><strong>Backtracking</strong> is for non-optimization (decision) problems or finding <em>all</em> solutions.
+                            <br><strong>Branch-and-Bound</strong> is for optimization problems (Min/Max). It uses the numeric bound to prune. This distinction is crucial for definitions.</span>
+                            <span class="lang-ar lang-hidden"><strong>التراجع (Backtracking)</strong> لمشاكل غير التحسين (القرار) أو إيجاد <em>كل</em> الحلول.
+                            <br><strong>التفرع والحد (Branch-and-Bound)</strong> لمشاكل التحسين (Min/Max). يستخدم الحد الرقمي للتقليم. هذا التمييز حاسم للتعريفات.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Multifragment Heuristic
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Multifragment Heuristic</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: Multifragment Heuristic</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            For TSP, another approximation is the <strong>Multifragment Heuristic</strong>. It sorts edges by weight (like Kruskal's) and adds them if they don't create a loop (unless size < n) and don't create a degree-3 vertex. It often outperforms Nearest Neighbor.
+                            <span class="lang-en">For TSP, another approximation is the <strong>Multifragment Heuristic</strong>. It sorts edges by weight (like Kruskal's) and adds them if they don't create a loop (unless size < n) and don't create a degree-3 vertex. It often outperforms Nearest Neighbor.</span>
+                            <span class="lang-ar lang-hidden">لـ TSP، تقريب آخر هو <strong>Multifragment Heuristic</strong>. يرتب الأضلاع حسب الوزن (مثل Kruskal) ويضيفها إذا لم تنشئ حلقة (إلا إذا كان الحجم < n) ولم تنشئ رأساً من الدرجة 3. غالباً ما يتفوق على أقرب جار.</span>
                         </p>
                     </div>
                 </div>
@@ -412,18 +616,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 12</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module12.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 12</span>
+                    <span class="lang-ar lang-hidden">الوحدة 12</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Review</a>
+                <a href="final-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Review</span>
+                    <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -441,6 +658,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

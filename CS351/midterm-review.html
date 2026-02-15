@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351: Midterm Review | Digital Garden</title>
@@ -61,6 +70,53 @@
     </script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-l-3 { border-left-width: 0; border-right-width: 3px; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        
+        
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -137,26 +193,41 @@
     <nav class="sticky top-0 z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-slate-400 dark:text-slate-500">Midterm Review</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-slate-400 dark:text-slate-500">
+                        <span class="lang-en">Midterm Review</span>
+                        <span class="lang-ar lang-hidden">مراجعة منتصف الفصل</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-microchip text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="midterm-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Quiz</span>
+                            <span class="lang-ar lang-hidden">الاختبار</span>
+                        </span>
                         <i class="fa-solid fa-flag-checkered"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -173,70 +244,107 @@
                 <i class="fa-solid fa-layer-group text-4xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                The Ultimate <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Compendium</span>
+                <span class="lang-en">The Ultimate <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Compendium</span></span>
+                <span class="lang-ar lang-hidden">الموجز <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">الشامل (Compendium)</span></span>
             </h1>
             <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                Everything you need for the Midterm. OS Structures, Processes, Scheduling, Synchronization, and Deadlocks.
+                <span class="lang-en">Everything you need for the Midterm. OS Structures, Processes, Scheduling, Synchronization, and Deadlocks.</span>
+                <span class="lang-ar lang-hidden">كل ما تحتاجه للاختبار النصفي. هياكل نظم التشغيل، العمليات، الجدولة، التزامن، والجمود.</span>
             </p>
             
             <div class="w-full max-w-md mx-auto bg-slate-300 dark:bg-slate-800 rounded-full h-2.5 mt-4">
                 <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
             </div>
-            <p class="text-xs text-slate-500 mt-2">Covering Modules 1-6</p>
+            <p class="text-xs text-slate-500 mt-2">
+                <span class="lang-en">Covering Modules 1-6</span>
+                <span class="lang-ar lang-hidden">يغطي الوحدات 1-6</span>
+            </p>
         </header>
 
         <section id="mod1">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 1: OS Services & Structure</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 1: OS Services & Structure</span>
+                    <span class="lang-ar lang-hidden">الوحدة 1: خدمات وهيكلية نظام التشغيل</span>
+                </h2>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2"><i class="fa-solid fa-shield-halved mr-2"></i>Dual Mode Operation</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <i class="fa-solid fa-shield-halved mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Dual Mode Operation</span>
+                        <span class="lang-ar lang-hidden">تشغيل ثنائي الوضع (Dual Mode)</span>
+                    </h3>
                     <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                        Hardware protection against erratic users.
+                        <span class="lang-en">Hardware protection against erratic users.</span>
+                        <span class="lang-ar lang-hidden">حماية الأجهزة ضد المستخدمين غير المستقرين.</span>
                     </p>
                     <div class="grid grid-cols-2 gap-4 text-center text-xs">
                         <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">
-                            <strong class="block text-slate-900 dark:text-white mb-1">User Mode (Bit 1)</strong>
-                            Restricted. No I/O instructions. No HALT.
+                            <strong class="block text-slate-900 dark:text-white mb-1">
+                                <span class="lang-en">User Mode (Bit 1)</span>
+                                <span class="lang-ar lang-hidden">User Mode (Bit 1)</span>
+                            </strong>
+                            <span class="lang-en">Restricted. No I/O instructions. No HALT.</span>
+                            <span class="lang-ar lang-hidden">مُقيد. لا تعليمات I/O. لا توقف (HALT).</span>
                         </div>
                         <div class="p-3 bg-brand-50 dark:bg-brand-900/30 rounded border border-brand-200 dark:border-brand-500/30">
-                            <strong class="block text-brand-600 dark:text-brand-400 mb-1">Kernel Mode (Bit 0)</strong>
-                            Privileged. Access to all hardware instructions.
+                            <strong class="block text-brand-600 dark:text-brand-400 mb-1">
+                                <span class="lang-en">Kernel Mode (Bit 0)</span>
+                                <span class="lang-ar lang-hidden">Kernel Mode (Bit 0)</span>
+                            </strong>
+                            <span class="lang-en">Privileged. Access to all hardware instructions.</span>
+                            <span class="lang-ar lang-hidden">ذو امتيازات. وصول لجميع تعليمات العتاد.</span>
                         </div>
                     </div>
                     <div class="mt-4 text-xs text-slate-500">
-                        <strong>Transition:</strong> User $\to$ Kernel via <strong>System Call (Trap)</strong>. Kernel $\to$ User via <strong>Return from Trap</strong>.
+                        <span class="lang-en"><strong>Transition:</strong> User $\to$ Kernel via <strong>System Call (Trap)</strong>. Kernel $\to$ User via <strong>Return from Trap</strong>.</span>
+                        <span class="lang-ar lang-hidden"><strong>الانتقال:</strong> مستخدم $\to$ نواة عبر <strong>System Call (Trap)</strong>. نواة $\to$ مستخدم عبر <strong>Return from Trap</strong>.</span>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2"><i class="fa-solid fa-code mr-2"></i>System Calls</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">The API between User Programs and the OS.</p>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <i class="fa-solid fa-code mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">System Calls</span>
+                        <span class="lang-ar lang-hidden">نداءات النظام (System Calls)</span>
+                    </h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                        <span class="lang-en">The API between User Programs and the OS.</span>
+                        <span class="lang-ar lang-hidden">واجهة برمجة التطبيقات (API) بين برامج المستخدم ونظام التشغيل.</span>
+                    </p>
                     <div class="code-block">
 // Example: Copy File
 read(src, buffer);  -> Trap to Kernel
 write(dest, buffer); -> Trap to Kernel
                     </div>
                     <p class="text-xs text-slate-500 mt-2">
-                        Common APIs: POSIX (Linux/Unix), Win32 (Windows), Java API.
-                        <br><strong>Note:</strong> `printf()` is a library call, which eventually calls `write()` (System Call).
+                        <span class="lang-en">Common APIs: POSIX (Linux/Unix), Win32 (Windows), Java API.
+                        <br><strong>Note:</strong> `printf()` is a library call, which eventually calls `write()` (System Call).</span>
+                        <span class="lang-ar lang-hidden">APIs شائعة: POSIX (Linux/Unix), Win32 (Windows), Java API.
+                        <br><strong>ملاحظة:</strong> `printf()` هو نداء مكتبة، يستدعي في النهاية `write()` (نداء نظام).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section id="mod2">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 2: Processes & Threads</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 2: Processes & Threads</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2: العمليات والخيوط (Threads)</span>
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl col-span-2">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">Process State Diagram</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">
+                        <span class="lang-en">Process State Diagram</span>
+                        <span class="lang-ar lang-hidden">مخطط حالة العملية</span>
+                    </h3>
                     <div class="mermaid flex justify-center">
                         stateDiagram-v2
                             New --> Ready: Admitted
@@ -249,36 +357,53 @@ write(dest, buffer); -> Trap to Kernel
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">PCB (Process Control Block)</h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">The "Soul" of the process.</p>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">PCB (Process Control Block)</span>
+                        <span class="lang-ar lang-hidden">كتلة تحكم العملية (PCB)</span>
+                    </h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">
+                        <span class="lang-en">The "Soul" of the process.</span>
+                        <span class="lang-ar lang-hidden">"روح" العملية.</span>
+                    </p>
                     <ul class="list-disc list-inside text-xs text-slate-600 dark:text-slate-400 space-y-1">
-                        <li><strong>PID:</strong> Unique ID.</li>
-                        <li><strong>Program Counter:</strong> Next instruction.</li>
-                        <li><strong>Registers:</strong> CPU state.</li>
-                        <li><strong>Memory Limits:</strong> Base/Limit.</li>
-                        <li><strong>Open Files:</strong> I/O list.</li>
+                        <li><span class="lang-en"><strong>PID:</strong> Unique ID.</span><span class="lang-ar lang-hidden"><strong>PID:</strong> معرف فريد.</span></li>
+                        <li><span class="lang-en"><strong>Program Counter:</strong> Next instruction.</span><span class="lang-ar lang-hidden"><strong>Program Counter:</strong> التعليمة التالية.</span></li>
+                        <li><span class="lang-en"><strong>Registers:</strong> CPU state.</span><span class="lang-ar lang-hidden"><strong>Registers:</strong> حالة المعالج.</span></li>
+                        <li><span class="lang-en"><strong>Memory Limits:</strong> Base/Limit.</span><span class="lang-ar lang-hidden"><strong>Memory Limits:</strong> الأساس/الحد.</span></li>
+                        <li><span class="lang-en"><strong>Open Files:</strong> I/O list.</span><span class="lang-ar lang-hidden"><strong>Open Files:</strong> قائمة I/O.</span></li>
                     </ul>
                     <div class="mt-4 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 rounded text-xs text-red-600 dark:text-red-300">
-                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> <strong>Context Switch:</strong> Saving PCB of old process and loading PCB of new one. Pure overhead!
+                        <i class="fa-solid fa-triangle-exclamation mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                        <span class="lang-en"><strong>Context Switch:</strong> Saving PCB of old process and loading PCB of new one. Pure overhead!</span>
+                        <span class="lang-ar lang-hidden"><strong>Context Switch:</strong> حفظ PCB للعملية القديمة وتحميل PCB للجديدة. عبء إضافي (Overhead) بحت!</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="mod3">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 3: Scheduling</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 3: Scheduling</span>
+                    <span class="lang-ar lang-hidden">الوحدة 3: الجدولة (Scheduling)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6 flex flex-wrap gap-4 justify-around items-center">
                 <div class="text-center">
-                    <span class="text-xs text-slate-500 uppercase tracking-widest">Turnaround Time</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-widest">
+                        <span class="lang-en">Turnaround Time</span>
+                        <span class="lang-ar lang-hidden">وقت الإنجاز (Turnaround)</span>
+                    </span>
                     <div class="text-xl font-mono text-brand-600 dark:text-brand-400">$T_{completion} - T_{arrival}$</div>
                 </div>
                 <div class="w-px h-10 bg-slate-300 dark:bg-slate-700"></div>
                 <div class="text-center">
-                    <span class="text-xs text-slate-500 uppercase tracking-widest">Waiting Time</span>
+                    <span class="text-xs text-slate-500 uppercase tracking-widest">
+                        <span class="lang-en">Waiting Time</span>
+                        <span class="lang-ar lang-hidden">وقت الانتظار</span>
+                    </span>
                     <div class="text-xl font-mono text-brand-600 dark:text-brand-400">$Turnaround - Burst$</div>
                 </div>
             </div>
@@ -286,49 +411,62 @@ write(dest, buffer); -> Trap to Kernel
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
                 <div class="glass-card p-4 rounded-xl">
                     <strong class="text-slate-900 dark:text-white block mb-1">FCFS</strong>
-                    First-Come First-Served.
-                    <br><span class="text-red-500 dark:text-red-400">Problem:</span> Convoy Effect (Short waits for Long).
-                    <br><em>Non-Preemptive.</em>
+                    <span class="lang-en">First-Come First-Served.</span>
+                    <span class="lang-ar lang-hidden">من يأتي أولاً يُخدم أولاً.</span>
+                    <br><span class="text-red-500 dark:text-red-400"><span class="lang-en">Problem:</span><span class="lang-ar lang-hidden">مشكلة:</span></span> <span class="lang-en">Convoy Effect (Short waits for Long).</span><span class="lang-ar lang-hidden">تأثير القافلة (القصير ينتظر الطويل).</span>
+                    <br><em><span class="lang-en">Non-Preemptive.</span><span class="lang-ar lang-hidden">غير وقائي (Non-Preemptive).</span></em>
                 </div>
                 <div class="glass-card p-4 rounded-xl">
                     <strong class="text-slate-900 dark:text-white block mb-1">SJF / SRTF</strong>
-                    Shortest Job First.
-                    <br><span class="text-green-600 dark:text-green-400">Benefit:</span> Optimal Avg Wait Time.
-                    <br><span class="text-red-500 dark:text-red-400">Problem:</span> Starvation, Predicting next burst.
+                    <span class="lang-en">Shortest Job First.</span>
+                    <span class="lang-ar lang-hidden">أقصر وظيفة أولاً.</span>
+                    <br><span class="text-green-600 dark:text-green-400"><span class="lang-en">Benefit:</span><span class="lang-ar lang-hidden">فائدة:</span></span> <span class="lang-en">Optimal Avg Wait Time.</span><span class="lang-ar lang-hidden">أمثل متوسط وقت انتظار.</span>
+                    <br><span class="text-red-500 dark:text-red-400"><span class="lang-en">Problem:</span><span class="lang-ar lang-hidden">مشكلة:</span></span> <span class="lang-en">Starvation, Predicting next burst.</span><span class="lang-ar lang-hidden">المجاعة (Starvation)، التنبؤ بالدفعة التالية.</span>
                 </div>
                 <div class="glass-card p-4 rounded-xl border-l-2 border-brand-500">
                     <strong class="text-slate-900 dark:text-white block mb-1">Round Robin (RR)</strong>
-                    Time Quantum ($q$).
-                    <br>Fair. Good response time.
-                    <br>High context switch overhead if $q$ is small.
+                    <span class="lang-en">Time Quantum ($q$).</span>
+                    <span class="lang-ar lang-hidden">كم الوقت ($q$).</span>
+                    <br><span class="lang-en">Fair. Good response time.</span><span class="lang-ar lang-hidden">عادل. وقت استجابة جيد.</span>
+                    <br><span class="lang-en">High context switch overhead if $q$ is small.</span><span class="lang-ar lang-hidden">عبء تبديل سياق عالي إذا كانت $q$ صغيرة.</span>
                 </div>
                 <div class="glass-card p-4 rounded-xl">
                     <strong class="text-slate-900 dark:text-white block mb-1">Priority</strong>
-                    Highest priority runs.
-                    <br><span class="text-red-500 dark:text-red-400">Problem:</span> Starvation.
-                    <br><span class="text-green-600 dark:text-green-400">Solution:</span> Aging.
+                    <span class="lang-en">Highest priority runs.</span>
+                    <span class="lang-ar lang-hidden">الأعلى أولوية يعمل.</span>
+                    <br><span class="text-red-500 dark:text-red-400"><span class="lang-en">Problem:</span><span class="lang-ar lang-hidden">مشكلة:</span></span> <span class="lang-en">Starvation.</span><span class="lang-ar lang-hidden">المجاعة.</span>
+                    <br><span class="text-green-600 dark:text-green-400"><span class="lang-en">Solution:</span><span class="lang-ar lang-hidden">حل:</span></span> <span class="lang-en">Aging.</span><span class="lang-ar lang-hidden">الشيخوخة (Aging).</span>
                 </div>
             </div>
         </section>
 
         <section id="mod4">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 4: Synchronization Tools</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 4: Synchronization Tools</span>
+                    <span class="lang-ar lang-hidden">الوحدة 4: أدوات التزامن</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Critical Section (CS) Requirements</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Critical Section (CS) Requirements</span>
+                        <span class="lang-ar lang-hidden">متطلبات القسم الحرج (CS)</span>
+                    </h3>
                     <ol class="list-decimal list-inside text-sm text-slate-600 dark:text-slate-300 space-y-2">
-                        <li><strong class="text-slate-900 dark:text-white">Mutual Exclusion:</strong> Only one process in CS at a time.</li>
-                        <li><strong class="text-slate-900 dark:text-white">Progress:</strong> If CS is empty, selection isn't postponed indefinitely.</li>
-                        <li><strong class="text-slate-900 dark:text-white">Bounded Waiting:</strong> Limit on times others enter CS before me (No starvation).</li>
+                        <li><strong class="text-slate-900 dark:text-white"><span class="lang-en">Mutual Exclusion:</span><span class="lang-ar lang-hidden">Mutual Exclusion:</span></strong> <span class="lang-en">Only one process in CS at a time.</span><span class="lang-ar lang-hidden">عملية واحدة فقط في الـ CS في نفس الوقت.</span></li>
+                        <li><strong class="text-slate-900 dark:text-white"><span class="lang-en">Progress:</span><span class="lang-ar lang-hidden">Progress:</span></strong> <span class="lang-en">If CS is empty, selection isn't postponed indefinitely.</span><span class="lang-ar lang-hidden">إذا كان الـ CS فارغاً، لا يتم تأجيل الاختيار إلى أجل غير مسمى.</span></li>
+                        <li><strong class="text-slate-900 dark:text-white"><span class="lang-en">Bounded Waiting:</span><span class="lang-ar lang-hidden">Bounded Waiting:</span></strong> <span class="lang-en">Limit on times others enter CS before me (No starvation).</span><span class="lang-ar lang-hidden">حد لعدد مرات دخول الآخرين للـ CS قبلي (لا مجاعة).</span></li>
                     </ol>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Semaphores (S)</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Semaphores (S)</span>
+                        <span class="lang-ar lang-hidden">Semaphores (S)</span>
+                    </h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="code-block text-xs">
 wait(S) {
@@ -343,71 +481,109 @@ signal(S) {
                         </div>
                     </div>
                     <p class="text-xs text-slate-500 mt-2">
-                        <strong>Counting Semaphore:</strong> For resource pools.<br>
-                        <strong>Binary Semaphore:</strong> Same as Mutex (0 or 1).
+                        <span class="lang-en"><strong>Counting Semaphore:</strong> For resource pools.</span><span class="lang-ar lang-hidden"><strong>Counting Semaphore:</strong> لمجمعات الموارد.</span><br>
+                        <span class="lang-en"><strong>Binary Semaphore:</strong> Same as Mutex (0 or 1).</span><span class="lang-ar lang-hidden"><strong>Binary Semaphore:</strong> مثل الـ Mutex (0 أو 1).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section id="mod5">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 5: Classical Problems</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 5: Classical Problems</span>
+                    <span class="lang-ar lang-hidden">الوحدة 5: المشاكل الكلاسيكية</span>
+                </h2>
             </div>
 
             <div class="space-y-4">
                 <div class="glass-card p-4 rounded-xl flex items-center">
-                    <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded mr-4 font-mono text-lg">1</div>
+                    <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded mr-4 rtl:mr-0 rtl:ml-4 font-mono text-lg">1</div>
                     <div>
-                        <strong class="text-slate-900 dark:text-white text-sm">Bounded Buffer</strong>
-                        <p class="text-xs text-slate-600 dark:text-slate-400">Producer/Consumer. Needs 3 semaphores: `mutex` (lock), `full` (item count), `empty` (space count).</p>
+                        <strong class="text-slate-900 dark:text-white text-sm">
+                            <span class="lang-en">Bounded Buffer</span>
+                            <span class="lang-ar lang-hidden">Bounded Buffer (المخزن المحدود)</span>
+                        </strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            <span class="lang-en">Producer/Consumer. Needs 3 semaphores: `mutex` (lock), `full` (item count), `empty` (space count).</span>
+                            <span class="lang-ar lang-hidden">منتج/مستهلك. يحتاج 3 سيمافورات: `mutex` (قفل)، `full` (عدد العناصر)، `empty` (عدد الفراغات).</span>
+                        </p>
                     </div>
                 </div>
                 <div class="glass-card p-4 rounded-xl flex items-center">
-                    <div class="p-2 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded mr-4 font-mono text-lg">2</div>
+                    <div class="p-2 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded mr-4 rtl:mr-0 rtl:ml-4 font-mono text-lg">2</div>
                     <div>
-                        <strong class="text-slate-900 dark:text-white text-sm">Readers-Writers</strong>
-                        <p class="text-xs text-slate-600 dark:text-slate-400">Multiple Readers OK. Writer needs exclusive access. Problem: Writer Starvation.</p>
+                        <strong class="text-slate-900 dark:text-white text-sm">
+                            <span class="lang-en">Readers-Writers</span>
+                            <span class="lang-ar lang-hidden">Readers-Writers (القراء-الكتاب)</span>
+                        </strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            <span class="lang-en">Multiple Readers OK. Writer needs exclusive access. Problem: Writer Starvation.</span>
+                            <span class="lang-ar lang-hidden">قراء متعددون مسموح. الكاتب يحتاج وصولاً حصرياً. مشكلة: مجاعة الكاتب.</span>
+                        </p>
                     </div>
                 </div>
                 <div class="glass-card p-4 rounded-xl flex items-center">
-                    <div class="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded mr-4 font-mono text-lg">3</div>
+                    <div class="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded mr-4 rtl:mr-0 rtl:ml-4 font-mono text-lg">3</div>
                     <div>
-                        <strong class="text-slate-900 dark:text-white text-sm">Dining Philosophers</strong>
-                        <p class="text-xs text-slate-600 dark:text-slate-400">5 chairs, 5 sticks. Need 2 to eat. Deadlock if everyone takes Left stick at once.</p>
+                        <strong class="text-slate-900 dark:text-white text-sm">
+                            <span class="lang-en">Dining Philosophers</span>
+                            <span class="lang-ar lang-hidden">Dining Philosophers (الفلاسفة المتعشون)</span>
+                        </strong>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            <span class="lang-en">5 chairs, 5 sticks. Need 2 to eat. Deadlock if everyone takes Left stick at once.</span>
+                            <span class="lang-ar lang-hidden">5 كراسي، 5 أعواد. تحتاج 2 للأكل. يحدث جمود (Deadlock) إذا أخذ الجميع العود الأيسر في آن واحد.</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="mod6">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 6: Deadlocks</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 6: Deadlocks</span>
+                    <span class="lang-ar lang-hidden">الوحدة 6: الجمود (Deadlocks)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">The 4 Necessary Conditions</h3>
-                    <p class="text-xs text-slate-500 mb-2">ALL must hold for deadlock to occur.</p>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">The 4 Necessary Conditions</span>
+                        <span class="lang-ar lang-hidden">الشروط الأربعة الضرورية</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-2">
+                        <span class="lang-en">ALL must hold for deadlock to occur.</span>
+                        <span class="lang-ar lang-hidden">يجب أن تتحقق جميعها لحدوث الجمود.</span>
+                    </p>
                     <ul class="list-disc list-inside text-sm text-slate-600 dark:text-slate-300 space-y-1">
-                        <li>Mutual Exclusion</li>
-                        <li>Hold and Wait</li>
-                        <li>No Preemption</li>
-                        <li>Circular Wait</li>
+                        <li><span class="lang-en">Mutual Exclusion</span><span class="lang-ar lang-hidden">الاستبعاد المتبادل (Mutual Exclusion)</span></li>
+                        <li><span class="lang-en">Hold and Wait</span><span class="lang-ar lang-hidden">الاحتفاظ والانتظار (Hold and Wait)</span></li>
+                        <li><span class="lang-en">No Preemption</span><span class="lang-ar lang-hidden">لا استيلاء (No Preemption)</span></li>
+                        <li><span class="lang-en">Circular Wait</span><span class="lang-ar lang-hidden">الانتظار الدائري (Circular Wait)</span></li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-yellow-500">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Banker's Algorithm</h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">Used for <strong>Deadlock Avoidance</strong>.</p>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Banker's Algorithm</span>
+                        <span class="lang-ar lang-hidden">خوارزمية المصرفي (Banker's Algorithm)</span>
+                    </h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mb-2">
+                        <span class="lang-en">Used for <strong>Deadlock Avoidance</strong>.</span>
+                        <span class="lang-ar lang-hidden">تستخدم لـ <strong>تجنب الجمود (Deadlock Avoidance)</strong>.</span>
+                    </p>
                     <div class="bg-slate-800 p-2 rounded text-xs font-mono text-yellow-300 mb-2">
                         Need[i] = Max[i] - Allocation[i]
                     </div>
                     <p class="text-xs text-slate-600 dark:text-slate-400">
-                        Check if system is in a <strong>Safe State</strong> (Is there a sequence where everyone can finish?).
-                        <br>If Request $\le$ Available, pretend to allocate and check Safety.
+                        <span class="lang-en">Check if system is in a <strong>Safe State</strong> (Is there a sequence where everyone can finish?).
+                        <br>If Request $\le$ Available, pretend to allocate and check Safety.</span>
+                        <span class="lang-ar lang-hidden">تحقق مما إذا كان النظام في <strong>حالة آمنة (Safe State)</strong> (هل يوجد تسلسل يمكن للجميع فيه الانتهاء؟).
+                        <br>إذا كان الطلب $\le$ المتاح، تظاهر بالتخصيص وتحقق من الأمان.</span>
                     </p>
                 </div>
             </div>
@@ -415,53 +591,97 @@ signal(S) {
 
         <section class="mt-16">
             <div class="relative border-2 border-brand-500/50 rounded-2xl p-8 overflow-hidden bg-slate-100 dark:bg-slate-800/50">
-                <div class="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">PROFESSOR'S SECRETS</div>
+                <div class="absolute top-0 right-0 rtl:right-auto rtl:left-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rtl:rounded-bl-none rtl:rounded-br-lg">
+                    <span class="lang-en">PROFESSOR'S SECRETS</span>
+                    <span class="lang-ar lang-hidden">أسرار البروفيسور</span>
+                </div>
                 
-                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">The Mega Vault: Midterm Edition</h2>
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+                    <span class="lang-en">The Mega Vault: Midterm Edition</span>
+                    <span class="lang-ar lang-hidden">الخزنة الكبرى: إصدار النصفي</span>
+                </h2>
                 
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Fork Logic</strong>
+                        <strong class="text-red-600 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Fork Logic</span>
+                            <span class="lang-ar lang-hidden">منطق Fork</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            `fork()` returns <strong>0</strong> to Child, <strong>PID</strong> to Parent.
-                            <br>Child gets a <em>copy</em> of data, not shared memory.
+                            <span class="lang-en">`fork()` returns <strong>0</strong> to Child, <strong>PID</strong> to Parent.
+                            <br>Child gets a <em>copy</em> of data, not shared memory.</span>
+                            <span class="lang-ar lang-hidden">`fork()` تعيد <strong>0</strong> للابن، و <strong>PID</strong> للأب.
+                            <br>يحصل الابن على <em>نسخة</em> من البيانات، وليس ذاكرة مشتركة.</span>
                         </p>
                     </div>
                     <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>User vs Kernel Threads</strong>
+                        <strong class="text-red-600 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">User vs Kernel Threads</span>
+                            <span class="lang-ar lang-hidden">User vs Kernel Threads</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            User threads are fast but if one blocks, the whole process blocks (Many-to-One).
-                            Kernel threads are slower (overhead) but independent (One-to-One).
+                            <span class="lang-en">User threads are fast but if one blocks, the whole process blocks (Many-to-One).
+                            Kernel threads are slower (overhead) but independent (One-to-One).</span>
+                            <span class="lang-ar lang-hidden">خيوط المستخدم سريعة لكن إذا توقفت واحدة، تتوقف العملية بالكامل (Many-to-One).
+                            خيوط النواة أبطأ (overhead) لكنها مستقلة (One-to-One).</span>
                         </p>
                     </div>
                     <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Wait Time Formula</strong>
+                        <strong class="text-red-600 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Wait Time Formula</span>
+                            <span class="lang-ar lang-hidden">معادلة وقت الانتظار</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            Do NOT just sum waiting periods. Always use:
+                            <span class="lang-en">Do NOT just sum waiting periods. Always use:
                             <br>$Wait = Turnaround - Burst$.
-                            <br>It reduces calculation errors.
+                            <br>It reduces calculation errors.</span>
+                            <span class="lang-ar lang-hidden">لا تجمع فترات الانتظار فقط. استخدم دائماً:
+                            <br>$Wait = Turnaround - Burst$.
+                            <br>تقلل من أخطاء الحساب.</span>
                         </p>
                     </div>
                     <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Signal Order</strong>
+                        <strong class="text-red-600 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Signal Order</span>
+                            <span class="lang-ar lang-hidden">ترتيب الإشارة (Signal Order)</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            In Bounded Buffer, order matters.
+                            <span class="lang-en">In Bounded Buffer, order matters.
                             <br>`wait(empty)` BEFORE `wait(mutex)`.
-                            <br>If swapped $\to$ Deadlock.
+                            <br>If swapped $\to$ Deadlock.</span>
+                            <span class="lang-ar lang-hidden">في Bounded Buffer، الترتيب مهم.
+                            <br>`wait(empty)` قبل `wait(mutex)`.
+                            <br>إذا تم التبديل $\to$ جمود (Deadlock).</span>
                         </p>
                     </div>
                     <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>RAG Cycles</strong>
+                        <strong class="text-red-600 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">RAG Cycles</span>
+                            <span class="lang-ar lang-hidden">دورات RAG</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            Cycle in RAG $\neq$ Deadlock (if multiple instances exist).
-                            <br>Cycle in RAG == Deadlock (if only 1 instance per resource).
+                            <span class="lang-en">Cycle in RAG $\neq$ Deadlock (if multiple instances exist).
+                            <br>Cycle in RAG == Deadlock (if only 1 instance per resource).</span>
+                            <span class="lang-ar lang-hidden">دورة في RAG $\neq$ جمود (إذا وجدت مثيلات متعددة).
+                            <br>دورة في RAG == جمود (إذا وجد مثيل واحد فقط لكل مورد).</span>
                         </p>
                     </div>
                     <div class="bg-white dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <strong class="text-red-600 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Monitor Signal</strong>
+                        <strong class="text-red-600 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Monitor Signal</span>
+                            <span class="lang-ar lang-hidden">إشارة المراقب (Monitor Signal)</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            Monitor `signal()` is not persistent. If no one is waiting, the signal is lost.
-                            Semaphore `signal()` increases counter (persistent).
+                            <span class="lang-en">Monitor `signal()` is not persistent. If no one is waiting, the signal is lost.
+                            Semaphore `signal()` increases counter (persistent).</span>
+                            <span class="lang-ar lang-hidden">إشارة المراقب `signal()` غير دائمة. إذا لم يكن أحد ينتظر، تضيع الإشارة.
+                            إشارة السيمافور `signal()` تزيد العداد (دائمة).</span>
                         </p>
                     </div>
                 </div>
@@ -472,14 +692,26 @@ signal(S) {
 
     <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-slate-500 hover:text-brand-500 transition-colors">Course Hub</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="index.html" class="text-slate-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-slate-300 dark:text-slate-700">|</span>
-                <a href="midterm-quiz.html" class="text-slate-500 hover:text-brand-500 transition-colors">Midterm Quiz</a>
+                <a href="midterm-quiz.html" class="text-slate-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Quiz</span>
+                    <span class="lang-ar lang-hidden">الاختبار النصفي</span>
+                </a>
                 <span class="text-slate-300 dark:text-slate-700">|</span>
-                <a href="final-review.html" class="text-slate-500 hover:text-brand-500 transition-colors">Final Review</a>
+                <a href="final-review.html" class="text-slate-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Review</span>
+                    <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                </a>
             </div>
-            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-slate-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
@@ -501,6 +733,55 @@ signal(S) {
             } else {
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
+            }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
             }
         });
     </script>

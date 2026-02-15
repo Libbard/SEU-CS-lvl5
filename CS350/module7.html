@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 7: SQL DDL</title>
@@ -119,6 +128,37 @@
             overflow-x: auto;
             position: relative;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        
+        
+        [dir="rtl"] .code-block {
+            direction: ltr !important;
+            text-align: left !important;
+        }
+        
+        [dir="rtl"] .code-header-copy {
+            float: left;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -126,26 +166,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 7</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 7</span>
+                        <span class="lang-ar lang-hidden">الوحدة 7</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-database text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module8.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -162,51 +217,87 @@
                 <i class="fa-solid fa-terminal text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Basic SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Data Definition (DDL)</span>
+                <span class="lang-en">Basic SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Data Definition (DDL)</span></span>
+                <span class="lang-ar lang-hidden">Basic SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Data Definition (DDL)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Building the structure. Creating schemas, tables, and enforcing constraints with SQL.
+                <span class="lang-en">Building the structure. Creating schemas, tables, and enforcing constraints with SQL.</span>
+                <span class="lang-ar lang-hidden">بناء الهيكل. إنشاء المخططات (schemas)، والجداول، وفرض القيود باستخدام SQL.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Schema</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">CREATE TABLE</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Data Types (CHAR, VARCHAR)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Constraints (PK, FK)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ALTER & DROP</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Schema</span>
+                    <span class="lang-ar lang-hidden">Schema</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">CREATE TABLE</span>
+                    <span class="lang-ar lang-hidden">CREATE TABLE</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Data Types (CHAR, VARCHAR)</span>
+                    <span class="lang-ar lang-hidden">Data Types (CHAR, VARCHAR)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Constraints (PK, FK)</span>
+                    <span class="lang-ar lang-hidden">Constraints (PK, FK)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">ALTER & DROP</span>
+                    <span class="lang-ar lang-hidden">ALTER & DROP</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">SQL Structure & Types</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">SQL Structure & Types</span>
+                    <span class="lang-ar lang-hidden">هيكلية SQL وأنواعها</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    SQL (Structured Query Language) is the standard for relational databases. It is comprehensive, covering DDL (Definition), DML (Manipulation), and VDL (View Definition).
+                    <span class="lang-en">SQL (Structured Query Language) is the standard for relational databases. It is comprehensive, covering DDL (Definition), DML (Manipulation), and VDL (View Definition).</span>
+                    <span class="lang-ar lang-hidden">SQL (لغة الاستعلام الهيكلية) هي المعيار لقواعد البيانات العلائقية. وهي شاملة، تغطي DDL (التعريف)، DML (المعالجة)، و VDL (تعريف الـ View).</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-8 text-sm">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Schema & Catalog</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">Schema & Catalog</span>
+                            <span class="lang-ar lang-hidden">Schema & Catalog</span>
+                        </h4>
                         <ul class="list-disc list-inside text-gray-500">
-                            <li><strong>Schema:</strong> Group of tables/views owned by a user.</li>
-                            <li><strong>Catalog:</strong> Collection of schemas.</li>
-                            <li><strong>Environment:</strong> Installation of SQL DBMS.</li>
+                            <li>
+                                <strong class="lang-en">Schema:</strong><strong class="lang-ar lang-hidden">Schema:</strong>
+                                <span class="lang-en">Group of tables/views owned by a user.</span><span class="lang-ar lang-hidden"> مجموعة من الجداول/الـ views يملكها مستخدم.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Catalog:</strong><strong class="lang-ar lang-hidden">Catalog:</strong>
+                                <span class="lang-en">Collection of schemas.</span><span class="lang-ar lang-hidden"> مجموعة من الـ schemas.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Environment:</strong><strong class="lang-ar lang-hidden">Environment:</strong>
+                                <span class="lang-en">Installation of SQL DBMS.</span><span class="lang-ar lang-hidden"> تثبيت نظام إدارة قواعد البيانات SQL.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Key Data Types</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">Key Data Types</span>
+                            <span class="lang-ar lang-hidden">Key Data Types (أنواع البيانات الرئيسية)</span>
+                        </h4>
                         <ul class="text-gray-500 space-y-1 text-xs font-mono">
-                            <li><span class="text-purple-500">CHAR(n)</span>: Fixed length string.</li>
-                            <li><span class="text-purple-500">VARCHAR(n)</span>: Variable length string.</li>
-                            <li><span class="text-purple-500">INT/SMALLINT</span>: Integers.</li>
-                            <li><span class="text-purple-500">FLOAT/REAL</span>: Floating point.</li>
-                            <li><span class="text-purple-500">DATE/TIME</span>: YYYY-MM-DD / HH:MM:SS.</li>
+                            <li><span class="text-purple-500">CHAR(n)</span>: <span class="lang-en">Fixed length string.</span><span class="lang-ar lang-hidden"> نص ثابت الطول.</span></li>
+                            <li><span class="text-purple-500">VARCHAR(n)</span>: <span class="lang-en">Variable length string.</span><span class="lang-ar lang-hidden"> نص متغير الطول.</span></li>
+                            <li><span class="text-purple-500">INT/SMALLINT</span>: <span class="lang-en">Integers.</span><span class="lang-ar lang-hidden"> أعداد صحيحة.</span></li>
+                            <li><span class="text-purple-500">FLOAT/REAL</span>: <span class="lang-en">Floating point.</span><span class="lang-ar lang-hidden"> أرقام عشرية.</span></li>
+                            <li><span class="text-purple-500">DATE/TIME</span>: <span class="lang-en">YYYY-MM-DD / HH:MM:SS.</span><span class="lang-ar lang-hidden">YYYY-MM-DD / HH:MM:SS.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -214,15 +305,25 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The CREATE Statement</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The CREATE Statement</span>
+                    <span class="lang-ar lang-hidden">The CREATE Statement</span>
+                </h2>
             </div>
 
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2 px-1">
-                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">Example: Creating 'EMPLOYEE'</span>
-                    <button class="text-xs text-brand-500 hover:text-brand-400"><i class="fa-regular fa-copy"></i> Copy</button>
+                    <span class="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                        <span class="lang-en">Example: Creating 'EMPLOYEE'</span>
+                        <span class="lang-ar lang-hidden">مثال: إنشاء 'EMPLOYEE'</span>
+                    </span>
+                    <button class="text-xs text-brand-500 hover:text-brand-400 code-header-copy">
+                        <i class="fa-regular fa-copy"></i> 
+                        <span class="lang-en">Copy</span>
+                        <span class="lang-ar lang-hidden">نسخ</span>
+                    </button>
                 </div>
                 <div class="code-block">
 <span class="sql-keyword">CREATE TABLE</span> EMPLOYEE (
@@ -246,18 +347,26 @@
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl border-l-4 border-blue-500">
-                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">Primary Key</h4>
+                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">Primary Key</span>
+                        <span class="lang-ar lang-hidden">Primary Key (المفتاح الأساسي)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Uniquely identifies rows. Can be single or composite.
+                        <span class="lang-en">Uniquely identifies rows. Can be single or composite.</span>
+                        <span class="lang-ar lang-hidden">يحدد الصفوف بشكل فريد. يمكن أن يكون مفرداً أو مركباً.</span>
                         <br><code class="bg-gray-200 dark:bg-gray-800 px-1 rounded">PRIMARY KEY (Ssn)</code>
                         <br><code class="bg-gray-200 dark:bg-gray-800 px-1 rounded">PRIMARY KEY (Pno, Essn)</code>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl border-l-4 border-green-500">
-                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2">Foreign Key</h4>
+                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2">
+                        <span class="lang-en">Foreign Key</span>
+                        <span class="lang-ar lang-hidden">Foreign Key (المفتاح الأجنبي)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Links to another table (Referential Integrity).
+                        <span class="lang-en">Links to another table (Referential Integrity).</span>
+                        <span class="lang-ar lang-hidden">يربط بجدول آخر (التكامل المرجعي).</span>
                         <br><code class="bg-gray-200 dark:bg-gray-800 px-1 rounded">FOREIGN KEY (Dno) REFERENCES DEPARTMENT(Dnumber)</code>
                     </p>
                 </div>
@@ -265,28 +374,44 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Handling Violations</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Handling Violations</span>
+                    <span class="lang-ar lang-hidden">معالجة الانتهاكات (Handling Violations)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    What happens when you delete a parent record (e.g., a Department) that is referenced by children (e.g., Employees)? You must specify the action.
+                    <span class="lang-en">What happens when you delete a parent record (e.g., a Department) that is referenced by children (e.g., Employees)? You must specify the action.</span>
+                    <span class="lang-ar lang-hidden">ماذا يحدث عندما تحذف سجلاً أباً (مثل قسم) يتم الإشارة إليه من قبل أبناء (مثل موظفين)؟ يجب عليك تحديد الإجراء.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-3 gap-4 text-xs text-center">
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-red-500 text-sm mb-1">RESTRICT</strong>
-                        (Default). Reject the delete.
+                        <strong class="block text-red-500 text-sm mb-1">
+                            <span class="lang-en">RESTRICT</span>
+                            <span class="lang-ar lang-hidden">RESTRICT</span>
+                        </strong>
+                        <span class="lang-en">(Default). Reject the delete.</span>
+                        <span class="lang-ar lang-hidden">(الافتراضي). رفض الحذف.</span>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-green-500 text-sm mb-1">CASCADE</strong>
-                        Delete the children too. (Dangerous!)
+                        <strong class="block text-green-500 text-sm mb-1">
+                            <span class="lang-en">CASCADE</span>
+                            <span class="lang-ar lang-hidden">CASCADE</span>
+                        </strong>
+                        <span class="lang-en">Delete the children too. (Dangerous!)</span>
+                        <span class="lang-ar lang-hidden">حذف الأبناء أيضاً. (خطر!)</span>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-blue-500 text-sm mb-1">SET NULL</strong>
-                        Set the FK in children to NULL.
+                        <strong class="block text-blue-500 text-sm mb-1">
+                            <span class="lang-en">SET NULL</span>
+                            <span class="lang-ar lang-hidden">SET NULL</span>
+                        </strong>
+                        <span class="lang-en">Set the FK in children to NULL.</span>
+                        <span class="lang-ar lang-hidden">تعيين الـ FK في الأبناء إلى NULL.</span>
                     </div>
                 </div>
 
@@ -299,15 +424,25 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Modifying the Schema</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Modifying the Schema</span>
+                    <span class="lang-ar lang-hidden">تعديل الـ Schema</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-pen-to-square text-brand-500 mr-2"></i>ALTER TABLE</h4>
-                    <p class="text-xs text-gray-500 mb-3">Add or drop columns/constraints.</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <i class="fa-solid fa-pen-to-square text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">ALTER TABLE</span>
+                        <span class="lang-ar lang-hidden">ALTER TABLE</span>
+                    </h4>
+                    <p class="text-xs text-gray-500 mb-3">
+                        <span class="lang-en">Add or drop columns/constraints.</span>
+                        <span class="lang-ar lang-hidden">إضافة أو حذف أعمدة/قيود.</span>
+                    </p>
                     <div class="code-block text-[10px]">
 <span class="sql-keyword">ALTER TABLE</span> COMPANY.EMPLOYEE <span class="sql-keyword">ADD COLUMN</span> Job <span class="sql-keyword">VARCHAR</span>(12);
 <br>
@@ -316,12 +451,22 @@
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-trash text-red-500 mr-2"></i>DROP TABLE</h4>
-                    <p class="text-xs text-gray-500 mb-3">Deletes the table and data permanently.</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <i class="fa-solid fa-trash text-red-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">DROP TABLE</span>
+                        <span class="lang-ar lang-hidden">DROP TABLE</span>
+                    </h4>
+                    <p class="text-xs text-gray-500 mb-3">
+                        <span class="lang-en">Deletes the table and data permanently.</span>
+                        <span class="lang-ar lang-hidden">حذف الجدول والبيانات بشكل دائم.</span>
+                    </p>
                     <div class="code-block text-[10px]">
 <span class="sql-keyword">DROP TABLE</span> DEPENDENT <span class="sql-keyword">CASCADE</span>;
                     </div>
-                    <p class="text-[9px] text-red-400 mt-2">*CASCADE removes constraints referencing this table.</p>
+                    <p class="text-[9px] text-red-400 mt-2">
+                        <span class="lang-en">*CASCADE removes constraints referencing this table.</span>
+                        <span class="lang-ar lang-hidden">*CASCADE يزيل القيود التي تشير إلى هذا الجدول.</span>
+                    </p>
                 </div>
             </div>
         </section>
@@ -330,51 +475,70 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Circular References
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Circular References</span>
+                            <span class="lang-ar lang-hidden">فخ: المراجع الدائرية (Circular References)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If Table A refers to Table B, and Table B refers to Table A (e.g., Employee has Dept, Dept has Manager), you <strong>cannot create both with FKs immediately</strong>.
-                            <br><em>Solution:</em> Create tables without FKs first, then use `ALTER TABLE` to add the FK constraints later.
+                            <span class="lang-en">If Table A refers to Table B, and Table B refers to Table A (e.g., Employee has Dept, Dept has Manager), you <strong>cannot create both with FKs immediately</strong>.
+                            <br><em>Solution:</em> Create tables without FKs first, then use `ALTER TABLE` to add the FK constraints later.</span>
+                            <span class="lang-ar lang-hidden">إذا كان جدول A يشير إلى جدول B، وجدول B يشير إلى جدول A (مثل: موظف لديه قسم، وقسم لديه مدير)، <strong>لا يمكنك إنشاء كليهما مع FKs فوراً</strong>.
+                            <br><em>الحل:</em> أنشئ الجداول بدون FKs أولاً، ثم استخدم `ALTER TABLE` لإضافة قيود الـ FK لاحقاً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Default Action
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Default Action</span>
+                            <span class="lang-ar lang-hidden">فخ: الإجراء الافتراضي</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If you don't specify `ON DELETE` or `ON UPDATE`, the default behavior is <strong>RESTRICT (REJECT)</strong>. The DBMS will throw an error if you try to delete a parent record that has children.
+                            <span class="lang-en">If you don't specify `ON DELETE` or `ON UPDATE`, the default behavior is <strong>RESTRICT (REJECT)</strong>. The DBMS will throw an error if you try to delete a parent record that has children.</span>
+                            <span class="lang-ar lang-hidden">إذا لم تحدد `ON DELETE` أو `ON UPDATE`، فإن السلوك الافتراضي هو <strong>RESTRICT (رفض)</strong>. سيرمي الـ DBMS خطأ إذا حاولت حذف سجل أب لديه أبناء.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Constraint Naming
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Constraint Naming</span>
+                            <span class="lang-ar lang-hidden">سر: تسمية القيود</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Always name your constraints (e.g., `CONSTRAINT EMP_PK PRIMARY KEY...`). If you let the system auto-name them (e.g., `SYS_C00123`), it will be a nightmare to `DROP` or `ALTER` them later because you won't know the name.
+                            <span class="lang-en">Always name your constraints (e.g., `CONSTRAINT EMP_PK PRIMARY KEY...`). If you let the system auto-name them (e.g., `SYS_C00123`), it will be a nightmare to `DROP` or `ALTER` them later because you won't know the name.</span>
+                            <span class="lang-ar lang-hidden">قم دائماً بتسمية قيودك (مثل `CONSTRAINT EMP_PK PRIMARY KEY...`). إذا تركت النظام يسميها تلقائياً (مثل `SYS_C00123`)، سيكون من الصعب جداً حذفها (`DROP`) أو تعديلها (`ALTER`) لاحقاً لأنك لن تعرف الاسم.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Catalog
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: The Catalog</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: The Catalog</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            All the `CREATE TABLE` commands don't just create storage buckets; they update the <strong>System Catalog</strong> (Data Dictionary). The DBMS checks this catalog every time a query is run to ensure valid syntax and permissions.
+                            <span class="lang-en">All the `CREATE TABLE` commands don't just create storage buckets; they update the <strong>System Catalog</strong> (Data Dictionary). The DBMS checks this catalog every time a query is run to ensure valid syntax and permissions.</span>
+                            <span class="lang-ar lang-hidden">جميع أوامر `CREATE TABLE` لا تنشئ فقط أوعية للتخزين؛ بل تقوم بتحديث <strong>System Catalog</strong> (قاموس البيانات). يتحقق الـ DBMS من هذا الكتالوج في كل مرة يتم فيها تشغيل استعلام لضمان صحة الصيغة والصلاحيات.</span>
                         </p>
                     </div>
                 </div>
@@ -385,18 +549,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 6</span>
+                    <span class="lang-ar lang-hidden">الوحدة 6</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 8</span>
+                    <span class="lang-ar lang-hidden">الوحدة 8</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -414,6 +591,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

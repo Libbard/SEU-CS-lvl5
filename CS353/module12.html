@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 12: Limitations of Algorithm Power</title>
@@ -50,6 +59,53 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] mjx-container {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -115,33 +171,63 @@
         .lock-anim {
             animation: lock-pulse 3s infinite ease-in-out;
         }
+		
+		
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module11.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 12</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 12</span>
+                        <span class="lang-ar lang-hidden">الوحدة 12</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module13.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -158,70 +244,129 @@
                 <i class="fa-solid fa-lock text-3xl text-brand-500 lock-anim"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Limitations of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Algorithm Power</span>
+                <span class="lang-en">Limitations of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Algorithm Power</span></span>
+                <span class="lang-ar lang-hidden">حدود <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">قوة الخوارزميات</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Not all problems can be solved efficiently, and some cannot be solved at all. We explore the boundaries of computation: Lower Bounds, NP-Completeness, and the Undecidable.
+                <span class="lang-en">Not all problems can be solved efficiently, and some cannot be solved at all. We explore the boundaries of computation: Lower Bounds, NP-Completeness, and the Undecidable.</span>
+                <span class="lang-ar lang-hidden">لا يمكن حل جميع المشاكل بكفاءة، وبعضها لا يمكن حله على الإطلاق. نستكشف حدود الحوسبة: الحدود الدنيا (Lower Bounds)، و NP-Completeness، والمسائل غير القابلة للقرار (Undecidable).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Lower Bounds ($\Omega$)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Decision Trees</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">P vs NP</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">NP-Completeness</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Lower Bounds ($\Omega$)</span>
+                    <span class="lang-ar lang-hidden">الحدود الدنيا ($\Omega$)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Decision Trees</span>
+                    <span class="lang-ar lang-hidden">أشجار القرار (Decision Trees)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">P vs NP</span>
+                    <span class="lang-ar lang-hidden">P مقابل NP</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">NP-Completeness</span>
+                    <span class="lang-ar lang-hidden">NP-Completeness</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Lower-Bound Arguments</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Lower-Bound Arguments</span>
+                    <span class="lang-ar lang-hidden">حجج الحد الأدنى (Lower-Bound)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">The Concept</h3>
+                <div class="glass-card p-6 rounded-xl border-l-4 rtl:border-l-0 rtl:border-r-4 border-l-brand-500">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">The Concept</span>
+                        <span class="lang-ar lang-hidden">المفهوم</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        A <span class="smart-term font-bold text-brand-500" data-ar="الحد الأدنى">Lower Bound</span> estimates the <strong>minimum</strong> amount of work needed to solve a problem. It proves that no algorithm can ever be faster than this limit.
+                        <span class="lang-en">A <span class="smart-term font-bold text-brand-500" data-ar="الحد الأدنى">Lower Bound</span> estimates the <strong>minimum</strong> amount of work needed to solve a problem. It proves that no algorithm can ever be faster than this limit.</span>
+                        <span class="lang-ar lang-hidden">يقدر الحد الأدنى (Lower Bound)</span> <strong>أقل</strong> قدر من العمل اللازم لحل مشكلة ما. إنه يثبت أنه لا يمكن لأي خوارزمية أن تكون أسرع من هذا الحد.</span>
                     </p>
                     <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-sm mb-2 text-brand-600 dark:text-brand-400">Types of Lower Bounds</h4>
+                        <h4 class="font-bold text-sm mb-2 text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">Types of Lower Bounds</span>
+                            <span class="lang-ar lang-hidden">أنواع الحدود الدنيا</span>
+                        </h4>
                         <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-400 space-y-2">
-                            <li><strong>Trivial:</strong> Based on input/output size. e.g., To multiply two $n \times n$ matrices, you must output $n^2$ elements, so $\Omega(n^2)$.</li>
-                            <li><strong>Information-Theoretic:</strong> Based on the number of decisions (Decision Trees).</li>
-                            <li><strong>Adversary:</strong> Based on a hypothetical "enemy" who changes the input to force the algorithm to do more work.</li>
+                            <li>
+                                <strong class="lang-en">Trivial:</strong><strong class="lang-ar lang-hidden">بديهي (Trivial):</strong>
+                                <span class="lang-en">Based on input/output size. e.g., To multiply two $n \times n$ matrices, you must output $n^2$ elements, so $\Omega(n^2)$.</span>
+                                <span class="lang-ar lang-hidden">بناءً على حجم الإدخال/الإخراج. مثال: لضرب مصفوفتين $n \times n$، يجب إخراج $n^2$ عنصر، لذا $\Omega(n^2)$.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Information-Theoretic:</strong><strong class="lang-ar lang-hidden">نظري-معلوماتي (Information-Theoretic):</strong>
+                                <span class="lang-en">Based on the number of decisions (Decision Trees).</span>
+                                <span class="lang-ar lang-hidden">بناءً على عدد القرارات (أشجار القرار).</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Adversary:</strong><strong class="lang-ar lang-hidden">الخصم (Adversary):</strong>
+                                <span class="lang-en">Based on a hypothetical "enemy" who changes the input to force the algorithm to do more work.</span>
+                                <span class="lang-ar lang-hidden">بناءً على "عدو" افتراضي يغير الإدخال لإجبار الخوارزمية على القيام بمزيد من العمل.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl flex flex-col justify-center">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-center">Established Lower Bounds</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-center">
+                        <span class="lang-en">Established Lower Bounds</span>
+                        <span class="lang-ar lang-hidden">الحدود الدنيا المثبتة</span>
+                    </h4>
                     <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
                         <table class="min-w-full text-sm text-left">
                             <thead class="bg-gray-100 dark:bg-gray-800 text-gray-500 font-bold">
                                 <tr>
-                                    <th class="px-4 py-2">Problem</th>
-                                    <th class="px-4 py-2">Lower Bound</th>
-                                    <th class="px-4 py-2">Tight?</th>
+                                    <th class="px-4 py-2"><span class="lang-en">Problem</span><span class="lang-ar lang-hidden">المشكلة</span></th>
+                                    <th class="px-4 py-2"><span class="lang-en">Lower Bound</span><span class="lang-ar lang-hidden">الحد الأدنى</span></th>
+                                    <th class="px-4 py-2"><span class="lang-en">Tight?</span><span class="lang-ar lang-hidden">دقيق (Tight)؟</span></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                 <tr>
-                                    <td class="px-4 py-2">Sorting</td>
+                                    <td class="px-4 py-2">
+                                        <span class="lang-en">Sorting</span>
+                                        <span class="lang-ar lang-hidden">الفرز (Sorting)</span>
+                                    </td>
                                     <td class="px-4 py-2 font-mono text-brand-500">$\Omega(n \log n)$</td>
-                                    <td class="px-4 py-2 text-green-500"><i class="fa-solid fa-check"></i> Yes (MergeSort)</td>
+                                    <td class="px-4 py-2 text-green-500">
+                                        <i class="fa-solid fa-check"></i> 
+                                        <span class="lang-en">Yes (MergeSort)</span>
+                                        <span class="lang-ar lang-hidden">نعم (MergeSort)</span>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-2">Searching (Sorted)</td>
+                                    <td class="px-4 py-2">
+                                        <span class="lang-en">Searching (Sorted)</span>
+                                        <span class="lang-ar lang-hidden">البحث (مرتب)</span>
+                                    </td>
                                     <td class="px-4 py-2 font-mono text-brand-500">$\Omega(\log n)$</td>
-                                    <td class="px-4 py-2 text-green-500"><i class="fa-solid fa-check"></i> Yes (Binary Search)</td>
+                                    <td class="px-4 py-2 text-green-500">
+                                        <i class="fa-solid fa-check"></i> 
+                                        <span class="lang-en">Yes (Binary Search)</span>
+                                        <span class="lang-ar lang-hidden">نعم (Binary Search)</span>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-2">Matrix Multiplication</td>
+                                    <td class="px-4 py-2">
+                                        <span class="lang-en">Matrix Multiplication</span>
+                                        <span class="lang-ar lang-hidden">ضرب المصفوفات</span>
+                                    </td>
                                     <td class="px-4 py-2 font-mono text-brand-500">$\Omega(n^2)$</td>
-                                    <td class="px-4 py-2 text-yellow-500">No (Best known $\approx n^{2.37}$)</td>
+                                    <td class="px-4 py-2 text-yellow-500">
+                                        <span class="lang-en">No (Best known $\approx n^{2.37}$)</span>
+                                        <span class="lang-ar lang-hidden">لا (الأفضل $\approx n^{2.37}$)</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -231,72 +376,110 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Decision Trees</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Decision Trees</span>
+                    <span class="lang-ar lang-hidden">أشجار القرار (Decision Trees)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-gray-700 dark:text-gray-300 mb-6">
-                    A visual model for algorithms based on <strong>comparisons</strong>. It represents every possible execution path.
+                    <span class="lang-en">A visual model for algorithms based on <strong>comparisons</strong>. It represents every possible execution path.</span>
+                    <span class="lang-ar lang-hidden">نموذج مرئي للخوارزميات القائمة على <strong>المقارنات</strong>. يمثل كل مسار تنفيذ محتمل.</span>
                 </p>
                 
                 <div class="mt-4 grid md:grid-cols-2 gap-8">
                     <div class="space-y-4">
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-3 rtl:space-x-reverse">
                             <div class="w-8 h-8 rounded bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold">L</div>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Leaves:</strong> Possible outcomes (e.g., sorted permutations). For sorting $n$ items, leaves $\ge n!$.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                <strong class="lang-en">Leaves:</strong><strong class="lang-ar lang-hidden">الأوراق (Leaves):</strong>
+                                <span class="lang-en">Possible outcomes (e.g., sorted permutations). For sorting $n$ items, leaves $\ge n!$.</span>
+                                <span class="lang-ar lang-hidden">النتائج المحتملة (مثل التباديل المرتبة). لفرز $n$ عنصر، الأوراق $\ge n!$.</span>
+                            </p>
                         </div>
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-3 rtl:space-x-reverse">
                             <div class="w-8 h-8 rounded bg-gray-200 dark:bg-gray-700 flex items-center justify-center font-bold">H</div>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Height:</strong> Worst-case number of comparisons. Since a binary tree with $L$ leaves has height $h \ge \log_2 L$.</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">
+                                <strong class="lang-en">Height:</strong><strong class="lang-ar lang-hidden">الارتفاع (Height):</strong>
+                                <span class="lang-en">Worst-case number of comparisons. Since a binary tree with $L$ leaves has height $h \ge \log_2 L$.</span>
+                                <span class="lang-ar lang-hidden">عدد المقارنات في الحالة الأسوأ. بما أن الشجرة الثنائية ذات $L$ أوراق لها ارتفاع $h \ge \log_2 L$.</span>
+                            </p>
                         </div>
                     </div>
                     
-                    <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm text-gray-300">
-                        <p class="text-brand-400 mb-2">// Stirling's Approximation</p>
-                        <p>$\log_2(n!) \approx \log_2(\sqrt{2\pi n}(n/e)^n)$</p>
-                        <p class="mt-2">$\approx n \log_2 n - n \log_2 e$</p>
-                        <p class="mt-2 text-white font-bold">$\therefore h \in \Omega(n \log n)$</p>
-                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm text-gray-300 text-left" 
+     dir="ltr"
+     style="direction: ltr !important; text-align: left !important; unicode-bidi: plaintext !important;">
+    <p class="text-brand-400 mb-2">// Stirling's Approximation</p>
+    <p>$\log_2(n!) \approx \log_2(\sqrt{2\pi n}(n/e)^n)$</p>
+    <p class="mt-2">$\approx n \log_2 n - n \log_2 e$</p>
+    <p class="mt-2 text-white font-bold">$\therefore h \in \Omega(n \log n)$</p>
+</div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Complexity Classes: P vs NP</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Complexity Classes: P vs NP</span>
+                    <span class="lang-ar lang-hidden">فئات التعقيد: P مقابل NP</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-t-4 border-emerald-500 shadow-md">
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Class $\mathcal{P}$</h3>
-                    <p class="text-xs font-bold uppercase text-emerald-500 mb-2">Polynomial Time</p>
+                    <p class="text-xs font-bold uppercase text-emerald-500 mb-2">
+                        <span class="lang-en">Polynomial Time</span>
+                        <span class="lang-ar lang-hidden">وقت كثير الحدود (Polynomial Time)</span>
+                    </p>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Problems solvable by a deterministic algorithm in polynomial time ($O(n^k)$).
+                        <span class="lang-en">Problems solvable by a deterministic algorithm in polynomial time ($O(n^k)$).</span>
+                        <span class="lang-ar lang-hidden">المشاكل القابلة للحل بواسطة خوارزمية حتمية (Deterministic) في وقت كثير الحدود ($O(n^k)$).</span>
                         <br><br>
-                        <em>Examples:</em> Sorting, Shortest Path, MST, GCD.
+                        <em>
+                            <span class="lang-en">Examples:</span>
+                            <span class="lang-ar lang-hidden">أمثلة:</span>
+                        </em> Sorting, Shortest Path, MST, GCD.
                     </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-t-4 border-yellow-500 shadow-md">
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Class $\mathcal{NP}$</h3>
-                    <p class="text-xs font-bold uppercase text-yellow-500 mb-2">Nondeterministic Polynomial</p>
+                    <p class="text-xs font-bold uppercase text-yellow-500 mb-2">
+                        <span class="lang-en">Nondeterministic Polynomial</span>
+                        <span class="lang-ar lang-hidden">كثير حدود غير حتمي (Nondeterministic Polynomial)</span>
+                    </p>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Problems whose solutions can be <strong>Verified</strong> in polynomial time. (Or solvable by a Nondeterministic Turing Machine).
+                        <span class="lang-en">Problems whose solutions can be <strong>Verified</strong> in polynomial time. (Or solvable by a Nondeterministic Turing Machine).</span>
+                        <span class="lang-ar lang-hidden">المشاكل التي يمكن <strong>التحقق (Verified)</strong> من حلولها في وقت كثير الحدود. (أو قابلة للحل بواسطة آلة تورينج غير حتمية).</span>
                         <br><br>
-                        <em>Examples:</em> Sudoku, Graph Coloring, TSP (Decision version).
+                        <em>
+                            <span class="lang-en">Examples:</span>
+                            <span class="lang-ar lang-hidden">أمثلة:</span>
+                        </em> Sudoku, Graph Coloring, TSP (Decision version).
                     </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border-t-4 border-rose-500 shadow-md">
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">$\mathcal{NP}$-Complete</h3>
-                    <p class="text-xs font-bold uppercase text-rose-500 mb-2">The Hardest Problems</p>
+                    <p class="text-xs font-bold uppercase text-rose-500 mb-2">
+                        <span class="lang-en">The Hardest Problems</span>
+                        <span class="lang-ar lang-hidden">أصعب المشاكل</span>
+                    </p>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Problems in NP to which <strong>all other</strong> NP problems can be reduced. If you solve one efficiently, you solve them ALL.
+                        <span class="lang-en">Problems in NP to which <strong>all other</strong> NP problems can be reduced. If you solve one efficiently, you solve them ALL.</span>
+                        <span class="lang-ar lang-hidden">مشاكل في NP يمكن اختزال <strong>جميع</strong> مشاكل NP الأخرى إليها. إذا قمت بحل واحدة بكفاءة، فستحلها جميعاً.</span>
                         <br><br>
-                        <em>Examples:</em> SAT, Hamiltonian Circuit, Traveling Salesman.
+                        <em>
+                            <span class="lang-en">Examples:</span>
+                            <span class="lang-ar lang-hidden">أمثلة:</span>
+                        </em> SAT, Hamiltonian Circuit, Traveling Salesman.
                     </p>
                 </div>
             </div>
@@ -310,76 +493,110 @@
                     <div class="absolute bottom-4 font-bold text-rose-500">NP-Complete</div>
                 </div>
             </div>
-            <p class="text-center text-xs text-gray-500 mt-2">Is P = NP? If P touches the outer circle, yes. (Most believe No).</p>
+            <p class="text-center text-xs text-gray-500 mt-2">
+                <span class="lang-en">Is P = NP? If P touches the outer circle, yes. (Most believe No).</span>
+                <span class="lang-ar lang-hidden">هل P = NP؟ إذا لامست P الدائرة الخارجية، نعم. (الغالبية يعتقدون لا).</span>
+            </p>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-gray-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Undecidability</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Undecidability</span>
+                    <span class="lang-ar lang-hidden">عدم القابلية للقرار (Undecidability)</span>
+                </h2>
             </div>
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Halting Problem</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">The Halting Problem</span>
+                    <span class="lang-ar lang-hidden">مشكلة التوقف (Halting Problem)</span>
+                </h3>
                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                    Some problems cannot be solved by <strong>any</strong> algorithm, no matter how much time or space is given.
+                    <span class="lang-en">Some problems cannot be solved by <strong>any</strong> algorithm, no matter how much time or space is given.
                     <br>
-                    Alan Turing proved that we cannot write a program that checks if another program will run forever or stop. This is an <strong>Undecidable Problem</strong>.
+                    Alan Turing proved that we cannot write a program that checks if another program will run forever or stop. This is an <strong>Undecidable Problem</strong>.</span>
+                    <span class="lang-ar lang-hidden">بعض المشاكل لا يمكن حلها بواسطة <strong>أي</strong> خوارزمية، بغض النظر عن الوقت أو المساحة المتاحة.
+                    <br>
+                    أثبت آلان تورينج أننا لا نستطيع كتابة برنامج يتحقق مما إذا كان برنامج آخر سيعمل إلى الأبد أم سيتوقف. هذه <strong>مشكلة غير قابلة للقرار (Undecidable Problem)</strong>.</span>
                 </p>
             </div>
         </section>
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The Meaning of NP
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: The Meaning of NP</span>
+                            <span class="lang-ar lang-hidden">فخ: معنى NP</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>NP</strong> does NOT stand for "Not Polynomial". It stands for <strong>Nondeterministic Polynomial</strong> time. It means a solution can be <em>verified</em> quickly, not necessarily found quickly. Writing "Not Polynomial" is an instant zero.
+                            <span class="lang-en"><strong>NP</strong> does NOT stand for "Not Polynomial". It stands for <strong>Nondeterministic Polynomial</strong> time. It means a solution can be <em>verified</em> quickly, not necessarily found quickly. Writing "Not Polynomial" is an instant zero.</span>
+                            <span class="lang-ar lang-hidden"><strong>NP</strong> لا تعني "Not Polynomial" (ليس كثير حدود). إنها تعني <strong>Nondeterministic Polynomial</strong> (كثير حدود غير حتمي). هذا يعني أنه يمكن <em>التحقق</em> من الحل بسرعة، وليس بالضرورة العثور عليه بسرعة. كتابة "Not Polynomial" تعني صفراً فورياً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Lower Bound Notation
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Lower Bound Notation</span>
+                            <span class="lang-ar lang-hidden">فخ: تدوين الحد الأدنى</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When asked for the Lower Bound of a problem class (e.g., Sorting), use $\Omega$ (Big-Omega), not $O$ (Big-O). Big-O is for specific algorithms (upper bound). Big-Omega is for the problem itself (lower limit).
-                            <br>Sorting is $\Omega(n \log n)$, but QuickSort is $O(n^2)$.
+                            <span class="lang-en">When asked for the Lower Bound of a problem class (e.g., Sorting), use $\Omega$ (Big-Omega), not $O$ (Big-O). Big-O is for specific algorithms (upper bound). Big-Omega is for the problem itself (lower limit).
+                            <br>Sorting is $\Omega(n \log n)$, but QuickSort is $O(n^2)$.</span>
+                            <span class="lang-ar lang-hidden">عند السؤال عن الحد الأدنى (Lower Bound) لفئة مشكلة (مثل الفرز)، استخدم $\Omega$ (Big-Omega)، وليس $O$ (Big-O). الـ Big-O للخوارزميات المحددة (الحد الأعلى). الـ Big-Omega للمشكلة نفسها (الحد السفلي).
+                            <br>الفرز هو $\Omega(n \log n)$، لكن QuickSort هو $O(n^2)$.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Proving NP-Completeness
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Proving NP-Completeness</span>
+                            <span class="lang-ar lang-hidden">سر: إثبات NP-Completeness</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            To prove a new problem $Q$ is NP-Complete:
+                            <span class="lang-en">To prove a new problem $Q$ is NP-Complete:
                             1. Prove $Q \in NP$ (Certificate verification).
                             2. Reduce a known NP-Complete problem (like 3-SAT) TO $Q$ (Polynomial Reduction).
-                            Direction matters! Reduce <strong>Known $\to$ New</strong>.
+                            Direction matters! Reduce <strong>Known $\to$ New</strong>.</span>
+                            <span class="lang-ar lang-hidden">لإثبات أن مشكلة جديدة $Q$ هي NP-Complete:
+                            1. أثبت أن $Q \in NP$ (التحقق من الشهادة).
+                            2. اختزل مشكلة NP-Complete معروفة (مثل 3-SAT) إلى $Q$ (اختزال كثير الحدود).
+                            الاتجاه مهم! اختزل <strong>المعروف $\to$ الجديد</strong>.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Intractable
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Intractable</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: مستعصية (Intractable)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            A problem is <strong>Intractable</strong> if it cannot be solved in polynomial time. Even if an algorithm exists ($O(2^n)$), for large $n$, it is practically useless. Halting Problem is worse; it is <strong>Undecidable</strong> (no algorithm exists).
+                            <span class="lang-en">A problem is <strong>Intractable</strong> if it cannot be solved in polynomial time. Even if an algorithm exists ($O(2^n)$), for large $n$, it is practically useless. Halting Problem is worse; it is <strong>Undecidable</strong> (no algorithm exists).</span>
+                            <span class="lang-ar lang-hidden">المشكلة تكون <strong>مستعصية (Intractable)</strong> إذا لم يمكن حلها في وقت كثير الحدود. حتى لو كانت هناك خوارزمية ($O(2^n)$)، فبالنسبة لـ $n$ كبيرة، تكون عديمة الفائدة عملياً. مشكلة التوقف أسوأ؛ فهي <strong>غير قابلة للقرار (Undecidable)</strong> (لا توجد خوارزمية أصلاً).</span>
                         </p>
                     </div>
                 </div>
@@ -390,18 +607,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 11</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module13.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 13</a>
+                <a href="module13.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 13</span>
+                    <span class="lang-ar lang-hidden">الوحدة 13</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -419,6 +649,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

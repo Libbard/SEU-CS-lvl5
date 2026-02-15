@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 5: Advanced ER</title>
@@ -120,6 +129,33 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+		
+		[dir="rtl"] .mermaid {
+		  direction: ltr !important;
+		  text-align: left !important;
+		  unicode-bidi: bidi-override !important;
+		}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -127,26 +163,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module4.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 5</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 5</span>
+                        <span class="lang-ar lang-hidden">الوحدة 5</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-sitemap text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -163,48 +214,83 @@
                 <i class="fa-solid fa-project-diagram text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Advanced ER: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Enhanced ER (EER)</span>
+                <span class="lang-en">Advanced ER: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Enhanced ER (EER)</span></span>
+                <span class="lang-ar lang-hidden">Advanced ER: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Enhanced ER (EER)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Extending the ER model with Object-Oriented concepts: Subclasses, Superclasses, Inheritance, and Specialization.
+                <span class="lang-en">Extending the ER model with Object-Oriented concepts: Subclasses, Superclasses, Inheritance, and Specialization.</span>
+                <span class="lang-ar lang-hidden">توسيع نموذج ER بمفاهيم كائنية التوجه (Object-Oriented): Subclasses, Superclasses, Inheritance, و Specialization.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Ternary Relationships</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Subclass/Superclass</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Inheritance</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Specialization</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Generalization</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Ternary Relationships</span>
+                    <span class="lang-ar lang-hidden">Ternary Relationships</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Subclass/Superclass</span>
+                    <span class="lang-ar lang-hidden">Subclass/Superclass</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Inheritance</span>
+                    <span class="lang-ar lang-hidden">Inheritance</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Specialization</span>
+                    <span class="lang-ar lang-hidden">Specialization</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Generalization</span>
+                    <span class="lang-ar lang-hidden">Generalization</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Higher-Degree Relationships</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Higher-Degree Relationships</span>
+                    <span class="lang-ar lang-hidden">Higher-Degree Relationships (علاقات متعددة الدرجات)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    While binary relationships (degree 2) are most common, some situations require degree > 2.
+                    <span class="lang-en">While binary relationships (degree 2) are most common, some situations require degree > 2.</span>
+                    <span class="lang-ar lang-hidden">بينما العلاقات الثنائية (degree 2) هي الأكثر شيوعاً، تتطلب بعض الحالات degree > 2.</span>
                 </p>
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="flex-1 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <strong class="text-brand-600 block mb-2">Ternary Relationship (Degree 3)</strong>
+                        <strong class="text-brand-600 block mb-2">
+                            <span class="lang-en">Ternary Relationship (Degree 3)</span>
+                            <span class="lang-ar lang-hidden">Ternary Relationship (علاقة ثلاثية)</span>
+                        </strong>
                         <p class="text-xs text-gray-500 mb-2">
-                            Example: <span class="font-mono">SUPPLY</span> relates <span class="font-bold">Supplier</span>, <span class="font-bold">Part</span>, and <span class="font-bold">Project</span> simultaneously.
+                            <span class="lang-en">Example: <span class="font-mono">SUPPLY</span> relates <span class="font-bold">Supplier</span>, <span class="font-bold">Part</span>, and <span class="font-bold">Project</span> simultaneously.</span>
+                            <span class="lang-ar lang-hidden">مثال: <span class="font-mono">SUPPLY</span> تربط <span class="font-bold">Supplier</span>, <span class="font-bold">Part</span>, و <span class="font-bold">Project</span> في آن واحد.</span>
                         </p>
                         <ul class="text-xs text-gray-500 list-disc list-inside">
-                            <li>Cannot be easily decomposed into 3 binary relationships without losing semantics.</li>
-                            <li>Attributes (e.g., Quantity) belong to the combination of all three.</li>
+                            <li>
+                                <span class="lang-en">Cannot be easily decomposed into 3 binary relationships without losing semantics.</span>
+                                <span class="lang-ar lang-hidden">لا يمكن تفكيكها بسهولة إلى 3 علاقات ثنائية دون فقدان المعنى (Semantics).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Attributes (e.g., Quantity) belong to the combination of all three.</span>
+                                <span class="lang-ar lang-hidden">السمات (مثل: الكمية) تنتمي إلى المزيج المكون من الثلاثة.</span>
+                            </li>
                         </ul>
                     </div>
                     <div class="flex-1 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <strong class="text-brand-600 block mb-2">Aggregation</strong>
+                        <strong class="text-brand-600 block mb-2">
+                            <span class="lang-en">Aggregation</span>
+                            <span class="lang-ar lang-hidden">Aggregation</span>
+                        </strong>
                         <p class="text-xs text-gray-500">
-                            An abstraction concept for building composite objects. Used when a relationship itself needs to participate in another relationship.
+                            <span class="lang-en">An abstraction concept for building composite objects. Used when a relationship itself needs to participate in another relationship.</span>
+                            <span class="lang-ar lang-hidden">مفهوم تجريدي لبناء كائنات مركبة. يُستخدم عندما تحتاج العلاقة نفسها للمشاركة في علاقة أخرى.</span>
                         </p>
                     </div>
                 </div>
@@ -212,45 +298,76 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Subclasses & Superclasses</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Subclasses & Superclasses</span>
+                    <span class="lang-ar lang-hidden">Subclasses & Superclasses</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Concept</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">The Concept</span>
+                        <span class="lang-ar lang-hidden">المفهوم</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        An entity type may have meaningful subgroupings.
-                        <br>Example: <span class="font-bold text-brand-600">EMPLOYEE</span> may be subdivided into <em>SECRETARY</em>, <em>ENGINEER</em>, <em>TECHNICIAN</em>.
+                        <span class="lang-en">An entity type may have meaningful subgroupings.
+                        <br>Example: <span class="font-bold text-brand-600">EMPLOYEE</span> may be subdivided into <em>SECRETARY</em>, <em>ENGINEER</em>, <em>TECHNICIAN</em>.</span>
+                        <span class="lang-ar lang-hidden">قد يكون لنوع الكيان مجموعات فرعية ذات معنى.
+                        <br>مثال: <span class="font-bold text-brand-600">EMPLOYEE</span> يمكن تقسيمه إلى <em>SECRETARY</em>, <em>ENGINEER</em>, <em>TECHNICIAN</em>.</span>
                     </p>
                     <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2">
-                        <li><strong>Superclass:</strong> The generic entity (EMPLOYEE).</li>
-                        <li><strong>Subclass:</strong> The specific subgroup (ENGINEER).</li>
-                        <li><strong>Relationship:</strong> IS-A (e.g., ENGINEER IS-A EMPLOYEE).</li>
+                        <li>
+                            <strong class="lang-en">Superclass:</strong><strong class="lang-ar lang-hidden">Superclass:</strong>
+                            <span class="lang-en">The generic entity (EMPLOYEE).</span><span class="lang-ar lang-hidden"> الكيان العام (EMPLOYEE).</span>
+                        </li>
+                        <li>
+                            <strong class="lang-en">Subclass:</strong><strong class="lang-ar lang-hidden">Subclass:</strong>
+                            <span class="lang-en">The specific subgroup (ENGINEER).</span><span class="lang-ar lang-hidden"> المجموعة الفرعية المحددة (ENGINEER).</span>
+                        </li>
+                        <li>
+                            <strong class="lang-en">Relationship:</strong><strong class="lang-ar lang-hidden">Relationship:</strong>
+                            <span class="lang-en">IS-A (e.g., ENGINEER IS-A EMPLOYEE).</span><span class="lang-ar lang-hidden"> IS-A (مثال: المهندس هو موظف).</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Attribute Inheritance</h3>
+                    <h3 class="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">
+                        <span class="lang-en">Attribute Inheritance</span>
+                        <span class="lang-ar lang-hidden">Attribute Inheritance (وراثة السمات)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        An entity in the Subclass inherits:
+                        <span class="lang-en">An entity in the Subclass inherits:</span>
+                        <span class="lang-ar lang-hidden">يرث الكيان في الـ Subclass:</span>
                     </p>
                     <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        <li>All <span class="font-bold">Attributes</span> of the Superclass.</li>
-                        <li>All <span class="font-bold">Relationships</span> the Superclass participates in.</li>
+                        <li>
+                            <span class="lang-en">All <span class="font-bold">Attributes</span> of the Superclass.</span>
+                            <span class="lang-ar lang-hidden">جميع <span class="font-bold">Attributes</span> الخاصة بالـ Superclass.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">All <span class="font-bold">Relationships</span> the Superclass participates in.</span>
+                            <span class="lang-ar lang-hidden">جميع <span class="font-bold">Relationships</span> التي يشارك فيها الـ Superclass.</span>
+                        </li>
                     </ol>
                     <div class="mt-4 p-2 bg-purple-50 dark:bg-purple-900/20 rounded text-xs">
-                        <em>Local Attributes:</em> Attributes specific to the subclass (e.g., `TypingSpeed` for SECRETARY).
+                        <span class="lang-en"><em>Local Attributes:</em> Attributes specific to the subclass (e.g., `TypingSpeed` for SECRETARY).</span>
+                        <span class="lang-ar lang-hidden"><em>Local Attributes:</em> سمات خاصة بالـ subclass (مثال: `TypingSpeed` للسكرتير).</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Specialization vs Generalization</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Specialization vs Generalization</span>
+                    <span class="lang-ar lang-hidden">Specialization vs Generalization</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
@@ -259,10 +376,17 @@
                         <div class="inline-block p-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 mb-2">
                             <i class="fa-solid fa-arrow-down-wide-short text-2xl"></i>
                         </div>
-                        <h4 class="font-bold text-blue-600 dark:text-blue-400">Specialization</h4>
-                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest mb-2">Top-Down Process</p>
+                        <h4 class="font-bold text-blue-600 dark:text-blue-400">
+                            <span class="lang-en">Specialization</span>
+                            <span class="lang-ar lang-hidden">Specialization</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest mb-2">
+                            <span class="lang-en">Top-Down Process</span>
+                            <span class="lang-ar lang-hidden">عملية من أعلى لأسفل</span>
+                        </p>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
-                            Start with a single entity (EMPLOYEE) and define subclasses (SECRETARY, ENGINEER) based on distinguishing characteristics.
+                            <span class="lang-en">Start with a single entity (EMPLOYEE) and define subclasses (SECRETARY, ENGINEER) based on distinguishing characteristics.</span>
+                            <span class="lang-ar lang-hidden">تبدأ بكيان واحد (EMPLOYEE) وتحدد subclasses (SECRETARY, ENGINEER) بناءً على خصائص مميزة.</span>
                         </p>
                     </div>
 
@@ -270,17 +394,27 @@
                         <div class="inline-block p-3 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 mb-2">
                             <i class="fa-solid fa-arrow-up-wide-short text-2xl"></i>
                         </div>
-                        <h4 class="font-bold text-green-600 dark:text-green-400">Generalization</h4>
-                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest mb-2">Bottom-Up Process</p>
+                        <h4 class="font-bold text-green-600 dark:text-green-400">
+                            <span class="lang-en">Generalization</span>
+                            <span class="lang-ar lang-hidden">Generalization</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-widest mb-2">
+                            <span class="lang-en">Bottom-Up Process</span>
+                            <span class="lang-ar lang-hidden">عملية من أسفل لأعلى</span>
+                        </p>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
-                            Start with separate entities (CAR, TRUCK) and generalize them into a single superclass (VEHICLE) based on common features.
+                            <span class="lang-en">Start with separate entities (CAR, TRUCK) and generalize them into a single superclass (VEHICLE) based on common features.</span>
+                            <span class="lang-ar lang-hidden">تبدأ بكيانات منفصلة (CAR, TRUCK) وتعممها في superclass واحد (VEHICLE) بناءً على الميزات المشتركة.</span>
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">EER Diagram: Employee Hierarchy</h4>
+                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">
+                    <span class="lang-en">EER Diagram: Employee Hierarchy</span>
+                    <span class="lang-ar lang-hidden">EER Diagram: Employee Hierarchy</span>
+                </h4>
                 
                 <div class="mermaid flex justify-center">
                     classDiagram
@@ -303,37 +437,67 @@
                         }
                 </div>
                 <p class="text-center text-xs text-gray-500 mt-2">
-                    Notation: The arrow points to the Superclass (Inheritance).
+                    <span class="lang-en">Notation: The arrow points to the Superclass (Inheritance).</span>
+                    <span class="lang-ar lang-hidden">الترميز: السهم يشير إلى الـ Superclass (Inheritance).</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Constraints</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Constraints</span>
+                    <span class="lang-ar lang-hidden">Constraints (القيود)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-yellow-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">1. Disjointness Constraint</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">1. Disjointness Constraint</span>
+                        <span class="lang-ar lang-hidden">1. Disjointness Constraint</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Can an entity be a member of more than one subclass?
+                        <span class="lang-en">Can an entity be a member of more than one subclass?</span>
+                        <span class="lang-ar lang-hidden">هل يمكن للكيان أن يكون عضواً في أكثر من subclass؟</span>
                     </p>
                     <ul class="text-xs space-y-1">
-                        <li class="flex items-center"><span class="w-6 font-bold text-yellow-600">d</span> <strong>Disjoint:</strong> NO overlap. (Entity must be either A or B, not both).</li>
-                        <li class="flex items-center"><span class="w-6 font-bold text-yellow-600">o</span> <strong>Overlapping:</strong> Overlap allowed. (Entity can be both A and B).</li>
+                        <li class="flex items-center">
+                            <span class="w-6 font-bold text-yellow-600">d</span> 
+                            <strong class="lang-en">Disjoint:</strong><strong class="lang-ar lang-hidden">Disjoint:</strong>
+                            <span class="lang-en">NO overlap. (Entity must be either A or B, not both).</span>
+                            <span class="lang-ar lang-hidden">لا يوجد تداخل. (الكيان يجب أن يكون إما A أو B، وليس كلاهما).</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-6 font-bold text-yellow-600">o</span> 
+                            <strong class="lang-en">Overlapping:</strong><strong class="lang-ar lang-hidden">Overlapping:</strong>
+                            <span class="lang-en">Overlap allowed. (Entity can be both A and B).</span>
+                            <span class="lang-ar lang-hidden">التداخل مسموح. (يمكن للكيان أن يكون A و B معاً).</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-cyan-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">2. Completeness Constraint</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">2. Completeness Constraint</span>
+                        <span class="lang-ar lang-hidden">2. Completeness Constraint</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Must every entity in the superclass be a member of some subclass?
+                        <span class="lang-en">Must every entity in the superclass be a member of some subclass?</span>
+                        <span class="lang-ar lang-hidden">هل يجب أن يكون كل كيان في الـ superclass عضواً في subclass ما؟</span>
                     </p>
                     <ul class="text-xs space-y-1">
-                        <li class="flex items-center"><span class="w-20 font-bold text-cyan-600">Total</span> YES. (Double Line). Every Employee MUST be a Sec, Eng, or Tech.</li>
-                        <li class="flex items-center"><span class="w-20 font-bold text-cyan-600">Partial</span> NO. (Single Line). An Employee can exist without being any of the subclasses.</li>
+                        <li class="flex items-center">
+                            <span class="w-20 font-bold text-cyan-600">Total</span> 
+                            <span class="lang-en">YES. (Double Line). Every Employee MUST be a Sec, Eng, or Tech.</span>
+                            <span class="lang-ar lang-hidden">نعم. (خط مزدوج). كل موظف يجب أن يكون Sec, Eng, أو Tech.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-20 font-bold text-cyan-600">Partial</span> 
+                            <span class="lang-en">NO. (Single Line). An Employee can exist without being any of the subclasses.</span>
+                            <span class="lang-ar lang-hidden">لا. (خط مفرد). يمكن للموظف أن يوجد دون أن يكون في أي من الـ subclasses.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -343,56 +507,80 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Disjoint vs Overlapping
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Disjoint vs Overlapping</span>
+                            <span class="lang-ar lang-hidden">فخ: Disjoint vs Overlapping</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Disjoint (d):</strong> E.g., Employee is either Salaried OR Hourly. Cannot be both.
+                            <span class="lang-en"><strong>Disjoint (d):</strong> E.g., Employee is either Salaried OR Hourly. Cannot be both.
                             <br><strong>Overlapping (o):</strong> E.g., Person can be Employee AND Student.
-                            Look for the little 'd' or 'o' inside the circle in EER diagrams.
+                            Look for the little 'd' or 'o' inside the circle in EER diagrams.</span>
+                            <span class="lang-ar lang-hidden"><strong>Disjoint (d):</strong> مثال: الموظف إما Salaried أو Hourly. لا يمكن أن يكون الاثنين.
+                            <br><strong>Overlapping (o):</strong> مثال: الشخص يمكن أن يكون Employee و Student.
+                            ابحث عن حرف 'd' أو 'o' الصغير داخل الدائرة في مخططات EER.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Inheritance Direction
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Inheritance Direction</span>
+                            <span class="lang-ar lang-hidden">فخ: اتجاه الـ Inheritance</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Attributes flow <strong>DOWN</strong>. Subclasses inherit from Superclass.
-                            Subclasses NEVER pass their specific attributes UP to the Superclass.
+                            <span class="lang-en">Attributes flow <strong>DOWN</strong>. Subclasses inherit from Superclass.
+                            Subclasses NEVER pass their specific attributes UP to the Superclass.</span>
+                            <span class="lang-ar lang-hidden">السمات تتدفق <strong>لأسفل (DOWN)</strong>. الـ Subclasses ترث من الـ Superclass.
+                            الـ Subclasses لا تمرر سماتها الخاصة للأعلى إلى الـ Superclass أبداً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Union Type
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Union Type</span>
+                            <span class="lang-ar lang-hidden">سر: Union Type</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            A subclass with <strong>multiple superclasses</strong> is a Shared Subclass (Multiple Inheritance).
-                            If the superclasses are different entity types (e.g., Car and Truck owning a "RegisteredVehicle" license), it's called a <strong>Category (Union Type)</strong>.
+                            <span class="lang-en">A subclass with <strong>multiple superclasses</strong> is a Shared Subclass (Multiple Inheritance).
+                            If the superclasses are different entity types (e.g., Car and Truck owning a "RegisteredVehicle" license), it's called a <strong>Category (Union Type)</strong>.</span>
+                            <span class="lang-ar lang-hidden">الـ subclass الذي له <strong>multiple superclasses</strong> هو Shared Subclass (Multiple Inheritance).
+                            إذا كانت الـ superclasses من أنواع كيانات مختلفة (مثل Car و Truck يمتلكان رخصة "RegisteredVehicle")، يسمى هذا <strong>Category (Union Type)</strong>.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: When to Specialize?
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: When to Specialize?</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: متى نستخدم Specialization؟</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Create a subclass only if:
+                            <span class="lang-en">Create a subclass only if:
                             <br>1. The subclass has <strong>unique attributes</strong> not shared by others.
-                            <br>2. The subclass participates in a <strong>unique relationship</strong>.
+                            <br>2. The subclass participates in a <strong>unique relationship</strong>.</span>
+                            <span class="lang-ar lang-hidden">قم بإنشاء subclass فقط إذا:
+                            <br>1. كان للـ subclass <strong>سمات فريدة (unique attributes)</strong> لا يشاركه فيها الآخرون.
+                            <br>2. كان الـ subclass يشارك في <strong>علاقة فريدة (unique relationship)</strong>.</span>
                         </p>
                     </div>
                 </div>
@@ -403,18 +591,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 4</span>
+                    <span class="lang-ar lang-hidden">الوحدة 4</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 6</span>
+                    <span class="lang-ar lang-hidden">الوحدة 6</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -432,6 +633,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

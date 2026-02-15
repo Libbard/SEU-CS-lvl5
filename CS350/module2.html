@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 2: System Architecture</title>
@@ -111,6 +120,24 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -118,26 +145,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module1.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 2</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 2</span>
+                        <span class="lang-ar lang-hidden">الوحدة 2</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-sitemap text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module3.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -154,80 +196,129 @@
                 <i class="fa-solid fa-project-diagram text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Architecture: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Concepts & Models</span>
+                <span class="lang-en">Architecture: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Concepts & Models</span></span>
+                <span class="lang-ar lang-hidden">البنية (Architecture): <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">المفاهيم والنماذج</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Exploring the Three-Schema Architecture, Data Independence, and the evolution of Data Models from Hierarchical to Relational.
+                <span class="lang-en">Exploring the Three-Schema Architecture, Data Independence, and the evolution of Data Models from Hierarchical to Relational.</span>
+                <span class="lang-ar lang-hidden">استكشاف معمارية المخططات الثلاثة (Three-Schema Architecture)، واستقلالية البيانات، وتطور نماذج البيانات من الهرمية إلى العلائقية.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Data Models</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Schema vs State</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">3-Schema Architecture</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Data Independence</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DBMS Languages</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Data Models</span>
+                    <span class="lang-ar lang-hidden">Data Models</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Schema vs State</span>
+                    <span class="lang-ar lang-hidden">Schema vs State</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">3-Schema Architecture</span>
+                    <span class="lang-ar lang-hidden">3-Schema Architecture</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Data Independence</span>
+                    <span class="lang-ar lang-hidden">Data Independence</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">DBMS Languages</span>
+                    <span class="lang-ar lang-hidden">DBMS Languages</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Data Models</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Data Models</span>
+                    <span class="lang-ar lang-hidden">Data Models (نماذج البيانات)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300">
-                    A <strong class="text-brand-600 dark:text-brand-400">Data Model</strong> is a set of concepts to describe the structure of a database, operations for manipulating data, and constraints.
+                    <span class="lang-en">A <strong class="text-brand-600 dark:text-brand-400">Data Model</strong> is a set of concepts to describe the structure of a database, operations for manipulating data, and constraints.</span>
+                    <span class="lang-ar lang-hidden"><strong class="text-brand-600 dark:text-brand-400">Data Model</strong> هو مجموعة من المفاهيم لوصف هيكل قاعدة البيانات، والعمليات لمعالجة البيانات، والقيود (Constraints).</span>
                 </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-gray-100 dark:bg-gray-800 p-5 rounded-xl border-l-4 border-blue-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">1. Conceptual</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">1. Conceptual</span>
+                        <span class="lang-ar lang-hidden">1. Conceptual (المفاهيمي)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                        High-level, Semantic. Close to how users perceive data.
-                        <br><em>Example:</em> Entity-Relationship Model.
+                        <span class="lang-en">High-level, Semantic. Close to how users perceive data.
+                        <br><em>Example:</em> Entity-Relationship Model.</span>
+                        <span class="lang-ar lang-hidden">عالي المستوى، دلالي (Semantic). قريب من كيفية إدراك المستخدمين للبيانات.
+                        <br><em>مثال:</em> نموذج الكيان والعلاقة (ER Model).</span>
                     </p>
                 </div>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-5 rounded-xl border-l-4 border-red-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">2. Physical</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">2. Physical</span>
+                        <span class="lang-ar lang-hidden">2. Physical (المادي)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                        Low-level, Internal. Describes <em>how</em> data is stored in the computer (bits, tracks).
-                        <br><em>Example:</em> Record formats, ordering.
+                        <span class="lang-en">Low-level, Internal. Describes <em>how</em> data is stored in the computer (bits, tracks).
+                        <br><em>Example:</em> Record formats, ordering.</span>
+                        <span class="lang-ar lang-hidden">منخفض المستوى، داخلي. يصف <em>كيف</em> يتم تخزين البيانات في الحاسوب (البتات، المسارات).
+                        <br><em>مثال:</em> تنسيقات السجلات، الترتيب.</span>
                     </p>
                 </div>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-5 rounded-xl border-l-4 border-green-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">3. Implementation</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">3. Implementation</span>
+                        <span class="lang-ar lang-hidden">3. Implementation (التنفيذي)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-400">
-                        Representational. Falls between the two. Used by commercial DBMSs.
-                        <br><em>Example:</em> Relational Data Model.
+                        <span class="lang-en">Representational. Falls between the two. Used by commercial DBMSs.
+                        <br><em>Example:</em> Relational Data Model.</span>
+                        <span class="lang-ar lang-hidden">تمثيلي (Representational). يقع بين النوعين السابقين. يُستخدم بواسطة أنظمة إدارة قواعد البيانات التجارية.
+                        <br><em>مثال:</em> نموذج البيانات العلائقي (Relational Model).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Schema vs. State</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Schema vs. State</span>
+                    <span class="lang-ar lang-hidden">Schema vs. State</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl flex flex-col md:flex-row justify-between items-center gap-8">
                 <div class="w-full md:w-1/2 space-y-4">
                     <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1"><i class="fa-solid fa-file-code mr-2"></i>Database Schema (Intension)</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">
+                            <i class="fa-solid fa-file-code mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Database Schema (Intension)</span>
+                            <span class="lang-ar lang-hidden">Database Schema (Intension)</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            The description of the database. Includes structure, types, and constraints. Changes very infrequently.
+                            <span class="lang-en">The description of the database. Includes structure, types, and constraints. Changes very infrequently.</span>
+                            <span class="lang-ar lang-hidden">وصف قاعدة البيانات. يشمل الهيكل، والأنواع، والقيود. يتغير بشكل نادر جداً.</span>
                         </p>
                     </div>
                     <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
-                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-1"><i class="fa-solid fa-table mr-2"></i>Database State (Extension)</h4>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-1">
+                            <i class="fa-solid fa-table mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Database State (Extension)</span>
+                            <span class="lang-ar lang-hidden">Database State (Extension)</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            The actual data stored at a particular moment. Changes every time the database is updated (Snapshot).
+                            <span class="lang-en">The actual data stored at a particular moment. Changes every time the database is updated (Snapshot).</span>
+                            <span class="lang-ar lang-hidden">البيانات الفعلية المخزنة في لحظة معينة. تتغير في كل مرة يتم فيها تحديث قاعدة البيانات (Snapshot).</span>
                         </p>
                     </div>
                 </div>
@@ -239,17 +330,22 @@
                         <i class="fa-solid fa-scale-balanced text-3xl text-blue-500"></i>
                     </div>
                     <p class="text-xs text-gray-500 font-mono">
-                        Schema = Blueprint
-                        <br>State = The House content
+                        <span class="lang-en">Schema = Blueprint
+                        <br>State = The House content</span>
+                        <span class="lang-ar lang-hidden">Schema = المخطط الهندسي (Blueprint)
+                        <br>State = محتويات المنزل</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Three-Schema Architecture</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Three-Schema Architecture</span>
+                    <span class="lang-ar lang-hidden">Three-Schema Architecture</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
@@ -269,59 +365,106 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-sm text-center">
                     <div class="p-2 border rounded">
-                        <strong class="block text-brand-500">External Level</strong>
-                        Describes part of the database for specific user groups (Views).
+                        <strong class="block text-brand-500">
+                            <span class="lang-en">External Level</span>
+                            <span class="lang-ar lang-hidden">External Level</span>
+                        </strong>
+                        <span class="lang-en">Describes part of the database for specific user groups (Views).</span>
+                        <span class="lang-ar lang-hidden">يصف جزءاً من قاعدة البيانات لمجموعات مستخدمين محددة (Views).</span>
                     </div>
                     <div class="p-2 border rounded">
-                        <strong class="block text-brand-500">Conceptual Level</strong>
-                        Describes the structure of the WHOLE database for the community of users.
+                        <strong class="block text-brand-500">
+                            <span class="lang-en">Conceptual Level</span>
+                            <span class="lang-ar lang-hidden">Conceptual Level</span>
+                        </strong>
+                        <span class="lang-en">Describes the structure of the WHOLE database for the community of users.</span>
+                        <span class="lang-ar lang-hidden">يصف هيكل قاعدة البيانات بالكامل (WHOLE) لمجتمع المستخدمين.</span>
                     </div>
                     <div class="p-2 border rounded">
-                        <strong class="block text-brand-500">Internal Level</strong>
-                        Describes physical storage structures and access paths.
+                        <strong class="block text-brand-500">
+                            <span class="lang-en">Internal Level</span>
+                            <span class="lang-ar lang-hidden">Internal Level</span>
+                        </strong>
+                        <span class="lang-en">Describes physical storage structures and access paths.</span>
+                        <span class="lang-ar lang-hidden">يصف هياكل التخزين المادي ومسارات الوصول (Access paths).</span>
                     </div>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-indigo-50 dark:bg-indigo-900/20 p-5 rounded-xl border border-indigo-200 dark:border-indigo-800">
-                    <h4 class="font-bold text-indigo-700 dark:text-indigo-400 mb-2">Logical Data Independence</h4>
+                    <h4 class="font-bold text-indigo-700 dark:text-indigo-400 mb-2">
+                        <span class="lang-en">Logical Data Independence</span>
+                        <span class="lang-ar lang-hidden">Logical Data Independence</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Capacity to change the <span class="text-indigo-500 font-bold">Conceptual Schema</span> without changing External Schemas or Application Programs.
+                        <span class="lang-en">Capacity to change the <span class="text-indigo-500 font-bold">Conceptual Schema</span> without changing External Schemas or Application Programs.</span>
+                        <span class="lang-ar lang-hidden">القدرة على تغيير <span class="text-indigo-500 font-bold">Conceptual Schema</span> دون تغيير المخططات الخارجية (External Schemas) أو البرامج التطبيقية.</span>
                     </p>
                 </div>
                 <div class="bg-rose-50 dark:bg-rose-900/20 p-5 rounded-xl border border-rose-200 dark:border-rose-800">
-                    <h4 class="font-bold text-rose-700 dark:text-rose-400 mb-2">Physical Data Independence</h4>
+                    <h4 class="font-bold text-rose-700 dark:text-rose-400 mb-2">
+                        <span class="lang-en">Physical Data Independence</span>
+                        <span class="lang-ar lang-hidden">Physical Data Independence</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Capacity to change the <span class="text-rose-500 font-bold">Internal Schema</span> without changing the Conceptual Schema (e.g., creating a new index to improve performance).
+                        <span class="lang-en">Capacity to change the <span class="text-rose-500 font-bold">Internal Schema</span> without changing the Conceptual Schema (e.g., creating a new index to improve performance).</span>
+                        <span class="lang-ar lang-hidden">القدرة على تغيير <span class="text-rose-500 font-bold">Internal Schema</span> دون تغيير الـ Conceptual Schema (مثلاً: إنشاء فهرس جديد لتحسين الأداء).</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Languages & Interfaces</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Languages & Interfaces</span>
+                    <span class="lang-ar lang-hidden">Languages & Interfaces</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">DDL (Data Definition Language)</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">DDL (Data Definition Language)</span>
+                            <span class="lang-ar lang-hidden">DDL (لغة تعريف البيانات)</span>
+                        </h4>
                         <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-300 space-y-1">
-                            <li>Used by DBA and designers.</li>
-                            <li>Specifies the conceptual schema.</li>
-                            <li><em>Examples:</em> `CREATE TABLE`, `ALTER`.</li>
+                            <li>
+                                <span class="lang-en">Used by DBA and designers.</span>
+                                <span class="lang-ar lang-hidden">تستخدم من قبل الـ DBA والمصممين.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Specifies the conceptual schema.</span>
+                                <span class="lang-ar lang-hidden">تحدد المخطط المفاهيمي (Conceptual Schema).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><em>Examples:</em> `CREATE TABLE`, `ALTER`.</span>
+                                <span class="lang-ar lang-hidden"><em>أمثلة:</em> `CREATE TABLE`, `ALTER`.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">DML (Data Manipulation Language)</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">DML (Data Manipulation Language)</span>
+                            <span class="lang-ar lang-hidden">DML (لغة معالجة البيانات)</span>
+                        </h4>
                         <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-300 space-y-1">
-                            <li>Used for retrieval, insertion, deletion, and updates.</li>
-                            <li><strong>High-Level (Declarative):</strong> "What" to get (SQL).</li>
-                            <li><strong>Low-Level (Procedural):</strong> "How" to get it (Record-at-a-time).</li>
+                            <li>
+                                <span class="lang-en">Used for retrieval, insertion, deletion, and updates.</span>
+                                <span class="lang-ar lang-hidden">تستخدم للاسترجاع، والإدراج، والحذف، والتحديث.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>High-Level (Declarative):</strong> "What" to get (SQL).</span>
+                                <span class="lang-ar lang-hidden"><strong>عالية المستوى (تصريحية):</strong> "ماذا" تريد (SQL).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Low-Level (Procedural):</strong> "How" to get it (Record-at-a-time).</span>
+                                <span class="lang-ar lang-hidden"><strong>منخفضة المستوى (إجرائية):</strong> "كيف" تحصل عليه (سجل تلو الآخر).</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -332,54 +475,76 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Logical vs Physical Independence
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Logical vs Physical Independence</span>
+                            <span class="lang-ar lang-hidden">فخ: الاستقلالية المنطقية vs المادية</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Physical Independence</strong> is changing the internal schema (e.g., adding an index) without breaking the conceptual schema.
+                            <span class="lang-en"><strong>Physical Independence</strong> is changing the internal schema (e.g., adding an index) without breaking the conceptual schema.
                             <br><strong>Logical Independence</strong> is changing the conceptual schema (e.g., adding a column) without breaking external views/apps.
-                            <em>Hint: Logical is harder to achieve.</em> 
+                            <em>Hint: Logical is harder to achieve.</em></span>
+                            <span class="lang-ar lang-hidden"><strong>Physical Independence</strong> هو تغيير المخطط الداخلي (مثل إضافة فهرس) دون كسر المخطط المفاهيمي.
+                            <br><strong>Logical Independence</strong> هو تغيير المخطط المفاهيمي (مثل إضافة عمود) دون كسر الـ Views الخارجية أو التطبيقات.
+                            <em>تلميح: تحقيقه أصعب.</em></span> 
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Schema vs State
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Schema vs State</span>
+                            <span class="lang-ar lang-hidden">فخ: Schema vs State</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If the question asks "Which of these changes frequently?", the answer is <strong>State</strong> (Extension). The <strong>Schema</strong> (Intension) changes rarely. 
+                            <span class="lang-en">If the question asks "Which of these changes frequently?", the answer is <strong>State</strong> (Extension). The <strong>Schema</strong> (Intension) changes rarely.</span>
+                            <span class="lang-ar lang-hidden">إذا سأل السؤال "أي منهما يتغير بشكل متكرر؟"، الإجابة هي <strong>State</strong> (Extension). أما الـ <strong>Schema</strong> (Intension) تتغير نادراً.</span> 
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: 3-Schema Purpose
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: 3-Schema Purpose</span>
+                            <span class="lang-ar lang-hidden">سر: هدف الـ 3-Schema</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The main goal of the Three-Schema Architecture is <strong>Data Independence</strong> (Insulation between programs and data). It allows you to change the "plumbing" without rebuilding the house. 
+                            <span class="lang-en">The main goal of the Three-Schema Architecture is <strong>Data Independence</strong> (Insulation between programs and data). It allows you to change the "plumbing" without rebuilding the house.</span>
+                            <span class="lang-ar lang-hidden">الهدف الرئيسي لمعمارية الـ Three-Schema هو <strong>Data Independence</strong> (العزل بين البرامج والبيانات). فهي تسمح لك بتغيير "السباكة" دون إعادة بناء المنزل.</span> 
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: DDL vs DML
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: DDL vs DML</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: DDL vs DML</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>DDL</strong> = Definition (Structure, Tables, Indexes).
+                            <span class="lang-en"><strong>DDL</strong> = Definition (Structure, Tables, Indexes).
                             <br><strong>DML</strong> = Manipulation (Select, Insert, Update, Delete).
-                            Remember: DDL builds the bucket; DML fills it with water. 
+                            Remember: DDL builds the bucket; DML fills it with water.</span>
+                            <span class="lang-ar lang-hidden"><strong>DDL</strong> = تعريف (الهيكل، الجداول، الفهارس).
+                            <br><strong>DML</strong> = معالجة (Select, Insert, Update, Delete).
+                            تذكر: DDL يبني الدلو؛ و DML يملؤه بالماء.</span> 
                         </p>
                     </div>
                 </div>
@@ -390,27 +555,42 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 1</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 1</span>
+                    <span class="lang-ar lang-hidden">الوحدة 1</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 3</span>
+                    <span class="lang-ar lang-hidden">الوحدة 3</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
             htmlElement.classList.remove('dark');
         }
 
+        
         themeToggleBtn.addEventListener('click', () => {
             if (htmlElement.classList.contains('dark')) {
                 htmlElement.classList.remove('dark');
@@ -419,6 +599,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

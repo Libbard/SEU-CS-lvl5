@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 1: Fundamentals of Algorithms</title>
@@ -50,6 +59,54 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .mr-6 { margin-right: 0; margin-left: 1.5rem; }
+        [dir="rtl"] .ml-6 { margin-left: 0; margin-right: 1.5rem; }
+        [dir="rtl"] .pl-6 { padding-left: 0; padding-right: 1.5rem; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -132,31 +189,46 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="index.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 1</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 1</span>
+                        <span class="lang-ar lang-hidden">الوحدة 1</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module2.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -173,48 +245,70 @@
                 <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Fundamentals of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Algorithms</span>
+                <span class="lang-en">Fundamentals of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Algorithms</span></span>
+                <span class="lang-ar lang-hidden">أسس <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">الخوارزميات (Algorithms)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Understanding the logic, structure, and lifecycle of computational problem solving.
+                <span class="lang-en">Understanding the logic, structure, and lifecycle of computational problem solving.</span>
+                <span class="lang-ar lang-hidden">فهم المنطق، والهيكل، ودورة حياة حل المشكلات الحسابية.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Definition</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">5 Characteristics</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Pseudocode</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Analysis Basics</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Definition</span>
+                    <span class="lang-ar lang-hidden">التعريف</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">5 Characteristics</span>
+                    <span class="lang-ar lang-hidden">الخصائص الـ 5</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Pseudocode</span>
+                    <span class="lang-ar lang-hidden">الكود الزائف (Pseudocode)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Analysis Basics</span>
+                    <span class="lang-ar lang-hidden">أساسيات التحليل</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Core Definition</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Core Definition</span>
+                    <span class="lang-ar lang-hidden">التعريف الجوهري</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="prose dark:prose-invert">
                     <p class="text-lg leading-relaxed">
-                        An <span class="smart-term font-bold text-brand-500" data-ar="خوارزمية">Algorithm</span> is not just code. It is a sequence of <strong>clear instructions</strong> for solving a problem to acquire a required output for any legitimate input in a <strong>finite</strong> amount of time.
+                        <span class="lang-en">An <span class="smart-term font-bold text-brand-500" data-ar="خوارزمية">Algorithm</span> is not just code. It is a sequence of <strong>clear instructions</strong> for solving a problem to acquire a required output for any legitimate input in a <strong>finite</strong> amount of time.</span>
+                        <span class="lang-ar lang-hidden">الـ <span class="smart-term font-bold text-brand-500" data-ar="خوارزمية">Algorithm</span> ليست مجرد كود. إنها تسلسل من <strong>التعليمات الواضحة</strong> لحل مشكلة ما للحصول على مخرجات مطلوبة لأي مدخلات شرعية في فترة زمنية <strong>محدودة (Finite)</strong>.</span>
                     </p>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                        <i class="fa-solid fa-quote-left text-brand-500/40 mr-2"></i>
-                        Think of it as a recipe: The ingredients are the input, the cooking steps are the algorithm, and the delicious meal is the output.
+                        <i class="fa-solid fa-quote-left text-brand-500/40 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Think of it as a recipe: The ingredients are the input, the cooking steps are the algorithm, and the delicious meal is the output.</span>
+                        <span class="lang-ar lang-hidden">فكر فيها كوصفة طعام: المكونات هي المدخلات (Input)، وخطوات الطهي هي الخوارزمية (Algorithm)، والوجبة اللذيذة هي المخرجات (Output).</span>
                     </p>
                 </div>
                 
                 <div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center space-y-4">
-                    <div class="flex items-center space-x-2 text-sm font-mono text-gray-500 dark:text-gray-400">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-mono text-gray-500 dark:text-gray-400">
                         <i class="fa-solid fa-lightbulb text-yellow-500"></i>
-                        <span>The Problem</span>
+                        <span>
+                            <span class="lang-en">The Problem</span>
+                            <span class="lang-ar lang-hidden">المشكلة</span>
+                        </span>
                     </div>
                     <i class="fa-solid fa-arrow-down text-gray-400"></i>
                     
                     <div class="bg-brand-500/20 border border-brand-500/50 p-4 rounded-lg w-full text-center">
-                        <span class="text-brand-600 dark:text-brand-400 font-bold"><i class="fa-solid fa-code mr-2"></i>Algorithm</span>
+                        <span class="text-brand-600 dark:text-brand-400 font-bold"><i class="fa-solid fa-code mr-2 rtl:ml-2 rtl:mr-0"></i>Algorithm</span>
                     </div>
                     
                     <i class="fa-solid fa-arrow-down text-gray-400"></i>
@@ -237,9 +331,12 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Characteristics of an Algorithm</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Characteristics of an Algorithm</span>
+                    <span class="lang-ar lang-hidden">خصائص الخوارزمية</span>
+                </h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -247,80 +344,140 @@
                     <div class="w-10 h-10 mx-auto bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-3">
                         <i class="fa-solid fa-right-to-bracket text-blue-500"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">Input</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Zero or more quantities externally supplied.</p>
+                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">
+                        <span class="lang-en">Input</span>
+                        <span class="lang-ar lang-hidden">Input (المدخلات)</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        <span class="lang-en">Zero or more quantities externally supplied.</span>
+                        <span class="lang-ar lang-hidden">صفر أو أكثر من الكميات المزودة خارجياً.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform duration-200">
                     <div class="w-10 h-10 mx-auto bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-3">
                         <i class="fa-solid fa-right-from-bracket text-green-500"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">Output</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">At least one quantity produced.</p>
+                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">
+                        <span class="lang-en">Output</span>
+                        <span class="lang-ar lang-hidden">Output (المخرجات)</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        <span class="lang-en">At least one quantity produced.</span>
+                        <span class="lang-ar lang-hidden">كمية واحدة على الأقل يتم إنتاجها.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform duration-200">
                     <div class="w-10 h-10 mx-auto bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-3">
                         <i class="fa-solid fa-glasses text-purple-500"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">Definiteness</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Instructions must be clear & unambiguous.</p>
+                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">
+                        <span class="lang-en">Definiteness</span>
+                        <span class="lang-ar lang-hidden">Definiteness (الوضوح)</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        <span class="lang-en">Instructions must be clear & unambiguous.</span>
+                        <span class="lang-ar lang-hidden">يجب أن تكون التعليمات واضحة وغير غامضة.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform duration-200 border-rose-200 dark:border-rose-900/50">
                     <div class="w-10 h-10 mx-auto bg-rose-100 dark:bg-rose-900/30 rounded-full flex items-center justify-center mb-3">
                         <i class="fa-solid fa-ban text-rose-500"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">Finiteness</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Must terminate after a finite number of steps.</p>
+                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">
+                        <span class="lang-en">Finiteness</span>
+                        <span class="lang-ar lang-hidden">Finiteness (المحدودية)</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        <span class="lang-en">Must terminate after a finite number of steps.</span>
+                        <span class="lang-ar lang-hidden">يجب أن تتوقف بعد عدد محدود من الخطوات.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform duration-200">
                     <div class="w-10 h-10 mx-auto bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mb-3">
                         <i class="fa-solid fa-stopwatch text-amber-500"></i>
                     </div>
-                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">Efficiency</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Instructions must be basic and run quickly.</p>
+                    <h3 class="font-bold text-gray-900 dark:text-white mb-1">
+                        <span class="lang-en">Efficiency</span>
+                        <span class="lang-ar lang-hidden">Efficiency (الكفاءة)</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                        <span class="lang-en">Instructions must be basic and run quickly.</span>
+                        <span class="lang-ar lang-hidden">يجب أن تكون التعليمات أساسية وتعمل بسرعة.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section class="grid md:grid-cols-2 gap-8">
             <div>
-                <div class="flex items-center space-x-3 mb-6">
+                <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                     <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Specification Methods</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Specification Methods</span>
+                        <span class="lang-ar lang-hidden">طرق التوصيف</span>
+                    </h2>
                 </div>
                 
                 <div class="space-y-4">
                     <div class="group p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-brand-400 transition-colors">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200"><i class="fa-solid fa-comment-dots w-6 text-blue-500"></i> Natural Language</h4>
-                        <p class="text-sm text-gray-500 mt-1">Simple English. <span class="text-red-500 font-semibold">Drawback:</span> Often ambiguous and verbose.</p>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">
+                            <i class="fa-solid fa-comment-dots w-6 text-blue-500 rtl:ml-2"></i> 
+                            <span class="lang-en">Natural Language</span>
+                            <span class="lang-ar lang-hidden">Natural Language (اللغة الطبيعية)</span>
+                        </h4>
+                        <p class="text-sm text-gray-500 mt-1">
+                            <span class="lang-en">Simple English. <span class="text-red-500 font-semibold">Drawback:</span> Often ambiguous and verbose.</span>
+                            <span class="lang-ar lang-hidden">لغة إنجليزية بسيطة. <span class="text-red-500 font-semibold">العيوب:</span> غالباً ما تكون غامضة ومسهبة.</span>
+                        </p>
                     </div>
 
                     <div class="group p-4 rounded-lg bg-white dark:bg-gray-800 border border-brand-500 shadow-md transform scale-105">
                         <div class="flex justify-between items-center">
-                            <h4 class="font-bold text-brand-600 dark:text-brand-400"><i class="fa-solid fa-code w-6"></i> Pseudocode</h4>
-                            <span class="text-xs font-bold uppercase text-brand-500 bg-brand-100 dark:bg-brand-900 px-2 py-1 rounded">Preferred</span>
+                            <h4 class="font-bold text-brand-600 dark:text-brand-400">
+                                <i class="fa-solid fa-code w-6 rtl:ml-2"></i> 
+                                <span class="lang-en">Pseudocode</span>
+                                <span class="lang-ar lang-hidden">Pseudocode (الكود الزائف)</span>
+                            </h4>
+                            <span class="text-xs font-bold uppercase text-brand-500 bg-brand-100 dark:bg-brand-900 px-2 py-1 rounded">
+                                <span class="lang-en">Preferred</span>
+                                <span class="lang-ar lang-hidden">مفضل</span>
+                            </span>
                         </div>
-                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">Mix of English and code structures. Implementation independent but precise.</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                            <span class="lang-en">Mix of English and code structures. Implementation independent but precise.</span>
+                            <span class="lang-ar lang-hidden">مزيج من الإنجليزية وهياكل الكود. مستقل عن التنفيذ ولكنه دقيق.</span>
+                        </p>
                     </div>
 
                     <div class="group p-4 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-brand-400 transition-colors">
-                        <h4 class="font-bold text-gray-800 dark:text-gray-200"><i class="fa-solid fa-shapes w-6 text-amber-500"></i> Flowchart</h4>
-                        <p class="text-sm text-gray-500 mt-1">Graphical representation. <span class="text-red-500 font-semibold">Drawback:</span> Hard to modify and space-consuming for complex logic.</p>
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200">
+                            <i class="fa-solid fa-shapes w-6 text-amber-500 rtl:ml-2"></i> 
+                            <span class="lang-en">Flowchart</span>
+                            <span class="lang-ar lang-hidden">Flowchart (المخطط الانسيابي)</span>
+                        </h4>
+                        <p class="text-sm text-gray-500 mt-1">
+                            <span class="lang-en">Graphical representation. <span class="text-red-500 font-semibold">Drawback:</span> Hard to modify and space-consuming for complex logic.</span>
+                            <span class="lang-ar lang-hidden">تمثيل رسومي. <span class="text-red-500 font-semibold">العيوب:</span> صعب التعديل ويستهلك مساحة للمنطق المعقد.</span>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-col">
-                <div class="flex items-center space-x-3 mb-6">
+                <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                     <div class="h-8 w-1 bg-gray-500 rounded-full"></div>
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Case Study: Euclid's GCD</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Case Study: Euclid's GCD</span>
+                        <span class="lang-ar lang-hidden">دراسة حالة: Euclid's GCD</span>
+                    </h2>
                 </div>
 
                 <div class="flex-grow bg-gray-900 text-gray-100 rounded-xl p-6 font-mono text-sm border border-gray-700 shadow-inner relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-2 text-xs text-gray-500">Pseudocode</div>
+                    <div class="absolute top-0 right-0 rtl:left-0 rtl:right-auto p-2 text-xs text-gray-500">Pseudocode</div>
                     
                     <div class="space-y-2">
                         <span class="text-purple-400">ALGORITHM</span> <span class="text-yellow-400">Euclid_gcd</span>(m, n)<br>
@@ -337,15 +494,19 @@
                     </div>
                 </div>
                 <p class="mt-2 text-xs text-gray-500 dark:text-gray-400 italic">
-                    Logic: If $n=0$, the GCD is $m$. Otherwise, replace $m$ with $n$ and $n$ with the remainder of $m/n$.
+                    <span class="lang-en">Logic: If $n=0$, the GCD is $m$. Otherwise, replace $m$ with $n$ and $n$ with the remainder of $m/n$.</span>
+                    <span class="lang-ar lang-hidden">المنطق: إذا كان $n=0$، فإن الـ GCD هو $m$. وإلا، استبدل $m$ بـ $n$ واستبدل $n$ بباقي قسمة $m/n$.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-8">
+            <div class="flex items-center space-x-3 mb-8 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Algorithm Design Life Cycle</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Algorithm Design Life Cycle</span>
+                    <span class="lang-ar lang-hidden">دورة حياة تصميم الخوارزمية</span>
+                </h2>
             </div>
 
             <div class="relative">
@@ -354,148 +515,241 @@
                 <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
                     <div class="relative group">
                         <div class="w-12 h-12 mx-auto bg-white dark:bg-gray-800 border-4 border-brand-500 rounded-full flex items-center justify-center text-brand-500 font-bold text-lg mb-2 z-10 shadow-lg">1</div>
-                        <h3 class="text-center font-bold text-sm">Understand</h3>
-                        <p class="text-center text-xs text-gray-500">Clarify inputs & problem statement.</p>
+                        <h3 class="text-center font-bold text-sm">
+                            <span class="lang-en">Understand</span>
+                            <span class="lang-ar lang-hidden">Understand</span>
+                        </h3>
+                        <p class="text-center text-xs text-gray-500">
+                            <span class="lang-en">Clarify inputs & problem statement.</span>
+                            <span class="lang-ar lang-hidden">توضيح المدخلات وبيان المشكلة.</span>
+                        </p>
                     </div>
                     
                     <div class="relative group">
                         <div class="w-12 h-12 mx-auto bg-white dark:bg-gray-800 border-4 border-gray-300 dark:border-gray-600 group-hover:border-brand-400 rounded-full flex items-center justify-center text-gray-500 font-bold text-lg mb-2 z-10 shadow-lg transition-colors">2</div>
-                        <h3 class="text-center font-bold text-sm">Decide</h3>
-                        <p class="text-center text-xs text-gray-500">Exact vs Approx? Sequential vs Parallel?</p>
+                        <h3 class="text-center font-bold text-sm">
+                            <span class="lang-en">Decide</span>
+                            <span class="lang-ar lang-hidden">Decide</span>
+                        </h3>
+                        <p class="text-center text-xs text-gray-500">
+                            <span class="lang-en">Exact vs Approx? Sequential vs Parallel?</span>
+                            <span class="lang-ar lang-hidden">دقيق أم تقريبي؟ متسلسل أم متوازي؟</span>
+                        </p>
                     </div>
 
                     <div class="relative group">
                         <div class="w-12 h-12 mx-auto bg-white dark:bg-gray-800 border-4 border-gray-300 dark:border-gray-600 group-hover:border-brand-400 rounded-full flex items-center justify-center text-gray-500 font-bold text-lg mb-2 z-10 shadow-lg transition-colors">3</div>
-                        <h3 class="text-center font-bold text-sm">Design</h3>
-                        <p class="text-center text-xs text-gray-500">Select technique (Brute Force, Divide & Conquer).</p>
+                        <h3 class="text-center font-bold text-sm">
+                            <span class="lang-en">Design</span>
+                            <span class="lang-ar lang-hidden">Design</span>
+                        </h3>
+                        <p class="text-center text-xs text-gray-500">
+                            <span class="lang-en">Select technique (Brute Force, Divide & Conquer).</span>
+                            <span class="lang-ar lang-hidden">اختيار التقنية (Brute Force, Divide & Conquer).</span>
+                        </p>
                     </div>
 
                     <div class="relative group">
                         <div class="w-12 h-12 mx-auto bg-white dark:bg-gray-800 border-4 border-gray-300 dark:border-gray-600 group-hover:border-brand-400 rounded-full flex items-center justify-center text-gray-500 font-bold text-lg mb-2 z-10 shadow-lg transition-colors">4</div>
-                        <h3 class="text-center font-bold text-sm">Prove</h3>
-                        <p class="text-center text-xs text-gray-500">Use Mathematical Induction.</p>
+                        <h3 class="text-center font-bold text-sm">
+                            <span class="lang-en">Prove</span>
+                            <span class="lang-ar lang-hidden">Prove</span>
+                        </h3>
+                        <p class="text-center text-xs text-gray-500">
+                            <span class="lang-en">Use Mathematical Induction.</span>
+                            <span class="lang-ar lang-hidden">استخدم الاستقراء الرياضي (Induction).</span>
+                        </p>
                     </div>
 
                     <div class="relative group">
                         <div class="w-12 h-12 mx-auto bg-white dark:bg-gray-800 border-4 border-gray-300 dark:border-gray-600 group-hover:border-brand-400 rounded-full flex items-center justify-center text-gray-500 font-bold text-lg mb-2 z-10 shadow-lg transition-colors">5</div>
-                        <h3 class="text-center font-bold text-sm">Analyze</h3>
-                        <p class="text-center text-xs text-gray-500">Time & Space efficiency.</p>
+                        <h3 class="text-center font-bold text-sm">
+                            <span class="lang-en">Analyze</span>
+                            <span class="lang-ar lang-hidden">Analyze</span>
+                        </h3>
+                        <p class="text-center text-xs text-gray-500">
+                            <span class="lang-en">Time & Space efficiency.</span>
+                            <span class="lang-ar lang-hidden">كفاءة الوقت والمساحة (Time & Space).</span>
+                        </p>
                     </div>
 
                     <div class="relative group">
                         <div class="w-12 h-12 mx-auto bg-white dark:bg-gray-800 border-4 border-gray-300 dark:border-gray-600 group-hover:border-brand-400 rounded-full flex items-center justify-center text-gray-500 font-bold text-lg mb-2 z-10 shadow-lg transition-colors">6</div>
-                        <h3 class="text-center font-bold text-sm">Code</h3>
-                        <p class="text-center text-xs text-gray-500">Implement in C++, Java, etc.</p>
+                        <h3 class="text-center font-bold text-sm">
+                            <span class="lang-en">Code</span>
+                            <span class="lang-ar lang-hidden">Code</span>
+                        </h3>
+                        <p class="text-center text-xs text-gray-500">
+                            <span class="lang-en">Implement in C++, Java, etc.</span>
+                            <span class="lang-ar lang-hidden">التنفيذ بلغة C++، Java، إلخ.</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Problem Landscape</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Problem Landscape</span>
+                    <span class="lang-ar lang-hidden">مشهد المشكلات (Problem Landscape)</span>
+                </h2>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <div class="flex items-center space-x-3 mb-2">
+                    <div class="flex items-center space-x-3 mb-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-arrow-down-a-z text-brand-500"></i>
-                        <h4 class="font-bold text-lg">Sorting</h4>
+                        <h4 class="font-bold text-lg">
+                            <span class="lang-en">Sorting</span>
+                            <span class="lang-ar lang-hidden">Sorting (الفرز)</span>
+                        </h4>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Rearranging items in ascending/descending order. (e.g., QuickSort).</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="lang-en">Rearranging items in ascending/descending order. (e.g., QuickSort).</span>
+                        <span class="lang-ar lang-hidden">إعادة ترتيب العناصر بترتيب تصاعدي/تنازلي. (مثل QuickSort).</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <div class="flex items-center space-x-3 mb-2">
+                    <div class="flex items-center space-x-3 mb-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-magnifying-glass text-blue-500"></i>
-                        <h4 class="font-bold text-lg">Searching</h4>
+                        <h4 class="font-bold text-lg">
+                            <span class="lang-en">Searching</span>
+                            <span class="lang-ar lang-hidden">Searching (البحث)</span>
+                        </h4>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Finding a specific value (search key) in a dataset. (e.g., Binary Search).</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="lang-en">Finding a specific value (search key) in a dataset. (e.g., Binary Search).</span>
+                        <span class="lang-ar lang-hidden">إيجاد قيمة معينة (مفتاح البحث) في مجموعة بيانات. (مثل Binary Search).</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <div class="flex items-center space-x-3 mb-2">
+                    <div class="flex items-center space-x-3 mb-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-font text-green-500"></i>
-                        <h4 class="font-bold text-lg">String Processing</h4>
+                        <h4 class="font-bold text-lg">
+                            <span class="lang-en">String Processing</span>
+                            <span class="lang-ar lang-hidden">String Processing (معالجة النصوص)</span>
+                        </h4>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Handling text data, vital for Bioinformatics (DNA sequences) and search engines.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="lang-en">Handling text data, vital for Bioinformatics (DNA sequences) and search engines.</span>
+                        <span class="lang-ar lang-hidden">التعامل مع البيانات النصية، حيوي للمعلوماتية الحيوية (سلاسل DNA) ومحركات البحث.</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <div class="flex items-center space-x-3 mb-2">
+                    <div class="flex items-center space-x-3 mb-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-circle-nodes text-purple-500"></i>
-                        <h4 class="font-bold text-lg">Graph Problems</h4>
+                        <h4 class="font-bold text-lg">
+                            <span class="lang-en">Graph Problems</span>
+                            <span class="lang-ar lang-hidden">Graph Problems (مشاكل الرسوم البيانية)</span>
+                        </h4>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Modeling connections (cities, networks). Examples: Shortest Path, Traveling Salesman.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="lang-en">Modeling connections (cities, networks). Examples: Shortest Path, Traveling Salesman.</span>
+                        <span class="lang-ar lang-hidden">نمذجة الاتصالات (المدن، الشبكات). أمثلة: أقصر مسار (Shortest Path)، البائع المتجول (Traveling Salesman).</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <div class="flex items-center space-x-3 mb-2">
+                    <div class="flex items-center space-x-3 mb-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-cubes-stacked text-amber-500"></i>
-                        <h4 class="font-bold text-lg">Combinatorial</h4>
+                        <h4 class="font-bold text-lg">
+                            <span class="lang-en">Combinatorial</span>
+                            <span class="lang-ar lang-hidden">Combinatorial (التوافقيات)</span>
+                        </h4>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Finding permutations or subsets satisfying constraints. Often the hardest problems.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="lang-en">Finding permutations or subsets satisfying constraints. Often the hardest problems.</span>
+                        <span class="lang-ar lang-hidden">إيجاد التباديل أو المجموعات الفرعية التي تحقق قيوداً معينة. غالباً ما تكون أصعب المشاكل.</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <div class="flex items-center space-x-3 mb-2">
+                    <div class="flex items-center space-x-3 mb-2 rtl:space-x-reverse">
                         <i class="fa-solid fa-draw-polygon text-teal-500"></i>
-                        <h4 class="font-bold text-lg">Geometric</h4>
+                        <h4 class="font-bold text-lg">
+                            <span class="lang-en">Geometric</span>
+                            <span class="lang-ar lang-hidden">Geometric (الهندسية)</span>
+                        </h4>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Dealing with points, lines, polygons. Used in Computer Graphics and Robotics.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        <span class="lang-en">Dealing with points, lines, polygons. Used in Computer Graphics and Robotics.</span>
+                        <span class="lang-ar lang-hidden">التعامل مع النقاط، الخطوط، المضلعات. تستخدم في رسومات الحاسوب (Graphics) والروبوتات.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Efficiency vs. Correctness
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Efficiency vs. Correctness</span>
+                            <span class="lang-ar lang-hidden">فخ: Efficiency مقابل Correctness</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            A super-fast algorithm (High Efficiency) is <strong>worthless</strong> if it gives the wrong answer (Zero Correctness). Correctness is the <em>prerequisite</em>; Efficiency is the <em>goal</em>. Never optimize before proving correctness.
+                            <span class="lang-en">A super-fast algorithm (High Efficiency) is <strong>worthless</strong> if it gives the wrong answer (Zero Correctness). Correctness is the <em>prerequisite</em>; Efficiency is the <em>goal</em>. Never optimize before proving correctness.</span>
+                            <span class="lang-ar lang-hidden">الخوارزمية فائقة السرعة (عالية الـ Efficiency) <strong>عديمة الفائدة</strong> إذا أعطت إجابة خاطئة (Zero Correctness). الصحة (Correctness) هي <em>الشرط المسبق</em>؛ الكفاءة (Efficiency) هي <em>الهدف</em>. لا تقم بالتحسين أبداً قبل إثبات الصحة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Algorithm vs. Program
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Algorithm vs. Program</span>
+                            <span class="lang-ar lang-hidden">فخ: Algorithm مقابل Program</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            An operating system is a <strong>Program</strong> (it runs indefinitely/infinite loop). An <strong>Algorithm</strong> MUST terminate (Finiteness). If asked "Is Windows an algorithm?", the answer is strictly <strong>No</strong>.
+                            <span class="lang-en">An operating system is a <strong>Program</strong> (it runs indefinitely/infinite loop). An <strong>Algorithm</strong> MUST terminate (Finiteness). If asked "Is Windows an algorithm?", the answer is strictly <strong>No</strong>.</span>
+                            <span class="lang-ar lang-hidden">نظام التشغيل هو <strong>Program</strong> (يعمل بشكل غير محدد/حلقة لا نهائية). الـ <strong>Algorithm</strong> يجب أن تتوقف (Finiteness). إذا سُئلت "هل Windows خوارزمية؟"، الإجابة هي قطعاً <strong>لا</strong>.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Why Pseudocode?
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Why Pseudocode?</span>
+                            <span class="lang-ar lang-hidden">سر: لماذا Pseudocode؟</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Professors prefer pseudocode because it ignores syntax errors (semicolons, types) and focuses purely on <strong>logic</strong>. In exams, never write C++/Java syntax unless explicitly asked. Stick to standard pseudocode (`←` for assignment).
+                            <span class="lang-en">Professors prefer pseudocode because it ignores syntax errors (semicolons, types) and focuses purely on <strong>logic</strong>. In exams, never write C++/Java syntax unless explicitly asked. Stick to standard pseudocode (`←` for assignment).</span>
+                            <span class="lang-ar lang-hidden">يفضل الأساتذة الـ Pseudocode لأنه يتجاهل أخطاء النحو (syntax errors) ويركز فقط على <strong>المنطق</strong>. في الاختبارات، لا تكتب كود C++/Java ما لم يُطلب منك صراحة. التزم بالـ Pseudocode القياسي (`←` للإسناد).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: "Legitimate Input"
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: "Legitimate Input"</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: "Legitimate Input"</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If an algorithm fails on $n = -1$ but the input was defined as "Positive Integers", the algorithm is still correct. Correctness is only judged against the <strong>defined valid range</strong> of inputs.
+                            <span class="lang-en">If an algorithm fails on $n = -1$ but the input was defined as "Positive Integers", the algorithm is still correct. Correctness is only judged against the <strong>defined valid range</strong> of inputs.</span>
+                            <span class="lang-ar lang-hidden">إذا فشلت الخوارزمية عند $n = -1$ ولكن تم تعريف الإدخال على أنه "أعداد صحيحة موجبة"، فإن الخوارزمية تظل صحيحة. يتم الحكم على الصحة (Correctness) فقط بناءً على <strong>النطاق الصالح المحدد</strong> للمدخلات.</span>
                         </p>
                     </div>
                 </div>
@@ -506,20 +760,29 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 2</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
-        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -535,46 +798,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

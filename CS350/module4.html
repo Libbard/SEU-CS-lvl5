@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 4: ER Model</title>
@@ -57,6 +66,15 @@
             }
         });
     </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         
@@ -120,6 +138,33 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+		
+		[dir="rtl"] .mermaid {
+		  direction: ltr !important;
+		  text-align: left !important;
+		  unicode-bidi: bidi-override !important;
+		}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -127,26 +172,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module3.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 4</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 4</span>
+                        <span class="lang-ar lang-hidden">الوحدة 4</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-draw-polygon text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module5.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -163,117 +223,212 @@
                 <i class="fa-solid fa-diagram-project text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Conceptual Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">The ER Model</span>
+                <span class="lang-en">Conceptual Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">The ER Model</span></span>
+                <span class="lang-ar lang-hidden">التصميم المفاهيمي: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">The ER Model</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Understanding high-level conceptual data modeling. Entities, Attributes, Relationships, and Weak Entities.
+                <span class="lang-en">Understanding high-level conceptual data modeling. Entities, Attributes, Relationships, and Weak Entities.</span>
+                <span class="lang-ar lang-hidden">فهم نمذجة البيانات المفاهيمية عالية المستوى. Entities, Attributes, Relationships, و Weak Entities.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Entity Types</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Attributes (Key, Composite, Multi)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Relationship Types</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Cardinality (1:1, 1:N, M:N)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Weak Entity</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Entity Types</span>
+                    <span class="lang-ar lang-hidden">Entity Types</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Attributes (Key, Composite, Multi)</span>
+                    <span class="lang-ar lang-hidden">Attributes (Key, Composite, Multi)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Relationship Types</span>
+                    <span class="lang-ar lang-hidden">Relationship Types</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Cardinality (1:1, 1:N, M:N)</span>
+                    <span class="lang-ar lang-hidden">Cardinality (1:1, 1:N, M:N)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Weak Entity</span>
+                    <span class="lang-ar lang-hidden">Weak Entity</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Design Process</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Design Process</span>
+                    <span class="lang-ar lang-hidden">Design Process (عملية التصميم)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Database design is not just creating tables. It follows a structured lifecycle.
+                    <span class="lang-en">Database design is not just creating tables. It follows a structured lifecycle.</span>
+                    <span class="lang-ar lang-hidden">تصميم قاعدة البيانات لا يقتصر فقط على إنشاء الجداول. بل يتبع دورة حياة منظمة.</span>
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-bold text-center">
                     <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
                         <span class="text-brand-600 block text-lg mb-1">1</span>
-                        Requirements Collection
+                        <span class="lang-en">Requirements Collection</span>
+                        <span class="lang-ar lang-hidden">جمع المتطلبات</span>
                     </div>
                     <div class="p-4 bg-brand-50 dark:bg-brand-900/30 rounded border border-brand-200 dark:border-brand-700">
                         <span class="text-brand-600 block text-lg mb-1">2</span>
-                        Conceptual Design (ERD)
+                        <span class="lang-en">Conceptual Design (ERD)</span>
+                        <span class="lang-ar lang-hidden">التصميم المفاهيمي (ERD)</span>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
                         <span class="text-brand-600 block text-lg mb-1">3</span>
-                        Logical Design (Mapping)
+                        <span class="lang-en">Logical Design (Mapping)</span>
+                        <span class="lang-ar lang-hidden">التصميم المنطقي (Mapping)</span>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
                         <span class="text-brand-600 block text-lg mb-1">4</span>
-                        Physical Design
+                        <span class="lang-en">Physical Design</span>
+                        <span class="lang-ar lang-hidden">التصميم المادي</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Entities & Attributes</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Entities & Attributes</span>
+                    <span class="lang-ar lang-hidden">Entities & Attributes</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Entity Type vs Set</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Entity Type vs Set</span>
+                        <span class="lang-ar lang-hidden">Entity Type vs Set</span>
+                    </h3>
                     <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">Entity:</strong> A specific object in the real world (e.g., Employee "John").
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Entity:</span>
+                                <span class="lang-ar lang-hidden">Entity:</span>
+                            </strong> 
+                            <span class="lang-en">A specific object in the real world (e.g., Employee "John").</span>
+                            <span class="lang-ar lang-hidden">كائن محدد في العالم الحقيقي (مثال: الموظف "John").</span>
                         </li>
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">Entity Type:</strong> Defines a collection of entities with the same attributes (e.g., EMPLOYEE). Shown as a <span class="text-brand-500 font-bold">Rectangular Box</span>.
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Entity Type:</span>
+                                <span class="lang-ar lang-hidden">Entity Type:</span>
+                            </strong> 
+                            <span class="lang-en">Defines a collection of entities with the same attributes (e.g., EMPLOYEE). Shown as a <span class="text-brand-500 font-bold">Rectangular Box</span>.</span>
+                            <span class="lang-ar lang-hidden">يحدد مجموعة من الكيانات (Entities) التي لها نفس السمات (مثل EMPLOYEE). يظهر كـ <span class="text-brand-500 font-bold">مربع مستطيل</span>.</span>
                         </li>
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">Entity Set:</strong> The collection of all actual entities at a specific point in time.
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Entity Set:</span>
+                                <span class="lang-ar lang-hidden">Entity Set:</span>
+                            </strong> 
+                            <span class="lang-en">The collection of all actual entities at a specific point in time.</span>
+                            <span class="lang-ar lang-hidden">مجموعة كل الكيانات الفعلية الموجودة في نقطة زمنية محددة.</span>
                         </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Types of Attributes</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Types of Attributes</span>
+                        <span class="lang-ar lang-hidden">أنواع السمات (Attributes)</span>
+                    </h3>
                     <ul class="space-y-2 text-xs text-gray-600 dark:text-gray-300">
-                        <li><i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2"></i><strong>Simple (Atomic):</strong> Indivisible (e.g., SSN, Sex).</li>
-                        <li><i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2"></i><strong>Composite:</strong> Divided into subparts (e.g., Address $\to$ Street, City).</li>
-                        <li><i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2"></i><strong>Multi-valued:</strong> Can have multiple values (e.g., Color $\to$ {Red, Black}). Shown as <span class="font-bold">Double Oval</span>.</li>
-                        <li><i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2"></i><strong>Derived:</strong> Calculated from others (e.g., Age from BirthDate). Shown as <span class="font-bold">Dashed Oval</span>.</li>
-                        <li><i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2"></i><strong>Key:</strong> Unique identifier. <span class="font-bold underline">Underlined</span> in text.</li>
+                        <li>
+                            <i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Simple (Atomic):</strong><strong class="lang-ar lang-hidden">Simple (Atomic):</strong>
+                            <span class="lang-en">Indivisible (e.g., SSN, Sex).</span><span class="lang-ar lang-hidden"> غير قابل للتقسيم (مثل: SSN, الجنس).</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Composite:</strong><strong class="lang-ar lang-hidden">Composite:</strong>
+                            <span class="lang-en">Divided into subparts (e.g., Address $\to$ Street, City).</span><span class="lang-ar lang-hidden"> مقسم إلى أجزاء فرعية (مثل: العنوان $\to$ شارع، مدينة).</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Multi-valued:</strong><strong class="lang-ar lang-hidden">Multi-valued:</strong>
+                            <span class="lang-en">Can have multiple values (e.g., Color $\to$ {Red, Black}). Shown as <span class="font-bold">Double Oval</span>.</span><span class="lang-ar lang-hidden"> يمكن أن يكون له قيم متعددة (مثل: اللون $\to$ {أحمر، أسود}). يظهر كـ <span class="font-bold">شكل بيضاوي مزدوج</span>.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Derived:</strong><strong class="lang-ar lang-hidden">Derived:</strong>
+                            <span class="lang-en">Calculated from others (e.g., Age from BirthDate). Shown as <span class="font-bold">Dashed Oval</span>.</span><span class="lang-ar lang-hidden"> يتم حسابه من سمات أخرى (مثل: العمر من تاريخ الميلاد). يظهر كـ <span class="font-bold">شكل بيضاوي منقط</span>.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle text-brand-500 text-[8px] mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Key:</strong><strong class="lang-ar lang-hidden">Key:</strong>
+                            <span class="lang-en">Unique identifier. <span class="font-bold underline">Underlined</span> in text.</span><span class="lang-ar lang-hidden"> معرف فريد. <span class="font-bold underline">تحته خط</span> في النص.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Relationships</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Relationships</span>
+                    <span class="lang-ar lang-hidden">Relationships (العلاقات)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A <strong class="text-brand-600 dark:text-brand-400">Relationship</strong> relates two or more distinct entities. Shown as a <span class="text-brand-500 font-bold">Diamond</span>.
+                    <span class="lang-en">A <strong class="text-brand-600 dark:text-brand-400">Relationship</strong> relates two or more distinct entities. Shown as a <span class="text-brand-500 font-bold">Diamond</span>.</span>
+                    <span class="lang-ar lang-hidden"><strong class="text-brand-600 dark:text-brand-400">Relationship</strong> تربط بين كيانين أو أكثر. تظهر كـ <span class="text-brand-500 font-bold">شكل معين (Diamond)</span>.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-8 text-sm">
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-1">Degree of Relationship</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-1">
+                            <span class="lang-en">Degree of Relationship</span>
+                            <span class="lang-ar lang-hidden">Degree of Relationship</span>
+                        </h4>
                         <ul class="list-disc list-inside text-gray-500">
-                            <li><strong>Unary (Recursive):</strong> Entity relates to itself (e.g., Employee supervises Employee).</li>
-                            <li><strong>Binary:</strong> Two entities (e.g., Employee works for Department). Most common.</li>
-                            <li><strong>Ternary:</strong> Three entities (e.g., Supplier supplies Part to Project).</li>
+                            <li>
+                                <strong class="lang-en">Unary (Recursive):</strong><strong class="lang-ar lang-hidden">Unary (Recursive):</strong>
+                                <span class="lang-en">Entity relates to itself (e.g., Employee supervises Employee).</span><span class="lang-ar lang-hidden"> الكيان يرتبط بنفسه (مثل: موظف يشرف على موظف).</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Binary:</strong><strong class="lang-ar lang-hidden">Binary:</strong>
+                                <span class="lang-en">Two entities (e.g., Employee works for Department). Most common.</span><span class="lang-ar lang-hidden"> كيانين (مثل: موظف يعمل في قسم). الأكثر شيوعاً.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Ternary:</strong><strong class="lang-ar lang-hidden">Ternary:</strong>
+                                <span class="lang-en">Three entities (e.g., Supplier supplies Part to Project).</span><span class="lang-ar lang-hidden"> ثلاثة كيانات (مثل: مورد يورد قطعة لمشروع).</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-1">Constraints</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-1">
+                            <span class="lang-en">Constraints</span>
+                            <span class="lang-ar lang-hidden">Constraints (القيود)</span>
+                        </h4>
                         <ul class="list-disc list-inside text-gray-500">
-                            <li><strong>Cardinality Ratio:</strong> Max number of relationship instances (1:1, 1:N, M:N).</li>
-                            <li><strong>Participation (Existence Dependency):</strong>
-                                <br>- <span class="text-brand-500">Total (Double Line):</span> Every entity MUST participate.
-                                <br>- <span class="text-gray-400">Partial (Single Line):</span> Participation is optional.
+                            <li>
+                                <strong class="lang-en">Cardinality Ratio:</strong>
+                                <strong class="lang-ar lang-hidden">Cardinality Ratio:</strong>
+                                <span class="lang-en">Max number of relationship instances (1:1, 1:N, M:N).</span>
+                                <span class="lang-ar lang-hidden">الحد الأقصى لحالات العلاقة (1:1, 1:N, M:N).</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Participation (Existence Dependency):</strong>
+                                <strong class="lang-ar lang-hidden">Participation (الاعتماد في الوجود):</strong>
+                                <br>- <span class="text-brand-500"><span class="lang-en">Total (Double Line):</span><span class="lang-ar lang-hidden">Total (خط مزدوج):</span></span> <span class="lang-en">Every entity MUST participate.</span><span class="lang-ar lang-hidden"> كل كيان يجب أن يشارك.</span>
+                                <br>- <span class="text-gray-400"><span class="lang-en">Partial (Single Line):</span><span class="lang-ar lang-hidden">Partial (خط مفرد):</span></span> <span class="lang-en">Participation is optional.</span><span class="lang-ar lang-hidden"> المشاركة اختيارية.</span>
                             </li>
                         </ul>
                     </div>
@@ -281,7 +436,10 @@
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">ER Diagram: Employee Works For Department</h4>
+                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">
+                    <span class="lang-en">ER Diagram: Employee Works For Department</span>
+                    <span class="lang-ar lang-hidden">ER Diagram: Employee Works For Department</span>
+                </h4>
                 <div class="mermaid flex justify-center">
                     erDiagram
                         EMPLOYEE {
@@ -295,32 +453,53 @@
                         EMPLOYEE ||--|{ DEPARTMENT : "WORKS_FOR"
                 </div>
                 <p class="text-center text-xs text-gray-500 mt-2">
-                    (N side on Employee, 1 side on Department. Employee has Total Participation).
+                    <span class="lang-en">(N side on Employee, 1 side on Department. Employee has Total Participation).</span>
+                    <span class="lang-ar lang-hidden">(جانب N عند الموظف، جانب 1 عند القسم. الموظف لديه Total Participation).</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Weak Entities</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Weak Entities</span>
+                    <span class="lang-ar lang-hidden">Weak Entities</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-red-500">
                 <div class="flex items-start">
-                    <i class="fa-solid fa-link-slash text-red-500 text-2xl mr-4 mt-1"></i>
+                    <i class="fa-solid fa-link-slash text-red-500 text-2xl mr-4 rtl:ml-4 rtl:mr-0 mt-1"></i>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Definition</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Definition</span>
+                            <span class="lang-ar lang-hidden">التعريف</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
-                            An entity type that does <strong>not</strong> have a key attribute of its own.
-                            <br>It must be identified by its relationship to an <span class="text-green-500 font-bold">Owner (Identifying) Entity</span> via an <span class="text-red-500 font-bold">Identifying Relationship</span>.
+                            <span class="lang-en">An entity type that does <strong>not</strong> have a key attribute of its own.
+                            <br>It must be identified by its relationship to an <span class="text-green-500 font-bold">Owner (Identifying) Entity</span> via an <span class="text-red-500 font-bold">Identifying Relationship</span>.</span>
+                            <span class="lang-ar lang-hidden">نوع كيان <strong>لا</strong> يمتلك سمة مفتاح (Key attribute) خاصة به.
+                            <br>يجب تعريفه من خلال علاقته بـ <span class="text-green-500 font-bold">Owner Entity</span> (كيان مالك) عبر <span class="text-red-500 font-bold">Identifying Relationship</span>.</span>
                         </p>
                         <div class="mt-4 p-3 bg-red-50 dark:bg-red-900/20 rounded text-xs">
-                            <strong class="text-red-700 dark:text-red-400">Notation:</strong>
+                            <strong class="text-red-700 dark:text-red-400">
+                                <span class="lang-en">Notation:</span>
+                                <span class="lang-ar lang-hidden">الرمز (Notation):</span>
+                            </strong>
                             <ul class="list-disc list-inside mt-1 text-gray-600 dark:text-gray-300">
-                                <li><strong>Weak Entity:</strong> Double Rectangle.</li>
-                                <li><strong>Identifying Relationship:</strong> Double Diamond.</li>
-                                <li><strong>Partial Key:</strong> Dashed Underline (e.g., Dependent Name).</li>
+                                <li>
+                                    <strong class="lang-en">Weak Entity:</strong><strong class="lang-ar lang-hidden">Weak Entity:</strong>
+                                    <span class="lang-en">Double Rectangle.</span><span class="lang-ar lang-hidden"> مستطيل مزدوج.</span>
+                                </li>
+                                <li>
+                                    <strong class="lang-en">Identifying Relationship:</strong><strong class="lang-ar lang-hidden">Identifying Relationship:</strong>
+                                    <span class="lang-en">Double Diamond.</span><span class="lang-ar lang-hidden"> معين مزدوج.</span>
+                                </li>
+                                <li>
+                                    <strong class="lang-en">Partial Key:</strong><strong class="lang-ar lang-hidden">Partial Key:</strong>
+                                    <span class="lang-en">Dashed Underline (e.g., Dependent Name).</span><span class="lang-ar lang-hidden"> خط متقطع تحت النص (مثال: اسم التابع).</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -332,57 +511,82 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Cardinality Notation
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Cardinality Notation</span>
+                            <span class="lang-ar lang-hidden">فخ: تدوين Cardinality</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>(1,1) vs (0,N):</strong>
+                            <span class="lang-en"><strong>(1,1) vs (0,N):</strong>
                             <br>Many students confuse Min/Max notation.
                             <br>(Min, Max) = (0, 1) means Participation is Partial (0) and Cardinality is 1.
-                            <br>(Min, Max) = (1, N) means Participation is Total (1) and Cardinality is N.
+                            <br>(Min, Max) = (1, N) means Participation is Total (1) and Cardinality is N.</span>
+                            <span class="lang-ar lang-hidden"><strong>(1,1) vs (0,N):</strong>
+                            <br>كثير من الطلاب يخلطون بين تدوين Min/Max.
+                            <br>(Min, Max) = (0, 1) تعني أن الـ Participation جزئية (Partial 0) والـ Cardinality هي 1.
+                            <br>(Min, Max) = (1, N) تعني أن الـ Participation كلية (Total 1) والـ Cardinality هي N.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Weak Entity Key
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Weak Entity Key</span>
+                            <span class="lang-ar lang-hidden">فخ: Weak Entity Key</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Does a Weak Entity have a Primary Key?"
+                            <span class="lang-en">"Does a Weak Entity have a Primary Key?"
                             <br><strong>Technically No.</strong> It has a <em>Partial Key</em> (Discriminator).
-                            Its unique identity is formed by (Owner PK + Partial Key).
+                            Its unique identity is formed by (Owner PK + Partial Key).</span>
+                            <span class="lang-ar lang-hidden">"هل يمتلك Weak Entity مفتاحاً أساسياً (Primary Key)؟"
+                            <br><strong>تقنياً لا.</strong> هو يمتلك <em>Partial Key</em> (مفتاح جزئي).
+                            هويته الفريدة تتشكل من (Owner PK + Partial Key).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Attribute on Relationship
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Attribute on Relationship</span>
+                            <span class="lang-ar lang-hidden">سر: السمة في العلاقة</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Attributes don't always belong to Entities.
-                            <br>Example: "Hours Worked". Does it belong to Employee? No. Project? No. It belongs to the <strong>WORKS_ON</strong> relationship (the intersection of both). This happens in M:N relationships.
+                            <span class="lang-en">Attributes don't always belong to Entities.
+                            <br>Example: "Hours Worked". Does it belong to Employee? No. Project? No. It belongs to the <strong>WORKS_ON</strong> relationship (the intersection of both). This happens in M:N relationships.</span>
+                            <span class="lang-ar lang-hidden">السمات لا تنتمي دائماً للكيانات.
+                            <br>مثال: "ساعات العمل". هل تنتمي للموظف؟ لا. للمشروع؟ لا. هي تنتمي لعلاقة <strong>WORKS_ON</strong> (التقاطع بينهما). هذا يحدث في علاقات M:N.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Recursive Relationship
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Recursive Relationship</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Recursive Relationship</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When an entity relates to itself (e.g., "Supervision").
-                            <br><strong>Role Names</strong> become critical here (e.g., 1 is "Supervisor", N is "Supervisee") to distinguish the participation of the same entity type.
+                            <span class="lang-en">When an entity relates to itself (e.g., "Supervision").
+                            <br><strong>Role Names</strong> become critical here (e.g., 1 is "Supervisor", N is "Supervisee") to distinguish the participation of the same entity type.</span>
+                            <span class="lang-ar lang-hidden">عندما يرتبط الكيان بنفسه (مثال: "الإشراف").
+                            <br><strong>Role Names</strong> تصبح حاسمة هنا (مثال: 1 هو "المشرف"، N هو "المُشرف عليه") لتمييز مشاركة نفس نوع الكيان.</span>
                         </p>
                     </div>
                 </div>
@@ -393,18 +597,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 3</span>
+                    <span class="lang-ar lang-hidden">الوحدة 3</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 5</span>
+                    <span class="lang-ar lang-hidden">الوحدة 5</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -422,6 +639,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

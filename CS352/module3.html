@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 3: Project Planning & Selection</title>
@@ -50,6 +59,61 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { 
+            border-left-width: 0; 
+            border-right-width: 4px; 
+        }
+        [dir="rtl"] .border-r-4 { 
+            border-right-width: 0; 
+            border-left-width: 4px; 
+        }
+
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
+        [dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -127,26 +191,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module2.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 3</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 3</span>
+                        <span class="lang-ar lang-hidden">الوحدة 3</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-chess-board text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module4.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -163,76 +242,139 @@
                 <i class="fa-solid fa-filter-circle-dollar text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Project <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Identification & Selection</span>
+                <span class="lang-en">Project <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Identification & Selection</span></span>
+                <span class="lang-ar lang-hidden">تحديد واختيار <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">المشروع</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Before we build, we must decide <em>what</em> to build. Aligning IT projects with corporate strategy to ensure value.
+                <span class="lang-en">Before we build, we must decide <em>what</em> to build. Aligning IT projects with corporate strategy to ensure value.</span>
+                <span class="lang-ar lang-hidden">قبل أن نبني، يجب أن نقرر <em>ماذا</em> نبني. مواءمة مشاريع تكنولوجيا المعلومات مع استراتيجية الشركة لضمان القيمة.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Top-Down vs Bottom-Up</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Value Chain Analysis</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Strategic Planning</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Incremental Commitment</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ISP Matrices</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Top-Down vs Bottom-Up</span>
+                    <span class="lang-ar lang-hidden">Top-Down مقابل Bottom-Up</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Value Chain Analysis</span>
+                    <span class="lang-ar lang-hidden">تحليل سلسلة القيمة</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Strategic Planning</span>
+                    <span class="lang-ar lang-hidden">التخطيط الاستراتيجي</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Incremental Commitment</span>
+                    <span class="lang-ar lang-hidden">الالتزام التدريجي</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">ISP Matrices</span>
+                    <span class="lang-ar lang-hidden">مصفوفات ISP</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">1. Identifying & Selecting Projects</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">1. Identifying & Selecting Projects</span>
+                    <span class="lang-ar lang-hidden">1. تحديد واختيار المشاريع</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Sources of Potential Projects</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="lang-en">Sources of Potential Projects</span>
+                        <span class="lang-ar lang-hidden">مصادر المشاريع المحتملة</span>
+                    </h3>
                     
                     <div class="space-y-4">
-                        <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500">
-                            <span class="font-bold block text-blue-700 dark:text-blue-300">Top-Down (Strategic)</span>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border-l-4 border-blue-500 rtl:border-l-0 rtl:border-r-4">
+                            <span class="font-bold block text-blue-700 dark:text-blue-300">
+                                <span class="lang-en">Top-Down (Strategic)</span>
+                                <span class="lang-ar lang-hidden">من الأعلى للأسفل (استراتيجي)</span>
+                            </span>
                             <ul class="text-xs text-gray-600 dark:text-gray-400 mt-1 list-disc list-inside">
-                                <li><strong>Top Management:</strong> Greater strategic focus, largest size/duration.</li>
-                                <li><strong>Steering Committee:</strong> Cross-functional focus, enterprise-wide consideration.</li>
+                                <li>
+                                    <span class="lang-en"><strong>Top Management:</strong> Greater strategic focus, largest size/duration.</span>
+                                    <span class="lang-ar lang-hidden"><strong>الإدارة العليا:</strong> تركيز استراتيجي أكبر، أكبر حجم/مدة.</span>
+                                </li>
+                                <li>
+                                    <span class="lang-en"><strong>Steering Committee:</strong> Cross-functional focus, enterprise-wide consideration.</span>
+                                    <span class="lang-ar lang-hidden"><strong>اللجنة التوجيهية:</strong> تركيز متعدد الوظائف، اعتبار على مستوى المؤسسة.</span>
+                                </li>
                             </ul>
                         </div>
-                        <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border-l-4 border-green-500">
-                            <span class="font-bold block text-green-700 dark:text-green-300">Bottom-Up (Operational)</span>
+                        <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border-l-4 border-green-500 rtl:border-l-0 rtl:border-r-4">
+                            <span class="font-bold block text-green-700 dark:text-green-300">
+                                <span class="lang-en">Bottom-Up (Operational)</span>
+                                <span class="lang-ar lang-hidden">من الأسفل للأعلى (تشغيلي)</span>
+                            </span>
                             <ul class="text-xs text-gray-600 dark:text-gray-400 mt-1 list-disc list-inside">
-                                <li><strong>User Departments:</strong> Narrow, non-strategic focus. Faster development.</li>
-                                <li><strong>Development Group:</strong> Integration with existing systems focus.</li>
+                                <li>
+                                    <span class="lang-en"><strong>User Departments:</strong> Narrow, non-strategic focus. Faster development.</span>
+                                    <span class="lang-ar lang-hidden"><strong>أقسام المستخدمين:</strong> تركيز ضيق وغير استراتيجي. تطوير أسرع.</span>
+                                </li>
+                                <li>
+                                    <span class="lang-en"><strong>Development Group:</strong> Integration with existing systems focus.</span>
+                                    <span class="lang-ar lang-hidden"><strong>مجموعة التطوير:</strong> التركيز على التكامل مع الأنظمة الحالية.</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Evaluation Criteria</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="lang-en">Evaluation Criteria</span>
+                        <span class="lang-ar lang-hidden">معايير التقييم</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Projects are ranked based on their relative merit. Key criteria include:
+                        <span class="lang-en">Projects are ranked based on their relative merit. Key criteria include:</span>
+                        <span class="lang-ar lang-hidden">يتم ترتيب المشاريع بناءً على جدارتها النسبية. تشمل المعايير الرئيسية:</span>
                     </p>
                     <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
                         <li class="flex items-start">
-                            <i class="fa-solid fa-link text-brand-500 mt-1 mr-2"></i>
+                            <i class="fa-solid fa-link text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
                             <div>
-                                <strong>Value Chain Analysis:</strong>
-                                <span class="text-xs block text-gray-500">Does this activity add value or just cost? Comparison with competitors .</span>
+                                <strong>
+                                    <span class="lang-en">Value Chain Analysis:</span>
+                                    <span class="lang-ar lang-hidden">تحليل سلسلة القيمة:</span>
+                                </strong>
+                                <span class="text-xs block text-gray-500">
+                                    <span class="lang-en">Does this activity add value or just cost? Comparison with competitors.</span>
+                                    <span class="lang-ar lang-hidden">هل يضيف هذا النشاط قيمة أم تكلفة فقط؟ مقارنة مع المنافسين.</span>
+                                </span>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <i class="fa-solid fa-bullseye text-brand-500 mt-1 mr-2"></i>
+                            <i class="fa-solid fa-bullseye text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
                             <div>
-                                <strong>Strategic Alignment:</strong>
-                                <span class="text-xs block text-gray-500">Does it help achieve long-term goals?.</span>
+                                <strong>
+                                    <span class="lang-en">Strategic Alignment:</span>
+                                    <span class="lang-ar lang-hidden">التوافق الاستراتيجي:</span>
+                                </strong>
+                                <span class="text-xs block text-gray-500">
+                                    <span class="lang-en">Does it help achieve long-term goals?</span>
+                                    <span class="lang-ar lang-hidden">هل يساعد في تحقيق الأهداف طويلة المدى؟</span>
+                                </span>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <i class="fa-solid fa-scale-balanced text-brand-500 mt-1 mr-2"></i>
+                            <i class="fa-solid fa-scale-balanced text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
                             <div>
-                                <strong>Resource Availability:</strong>
-                                <span class="text-xs block text-gray-500">Do we have the people, time, and money?.</span>
+                                <strong>
+                                    <span class="lang-en">Resource Availability:</span>
+                                    <span class="lang-ar lang-hidden">توفر الموارد:</span>
+                                </strong>
+                                <span class="text-xs block text-gray-500">
+                                    <span class="lang-en">Do we have the people, time, and money?</span>
+                                    <span class="lang-ar lang-hidden">هل لدينا الأفراد والوقت والمال؟</span>
+                                </span>
                             </div>
                         </li>
                     </ul>
@@ -240,60 +382,130 @@
             </div>
 
             <div class="mt-8 bg-gray-100 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-center">The Selection Decision Matrix</h4>
+                <h4 class="font-bold text-gray-900 dark:text-white mb-4 text-center">
+                    <span class="lang-en">The Selection Decision Matrix</span>
+                    <span class="lang-ar lang-hidden">مصفوفة قرار الاختيار</span>
+                </h4>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full font-bold text-sm"><i class="fa-solid fa-check mr-2"></i>Accept</span>
-                    <span class="px-4 py-2 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full font-bold text-sm"><i class="fa-solid fa-xmark mr-2"></i>Reject</span>
-                    <span class="px-4 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded-full font-bold text-sm"><i class="fa-solid fa-clock mr-2"></i>Delay</span>
-                    <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full font-bold text-sm"><i class="fa-solid fa-arrows-rotate mr-2"></i>Refocus</span>
-                    <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full font-bold text-sm"><i class="fa-solid fa-flask mr-2"></i>Proof of Concept</span>
+                    <span class="px-4 py-2 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full font-bold text-sm">
+                        <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Accept</span>
+                        <span class="lang-ar lang-hidden">قبول</span>
+                    </span>
+                    <span class="px-4 py-2 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded-full font-bold text-sm">
+                        <i class="fa-solid fa-xmark mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Reject</span>
+                        <span class="lang-ar lang-hidden">رفض</span>
+                    </span>
+                    <span class="px-4 py-2 bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 rounded-full font-bold text-sm">
+                        <i class="fa-solid fa-clock mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Delay</span>
+                        <span class="lang-ar lang-hidden">تأجيل</span>
+                    </span>
+                    <span class="px-4 py-2 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full font-bold text-sm">
+                        <i class="fa-solid fa-arrows-rotate mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Refocus</span>
+                        <span class="lang-ar lang-hidden">إعادة التركيز</span>
+                    </span>
+                    <span class="px-4 py-2 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded-full font-bold text-sm">
+                        <i class="fa-solid fa-flask mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Proof of Concept</span>
+                        <span class="lang-ar lang-hidden">إثبات المفهوم</span>
+                    </span>
                 </div>
                 <p class="text-xs text-gray-500 text-center mt-4">
-                    <span class="smart-term font-bold text-brand-500" data-ar="الالتزام التدريجي">Incremental Commitment</span>: The project is reviewed after each phase and re-justified.
+                    <span class="smart-term font-bold text-brand-500" data-ar="الالتزام التدريجي">
+                        <span class="lang-en">Incremental Commitment</span>
+                        <span class="lang-ar lang-hidden">Incremental Commitment (الالتزام التدريجي)</span>
+                    </span>: 
+                    <span class="lang-en">The project is reviewed after each phase and re-justified.</span>
+                    <span class="lang-ar lang-hidden">تتم مراجعة المشروع بعد كل مرحلة وإعادة تبريره.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">2. Corporate Strategy</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">2. Corporate Strategy</span>
+                    <span class="lang-ar lang-hidden">2. استراتيجية الشركة</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Effective IS planning must align with the broader corporate strategy. It is a three-step process:
-                    <strong>Current Enterprise</strong> $\to$ <strong>Future Enterprise</strong> $\to$ <strong>Strategic Plan</strong> .
+                    <span class="lang-en">Effective IS planning must align with the broader corporate strategy. It is a three-step process:</span>
+                    <span class="lang-ar lang-hidden">يجب أن يتوافق تخطيط نظم المعلومات الفعال مع استراتيجية الشركة الأوسع. إنها عملية من ثلاث خطوات:</span>
+                    <br>
+                    <strong class="text-brand-600">
+                        <span class="lang-en">Current Enterprise $\to$ Future Enterprise $\to$ Strategic Plan</span>
+                        <span class="lang-ar lang-hidden">المؤسسة الحالية $\to$ المؤسسة المستقبلية $\to$ الخطة الاستراتيجية</span>
+                    </strong>
                 </p>
 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">Key Definitions</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">
+                            <span class="lang-en">Key Definitions</span>
+                            <span class="lang-ar lang-hidden">تعريفات رئيسية</span>
+                        </h4>
                         <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2">
                             <li class="bg-gray-50 dark:bg-gray-900 p-2 rounded">
-                                <strong>Mission Statement:</strong> What business are we in? (e.g., "Selling high-quality wood furniture") .
+                                <strong class="block mb-1">
+                                    <span class="lang-en">Mission Statement:</span>
+                                    <span class="lang-ar lang-hidden">بيان المهمة (Mission Statement):</span>
+                                </strong>
+                                <span class="lang-en">What business are we in? (e.g., "Selling high-quality wood furniture").</span>
+                                <span class="lang-ar lang-hidden">ما هو مجال عملنا؟ (مثال: "بيع أثاث خشبي عالي الجودة").</span>
                             </li>
                             <li class="bg-gray-50 dark:bg-gray-900 p-2 rounded">
-                                <strong>Objective Statements:</strong> Qualitative/Quantitative goals (e.g., "Increase market share").
+                                <strong class="block mb-1">
+                                    <span class="lang-en">Objective Statements:</span>
+                                    <span class="lang-ar lang-hidden">بيانات الأهداف:</span>
+                                </strong>
+                                <span class="lang-en">Qualitative/Quantitative goals (e.g., "Increase market share").</span>
+                                <span class="lang-ar lang-hidden">أهداف نوعية/كمية (مثال: "زيادة حصة السوق").</span>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">Generic Competitive Strategies</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-2">
+                            <span class="lang-en">Generic Competitive Strategies</span>
+                            <span class="lang-ar lang-hidden">الاستراتيجيات التنافسية العامة</span>
+                        </h4>
                         <div class="overflow-x-auto">
                             <table class="w-full text-[10px] text-left">
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                     <tr>
-                                        <td class="font-bold py-1">Low-Cost Producer</td>
-                                        <td class="py-1">Competing on price (e.g., Hyundai).</td>
+                                        <td class="font-bold py-1">
+                                            <span class="lang-en">Low-Cost Producer</span>
+                                            <span class="lang-ar lang-hidden">المنتج منخفض التكلفة</span>
+                                        </td>
+                                        <td class="py-1">
+                                            <span class="lang-en">Competing on price (e.g., Hyundai).</span>
+                                            <span class="lang-ar lang-hidden">المنافسة على السعر (مثال: Hyundai).</span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold py-1">Product Differentiation</td>
-                                        <td class="py-1">Competing on quality/style (e.g., Ford).</td>
+                                        <td class="font-bold py-1">
+                                            <span class="lang-en">Product Differentiation</span>
+                                            <span class="lang-ar lang-hidden">تمايز المنتج</span>
+                                        </td>
+                                        <td class="py-1">
+                                            <span class="lang-en">Competing on quality/style (e.g., Ford).</span>
+                                            <span class="lang-ar lang-hidden">المنافسة على الجودة/الأسلوب (مثال: Ford).</span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="font-bold py-1">Product Niche</td>
-                                        <td class="py-1">Narrow market focus (e.g., Convertibles).</td>
+                                        <td class="font-bold py-1">
+                                            <span class="lang-en">Product Niche</span>
+                                            <span class="lang-ar lang-hidden">Product Niche (تخصص المنتج)</span>
+                                        </td>
+                                        <td class="py-1">
+                                            <span class="lang-en">Narrow market focus (e.g., Convertibles).</span>
+                                            <span class="lang-ar lang-hidden">تركيز سوقي ضيق (مثال: السيارات المكشوفة).</span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -304,38 +516,74 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">3. Information Systems Planning (ISP)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">3. Information Systems Planning (ISP)</span>
+                    <span class="lang-ar lang-hidden">3. تخطيط نظم المعلومات (ISP)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
-                    <h3 class="font-bold text-lg mb-2">The ISP Process</h3>
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">The ISP Process</span>
+                        <span class="lang-ar lang-hidden">عملية ISP</span>
+                    </h3>
                     <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>Assess Current Situation:</strong> Inventory of processes, data, and technology.</li>
-                        <li><strong>Define Future Situation:</strong> Blueprints of manual/automated processes and data.</li>
-                        <li><strong>Develop Schedule:</strong> Create a roadmap of projects to transition from Current to Future.</li>
+                        <li>
+                            <span class="lang-en"><strong>Assess Current Situation:</strong> Inventory of processes, data, and technology.</span>
+                            <span class="lang-ar lang-hidden"><strong>تقييم الوضع الحالي:</strong> جرد العمليات والبيانات والتكنولوجيا.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Define Future Situation:</strong> Blueprints of manual/automated processes and data.</span>
+                            <span class="lang-ar lang-hidden"><strong>تحديد الوضع المستقبلي:</strong> مخططات العمليات اليدوية/الآلية والبيانات.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Develop Schedule:</strong> Create a roadmap of projects to transition from Current to Future.</span>
+                            <span class="lang-ar lang-hidden"><strong>تطوير الجدول الزمني:</strong> إنشاء خارطة طريق للمشاريع للانتقال من الحالي إلى المستقبلي.</span>
+                        </li>
                     </ol>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-blue-500">
-                    <h3 class="font-bold text-lg mb-2">Planning Matrices</h3>
-                    <p class="text-xs text-gray-500 mb-2">Matrices map relationships between organizational elements to identify gaps and redundancies .</p>
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">Planning Matrices</span>
+                        <span class="lang-ar lang-hidden">مصفوفات التخطيط</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 mb-2">
+                        <span class="lang-en">Matrices map relationships between organizational elements to identify gaps and redundancies.</span>
+                        <span class="lang-ar lang-hidden">ترسم المصفوفات العلاقات بين العناصر التنظيمية لتحديد الثغرات والتكرار.</span>
+                    </p>
                     <div class="grid grid-cols-2 gap-2 text-xs">
-                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>Location-to-Function:</strong> Where functions are performed.</div>
-                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>Function-to-Process:</strong> Which processes support functions.</div>
-                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>Data Entity-to-System:</strong> CRUD analysis (Create, Read, Update, Delete).</div>
-                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded"><strong>System-to-Objective:</strong> Alignment check.</div>
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded">
+                            <span class="lang-en"><strong>Location-to-Function:</strong> Where functions are performed.</span>
+                            <span class="lang-ar lang-hidden"><strong>الموقع-إلى-الوظيفة:</strong> أين تؤدى الوظائف.</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded">
+                            <span class="lang-en"><strong>Function-to-Process:</strong> Which processes support functions.</span>
+                            <span class="lang-ar lang-hidden"><strong>الوظيفة-إلى-العملية:</strong> العمليات التي تدعم الوظائف.</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded">
+                            <span class="lang-en"><strong>Data Entity-to-System:</strong> CRUD analysis.</span>
+                            <span class="lang-ar lang-hidden"><strong>كيان البيانات-إلى-النظام:</strong> تحليل CRUD.</span>
+                        </div>
+                        <div class="bg-gray-100 dark:bg-gray-900 p-2 rounded">
+                            <span class="lang-en"><strong>System-to-Objective:</strong> Alignment check.</span>
+                            <span class="lang-ar lang-hidden"><strong>النظام-إلى-الهدف:</strong> فحص التوافق.</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">E-Commerce Applications</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">E-Commerce Applications</span>
+                    <span class="lang-ar lang-hidden">تطبيقات التجارة الإلكترونية</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
@@ -343,21 +591,31 @@
                     <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <i class="fa-solid fa-briefcase text-2xl text-blue-500 mb-2"></i>
                         <h4 class="font-bold text-sm">B2B</h4>
-                        <p class="text-xs text-gray-500">Business to Business</p>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Business to Business</span>
+                            <span class="lang-ar lang-hidden">من شركة إلى شركة</span>
+                        </p>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <i class="fa-solid fa-cart-shopping text-2xl text-green-500 mb-2"></i>
                         <h4 class="font-bold text-sm">B2C</h4>
-                        <p class="text-xs text-gray-500">Business to Consumer</p>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Business to Consumer</span>
+                            <span class="lang-ar lang-hidden">من شركة إلى مستهلك</span>
+                        </p>
                     </div>
                     <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
                         <i class="fa-solid fa-users text-2xl text-purple-500 mb-2"></i>
                         <h4 class="font-bold text-sm">C2C</h4>
-                        <p class="text-xs text-gray-500">Consumer to Consumer</p>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Consumer to Consumer</span>
+                            <span class="lang-ar lang-hidden">من مستهلك إلى مستهلك</span>
+                        </p>
                     </div>
                 </div>
                 <p class="text-xs text-gray-500 mt-4 text-center">
-                    Also includes B2G (Gov), G2C (Citizen), and T2T (IoT) . Design issues include connection speed, user location, and device type.
+                    <span class="lang-en">Also includes B2G (Gov), G2C (Citizen), and T2T (IoT). Design issues include connection speed, user location, and device type.</span>
+                    <span class="lang-ar lang-hidden">تشمل أيضاً B2G (حكومة)، G2C (مواطن)، و T2T (إنترنت الأشياء). قضايا التصميم تشمل سرعة الاتصال، موقع المستخدم، ونوع الجهاز.</span>
                 </p>
             </div>
         </section>
@@ -366,54 +624,76 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Top-Down vs Bottom-Up
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Top-Down vs Bottom-Up</span>
+                            <span class="lang-ar lang-hidden">فخ: Top-Down مقابل Bottom-Up</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Top-Down:</strong> Strategic, broader perspective, better integration, but slower.
+                            <span class="lang-en"><strong>Top-Down:</strong> Strategic, broader perspective, better integration, but slower.
                             <strong>Bottom-Up:</strong> Tactical, faster development, solves specific problems, but may lead to redundant/incompatible systems.
-                            <br>Don't confuse "Development Group" (Bottom-up) with "Steering Committee" (Top-down).
+                            <br>Don't confuse "Development Group" (Bottom-up) with "Steering Committee" (Top-down).</span>
+                            <span class="lang-ar lang-hidden"><strong>Top-Down:</strong> استراتيجي، منظور أوسع، تكامل أفضل، لكنه أبطأ.
+                            <strong>Bottom-Up:</strong> تكتيكي، تطوير أسرع، يحل مشاكل محددة، لكن قد يؤدي لأنظمة مكررة/غير متوافقة.
+                            <br>لا تخلط بين "مجموعة التطوير" (Bottom-up) و "اللجنة التوجيهية" (Top-down).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Incremental Commitment
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Incremental Commitment</span>
+                            <span class="lang-ar lang-hidden">فخ: الالتزام التدريجي</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The project is NOT fully approved at the start. It is reviewed after <strong>each phase</strong>. Just because you finish Analysis doesn't mean you automatically start Design; the project must be re-justified.
+                            <span class="lang-en">The project is NOT fully approved at the start. It is reviewed after <strong>each phase</strong>. Just because you finish Analysis doesn't mean you automatically start Design; the project must be re-justified.</span>
+                            <span class="lang-ar lang-hidden">لا تتم الموافقة على المشروع بالكامل في البداية. تتم مراجعته بعد <strong>كل مرحلة</strong>. مجرد الانتهاء من التحليل لا يعني أنك ستبدأ التصميم تلقائياً؛ يجب إعادة تبرير المشروع.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Value Chain Analysis
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Value Chain Analysis</span>
+                            <span class="lang-ar lang-hidden">سر: تحليل سلسلة القيمة</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The purpose of Value Chain Analysis is to identify where an organization adds value to its products/services and where costs are incurred. It helps rank projects by asking: "Does this project optimize a high-value activity?".
+                            <span class="lang-en">The purpose of Value Chain Analysis is to identify where an organization adds value to its products/services and where costs are incurred. It helps rank projects by asking: "Does this project optimize a high-value activity?".</span>
+                            <span class="lang-ar lang-hidden">الغرض من تحليل سلسلة القيمة هو تحديد أين تضيف المنظمة قيمة لمنتجاتها/خدماتها وأين تتكبد التكاليف. يساعد في ترتيب المشاريع بالسؤال: "هل يحسن هذا المشروع نشاطاً عالي القيمة؟".</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Matrices
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Matrices</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: المصفوفات</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Matrices (like Process-to-Data) are the glue between Business Planning and IS Planning. They detect:
+                            <span class="lang-en">Matrices (like Process-to-Data) are the glue between Business Planning and IS Planning. They detect:
                             <br>1. Missing systems (Function not supported).
-                            <br>2. Redundant data (Data created in multiple places).
+                            <br>2. Redundant data (Data created in multiple places).</span>
+                            <span class="lang-ar lang-hidden">المصفوفات (مثل العملية-إلى-البيانات) هي الرابط بين تخطيط الأعمال وتخطيط نظم المعلومات. تكتشف:
+                            <br>1. الأنظمة المفقودة (وظيفة غير مدعومة).
+                            <br>2. البيانات المكررة (بيانات تنشأ في أماكن متعددة).</span>
                         </p>
                     </div>
                 </div>
@@ -424,18 +704,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 2</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 4</span>
+                    <span class="lang-ar lang-hidden">الوحدة 4</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -454,46 +747,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar'); 
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en'); 
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 8: SQL DML</title>
@@ -119,6 +128,33 @@
             overflow-x: auto;
             position: relative;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+
+        
+        [dir="rtl"] .code-block {
+            direction: ltr !important;
+            text-align: left !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -126,26 +162,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 8</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 8</span>
+                        <span class="lang-ar lang-hidden">الوحدة 8</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-file-code text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -162,32 +213,53 @@
                 <i class="fa-solid fa-magnifying-glass-chart text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Basic SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Manipulation (DML)</span>
+                <span class="lang-en">Basic SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Manipulation (DML)</span></span>
+                <span class="lang-ar lang-hidden">Basic SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Manipulation (DML)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Retrieving, inserting, updating, and deleting data. Mastering the SELECT-FROM-WHERE block.
+                <span class="lang-en">Retrieving, inserting, updating, and deleting data. Mastering the SELECT-FROM-WHERE block.</span>
+                <span class="lang-ar lang-hidden">استرجاع، إدراج، تحديث، وحذف البيانات. إتقان كتلة SELECT-FROM-WHERE.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">SELECT-FROM-WHERE</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">LIKE (Pattern Matching)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ORDER BY</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">INSERT / DELETE / UPDATE</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Joins (Implied)</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">SELECT-FROM-WHERE</span>
+                    <span class="lang-ar lang-hidden">SELECT-FROM-WHERE</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">LIKE (Pattern Matching)</span>
+                    <span class="lang-ar lang-hidden">LIKE (Pattern Matching)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">ORDER BY</span>
+                    <span class="lang-ar lang-hidden">ORDER BY</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">INSERT / DELETE / UPDATE</span>
+                    <span class="lang-ar lang-hidden">INSERT / DELETE / UPDATE</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Joins (Implied)</span>
+                    <span class="lang-ar lang-hidden">Joins (ضمنية)</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The SELECT Statement</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The SELECT Statement</span>
+                    <span class="lang-ar lang-hidden">The SELECT Statement</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    The core of SQL retrieval. The basic form is mapping conceptual operations (Projection, Selection, Cartesian Product) into a simple syntax.
+                    <span class="lang-en">The core of SQL retrieval. The basic form is mapping conceptual operations (Projection, Selection, Cartesian Product) into a simple syntax.</span>
+                    <span class="lang-ar lang-hidden">جوهر استرجاع البيانات في SQL. الشكل الأساسي هو تحويل العمليات المفاهيمية (Projection, Selection, Cartesian Product) إلى صيغة بسيطة.</span>
                 </p>
                 <div class="code-block mb-4">
 <span class="sql-keyword">SELECT</span> &lt;attribute_list&gt;
@@ -197,23 +269,41 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="text-brand-600 block mb-1">SELECT (Projection)</strong>
-                        Lists the columns to be retrieved. Use `*` for all columns.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">SELECT (Projection)</span>
+                            <span class="lang-ar lang-hidden">SELECT (Projection)</span>
+                        </strong>
+                        <span class="lang-en">Lists the columns to be retrieved. Use `*` for all columns.</span>
+                        <span class="lang-ar lang-hidden">تسرد الأعمدة المراد استرجاعها. استخدم `*` لجميع الأعمدة.</span>
                     </div>
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="text-brand-600 block mb-1">FROM (Join Source)</strong>
-                        Lists the tables involved. If >1 table, it implies a Cartesian Product.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">FROM (Join Source)</span>
+                            <span class="lang-ar lang-hidden">FROM (Join Source)</span>
+                        </strong>
+                        <span class="lang-en">Lists the tables involved. If >1 table, it implies a Cartesian Product.</span>
+                        <span class="lang-ar lang-hidden">تسرد الجداول المعنية. إذا كان >1 جدول، فهذا يعني Cartesian Product (ضرب ديكارتي).</span>
                     </div>
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="text-brand-600 block mb-1">WHERE (Selection)</strong>
-                        Filters the rows based on a boolean condition.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">WHERE (Selection)</span>
+                            <span class="lang-ar lang-hidden">WHERE (Selection)</span>
+                        </strong>
+                        <span class="lang-en">Filters the rows based on a boolean condition.</span>
+                        <span class="lang-ar lang-hidden">تصفي الصفوف بناءً على شرط منطقي (boolean).</span>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-5 rounded-xl border-l-4 border-blue-500">
-                <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">Example: Simple Retrieval</h4>
-                <p class="text-xs text-gray-500 mb-2">Retrieve birthdate and address of 'John B. Smith'.</p>
+                <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-sm">
+                    <span class="lang-en">Example: Simple Retrieval</span>
+                    <span class="lang-ar lang-hidden">مثال: استرجاع بسيط</span>
+                </h4>
+                <p class="text-xs text-gray-500 mb-2">
+                    <span class="lang-en">Retrieve birthdate and address of 'John B. Smith'.</span>
+                    <span class="lang-ar lang-hidden">استرجاع تاريخ الميلاد والعنوان لـ 'John B. Smith'.</span>
+                </p>
                 <div class="code-block text-xs">
 <span class="sql-keyword">SELECT</span> Bdate, Address
 <span class="sql-keyword">FROM</span> EMPLOYEE
@@ -223,18 +313,25 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Pattern Matching & Sorting</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Pattern Matching & Sorting</span>
+                    <span class="lang-ar lang-hidden">Pattern Matching & Sorting</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Pattern Matching (LIKE)</h4>
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Pattern Matching (LIKE)</span>
+                        <span class="lang-ar lang-hidden">Pattern Matching (LIKE)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Used for string comparison.
-                        <br><code>%</code> = Zero or more characters.
-                        <br><code>_</code> = Exactly one character.
+                        <span class="lang-en">Used for string comparison.</span>
+                        <span class="lang-ar lang-hidden">تستخدم لمقارنة النصوص.</span>
+                        <br><code>%</code> = <span class="lang-en">Zero or more characters.</span><span class="lang-ar lang-hidden"> صفر أو أكثر من الأحرف.</span>
+                        <br><code>_</code> = <span class="lang-en">Exactly one character.</span><span class="lang-ar lang-hidden"> حرف واحد بالضبط.</span>
                     </p>
                     <div class="code-block text-[10px]">
 <span class="sql-keyword">SELECT</span> Fname, Lname
@@ -244,9 +341,13 @@
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Sorting (ORDER BY)</h4>
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Sorting (ORDER BY)</span>
+                        <span class="lang-ar lang-hidden">Sorting (ORDER BY)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Sorts the result set. Default is ASC (Ascending). Use DESC for descending.
+                        <span class="lang-en">Sorts the result set. Default is ASC (Ascending). Use DESC for descending.</span>
+                        <span class="lang-ar lang-hidden">يفرز مجموعة النتائج. الافتراضي هو ASC (تصاعدي). استخدم DESC للتنازلي.</span>
 						<br><br><br>
                     </p>
                     <div class="code-block text-[10px]">
@@ -258,15 +359,24 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Modification Statements</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Modification Statements</span>
+                    <span class="lang-ar lang-hidden">Modification Statements (جمل التعديل)</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-5 rounded-xl border-l-4 border-green-500">
-                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2">INSERT</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">Adds new tuple(s) to a table.</p>
+                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2">
+                        <span class="lang-en">INSERT</span>
+                        <span class="lang-ar lang-hidden">INSERT</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        <span class="lang-en">Adds new tuple(s) to a table.</span>
+                        <span class="lang-ar lang-hidden">يضيف صفوفاً جديدة إلى الجدول.</span>
+                    </p>
                     <div class="code-block text-xs">
 <span class="sql-keyword">INSERT INTO</span> EMPLOYEE (Fname, Lname, Ssn, Dno)
 <span class="sql-keyword">VALUES</span> ('Richard', 'Marini', '653298653', 4);
@@ -274,18 +384,33 @@
                 </div>
 
                 <div class="glass-card p-5 rounded-xl border-l-4 border-red-500">
-                    <h4 class="font-bold text-red-600 dark:text-red-400 mb-2">DELETE</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">Removes tuple(s) from a table based on a condition.</p>
+                    <h4 class="font-bold text-red-600 dark:text-red-400 mb-2">
+                        <span class="lang-en">DELETE</span>
+                        <span class="lang-ar lang-hidden">DELETE</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        <span class="lang-en">Removes tuple(s) from a table based on a condition.</span>
+                        <span class="lang-ar lang-hidden">يحذف صفوفاً من الجدول بناءً على شرط.</span>
+                    </p>
                     <div class="code-block text-xs">
 <span class="sql-keyword">DELETE FROM</span> EMPLOYEE
 <span class="sql-keyword">WHERE</span> Lname = 'Brown';
                     </div>
-                    <p class="text-[10px] text-red-400 mt-1">*Warning: Omitting WHERE deletes ALL rows.</p>
+                    <p class="text-[10px] text-red-400 mt-1">
+                        <span class="lang-en">*Warning: Omitting WHERE deletes ALL rows.</span>
+                        <span class="lang-ar lang-hidden">*تحذير: إهمال WHERE يحذف جميع الصفوف.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl border-l-4 border-blue-500">
-                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">UPDATE</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">Modifies attribute values of existing tuples.</p>
+                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">UPDATE</span>
+                        <span class="lang-ar lang-hidden">UPDATE</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                        <span class="lang-en">Modifies attribute values of existing tuples.</span>
+                        <span class="lang-ar lang-hidden">يعدل قيم السمات للصفوف الموجودة.</span>
+                    </p>
                     <div class="code-block text-xs">
 <span class="sql-keyword">UPDATE</span> PROJECT
 <span class="sql-keyword">SET</span> PLOCATION = 'Bellaire', DNUM = 5
@@ -296,14 +421,18 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Aliases & Implicit Joins</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Aliases & Implicit Joins</span>
+                    <span class="lang-ar lang-hidden">Aliases & Implicit Joins</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    When querying multiple tables, we use the `WHERE` clause to specify the join condition (Foreign Key = Primary Key).
+                    <span class="lang-en">When querying multiple tables, we use the `WHERE` clause to specify the join condition (Foreign Key = Primary Key).</span>
+                    <span class="lang-ar lang-hidden">عند الاستعلام من جداول متعددة، نستخدم جملة `WHERE` لتحديد شرط الربط (Foreign Key = Primary Key).</span>
                 </p>
                 <div class="code-block text-xs">
 <span class="sql-keyword">SELECT</span> E.Fname, E.Lname, S.Fname, S.Lname
@@ -311,8 +440,12 @@
 <span class="sql-keyword">WHERE</span> E.Super_ssn = S.Ssn;
                 </div>
                 <div class="mt-4 p-3 bg-brand-50 dark:bg-brand-900/20 rounded text-xs">
-                    <strong class="block text-brand-700 dark:text-brand-300 mb-1">Self-Join Concept:</strong>
-                    In the example above, we join `EMPLOYEE` to itself to find Supervisors. We MUST use Aliases (E, S) to distinguish the two roles of the same table.
+                    <strong class="block text-brand-700 dark:text-brand-300 mb-1">
+                        <span class="lang-en">Self-Join Concept:</span>
+                        <span class="lang-ar lang-hidden">مفهوم Self-Join:</span>
+                    </strong>
+                    <span class="lang-en">In the example above, we join `EMPLOYEE` to itself to find Supervisors. We MUST use Aliases (E, S) to distinguish the two roles of the same table.</span>
+                    <span class="lang-ar lang-hidden">في المثال أعلاه، نربط `EMPLOYEE` بنفسه للعثور على المشرفين. يجب علينا استخدام الأسماء المستعارة (Aliases E, S) لتمييز الدورين لنفس الجدول.</span>
                 </div>
             </div>
         </section>
@@ -321,54 +454,76 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Missing Join Condition
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Missing Join Condition</span>
+                            <span class="lang-ar lang-hidden">فخ: شرط الربط المفقود</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If you list 2 tables in `FROM` but forget the `WHERE` condition linking them, you get a <strong>Cartesian Product</strong> (Every row in Table A combined with Every row in Table B).
-                            <br><em>Result:</em> Massive, incorrect output.
+                            <span class="lang-en">If you list 2 tables in `FROM` but forget the `WHERE` condition linking them, you get a <strong>Cartesian Product</strong> (Every row in Table A combined with Every row in Table B).
+                            <br><em>Result:</em> Massive, incorrect output.</span>
+                            <span class="lang-ar lang-hidden">إذا أدرجت جدولين في `FROM` ولكن نسيت شرط `WHERE` الذي يربط بينهما، ستحصل على <strong>Cartesian Product (ضرب ديكارتي)</strong> (كل صف في الجدول أ مدمج مع كل صف في الجدول ب).
+                            <br><em>النتيجة:</em> مخرجات ضخمة وغير صحيحة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Quote Confusion
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Quote Confusion</span>
+                            <span class="lang-ar lang-hidden">فخ: ارتباك الاقتباس (Quotes)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Strings</strong> and <strong>Dates</strong> must be enclosed in single quotes ('Value').
+                            <span class="lang-en"><strong>Strings</strong> and <strong>Dates</strong> must be enclosed in single quotes ('Value').
                             <strong>Numbers</strong> must NOT be quoted (10, 50.5).
-                            <br>Example: `WHERE Salary > '30000'` might work in some SQL dialects but is conceptually wrong.
+                            <br>Example: `WHERE Salary > '30000'` might work in some SQL dialects but is conceptually wrong.</span>
+                            <span class="lang-ar lang-hidden"><strong>النصوص (Strings)</strong> و <strong>التواريخ (Dates)</strong> يجب وضعها بين علامات اقتباس مفردة ('Value').
+                            <strong>الأرقام</strong> يجب ألا توضع بين علامات اقتباس (10, 50.5).
+                            <br>مثال: `WHERE Salary > '30000'` قد يعمل في بعض لهجات SQL ولكنه خاطئ مفاهيمياً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The `*` Wildcard
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The `*` Wildcard</span>
+                            <span class="lang-ar lang-hidden">سر: الرمز `*` (Wildcard)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            `SELECT *` retrieves ALL columns. It is useful for quick checks but bad for production code (performance waste + code breaks if schema changes). In exams, `SELECT *` is acceptable unless asked for specific attributes.
+                            <span class="lang-en">`SELECT *` retrieves ALL columns. It is useful for quick checks but bad for production code (performance waste + code breaks if schema changes). In exams, `SELECT *` is acceptable unless asked for specific attributes.</span>
+                            <span class="lang-ar lang-hidden">`SELECT *` يسترجع جميع الأعمدة. هو مفيد للفحص السريع ولكنه سيء للكود الإنتاجي (هدر للأداء + كسر الكود إذا تغير الـ schema). في الاختبارات، `SELECT *` مقبول ما لم يطلب سمات محددة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Distinct
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Distinct</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Distinct</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            SQL `SELECT` creates a Bag (Multiset), allowing duplicates (e.g., listing all employee salaries might show '30000' twice).
-                            To get a Set (unique values), use `SELECT DISTINCT Salary`.
+                            <span class="lang-en">SQL `SELECT` creates a Bag (Multiset), allowing duplicates (e.g., listing all employee salaries might show '30000' twice).
+                            To get a Set (unique values), use `SELECT DISTINCT Salary`.</span>
+                            <span class="lang-ar lang-hidden">جملة `SELECT` في SQL تنشئ Bag (مجموعة متعددة)، مما يسمح بالتكرار (مثلاً: سرد رواتب الموظفين قد يظهر '30000' مرتين).
+                            للحصول على Set (قيم فريدة)، استخدم `SELECT DISTINCT Salary`.</span>
                         </p>
                     </div>
                 </div>
@@ -379,18 +534,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 7</span>
+                    <span class="lang-ar lang-hidden">الوحدة 7</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -408,6 +576,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

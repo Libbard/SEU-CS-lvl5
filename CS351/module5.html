@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 5: Sync Examples</title>
@@ -40,6 +49,15 @@
             }
         }
     </script>
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -124,6 +142,34 @@
             overflow-x: auto;
             position: relative;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
+        
+        
+        [dir="rtl"] .code-block, 
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -131,26 +177,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module4.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 5</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 5</span>
+                        <span class="lang-ar lang-hidden">الوحدة 5</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-shield-cat text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -167,33 +228,53 @@
                 <i class="fa-solid fa-book-skull text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Deep Dive: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Synchronization Examples</span>
+                <span class="lang-en">Deep Dive: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Synchronization Examples</span></span>
+                <span class="lang-ar lang-hidden">تعمق: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">أمثلة المزامنة</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Applying Semaphores and Locks to the "Big Three" classical problems: Bounded Buffer, Readers-Writers, and Dining Philosophers.
+                <span class="lang-en">Applying Semaphores and Locks to the "Big Three" classical problems: Bounded Buffer, Readers-Writers, and Dining Philosophers.</span>
+                <span class="lang-ar lang-hidden">تطبيق Semaphores و Locks على المشاكل الكلاسيكية الثلاث الكبرى: Bounded Buffer، Readers-Writers، و Dining Philosophers.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Bounded Buffer</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Readers-Writers</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Dining Philosophers</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Windows Synchronization</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Bounded Buffer</span>
+                    <span class="lang-ar lang-hidden">Bounded Buffer</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Readers-Writers</span>
+                    <span class="lang-ar lang-hidden">Readers-Writers</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Dining Philosophers</span>
+                    <span class="lang-ar lang-hidden">Dining Philosophers</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Windows Synchronization</span>
+                    <span class="lang-ar lang-hidden">Windows Synchronization</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">1. Bounded Buffer Problem</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">1. Bounded Buffer Problem</span>
+                    <span class="lang-ar lang-hidden">1. مشكلة المخزن المؤقت المحدود (Bounded Buffer Problem)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Also known as the Producer-Consumer problem.
+                    <span class="lang-en">Also known as the Producer-Consumer problem.
                     <br><strong>Goal:</strong> Producers create items, Consumers eat them. Buffer has fixed size $N$.
-                    <br><strong>Constraints:</strong> Producer must wait if full. Consumer must wait if empty.
+                    <br><strong>Constraints:</strong> Producer must wait if full. Consumer must wait if empty.</span>
+                    <span class="lang-ar lang-hidden">تعرف أيضاً بمشكلة المنتج-المستهلك.
+                    <br><strong>الهدف:</strong> المنتجون ينشئون العناصر، والمستهلكون يأكلونها. المخزن المؤقت له حجم ثابت $N$.
+                    <br><strong>القيود:</strong> يجب على المنتج الانتظار إذا كان المخزن ممتلئاً. يجب على المستهلك الانتظار إذا كان المخزن فارغاً.</span>
                 </p>
                 
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-xs font-mono mb-4">
@@ -238,16 +319,24 @@ while (true) {
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">2. Readers-Writers Problem</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">2. Readers-Writers Problem</span>
+                    <span class="lang-ar lang-hidden">2. مشكلة القراء والكتاب (Readers-Writers Problem)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">First Readers-Writers Problem</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">First Readers-Writers Problem</span>
+                    <span class="lang-ar lang-hidden">مشكلة القراء والكتاب الأولى</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Allows multiple readers to read at the same time. Only one writer can write at a time.
-                    <br><strong>Priority:</strong> Readers. No reader is kept waiting unless a writer has already obtained permission. (Writers may starve).
+                    <span class="lang-en">Allows multiple readers to read at the same time. Only one writer can write at a time.
+                    <br><strong>Priority:</strong> Readers. No reader is kept waiting unless a writer has already obtained permission. (Writers may starve).</span>
+                    <span class="lang-ar lang-hidden">تسمح لعدة قراء بالقراءة في نفس الوقت. كاتب واحد فقط يمكنه الكتابة في وقت واحد.
+                    <br><strong>الأولوية:</strong> للقراء. لا يتم جعل القارئ ينتظر ما لم يكن الكاتب قد حصل بالفعل على الإذن. (قد يحدث Starvation للكتاب).</span>
                 </p>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded text-xs font-mono mb-4">
@@ -291,24 +380,32 @@ while (true) {
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">3. Dining Philosophers Problem</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">3. Dining Philosophers Problem</span>
+                    <span class="lang-ar lang-hidden">3. مشكلة الفلاسفة المتناولين للطعام (Dining Philosophers Problem)</span>
+                </h2>
             </div>
 
             
 
-[Image of dining philosophers problem]
 
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="flex-1">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Setup</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">The Setup</span>
+                            <span class="lang-ar lang-hidden">الإعداد</span>
+                        </h3>
                         <p class="text-xs text-gray-600 dark:text-gray-300">
-                            5 Philosophers sit at a round table. 5 Chopsticks placed between them.
+                            <span class="lang-en">5 Philosophers sit at a round table. 5 Chopsticks placed between them.
                             <br>To eat, a philosopher needs <strong>2 chopsticks</strong> (Left and Right).
-                            <br>Shared data: `Semaphore chopstick[5];` (Initialized to 1).
+                            <br>Shared data: `Semaphore chopstick[5];` (Initialized to 1).</span>
+                            <span class="lang-ar lang-hidden">5 فلاسفة يجلسون على طاولة مستديرة. 5 عيدان طعام موضوعة بينهم.
+                            <br>لكي يأكل، يحتاج الفيلسوف إلى <strong>عودين</strong> (يمين ويسار).
+                            <br>البيانات المشتركة: `Semaphore chopstick[5];` (مهيأة بـ 1).</span>
                         </p>
                     </div>
                     <div class="flex-1">
@@ -330,47 +427,71 @@ while (true) {
                 </div>
                 
                 <div class="mt-4 p-3 bg-red-100 dark:bg-red-900/30 rounded border border-red-200 dark:border-red-800 text-xs">
-                    <strong class="text-red-700 dark:text-red-400"><i class="fa-solid fa-skull mr-2"></i>The Deadlock Problem:</strong>
-                    If all 5 philosophers become hungry simultaneously and grab their left chopstick, all `chopstick[i]` will be 0. Everyone waits for the right chopstick forever.
+                    <strong class="text-red-700 dark:text-red-400"><i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">The Deadlock Problem:</span>
+                        <span class="lang-ar lang-hidden">مشكلة الجمود (Deadlock):</span>
+                    </strong>
+                    <span class="lang-en">If all 5 philosophers become hungry simultaneously and grab their left chopstick, all `chopstick[i]` will be 0. Everyone waits for the right chopstick forever.</span>
+                    <span class="lang-ar lang-hidden">إذا جاع الفلاسفة الخمسة في نفس الوقت وأمسكوا بعود الطعام الأيسر، ستكون كل `chopstick[i]` تساوي 0. سينتظر الجميع العود الأيمن إلى الأبد.</span>
                 </div>
                 
                 <div class="mt-2 text-xs text-gray-500">
-                    <strong>Solutions:</strong>
-                    <ul class="list-disc list-inside ml-2">
-                        <li>Allow at most 4 philosophers at the table.</li>
-                        <li>Pick up chopsticks only if BOTH are available (Atomic check).</li>
-                        <li>Asymmetric solution: Odd philosophers pick Left first, Even pick Right first.</li>
+                    <strong class="lang-en">Solutions:</strong><strong class="lang-ar lang-hidden">الحلول:</strong>
+                    <ul class="list-disc list-inside ml-2 rtl:mr-2 rtl:ml-0">
+                        <li><span class="lang-en">Allow at most 4 philosophers at the table.</span><span class="lang-ar lang-hidden">السماح بحد أقصى 4 فلاسفة على الطاولة.</span></li>
+                        <li><span class="lang-en">Pick up chopsticks only if BOTH are available (Atomic check).</span><span class="lang-ar lang-hidden">التقاط العيدان فقط إذا كان كلاهما متاحاً (فحص ذري).</span></li>
+                        <li><span class="lang-en">Asymmetric solution: Odd philosophers pick Left first, Even pick Right first.</span><span class="lang-ar lang-hidden">حل غير متماثل: الفلاسفة الفرديون يلتقطون اليسار أولاً، والزوجيون يلتقطون اليمين أولاً.</span></li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Real World: Windows</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Real World: Windows</span>
+                    <span class="lang-ar lang-hidden">العالم الحقيقي: Windows</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Windows uses interrupt masks for uniprocessor systems and spinlocks for multiprocessor systems.
+                    <span class="lang-en">Windows uses interrupt masks for uniprocessor systems and spinlocks for multiprocessor systems.</span>
+                    <span class="lang-ar lang-hidden">يستخدم Windows أقنعة المقاطعة للأنظمة أحادية المعالج و Spinlocks للأنظمة متعددة المعالجات.</span>
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                        <strong class="block text-brand-600 mb-1">Dispatcher Objects</strong>
-                        Kernel objects used for sync (Mutexes, Semaphores, Events, Timers).
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">Dispatcher Objects</span>
+                            <span class="lang-ar lang-hidden">Dispatcher Objects</span>
+                        </strong>
+                        <span class="lang-en">Kernel objects used for sync (Mutexes, Semaphores, Events, Timers).</span>
+                        <span class="lang-ar lang-hidden">كائنات النواة المستخدمة للمزامنة (Mutexes، Semaphores، Events، Timers).</span>
                     </div>
                     <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                        <strong class="block text-brand-600 mb-1">Signaled State</strong>
-                        Object is available. A thread will not block when acquiring it.
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">Signaled State</span>
+                            <span class="lang-ar lang-hidden">Signaled State</span>
+                        </strong>
+                        <span class="lang-en">Object is available. A thread will not block when acquiring it.</span>
+                        <span class="lang-ar lang-hidden">الكائن متاح. لن يتم حجب الخيط عند الحصول عليه.</span>
                     </div>
                     <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                        <strong class="block text-brand-600 mb-1">Non-Signaled State</strong>
-                        Object is not available. Thread blocks.
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">Non-Signaled State</span>
+                            <span class="lang-ar lang-hidden">Non-Signaled State</span>
+                        </strong>
+                        <span class="lang-en">Object is not available. Thread blocks.</span>
+                        <span class="lang-ar lang-hidden">الكائن غير متاح. يتم حجب الخيط.</span>
                     </div>
                     <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded">
-                        <strong class="block text-brand-600 mb-1">Events</strong>
-                        Act like Condition Variables. Can notify one or multiple threads.
+                        <strong class="block text-brand-600 mb-1">
+                            <span class="lang-en">Events</span>
+                            <span class="lang-ar lang-hidden">Events</span>
+                        </strong>
+                        <span class="lang-en">Act like Condition Variables. Can notify one or multiple threads.</span>
+                        <span class="lang-ar lang-hidden">تعمل مثل Condition Variables. يمكنها إعلام خيط واحد أو أكثر.</span>
                     </div>
                 </div>
             </div>
@@ -380,51 +501,70 @@ while (true) {
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Reader-Writer Starvation
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Reader-Writer Starvation</span>
+                            <span class="lang-ar lang-hidden">فخ: Starvation للقراء والكتاب</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The "First Readers-Writers Problem" solves mutual exclusion but suffers from <strong>Writer Starvation</strong>. If new readers keep arriving, the writer will wait forever because `read_count` never drops to 0.
+                            <span class="lang-en">The "First Readers-Writers Problem" solves mutual exclusion but suffers from <strong>Writer Starvation</strong>. If new readers keep arriving, the writer will wait forever because `read_count` never drops to 0.</span>
+                            <span class="lang-ar lang-hidden">"مشكلة القراء والكتاب الأولى" تحل الاستبعاد المتبادل ولكنها تعاني من <strong>Writer Starvation</strong>. إذا استمر القراء الجدد في الوصول، سينتظر الكاتب إلى الأبد لأن `read_count` لن ينخفض أبداً إلى 0.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Signal & Wait Order
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Signal & Wait Order</span>
+                            <span class="lang-ar lang-hidden">فخ: ترتيب Signal و Wait</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Bounded Buffer, swapping `wait(empty)` and `wait(mutex)` can cause <strong>Deadlock</strong>.
-                            <br>If Producer grabs mutex (lock) but buffer is full (`empty` is 0), it sleeps holding the lock. Consumer cannot grab lock to empty the buffer. System freezes.
+                            <span class="lang-en">In Bounded Buffer, swapping `wait(empty)` and `wait(mutex)` can cause <strong>Deadlock</strong>.
+                            <br>If Producer grabs mutex (lock) but buffer is full (`empty` is 0), it sleeps holding the lock. Consumer cannot grab lock to empty the buffer. System freezes.</span>
+                            <span class="lang-ar lang-hidden">في Bounded Buffer، تبديل `wait(empty)` و `wait(mutex)` يمكن أن يسبب <strong>Deadlock</strong>.
+                            <br>إذا أمسك المنتج بالـ mutex (القفل) لكن المخزن ممتلئ (`empty` هو 0)، فسينام وهو يمسك بالقفل. لا يستطيع المستهلك أخذ القفل لتفريغ المخزن. يتجمد النظام.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Monitor Pattern
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Monitor Pattern</span>
+                            <span class="lang-ar lang-hidden">سر: نمط Monitor</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            While Semaphores are powerful, they are error-prone (easy to forget a signal). High-level languages (Java/C#) use <strong>Monitors</strong> (synchronized keyword), which automatically handle locking and unlocking scope-wise.
+                            <span class="lang-en">While Semaphores are powerful, they are error-prone (easy to forget a signal). High-level languages (Java/C#) use <strong>Monitors</strong> (synchronized keyword), which automatically handle locking and unlocking scope-wise.</span>
+                            <span class="lang-ar lang-hidden">بينما الـ Semaphores قوية، فهي عرضة للأخطاء (من السهل نسيان إشارة). اللغات عالية المستوى (Java/C#) تستخدم <strong>Monitors</strong> (الكلمة المفتاحية synchronized)، التي تعالج القفل وفتحه تلقائياً حسب النطاق.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Condition Variable
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Condition Variable</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Condition Variable</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Monitors, we use Condition Variables (`wait()`, `signal()`) not to lock, but to <strong>wait for a specific condition</strong> (e.g., "Buffer Not Empty"). Note: Monitor `signal` is different from Semaphore `signal`.
+                            <span class="lang-en">In Monitors, we use Condition Variables (`wait()`, `signal()`) not to lock, but to <strong>wait for a specific condition</strong> (e.g., "Buffer Not Empty"). Note: Monitor `signal` is different from Semaphore `signal`.</span>
+                            <span class="lang-ar lang-hidden">في Monitors، نستخدم Condition Variables (`wait()`، `signal()`) ليس للقفل، ولكن <strong>للانتظار حتى يتحقق شرط معين</strong> (مثل "المخزن ليس فارغاً"). ملاحظة: `signal` في Monitor تختلف عن `signal` في Semaphore.</span>
                         </p>
                     </div>
                 </div>
@@ -435,14 +575,26 @@ while (true) {
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 4</span>
+                    <span class="lang-ar lang-hidden">الوحدة 4</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 6</span>
+                    <span class="lang-ar lang-hidden">الوحدة 6</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
@@ -464,6 +616,40 @@ while (true) {
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

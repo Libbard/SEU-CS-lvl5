@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 4: Requirements Determination</title>
@@ -50,6 +59,57 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
+        [dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -128,26 +188,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module3.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 4</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 4</span>
+                        <span class="lang-ar lang-hidden">الوحدة 4</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-magnifying-glass text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module5.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,65 +239,116 @@
                 <i class="fa-solid fa-clipboard-list text-3xl text-brand-500 funnel-anim"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Determining <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">System Requirements</span>
+                <span class="lang-en">Determining <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">System Requirements</span></span>
+                <span class="lang-ar lang-hidden">تحديد <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">متطلبات النظام (System Requirements)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                "Garbage In, Garbage Out." The success of a system depends entirely on how well we gather, analyze, and structure the requirements.
+                <span class="lang-en">"Garbage In, Garbage Out." The success of a system depends entirely on how well we gather, analyze, and structure the requirements.</span>
+                <span class="lang-ar lang-hidden">"ما بُني على باطل فهو باطل" (Garbage In, Garbage Out). يعتمد نجاح النظام كلياً على مدى جودة جمع وتحليل وهيكلة المتطلبات.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Interviewing</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">JAD</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prototyping</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">BPR</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Observation</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Interviewing</span>
+                    <span class="lang-ar lang-hidden">المقابلات (Interviewing)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">JAD</span>
+                    <span class="lang-ar lang-hidden">JAD</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Prototyping</span>
+                    <span class="lang-ar lang-hidden">النمذجة (Prototyping)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">BPR</span>
+                    <span class="lang-ar lang-hidden">BPR</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Observation</span>
+                    <span class="lang-ar lang-hidden">المراقبة (Observation)</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Requirements Process</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Requirements Process</span>
+                    <span class="lang-ar lang-hidden">عملية المتطلبات (Requirements Process)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Goal</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">The Goal</span>
+                        <span class="lang-ar lang-hidden">الهدف</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        We gather information on what the system should do from users, reports, forms, and procedures. This information is then transformed into a structured format.
+                        <span class="lang-en">We gather information on what the system should do from users, reports, forms, and procedures. This information is then transformed into a structured format.</span>
+                        <span class="lang-ar lang-hidden">نجمع المعلومات حول ما يجب أن يفعله النظام من المستخدمين، التقارير، النماذج، والإجراءات. ثم تحول هذه المعلومات إلى صيغة مهيكلة.</span>
                     </p>
                     <div class="flex items-center justify-between text-xs font-mono bg-gray-100 dark:bg-gray-800 p-3 rounded-lg">
                         <div class="text-center">
                             <i class="fa-solid fa-comments text-blue-500 mb-1"></i>
-                            <span class="block">Requirements Determination</span>
-                            <span class="text-gray-400">Gathering</span>
+                            <span class="block">
+                                <span class="lang-en">Requirements Determination</span>
+                                <span class="lang-ar lang-hidden">تحديد المتطلبات</span>
+                            </span>
+                            <span class="text-gray-400">
+                                <span class="lang-en">Gathering</span>
+                                <span class="lang-ar lang-hidden">جمع</span>
+                            </span>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-gray-400"></i>
+                        <i class="fa-solid fa-arrow-right text-gray-400 rtl:rotate-180"></i>
                         <div class="text-center">
                             <i class="fa-solid fa-cubes text-purple-500 mb-1"></i>
-                            <span class="block">Requirements Structuring</span>
-                            <span class="text-gray-400">Modeling</span>
+                            <span class="block">
+                                <span class="lang-en">Requirements Structuring</span>
+                                <span class="lang-ar lang-hidden">هيكلة المتطلبات</span>
+                            </span>
+                            <span class="text-gray-400">
+                                <span class="lang-en">Modeling</span>
+                                <span class="lang-ar lang-hidden">نمذجة</span>
+                            </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Deliverables</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Deliverables</span>
+                        <span class="lang-ar lang-hidden">المخرجات (Deliverables)</span>
+                    </h3>
                     <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
                         <li class="flex items-start">
-                            <i class="fa-solid fa-file-lines text-brand-500 mt-1 mr-2"></i>
+                            <i class="fa-solid fa-file-lines text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
                             <div>
-                                <strong>Information Collected:</strong>
-                                <span class="text-xs block text-gray-500">Interview transcripts, observation notes, meeting minutes .</span>
+                                <strong>
+                                    <span class="lang-en">Information Collected:</span>
+                                    <span class="lang-ar lang-hidden">المعلومات المجموعة:</span>
+                                </strong>
+                                <span class="text-xs block text-gray-500">
+                                    <span class="lang-en">Interview transcripts, observation notes, meeting minutes.</span>
+                                    <span class="lang-ar lang-hidden">نصوص المقابلات، ملاحظات المراقبة، محاضر الاجتماعات.</span>
+                                </span>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <i class="fa-solid fa-file-contract text-brand-500 mt-1 mr-2"></i>
+                            <i class="fa-solid fa-file-contract text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
                             <div>
-                                <strong>Understanding:</strong>
-                                <span class="text-xs block text-gray-500">Business mission, objectives, and information processing needs.</span>
+                                <strong>
+                                    <span class="lang-en">Understanding:</span>
+                                    <span class="lang-ar lang-hidden">الفهم:</span>
+                                </strong>
+                                <span class="text-xs block text-gray-500">
+                                    <span class="lang-en">Business mission, objectives, and information processing needs.</span>
+                                    <span class="lang-ar lang-hidden">مهمة العمل، الأهداف، واحتياجات معالجة المعلومات.</span>
+                                </span>
                             </div>
                         </li>
                     </ul>
@@ -231,49 +357,90 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Traditional Methods</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Traditional Methods</span>
+                    <span class="lang-ar lang-hidden">الأساليب التقليدية</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
                     <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded-lg mr-3">
+                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded-lg mr-3 rtl:mr-0 rtl:ml-3">
                             <i class="fa-solid fa-microphone-lines"></i>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">1. Interviewing</h3>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                            <span class="lang-en">1. Interviewing</span>
+                            <span class="lang-ar lang-hidden">1. المقابلات (Interviewing)</span>
+                        </h3>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                        The primary way analysts gather information. Can be Individual or Group .
+                        <span class="lang-en">The primary way analysts gather information. Can be Individual or Group.</span>
+                        <span class="lang-ar lang-hidden">الطريقة الأساسية التي يجمع بها المحللون المعلومات. يمكن أن تكون فردية أو جماعية.</span>
                     </p>
                     
                     <div class="grid md:grid-cols-2 gap-4 text-sm">
-                        <div class="p-3 bg-gray-50 dark:bg-gray-900 rounded border-l-2 border-green-500">
-                            <strong class="block text-green-600 dark:text-green-400 mb-1">Open-Ended Questions</strong>
-                            <p class="text-xs">"What do you think about...?"</p>
-                            <p class="text-xs text-gray-500 mt-1">PRO: Breadth of detail. CON: Hard to analyze .</p>
+                        <div class="p-3 bg-gray-50 dark:bg-gray-900 rounded border-l-2 border-green-500 rtl:border-l-0 rtl:border-r-2">
+                            <strong class="block text-green-600 dark:text-green-400 mb-1">
+                                <span class="lang-en">Open-Ended Questions</span>
+                                <span class="lang-ar lang-hidden">أسئلة مفتوحة</span>
+                            </strong>
+                            <p class="text-xs">
+                                <span class="lang-en">"What do you think about...?"</span>
+                                <span class="lang-ar lang-hidden">"ما رأيك في...؟"</span>
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="lang-en">PRO: Breadth of detail. CON: Hard to analyze.</span>
+                                <span class="lang-ar lang-hidden">إيجابيات: تفاصيل واسعة. سلبيات: صعبة التحليل.</span>
+                            </p>
                         </div>
-                        <div class="p-3 bg-gray-50 dark:bg-gray-900 rounded border-l-2 border-red-500">
-                            <strong class="block text-red-600 dark:text-red-400 mb-1">Closed-Ended Questions</strong>
-                            <p class="text-xs">"Do you use option A or B?"</p>
-                            <p class="text-xs text-gray-500 mt-1">PRO: Easy to analyze. CON: Limited info .</p>
+                        <div class="p-3 bg-gray-50 dark:bg-gray-900 rounded border-l-2 border-red-500 rtl:border-l-0 rtl:border-r-2">
+                            <strong class="block text-red-600 dark:text-red-400 mb-1">
+                                <span class="lang-en">Closed-Ended Questions</span>
+                                <span class="lang-ar lang-hidden">أسئلة مغلقة</span>
+                            </strong>
+                            <p class="text-xs">
+                                <span class="lang-en">"Do you use option A or B?"</span>
+                                <span class="lang-ar lang-hidden">"هل تستخدم الخيار أ أم ب؟"</span>
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="lang-en">PRO: Easy to analyze. CON: Limited info.</span>
+                                <span class="lang-ar lang-hidden">إيجابيات: سهلة التحليل. سلبيات: معلومات محدودة.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="glass-card p-5 rounded-xl">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-eye text-brand-500 mr-2"></i>2. Direct Observation</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <i class="fa-solid fa-eye text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">2. Direct Observation</span>
+                            <span class="lang-ar lang-hidden">2. المراقبة المباشرة (Direct Observation)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Watching users work. Validates what they *say* vs what they *do*.
-                            <br><strong class="text-brand-500">Risk:</strong> Hawthorne Effect (people behave differently when watched) .
+                            <span class="lang-en">Watching users work. Validates what they *say* vs what they *do*.</span>
+                            <span class="lang-ar lang-hidden">مراقبة المستخدمين أثناء العمل. التحقق مما *يقولون* مقابل ما *يفعلون*.</span>
+                            <br>
+                            <strong class="text-brand-500">
+                                <span class="lang-en">Risk:</span>
+                                <span class="lang-ar lang-hidden">خطر:</span>
+                            </strong> 
+                            <span class="lang-en">Hawthorne Effect (people behave differently when watched).</span>
+                            <span class="lang-ar lang-hidden">تأثير هاوثورن (يتصرف الناس بشكل مختلف عند مراقبتهم).</span>
                         </p>
                     </div>
                     <div class="glass-card p-5 rounded-xl">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-folder-open text-brand-500 mr-2"></i>3. Document Analysis</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <i class="fa-solid fa-folder-open text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">3. Document Analysis</span>
+                            <span class="lang-ar lang-hidden">3. تحليل الوثائق (Document Analysis)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Reviewing forms, reports, and manuals. Helps understand the "Formal System" vs the "Informal System" and find gaps .
+                            <span class="lang-en">Reviewing forms, reports, and manuals. Helps understand the "Formal System" vs the "Informal System" and find gaps.</span>
+                            <span class="lang-ar lang-hidden">مراجعة النماذج والتقارير والأدلة. تساعد في فهم "النظام الرسمي" مقابل "النظام غير الرسمي" وإيجاد الثغرات.</span>
                         </p>
                     </div>
                 </div>
@@ -281,83 +448,136 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Modern Methods</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Modern Methods</span>
+                    <span class="lang-ar lang-hidden">الأساليب الحديثة</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">JAD (Joint Application Design)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">JAD (Joint Application Design)</span>
+                        <span class="lang-ar lang-hidden">JAD (التصميم المشترك للتطبيقات)</span>
+                    </h3>
                     
                     <p class="text-xs text-gray-600 dark:text-gray-400 mb-4">
-                        Intensive group-oriented requirements determination technique. Team members meet in isolation for an extended period.
+                        <span class="lang-en">Intensive group-oriented requirements determination technique. Team members meet in isolation for an extended period.</span>
+                        <span class="lang-ar lang-hidden">تقنية مكثفة لتحديد المتطلبات موجهة للمجموعات. يجتمع أعضاء الفريق في عزلة لفترة ممتدة.</span>
                     </p>
                     <div class="space-y-2 text-xs">
                         <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-1">
-                            <span><strong>Session Leader:</strong></span>
-                            <span class="text-gray-500">Facilitates, neutral.</span>
+                            <span><strong><span class="lang-en">Session Leader:</span><span class="lang-ar lang-hidden">قائد الجلسة:</span></strong></span>
+                            <span class="text-gray-500"><span class="lang-en">Facilitates, neutral.</span><span class="lang-ar lang-hidden">ميسر، محايد.</span></span>
                         </div>
                         <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-1">
-                            <span><strong>Scribe:</strong></span>
-                            <span class="text-gray-500">Takes notes (CASE tools).</span>
+                            <span><strong><span class="lang-en">Scribe:</span><span class="lang-ar lang-hidden">الكاتب:</span></strong></span>
+                            <span class="text-gray-500"><span class="lang-en">Takes notes (CASE tools).</span><span class="lang-ar lang-hidden">يدون الملاحظات (أدوات CASE).</span></span>
                         </div>
                         <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-1">
-                            <span><strong>Users/Managers:</strong></span>
-                            <span class="text-gray-500">Active participants.</span>
+                            <span><strong><span class="lang-en">Users/Managers:</span><span class="lang-ar lang-hidden">المستخدمون/المدراء:</span></strong></span>
+                            <span class="text-gray-500"><span class="lang-en">Active participants.</span><span class="lang-ar lang-hidden">مشاركون نشطون.</span></span>
                         </div>
                     </div>
-                    <p class="text-xs text-green-600 dark:text-green-400 mt-2 font-bold">Goal: Resolve conflicts fast & build consensus.</p>
+                    <p class="text-xs text-green-600 dark:text-green-400 mt-2 font-bold">
+                        <span class="lang-en">Goal: Resolve conflicts fast & build consensus.</span>
+                        <span class="lang-ar lang-hidden">الهدف: حل النزاعات بسرعة وبناء التوافق.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-cyan-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Prototyping</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Prototyping</span>
+                        <span class="lang-ar lang-hidden">النمذجة (Prototyping)</span>
+                    </h3>
                     
                     <p class="text-xs text-gray-600 dark:text-gray-400 mb-4">
-                        Iterative process of building a rudimentary version of the system.
+                        <span class="lang-en">Iterative process of building a rudimentary version of the system.</span>
+                        <span class="lang-ar lang-hidden">عملية تكرارية لبناء نسخة أولية من النظام.</span>
                     </p>
                     <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2 list-disc list-inside">
-                        <li><strong>Evolutionary:</strong> Prototype becomes the final system.</li>
-                        <li><strong>Throwaway:</strong> Prototype helps define reqs, then discarded.</li>
+                        <li>
+                            <span class="lang-en"><strong>Evolutionary:</strong> Prototype becomes the final system.</span>
+                            <span class="lang-ar lang-hidden"><strong>تطوري (Evolutionary):</strong> يصبح النموذج هو النظام النهائي.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Throwaway:</strong> Prototype helps define reqs, then discarded.</span>
+                            <span class="lang-ar lang-hidden"><strong>للاستبعاد (Throwaway):</strong> يساعد النموذج في تحديد المتطلبات، ثم يتم التخلص منه.</span>
+                        </li>
                     </ul>
                     <div class="mt-4 p-2 bg-gray-100 dark:bg-gray-900 rounded text-xs">
-                        <strong class="text-cyan-600">Best when:</strong> Requirements are not well understood or communication problems exist .
+                        <strong class="text-cyan-600">
+                            <span class="lang-en">Best when:</span>
+                            <span class="lang-ar lang-hidden">الأفضل عندما:</span>
+                        </strong>
+                        <span class="lang-en">Requirements are not well understood or communication problems exist.</span>
+                        <span class="lang-ar lang-hidden">المتطلبات غير مفهومة جيداً أو توجد مشاكل في الاتصال.</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Radical Methods</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Radical Methods</span>
+                    <span class="lang-ar lang-hidden">الأساليب الجذرية</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="flex items-start">
-                    <div class="bg-red-100 dark:bg-red-900/30 text-red-600 p-3 rounded-lg mr-4">
+                    <div class="bg-red-100 dark:bg-red-900/30 text-red-600 p-3 rounded-lg mr-4 rtl:mr-0 rtl:ml-4">
                         <i class="fa-solid fa-bomb"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">BPR (Business Process Reengineering)</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">BPR (Business Process Reengineering)</span>
+                            <span class="lang-ar lang-hidden">BPR (إعادة هندسة العمليات التجارية)</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            The search for, and implementation of, radical change in business processes to achieve breakthrough improvements.
+                            <span class="lang-en">The search for, and implementation of, radical change in business processes to achieve breakthrough improvements.</span>
+                            <span class="lang-ar lang-hidden">البحث عن، وتنفيذ، تغيير جذري في العمليات التجارية لتحقيق تحسينات هائلة.</span>
                         </p>
-                        <p class="text-xs text-gray-500 italic">"Obliterate, don't automate."</p>
+                        <p class="text-xs text-gray-500 italic">
+                            <span class="lang-en">"Obliterate, don't automate."</span>
+                            <span class="lang-ar lang-hidden">"امحُ، لا تؤتمت."</span>
+                        </p>
                         
                         <div class="mt-4 grid grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-900 p-3 rounded border border-gray-200 dark:border-gray-700 text-xs">
                             <div>
-                                <span class="font-bold block text-gray-900 dark:text-white">Key Technologies</span>
+                                <span class="font-bold block text-gray-900 dark:text-white">
+                                    <span class="lang-en">Key Technologies</span>
+                                    <span class="lang-ar lang-hidden">تقنيات رئيسية</span>
+                                </span>
                                 <ul class="list-disc list-inside text-gray-500 mt-1">
-                                    <li>Disruptive Technologies</li>
-                                    <li>Databases & Networks</li>
+                                    <li>
+                                        <span class="lang-en">Disruptive Technologies</span>
+                                        <span class="lang-ar lang-hidden">التقنيات المزعزعة</span>
+                                    </li>
+                                    <li>
+                                        <span class="lang-en">Databases & Networks</span>
+                                        <span class="lang-ar lang-hidden">قواعد البيانات والشبكات</span>
+                                    </li>
                                 </ul>
                             </div>
                             <div>
-                                <span class="font-bold block text-gray-900 dark:text-white">Examples</span>
+                                <span class="font-bold block text-gray-900 dark:text-white">
+                                    <span class="lang-en">Examples</span>
+                                    <span class="lang-ar lang-hidden">أمثلة</span>
+                                </span>
                                 <ul class="list-disc list-inside text-gray-500 mt-1">
-                                    <li>Ford Accounts Payable</li>
-                                    <li>Mutual Benefit Life</li>
+                                    <li>
+                                        <span class="lang-en">Ford Accounts Payable</span>
+                                        <span class="lang-ar lang-hidden">حسابات فورد الدائنة</span>
+                                    </li>
+                                    <li>
+                                        <span class="lang-en">Mutual Benefit Life</span>
+                                        <span class="lang-ar lang-hidden">Mutual Benefit Life</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -370,53 +590,74 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Interviewing vs JAD
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Interviewing vs JAD</span>
+                            <span class="lang-ar lang-hidden">فخ: المقابلات مقابل JAD</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Interviewing</strong> is time-consuming and can lead to conflicting requirements (one person says X, another says Y).
-                            <strong>JAD</strong> solves conflicts *during* the session but is expensive (key people off-site for days). Know the trade-off.
+                            <span class="lang-en"><strong>Interviewing</strong> is time-consuming and can lead to conflicting requirements (one person says X, another says Y).
+                            <strong>JAD</strong> solves conflicts *during* the session but is expensive (key people off-site for days). Know the trade-off.</span>
+                            <span class="lang-ar lang-hidden"><strong>المقابلات</strong> تستغرق وقتاً طويلاً وقد تؤدي إلى متطلبات متعارضة (شخص يقول س، وآخر يقول ص).
+                            <strong>JAD</strong> تحل النزاعات *أثناء* الجلسة لكنها مكلفة (أشخاص رئيسيون خارج الموقع لأيام). اعرف المقايضة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Prototyping Drawbacks
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Prototyping Drawbacks</span>
+                            <span class="lang-ar lang-hidden">فخ: عيوب النمذجة (Prototyping)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Prototyping is great, but it has a hidden trap: <strong>Skipping Validation</strong>. Users might see a working prototype and assume the system is "done," ignoring reliability, security, and performance checks .
+                            <span class="lang-en">Prototyping is great, but it has a hidden trap: <strong>Skipping Validation</strong>. Users might see a working prototype and assume the system is "done," ignoring reliability, security, and performance checks.</span>
+                            <span class="lang-ar lang-hidden">النمذجة رائعة، لكن بها فخ خفي: <strong>تخطي التحقق</strong>. قد يرى المستخدمون نموذجاً يعمل ويفترضون أن النظام "انتهى"، متجاهلين فحوصات الموثوقية والأمن والأداء.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The Hawthorne Effect
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The Hawthorne Effect</span>
+                            <span class="lang-ar lang-hidden">سر: تأثير هاوثورن (Hawthorne Effect)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When observing users, they often perform better or differently simply *because they are being watched*. This biases your data. Always mention this limitation when discussing Observation.
+                            <span class="lang-en">When observing users, they often perform better or differently simply *because they are being watched*. This biases your data. Always mention this limitation when discussing Observation.</span>
+                            <span class="lang-ar lang-hidden">عند مراقبة المستخدمين، غالباً ما يؤدون بشكل أفضل أو مختلف ببساطة *لأنهم مراقبون*. هذا يحيز بياناتك. اذكر دائماً هذا القيد عند مناقشة المراقبة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Formal vs Informal Systems
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Formal vs Informal Systems</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: الأنظمة الرسمية مقابل غير الرسمية</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Formal:</strong> What the procedure manual says (Document Analysis).
+                            <span class="lang-en"><strong>Formal:</strong> What the procedure manual says (Document Analysis).
                             <strong>Informal:</strong> How people actually do the work (Observation).
-                            The gap between these two is where requirements usually hide.
+                            The gap between these two is where requirements usually hide.</span>
+                            <span class="lang-ar lang-hidden"><strong>الرسمي:</strong> ما يقوله دليل الإجراءات (تحليل الوثائق).
+                            <strong>غير الرسمي:</strong> كيف يقوم الناس بالعمل فعلياً (المراقبة).
+                            الفجوة بين الاثنين هي المكان الذي تختبئ فيه المتطلبات عادة.</span>
                         </p>
                     </div>
                 </div>
@@ -427,18 +668,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 3</span>
+                    <span class="lang-ar lang-hidden">الوحدة 3</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 5</span>
+                    <span class="lang-ar lang-hidden">الوحدة 5</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -457,46 +711,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar'); 
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en'); 
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

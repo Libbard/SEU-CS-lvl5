@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 8: Virtual Memory</title>
@@ -121,6 +130,51 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .bit-box {
+            border: 1px solid #4b5563;
+            padding: 4px 8px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+        .dark .bit-box { border-color: #6b7280; }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-t-4 { border-top-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .mr-6 { margin-right: 0; margin-left: 1.5rem; }
+        [dir="rtl"] .ml-6 { margin-left: 0; margin-right: 1.5rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
+        
+        
+        [dir="rtl"] .mermaid, 
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .bit-box,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .code-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -128,26 +182,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 8</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 8</span>
+                        <span class="lang-ar lang-hidden">الوحدة 8</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-ghost text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -164,49 +233,93 @@
                 <i class="fa-solid fa-cloud text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Illusion of Space: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Virtual Memory</span>
+                <span class="lang-en">Illusion of Space: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Virtual Memory</span></span>
+                <span class="lang-ar lang-hidden">وهم المساحة: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Virtual Memory</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Running programs larger than physical memory. Demand Paging, Page Faults, Thrashing, and Replacement Algorithms.
+                <span class="lang-en">Running programs larger than physical memory. Demand Paging, Page Faults, Thrashing, and Replacement Algorithms.</span>
+                <span class="lang-ar lang-hidden">تشغيل برامج أكبر من الذاكرة الفعلية. يشمل Demand Paging و Page Faults و Thrashing وخوارزميات الاستبدال (Replacement Algorithms).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Demand Paging</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Page Fault</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Copy-on-Write (COW)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">FIFO/LRU/Optimal</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Thrashing</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Demand Paging</span>
+                    <span class="lang-ar lang-hidden">Demand Paging</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Page Fault</span>
+                    <span class="lang-ar lang-hidden">Page Fault</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Copy-on-Write (COW)</span>
+                    <span class="lang-ar lang-hidden">Copy-on-Write (COW)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">FIFO/LRU/Optimal</span>
+                    <span class="lang-ar lang-hidden">FIFO/LRU/Optimal</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Thrashing</span>
+                    <span class="lang-ar lang-hidden">Thrashing</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Why Virtual Memory?</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Why Virtual Memory?</span>
+                    <span class="lang-ar lang-hidden">لماذا الذاكرة الافتراضية (Virtual Memory)؟</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    <span class="text-brand-500 font-bold">Concept:</span> Separation of user logical memory from physical memory.
-                    <br>Only part of the program needs to be in memory for execution.
+                    <span class="lang-en"><span class="text-brand-500 font-bold">Concept:</span> Separation of user logical memory from physical memory.</span>
+                    <span class="lang-ar lang-hidden"><span class="text-brand-500 font-bold">المفهوم:</span> فصل الذاكرة المنطقية للمستخدم (Logical Memory) عن الذاكرة الفعلية (Physical Memory).</span>
+                    <br>
+                    <span class="lang-en">Only part of the program needs to be in memory for execution.</span>
+                    <span class="lang-ar lang-hidden">يحتاج جزء فقط من البرنامج أن يكون في الذاكرة للتنفيذ.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-6 text-sm">
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Benefits</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Benefits</span>
+                            <span class="lang-ar lang-hidden">الفوائد</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                            <li>Logical address space can be much larger than physical address space ($2^{64}$ vs 16GB RAM).</li>
-                            <li>More programs can run simultaneously (Higher CPU utilization).</li>
-                            <li>Less I/O needed to load or swap processes.</li>
+                            <li>
+                                <span class="lang-en">Logical address space can be much larger than physical address space ($2^{64}$ vs 16GB RAM).</span>
+                                <span class="lang-ar lang-hidden">مساحة العنوان المنطقي يمكن أن تكون أكبر بكثير من مساحة العنوان الفعلي ($2^{64}$ مقابل 16GB RAM).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">More programs can run simultaneously (Higher CPU utilization).</span>
+                                <span class="lang-ar lang-hidden">يمكن تشغيل برامج أكثر في وقت واحد (استخدام أعلى للـ CPU).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Less I/O needed to load or swap processes.</span>
+                                <span class="lang-ar lang-hidden">عمليات I/O أقل مطلوبة لتحميل أو تبديل العمليات.</span>
+                            </li>
                         </ul>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Implementation</strong>
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Implementation</span>
+                            <span class="lang-ar lang-hidden">التنفيذ (Implementation)</span>
+                        </strong>
                         <ul class="list-disc list-inside text-xs text-gray-500 space-y-1">
-                            <li><strong>Demand Paging:</strong> Load pages only when needed.</li>
-                            <li><strong>Demand Segmentation:</strong> (Less common).</li>
+                            <li>
+                                <span class="lang-en"><strong>Demand Paging:</strong> Load pages only when needed.</span>
+                                <span class="lang-ar lang-hidden"><strong>Demand Paging:</strong> تحميل الصفحات فقط عند الحاجة إليها.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en"><strong>Demand Segmentation:</strong> (Less common).</span>
+                                <span class="lang-ar lang-hidden"><strong>Demand Segmentation:</strong> (أقل شيوعاً).</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -214,114 +327,199 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Demand Paging</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Demand Paging</span>
+                    <span class="lang-ar lang-hidden">Demand Paging</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6 border-l-4 border-l-blue-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Lazy Swapper</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">The Lazy Swapper</span>
+                    <span class="lang-ar lang-hidden">المبدل الكسول (The Lazy Swapper)</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Never brings a page into memory until it is required.
-                    <br><strong>Valid-Invalid Bit:</strong> With each page table entry, a bit is associated (v = in memory, i = not in memory).
+                    <span class="lang-en">Never brings a page into memory until it is required.</span>
+                    <span class="lang-ar lang-hidden">لا يحضر الصفحة إلى الذاكرة أبداً إلا إذا كانت مطلوبة.</span>
+                    <br>
+                    <span class="lang-en"><strong>Valid-Invalid Bit:</strong> With each page table entry, a bit is associated (v = in memory, i = not in memory).</span>
+                    <span class="lang-ar lang-hidden"><strong>Valid-Invalid Bit:</strong> مع كل إدخال في جدول الصفحات، يرتبط بت (v = في الذاكرة، i = ليس في الذاكرة).</span>
                 </p>
                 
                 <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded">
-                    <strong class="text-blue-700 dark:text-blue-400 block mb-2">Page Fault Handling Steps:</strong>
+                    <strong class="text-blue-700 dark:text-blue-400 block mb-2">
+                        <span class="lang-en">Page Fault Handling Steps:</span>
+                        <span class="lang-ar lang-hidden">خطوات معالجة الـ Page Fault:</span>
+                    </strong>
                     <ol class="list-decimal list-inside text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                        <li>Access to a page marked 'i' $\to$ <strong>Trap</strong> to OS (Page Fault).</li>
-                        <li>OS checks internal table: Invalid reference $\to$ Abort. Just not in memory $\to$ Continue.</li>
-                        <li>Find a <strong>free frame</strong> in physical memory.</li>
-                        <li>Schedule disk operation to read page into frame.</li>
-                        <li>Reset page table (v = 1).</li>
-                        <li>Restart the instruction that caused the fault.</li>
+                        <li>
+                            <span class="lang-en">Access to a page marked 'i' $\to$ <strong>Trap</strong> to OS (Page Fault).</span>
+                            <span class="lang-ar lang-hidden">الوصول إلى صفحة معلمة بـ 'i' $\to$ <strong>Trap</strong> لنظام التشغيل (Page Fault).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">OS checks internal table: Invalid reference $\to$ Abort. Just not in memory $\to$ Continue.</span>
+                            <span class="lang-ar lang-hidden">نظام التشغيل يفحص الجدول الداخلي: مرجع غير صالح $\to$ إلغاء (Abort). فقط ليست في الذاكرة $\to$ استمرار.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Find a <strong>free frame</strong> in physical memory.</span>
+                            <span class="lang-ar lang-hidden">إيجاد <strong>free frame</strong> في الذاكرة الفعلية.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Schedule disk operation to read page into frame.</span>
+                            <span class="lang-ar lang-hidden">جدولة عملية القرص لقراءة الصفحة إلى الإطار (Frame).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Reset page table (v = 1).</span>
+                            <span class="lang-ar lang-hidden">إعادة تعيين جدول الصفحات (v = 1).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Restart the instruction that caused the fault.</span>
+                            <span class="lang-ar lang-hidden">إعادة تشغيل التعليمات التي تسببت في الخطأ.</span>
+                        </li>
                     </ol>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Performance of Demand Paging</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Performance of Demand Paging</span>
+                    <span class="lang-ar lang-hidden">أداء الـ Demand Paging</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Effective Access Time (EAT) depends heavily on the <strong>Page Fault Rate ($p$)</strong>.
+                    <span class="lang-en">Effective Access Time (EAT) depends heavily on the <strong>Page Fault Rate ($p$)</strong>.</span>
+                    <span class="lang-ar lang-hidden">وقت الوصول الفعال (EAT) يعتمد بشكل كبير على <strong>معدل خطأ الصفحة (Page Fault Rate - $p$)</strong>.</span>
                 </p>
-                <div class="p-3 bg-gray-900 text-green-400 font-mono text-xs rounded text-center">
+                <div class="p-3 bg-gray-900 text-green-400 font-mono text-xs rounded text-center code-block math-block">
                     EAT = (1 - p) * ma + p * (Page Fault Time)
                 </div>
                 <p class="text-xs text-gray-500 mt-2 text-center">
-                    ma = memory access time (~10-200ns).
-                    <br>Page Fault Time = service fault + read page + restart (~8ms).
-                    <br>Even a small $p$ enables drastic slowdown.
+                    <span class="lang-en">ma = memory access time (~10-200ns).</span>
+                    <span class="lang-ar lang-hidden">ma = وقت الوصول للذاكرة (~10-200ns).</span>
+                    <br>
+                    <span class="lang-en">Page Fault Time = service fault + read page + restart (~8ms).</span>
+                    <span class="lang-ar lang-hidden">Page Fault Time = خدمة الخطأ + قراءة الصفحة + إعادة التشغيل (~8ms).</span>
+                    <br>
+                    <span class="lang-en">Even a small $p$ enables drastic slowdown.</span>
+                    <span class="lang-ar lang-hidden">حتى قيمة $p$ صغيرة تسبب تباطؤاً كبيراً.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Page Replacement</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Page Replacement</span>
+                    <span class="lang-ar lang-hidden">استبدال الصفحات (Page Replacement)</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                What if there are no free frames? We must find a victim frame, write it to disk (if modified), and replace it.
-                <br><strong>Goal:</strong> Minimize page-fault rate.
+                <span class="lang-en">What if there are no free frames? We must find a victim frame, write it to disk (if modified), and replace it.</span>
+                <span class="lang-ar lang-hidden">ماذا لو لم تكن هناك إطارات (Frames) فارغة؟ يجب أن نجد إطار ضحية (Victim Frame)، نكتبه إلى القرص (إذا تم تعديله)، ونستبدله.</span>
+                <br>
+                <span class="lang-en"><strong>Goal:</strong> Minimize page-fault rate.</span>
+                <span class="lang-ar lang-hidden"><strong>الهدف:</strong> تقليل معدل الـ Page-fault.</span>
             </p>
-
-            
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">FIFO (First-In, First-Out)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">FIFO (First-In, First-Out)</span>
+                        <span class="lang-ar lang-hidden">FIFO (First-In, First-Out)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Replace the oldest page. Simple queue implementation.
+                        <span class="lang-en">Replace the oldest page. Simple queue implementation.</span>
+                        <span class="lang-ar lang-hidden">استبدال أقدم صفحة. تنفيذ بسيط باستخدام طابور (Queue).</span>
                     </p>
                     <div class="p-3 border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/10 rounded text-xs text-red-600 dark:text-red-400">
-                        <i class="fa-solid fa-triangle-exclamation mr-2"></i><strong>Belady's Anomaly:</strong> Adding more frames can cause <em>more</em> page faults!
+                        <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en"><strong>Belady's Anomaly:</strong> Adding more frames can cause <em>more</em> page faults!</span>
+                        <span class="lang-ar lang-hidden"><strong>Belady's Anomaly:</strong> إضافة المزيد من الإطارات قد يسبب <em>المزيد</em> من أخطاء الصفحات!</span>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Optimal Algorithm</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Optimal Algorithm</span>
+                        <span class="lang-ar lang-hidden">الخوارزمية المثلى (Optimal Algorithm)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Replace the page that will not be used for the longest period of time.
-                        <br><strong>Impossible to implement</strong> (requires future knowledge). Used as a benchmark.
+                        <span class="lang-en">Replace the page that will not be used for the longest period of time.</span>
+                        <span class="lang-ar lang-hidden">استبدال الصفحة التي لن يتم استخدامها لأطول فترة زمنية.</span>
+                        <br>
+                        <span class="lang-en"><strong>Impossible to implement</strong> (requires future knowledge). Used as a benchmark.</span>
+                        <span class="lang-ar lang-hidden"><strong>مستحيلة التنفيذ</strong> (تتطلب معرفة المستقبل). تستخدم كمعيار للمقارنة.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-green-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">LRU (Least Recently Used)</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">LRU (Least Recently Used)</span>
+                        <span class="lang-ar lang-hidden">LRU (Least Recently Used)</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Replace the page that has not been used for the longest period of time. (Approximation of Optimal).
-                        <br><em>Implementation:</em> Counters or Stack. Good performance, no Belady's Anomaly.
+                        <span class="lang-en">Replace the page that has not been used for the longest period of time. (Approximation of Optimal).</span>
+                        <span class="lang-ar lang-hidden">استبدال الصفحة التي لم يتم استخدامها لأطول فترة زمنية. (تقريب للـ Optimal).</span>
+                        <br>
+                        <span class="lang-en"><em>Implementation:</em> Counters or Stack. Good performance, no Belady's Anomaly.</span>
+                        <span class="lang-ar lang-hidden"><em>التنفيذ:</em> عدادات أو مكدس (Stack). أداء جيد، ولا تعاني من Belady's Anomaly.</span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Allocation & Thrashing</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Allocation & Thrashing</span>
+                    <span class="lang-ar lang-hidden">التخصيص والـ Thrashing</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Frame Allocation</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Frame Allocation</span>
+                        <span class="lang-ar lang-hidden">تخصيص الإطارات (Frame Allocation)</span>
+                    </h3>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                        <li><strong>Fixed:</strong> Equal allocation or Proportional to size.</li>
-                        <li><strong>Global Replacement:</strong> Process can steal frames from others. (Good throughput, variable execution time).</li>
-                        <li><strong>Local Replacement:</strong> Must steal from own set. (Consistent perf, potentially lower throughput).</li>
+                        <li>
+                            <span class="lang-en"><strong>Fixed:</strong> Equal allocation or Proportional to size.</span>
+                            <span class="lang-ar lang-hidden"><strong>ثابت:</strong> تخصيص متساوٍ أو متناسب مع الحجم.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Global Replacement:</strong> Process can steal frames from others. (Good throughput, variable execution time).</span>
+                            <span class="lang-ar lang-hidden"><strong>استبدال عالمي (Global):</strong> العملية يمكن أن تسرق إطارات من غيرها. (إنتاجية جيدة، وقت تنفيذ متغير).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Local Replacement:</strong> Must steal from own set. (Consistent perf, potentially lower throughput).</span>
+                            <span class="lang-ar lang-hidden"><strong>استبدال محلي (Local):</strong> يجب أن تسرق من مجموعتها الخاصة. (أداء ثابت، إنتاجية قد تكون أقل).</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Thrashing</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Thrashing</span>
+                        <span class="lang-ar lang-hidden">Thrashing</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        A process is busy swapping pages in and out (Page Fault Rate > Service Rate).
-                        <br>CPU Utilization drops to near zero.
+                        <span class="lang-en">A process is busy swapping pages in and out (Page Fault Rate > Service Rate).</span>
+                        <span class="lang-ar lang-hidden">العملية مشغولة بتبديل الصفحات للداخل والخارج (معدل Page Fault > معدل الخدمة).</span>
+                        <br>
+                        <span class="lang-en">CPU Utilization drops to near zero.</span>
+                        <span class="lang-ar lang-hidden">استخدام الـ CPU ينخفض إلى ما يقارب الصفر.</span>
                     </p>
                     <div class="p-2 bg-gray-100 dark:bg-gray-800 rounded text-[10px] text-gray-500">
-                        <strong>Cause:</strong> $\Sigma$ Size of Locality > Total Memory Size.
-                        <br><strong>Solution:</strong> Working Set Model (Monitor active pages per process and suspend processes if memory is insufficient).
+                        <span class="lang-en"><strong>Cause:</strong> $\Sigma$ Size of Locality > Total Memory Size.</span>
+                        <span class="lang-ar lang-hidden"><strong>السبب:</strong> مجموع ($\Sigma$) حجم الـ Locality > حجم الذاكرة الكلي.</span>
+                        <br>
+                        <span class="lang-en"><strong>Solution:</strong> Working Set Model (Monitor active pages per process and suspend processes if memory is insufficient).</span>
+                        <span class="lang-ar lang-hidden"><strong>الحل:</strong> نموذج Working Set (مراقبة الصفحات النشطة لكل عملية وإيقاف العمليات مؤقتاً إذا كانت الذاكرة غير كافية).</span>
                     </div>
                 </div>
             </div>
@@ -331,53 +529,77 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار (The Exam Vault)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Modify Bit
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Modify Bit</span>
+                            <span class="lang-ar lang-hidden">فخ: Modify Bit</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Why use a Modify (Dirty) bit?"
-                            <br>If the victim page has NOT been modified (Dirty bit = 0), we do NOT need to write it back to disk (it's already there). This saves 50% of the I/O time on replacement.
+                            <span class="lang-en">"Why use a Modify (Dirty) bit?"</span>
+                            <span class="lang-ar lang-hidden">"لماذا نستخدم Modify (Dirty) bit؟"</span>
+                            <br>
+                            <span class="lang-en">If the victim page has NOT been modified (Dirty bit = 0), we do NOT need to write it back to disk (it's already there). This saves 50% of the I/O time on replacement.</span>
+                            <span class="lang-ar lang-hidden">إذا لم يتم تعديل الصفحة الضحية (Dirty bit = 0)، لا نحتاج لكتابتها مرة أخرى للقرص (هي موجودة هناك بالفعل). هذا يوفر 50% من وقت I/O عند الاستبدال.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Belady's Anomaly
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">TRAP: Belady's Anomaly</span>
+                            <span class="lang-ar lang-hidden">فخ: Belady's Anomaly</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Belady's Anomaly (more frames = more faults) happens with <strong>FIFO</strong>. It does NOT happen with LRU or Optimal (Stack Algorithms).
+                            <span class="lang-en">Belady's Anomaly (more frames = more faults) happens with <strong>FIFO</strong>. It does NOT happen with LRU or Optimal (Stack Algorithms).</span>
+                            <span class="lang-ar lang-hidden">ظاهرة Belady's Anomaly (إطارات أكثر = أخطاء أكثر) تحدث مع <strong>FIFO</strong>. لا تحدث مع LRU أو Optimal (Stack Algorithms).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Copy-on-Write (COW)
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">SECRET: Copy-on-Write (COW)</span>
+                            <span class="lang-ar lang-hidden">سر: Copy-on-Write (COW)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            `fork()` creates a child process. Instead of copying ALL parent pages (slow), COW allows parent and child to share the same pages initially.
-                            <br>Only if one writes to a page is a copy created. This makes process creation extremely fast.
+                            <span class="lang-en">`fork()` creates a child process. Instead of copying ALL parent pages (slow), COW allows parent and child to share the same pages initially.</span>
+                            <span class="lang-ar lang-hidden">`fork()` تنشئ عملية فرعية (Child). بدلاً من نسخ جميع صفحات الأب (بطيء)، COW تسمح للأب والابن بمشاركة نفس الصفحات مبدئياً.</span>
+                            <br>
+                            <span class="lang-en">Only if one writes to a page is a copy created. This makes process creation extremely fast.</span>
+                            <span class="lang-ar lang-hidden">فقط عندما يكتب أحدهما في صفحة يتم إنشاء نسخة. هذا يجعل إنشاء العمليات سريعاً للغاية.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Working Set
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">KEY CONCEPT: Working Set</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: Working Set</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            To prevent thrashing, the OS must ensure the process has enough frames to cover its current <strong>Locality</strong> (set of pages actively used together).
-                            <br>If $\Sigma$ Working Sets > Available Frames $\to$ Swap out a process.
+                            <span class="lang-en">To prevent thrashing, the OS must ensure the process has enough frames to cover its current <strong>Locality</strong> (set of pages actively used together).</span>
+                            <span class="lang-ar lang-hidden">لمنع الـ Thrashing، يجب أن يضمن نظام التشغيل أن العملية لديها إطارات كافية لتغطية <strong>Locality</strong> الحالية (مجموعة الصفحات المستخدمة بنشاط معاً).</span>
+                            <br>
+                            <span class="lang-en">If $\Sigma$ Working Sets > Available Frames $\to$ Swap out a process.</span>
+                            <span class="lang-ar lang-hidden">إذا كان مجموع ($\Sigma$) الـ Working Sets > الإطارات المتاحة $\to$ يتم إخراج (Swap out) عملية.</span>
                         </p>
                     </div>
                 </div>
@@ -388,18 +610,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 7</span>
+                    <span class="lang-ar lang-hidden">الوحدة 7</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس حاسب. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -418,46 +653,61 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            const path = window.location.pathname;
+            
+            
+            const match = path.match(/module(\d+)\.html/);
+            
+            if (match) {
+                const moduleNumber = match[1];
+                
+                
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module completed: ${moduleNumber}`);
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>

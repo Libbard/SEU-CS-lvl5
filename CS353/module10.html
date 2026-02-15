@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 10: Dynamic Programming</title>
@@ -66,6 +75,7 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(226, 232, 240, 0.6);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
         .dark .glass-card {
             background: rgba(17, 24, 39, 0.6);
@@ -115,6 +125,37 @@
         .anim-cell {
             animation: fill-cell 2s infinite alternate;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] mjx-container, 
+        [dir="rtl"] .MathJax { 
+            direction: ltr !important; 
+            text-align: left !important;
+            display: inline-block;
+        }
+
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r { border-right-width: 0; border-left-width: 1px; }
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-8 { margin-left: 0; margin-right: 2rem; }
+        [dir="rtl"] .pl-8 { padding-left: 0; padding-right: 2rem; }
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -122,26 +163,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 10</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 10</span>
+                        <span class="lang-ar lang-hidden">الوحدة 10</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module11.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -158,55 +214,87 @@
                 <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Dynamic <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Programming</span>
+                <span class="lang-en">Dynamic <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Programming</span></span>
+                <span class="lang-ar lang-hidden"><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">البرمجة الديناميكية</span> (Dynamic Programming)</span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                "Those who cannot remember the past are condemned to repeat it." <br>
-                Solving complex problems by breaking them into overlapping subproblems and recording their solutions.
+                <span class="lang-en">"Those who cannot remember the past are condemned to repeat it." <br>
+                Solving complex problems by breaking them into overlapping subproblems and recording their solutions.</span>
+                <span class="lang-ar lang-hidden">"أولئك الذين لا يتذكرون الماضي محكوم عليهم بتكراره." <br>
+                حل المشكلات المعقدة عن طريق تقسيمها إلى مشاكل فرعية متداخلة (Overlapping Subproblems) وتسجيل حلولها.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Knapsack (0/1)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Warshall's Algorithm</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Floyd's Algorithm</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Optimal BST</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Knapsack (0/1)</span>
+                    <span class="lang-ar lang-hidden">Knapsack (0/1)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Warshall's Algorithm</span>
+                    <span class="lang-ar lang-hidden">Warshall's Algorithm</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Floyd's Algorithm</span>
+                    <span class="lang-ar lang-hidden">Floyd's Algorithm</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Optimal BST</span>
+                    <span class="lang-ar lang-hidden">Optimal BST</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Core Philosophy</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Core Philosophy</span>
+                    <span class="lang-ar lang-hidden">الفلسفة الأساسية</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Overlapping Subproblems</h3>
+                <div class="glass-card p-6 rounded-xl border-l-4 rtl:border-l-0 rtl:border-r-4 border-l-brand-500">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Overlapping Subproblems</span>
+                        <span class="lang-ar lang-hidden">المشاكل الفرعية المتداخلة</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Unlike Divide & Conquer (where subproblems are independent), <span class="smart-term font-bold text-brand-500" data-ar="البرمجة الديناميكية">Dynamic Programming</span> applies when subproblems overlap.
+                        <span class="lang-en">Unlike Divide & Conquer (where subproblems are independent), <span class="smart-term font-bold text-brand-500" data-ar="البرمجة الديناميكية">Dynamic Programming</span> applies when subproblems overlap.</span>
+                        <span class="lang-ar lang-hidden">على عكس الـ Divide & Conquer (حيث تكون المشاكل الفرعية مستقلة)، تطبق <span class="smart-term font-bold text-brand-500" data-ar="البرمجة الديناميكية">Dynamic Programming</span> عندما تتداخل المشاكل الفرعية.</span>
                     </p>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Instead of solving the same subproblem again and again (recursion), we solve it <strong>once</strong> and store the result in a table.
+                        <span class="lang-en">Instead of solving the same subproblem again and again (recursion), we solve it <strong>once</strong> and store the result in a table.</span>
+                        <span class="lang-ar lang-hidden">بدلاً من حل نفس المشكلة الفرعية مراراً وتكراراً (recursion)، نحلها <strong>مرة واحدة</strong> ونخزن النتيجة في جدول.</span>
                     </p>
-                    <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-xs font-mono">
-                        <span class="text-rose-500">Method 1 (Top-Down):</span> Memoization (Recursion + Table)<br>
-                        <span class="text-rose-500">Method 2 (Bottom-Up):</span> Tabulation (Iterative loops)
+                    <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded text-xs font-mono text-left rtl:text-right">
+                        <span class="text-rose-500 font-bold">Method 1 (Top-Down):</span> <span class="lang-en">Memoization (Recursion + Table)</span><span class="lang-ar lang-hidden">Memoization (تكرار + جدول)</span><br>
+                        <span class="text-rose-500 font-bold">Method 2 (Bottom-Up):</span> <span class="lang-en">Tabulation (Iterative loops)</span><span class="lang-ar lang-hidden">Tabulation (حلقات تكرارية)</span>
                     </div>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col items-center">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">The Fibonacci Example</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="lang-en">The Fibonacci Example</span>
+                        <span class="lang-ar lang-hidden">مثال فيبوناتشي (Fibonacci)</span>
+                    </h4>
                     
-                    <div class="flex space-x-8 w-full justify-center">
+                    <div class="flex space-x-8 rtl:space-x-reverse w-full justify-center">
                         <div class="text-center">
                             <span class="block text-3xl font-bold text-rose-500">$2^n$</span>
-                            <span class="text-xs text-gray-500">Naive Recursion</span>
+                            <span class="text-xs text-gray-500">
+                                <span class="lang-en">Naive Recursion</span>
+                                <span class="lang-ar lang-hidden">Naive Recursion</span>
+                            </span>
                         </div>
-                        <div class="text-center border-l border-gray-300 dark:border-gray-600 pl-8">
+                        <div class="text-center border-l rtl:border-l-0 rtl:border-r border-gray-300 dark:border-gray-600 pl-8 rtl:pr-8 rtl:pl-0">
                             <span class="block text-3xl font-bold text-emerald-500">$n$</span>
-                            <span class="text-xs text-gray-500">Dynamic Programming</span>
+                            <span class="text-xs text-gray-500">
+                                <span class="lang-en">Dynamic Programming</span>
+                                <span class="lang-ar lang-hidden">Dynamic Programming</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -214,45 +302,61 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Optimization Problems</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Optimization Problems</span>
+                    <span class="lang-ar lang-hidden">مشاكل التحسين (Optimization)</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
                     <div class="flex items-start">
-                        <div class="bg-brand-100 dark:bg-brand-900 text-brand-600 p-2 rounded mr-4">
+                        <div class="bg-brand-100 dark:bg-brand-900 text-brand-600 p-2 rounded mr-4 rtl:ml-4 rtl:mr-0">
                             <i class="fa-solid fa-coins"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Coin Row Problem</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Coin Row Problem</span>
+                                <span class="lang-ar lang-hidden">Coin Row Problem</span>
+                            </h3>
                             <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                                Pick coins from a row to maximize sum, but you cannot pick two adjacent coins.
+                                <span class="lang-en">Pick coins from a row to maximize sum, but you cannot pick two adjacent coins.</span>
+                                <span class="lang-ar lang-hidden">اختر عملات من صف لتعظيم المجموع، لكن لا يمكنك اختيار عملتين متجاورتين.</span>
                             </p>
-                            <div class="bg-gray-900 p-3 rounded text-gray-300 font-mono text-sm">
+                            <div class="bg-gray-900 p-3 rounded text-gray-300 font-mono text-sm direction-ltr text-left">
                                 $F(n) = \max(c_n + F(n-2), \quad F(n-1))$
                             </div>
-                            <p class="text-xs text-gray-500 mt-1">Logic: Either pick coin $n$ (and skip $n-1$), or skip coin $n$.</p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="lang-en">Logic: Either pick coin $n$ (and skip $n-1$), or skip coin $n$.</span>
+                                <span class="lang-ar lang-hidden">المنطق: إما اختيار العملة $n$ (وتخطي $n-1$)، أو تخطي العملة $n$.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
                     <div class="flex items-start">
-                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded mr-4">
+                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded mr-4 rtl:ml-4 rtl:mr-0">
                             <i class="fa-solid fa-money-bill-wave"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Change-Making Problem</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Change-Making Problem</span>
+                                <span class="lang-ar lang-hidden">Change-Making Problem</span>
+                            </h3>
                             <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                                Find the minimum number of coins to make amount $n$ using denominations $d_1, d_2... d_m$.
+                                <span class="lang-en">Find the minimum number of coins to make amount $n$ using denominations $d_1, d_2... d_m$.</span>
+                                <span class="lang-ar lang-hidden">ابحث عن الحد الأدنى لعدد العملات لتكوين المبلغ $n$ باستخدام الفئات $d_1, d_2... d_m$.</span>
                             </p>
-                            <div class="bg-gray-900 p-3 rounded text-gray-300 font-mono text-sm">
+                            <div class="bg-gray-900 p-3 rounded text-gray-300 font-mono text-sm direction-ltr text-left">
                                 $F(n) = \min_{j:n \ge d_j} \{ F(n - d_j) \} + 1$
                             </div>
                             <p class="text-xs text-gray-500 mt-1">
-                                <span class="text-rose-500 font-bold">Note:</span> Greedy approach works for some coins (US Dollar) but fails for general cases. DP always works.
+                                <span class="text-rose-500 font-bold">Note:</span> 
+                                <span class="lang-en">Greedy approach works for some coins (US Dollar) but fails for general cases. DP always works.</span>
+                                <span class="lang-ar lang-hidden">النهج الجشع (Greedy) يعمل مع بعض العملات (الدولار الأمريكي) ولكنه يفشل في الحالات العامة. الـ DP يعمل دائماً.</span>
                             </p>
                         </div>
                     </div>
@@ -261,23 +365,31 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Knapsack Problem (0/1)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Knapsack Problem (0/1)</span>
+                    <span class="lang-ar lang-hidden">مسألة حقيبة الظهر (Knapsack 0/1)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl relative overflow-hidden">
                 <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                    Given items with weights $w_i$ and values $v_i$, maximize value in a knapsack of capacity $W$. Each item can be taken (1) or left (0).
+                    <span class="lang-en">Given items with weights $w_i$ and values $v_i$, maximize value in a knapsack of capacity $W$. Each item can be taken (1) or left (0).</span>
+                    <span class="lang-ar lang-hidden">بالنظر إلى عناصر ذات أوزان $w_i$ وقيم $v_i$، قم بتعظيم القيمة في حقيبة ذات سعة $W$. كل عنصر يمكن أخذه (1) أو تركه (0).</span>
                 </p>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">The Recurrence Relation</h4>
-                    <p class="font-mono text-sm overflow-x-auto">
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">The Recurrence Relation</span>
+                        <span class="lang-ar lang-hidden">العلاقة التكرارية (Recurrence Relation)</span>
+                    </h4>
+                    <p class="font-mono text-sm overflow-x-auto direction-ltr text-left">
                         $$ V[i, j] = \begin{cases} \max(V[i-1, j], \quad v_i + V[i-1, j-w_i]) & \text{if } j \ge w_i \\ V[i-1, j] & \text{if } j < w_i \end{cases} $$
                     </p>
                     <p class="text-xs text-gray-500 mt-2">
-                        $V[i, j]$: Max value using first $i$ items with capacity $j$.
+                        <span class="lang-en">$V[i, j]$: Max value using first $i$ items with capacity $j$.</span>
+                        <span class="lang-ar lang-hidden">$V[i, j]$: القيمة القصوى باستخدام أول $i$ عناصر بسعة $j$.</span>
                     </p>
                 </div>
 
@@ -285,7 +397,10 @@
                     <table class="w-full text-center text-sm border-collapse">
                         <thead>
                             <tr class="text-gray-500 border-b border-gray-300 dark:border-gray-700">
-                                <th class="p-2">Item / Cap</th>
+                                <th class="p-2">
+                                    <span class="lang-en">Item / Cap</span>
+                                    <span class="lang-ar lang-hidden">العنصر / السعة</span>
+                                </th>
                                 <th class="p-2">0</th>
                                 <th class="p-2">1</th>
                                 <th class="p-2">2</th>
@@ -296,55 +411,82 @@
                         </thead>
                         <tbody class="text-gray-800 dark:text-gray-200">
                             <tr>
-                                <td class="font-bold border-r border-gray-300 dark:border-gray-700">0 (Null)</td>
+                                <td class="font-bold border-r rtl:border-r-0 rtl:border-l border-gray-300 dark:border-gray-700">
+                                    <span class="lang-en">0 (Null)</span>
+                                    <span class="lang-ar lang-hidden">0 (Null)</span>
+                                </td>
                                 <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
                             </tr>
                             <tr>
-                                <td class="font-bold border-r border-gray-300 dark:border-gray-700">1 (w=2, v=3)</td>
+                                <td class="font-bold border-r rtl:border-r-0 rtl:border-l border-gray-300 dark:border-gray-700">1 (w=2, v=3)</td>
                                 <td>0</td><td>0</td><td class="bg-brand-500/20 font-bold">3</td><td>3</td><td>3</td><td>3</td>
                             </tr>
                             <tr>
-                                <td class="font-bold border-r border-gray-300 dark:border-gray-700">2 (w=3, v=4)</td>
+                                <td class="font-bold border-r rtl:border-r-0 rtl:border-l border-gray-300 dark:border-gray-700">2 (w=3, v=4)</td>
                                 <td>0</td><td>0</td><td>3</td><td class="bg-brand-500/20 font-bold">4</td><td>4</td><td class="bg-brand-500/20 font-bold">7</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="mt-4 text-xs text-gray-500 text-center">
-                    Complexity: $O(n \times W)$ (Time & Space)
+                    <span class="lang-en">Complexity: $O(n \times W)$ (Time & Space)</span>
+                    <span class="lang-ar lang-hidden">التعقيد: $O(n \times W)$ (الوقت والمساحة)</span>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Graph Algorithms</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Graph Algorithms</span>
+                    <span class="lang-ar lang-hidden">خوارزميات الرسم البياني (Graph)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Warshall's Algorithm</h3>
-                    <p class="text-xs font-bold uppercase text-purple-500 mb-2">Transitive Closure</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Finds if there is a path between <strong>every pair</strong> of vertices.
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Warshall's Algorithm</span>
+                        <span class="lang-ar lang-hidden">Warshall's Algorithm</span>
+                    </h3>
+                    <p class="text-xs font-bold uppercase text-purple-500 mb-2">
+                        <span class="lang-en">Transitive Closure</span>
+                        <span class="lang-ar lang-hidden">الإغلاق المتعدي (Transitive Closure)</span>
                     </p>
-                    <div class="bg-gray-900 p-2 rounded text-gray-300 font-mono text-xs mb-2">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        <span class="lang-en">Finds if there is a path between <strong>every pair</strong> of vertices.</span>
+                        <span class="lang-ar lang-hidden">يكتشف ما إذا كان هناك مسار بين <strong>كل زوج</strong> من الرؤوس (Vertices).</span>
+                    </p>
+                    <div class="bg-gray-900 p-2 rounded text-gray-300 font-mono text-xs mb-2 direction-ltr text-left">
                         $R^{(k)}[i,j] = R^{(k-1)}[i,j] \lor (R^{(k-1)}[i,k] \land R^{(k-1)}[k,j])$
                     </div>
-                    <p class="text-xs text-gray-500">Uses Logical OR/AND. Complexity: $O(n^3)$.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Uses Logical OR/AND. Complexity: $O(n^3)$.</span>
+                        <span class="lang-ar lang-hidden">يستخدم OR/AND المنطقي. التعقيد: $O(n^3)$.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-emerald-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Floyd's Algorithm</h3>
-                    <p class="text-xs font-bold uppercase text-emerald-500 mb-2">All-Pairs Shortest Path</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Finds the shortest distance between <strong>every pair</strong> of vertices.
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Floyd's Algorithm</span>
+                        <span class="lang-ar lang-hidden">Floyd's Algorithm</span>
+                    </h3>
+                    <p class="text-xs font-bold uppercase text-emerald-500 mb-2">
+                        <span class="lang-en">All-Pairs Shortest Path</span>
+                        <span class="lang-ar lang-hidden">أقصر مسار لكل الأزواج</span>
                     </p>
-                    <div class="bg-gray-900 p-2 rounded text-gray-300 font-mono text-xs mb-2">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        <span class="lang-en">Finds the shortest distance between <strong>every pair</strong> of vertices.</span>
+                        <span class="lang-ar lang-hidden">يجد أقصر مسافة بين <strong>كل زوج</strong> من الرؤوس.</span>
+                    </p>
+                    <div class="bg-gray-900 p-2 rounded text-gray-300 font-mono text-xs mb-2 direction-ltr text-left">
                         $D^{(k)}[i,j] = \min(D^{(k-1)}[i,j], \quad D^{(k-1)}[i,k] + D^{(k-1)}[k,j])$
                     </div>
-                    <p class="text-xs text-gray-500">Uses Min/Addition. Complexity: $O(n^3)$.</p>
+                    <p class="text-xs text-gray-500">
+                        <span class="lang-en">Uses Min/Addition. Complexity: $O(n^3)$.</span>
+                        <span class="lang-ar lang-hidden">يستخدم Min/Addition. التعقيد: $O(n^3)$.</span>
+                    </p>
                 </div>
             </div>
         </section>
@@ -353,55 +495,78 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Knapsack Efficiency
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Knapsack Efficiency</span>
+                            <span class="lang-ar lang-hidden">فخ: كفاءة الـ Knapsack</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Is Knapsack 0/1 polynomial time?" <br>
-                            It is $O(n \cdot W)$. This looks polynomial, but $W$ is the <em>magnitude</em> of the capacity, not the input size. In terms of bits, it is <strong>Pseudo-Polynomial</strong> (Exponential).
+                            <span class="lang-en">"Is Knapsack 0/1 polynomial time?" <br>
+                            It is $O(n \cdot W)$. This looks polynomial, but $W$ is the <em>magnitude</em> of the capacity, not the input size. In terms of bits, it is <strong>Pseudo-Polynomial</strong> (Exponential).</span>
+                            <span class="lang-ar lang-hidden">"هل Knapsack 0/1 يعتبر Polynomial time؟" <br>
+                            هو $O(n \cdot W)$. يبدو هذا كـ polynomial، لكن $W$ هو <em>مقدار</em> السعة، وليس حجم المدخلات. من حيث البتات، هو <strong>Pseudo-Polynomial</strong> (أسي Exponential).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Greedy vs DP
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Greedy vs DP</span>
+                            <span class="lang-ar lang-hidden">فخ: Greedy vs DP</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Greedy algorithms make the local best choice. DP considers all choices. For Change-Making:
+                            <span class="lang-en">Greedy algorithms make the local best choice. DP considers all choices. For Change-Making:
                             <br>Coins: 1, 3, 4. Target: 6.
                             <br>Greedy: 4 + 1 + 1 (3 coins).
                             <br>DP: 3 + 3 (2 coins).
-                            <br>Always check if Greedy fails before using it.
+                            <br>Always check if Greedy fails before using it.</span>
+                            <span class="lang-ar lang-hidden">خوارزميات Greedy تتخذ الخيار الأفضل محلياً. الـ DP ينظر في كل الخيارات. لمسألة الصرف:
+                            <br>العملات: 1، 3، 4. الهدف: 6.
+                            <br>Greedy: 4 + 1 + 1 (3 عملات).
+                            <br>DP: 3 + 3 (عملتان).
+                            <br>تحقق دائماً مما إذا كان Greedy يفشل قبل استخدامه.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Principle of Optimality
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Principle of Optimality</span>
+                            <span class="lang-ar lang-hidden">سر: مبدأ الأمثلية (Optimality)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            DP only applies if the problem satisfies the <strong>Principle of Optimality</strong>: An optimal solution to any instance must be composed of optimal solutions to its sub-instances.
+                            <span class="lang-en">DP only applies if the problem satisfies the <strong>Principle of Optimality</strong>: An optimal solution to any instance must be composed of optimal solutions to its sub-instances.</span>
+                            <span class="lang-ar lang-hidden">يطبق الـ DP فقط إذا كانت المشكلة تحقق <strong>مبدأ الأمثلية (Principle of Optimality)</strong>: الحل الأمثل لأي حالة يجب أن يتكون من حلول مثلى لحالاتها الفرعية.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Memory Functions
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Memory Functions</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Memory Functions</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Top-Down DP (Memoization)</strong> is often better than Bottom-Up if you don't need to solve <em>all</em> subproblems. It only solves what is required by the recursion tree.
+                            <span class="lang-en"><strong>Top-Down DP (Memoization)</strong> is often better than Bottom-Up if you don't need to solve <em>all</em> subproblems. It only solves what is required by the recursion tree.</span>
+                            <span class="lang-ar lang-hidden">الـ <strong>Top-Down DP (Memoization)</strong> غالباً ما يكون أفضل من Bottom-Up إذا لم تكن بحاجة لحل <em>كل</em> المشاكل الفرعية. فهو يحل فقط ما تتطلبه شجرة العودية (Recursion Tree).</span>
                         </p>
                     </div>
                 </div>
@@ -412,20 +577,67 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 11</a>
+                <a href="module11.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 11</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
         const htmlElement = document.documentElement;
+
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
 
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
@@ -444,43 +656,18 @@
         });
     </script>
 <script>
-
     document.addEventListener("DOMContentLoaded", function() {
-
-        
-
         const path = window.location.pathname;
-
-        
-
-        
-
-        
-
         const match = path.match(/module(\d+)\.html/);
-
         
-
         if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
+            const moduleNumber = match[1];
             if (moduleNumber >= 1 && moduleNumber <= 13) {
-
                 localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
                 console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
             }
-
         }
-
     });
-
 </script>
 
 </body>

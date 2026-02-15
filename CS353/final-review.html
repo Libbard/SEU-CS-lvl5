@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Final Master Review</title>
@@ -50,6 +59,55 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] mjx-container {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .border-t-4 { border-top-width: 4px; }
+        
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-lightbulb {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -137,31 +195,46 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="../index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Main Dashboard">
                         <i class="fa-solid fa-layer-group text-xl"></i>
                     </a>
                     <a href="module13.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Final Review</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Final Review</span>
+                        <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="final-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Final Quiz">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Final Quiz</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Final Quiz</span>
+                            <span class="lang-ar lang-hidden">الاختبار النهائي</span>
+                        </span>
                         <i class="fa-solid fa-flag-checkered"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -178,56 +251,110 @@
                 <i class="fa-solid fa-brain text-4xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Master Review</span>
+                <span class="lang-en">Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Master Review</span></span>
+                <span class="lang-ar lang-hidden">المراجعة الشاملة <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">للاختبار النهائي</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                The ultimate synthesis of Modules 7 through 13. From Heaps to NP-Completeness, this is your source of truth.
+                <span class="lang-en">The ultimate synthesis of Modules 7 through 13. From Heaps to NP-Completeness, this is your source of truth.</span>
+                <span class="lang-ar lang-hidden">التلخيص النهائي للوحدات من 7 إلى 13. من Heaps إلى NP-Completeness، هذا هو مرجعك الأساسي.</span>
             </p>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Transform & Space-Time (Mod 7-9)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Transform & Space-Time (Mod 7-9)</span>
+                    <span class="lang-ar lang-hidden">التحويل والزمكان (Mod 7-9)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-emerald-500">
-                    <h3 class="font-bold text-lg mb-2">Heaps & Heapsort</h3>
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">Heaps & Heapsort</span>
+                        <span class="lang-ar lang-hidden">Heaps و Heapsort</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                        <span class="smart-term text-emerald-600 dark:text-emerald-400 font-semibold" data-ar="كومة">Heap</span>: An array viewed as a nearly complete binary tree.
+                        <span class="lang-en"><span class="smart-term text-emerald-600 dark:text-emerald-400 font-semibold" data-ar="كومة">Heap</span>: An array viewed as a nearly complete binary tree.</span>
+                        <span class="lang-ar lang-hidden"><span class="text-emerald-600 dark:text-emerald-400 font-semibold">Heap</span>: مصفوفة تُعرض كشجرة ثنائية شبه كاملة (Nearly Complete Binary Tree).</span>
                     </p>
                     <ul class="text-xs space-y-2 text-gray-500 dark:text-gray-400">
-                        <li><i class="fa-solid fa-check mr-2"></i><strong>Structure:</strong> Filled left-to-right.</li>
-                        <li><i class="fa-solid fa-check mr-2"></i><strong>Order:</strong> Parent $\ge$ Children (Max-Heap).</li>
-                        <li><i class="fa-solid fa-check mr-2"></i><strong>Construction:</strong> Bottom-up heapify takes $O(n)$.</li>
-                        <li><i class="fa-solid fa-check mr-2"></i><strong>Sort:</strong> Swap root/last, heapify. $O(n \log n)$.</li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Structure:</strong><strong class="lang-ar lang-hidden">الهيكل:</strong>
+                            <span class="lang-en">Filled left-to-right.</span>
+                            <span class="lang-ar lang-hidden">مملوءة من اليسار لليمين.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Order:</strong><strong class="lang-ar lang-hidden">الترتيب:</strong>
+                            <span class="lang-en">Parent $\ge$ Children (Max-Heap).</span>
+                            <span class="lang-ar lang-hidden">الأب $\ge$ الأبناء (Max-Heap).</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Construction:</strong><strong class="lang-ar lang-hidden">البناء:</strong>
+                            <span class="lang-en">Bottom-up heapify takes $O(n)$.</span>
+                            <span class="lang-ar lang-hidden">بناء الكومة من الأسفل للأعلى يستغرق $O(n)$.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Sort:</strong><strong class="lang-ar lang-hidden">الفرز:</strong>
+                            <span class="lang-en">Swap root/last, heapify. $O(n \log n)$.</span>
+                            <span class="lang-ar lang-hidden">تبديل الجذر/الأخير، ثم heapify. $O(n \log n)$.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-blue-500">
-                    <h3 class="font-bold text-lg mb-2">Input Enhancement</h3>
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">Input Enhancement</span>
+                        <span class="lang-ar lang-hidden">تحسين الإدخال (Input Enhancement)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                        preprocess input to gain speed.
+                        <span class="lang-en">Preprocess input to gain speed.</span>
+                        <span class="lang-ar lang-hidden">معالجة الإدخال مسبقاً لكسب السرعة.</span>
                     </p>
                     <ul class="text-xs space-y-2 text-gray-500 dark:text-gray-400">
-                        <li><i class="fa-solid fa-sort mr-2"></i><strong>Distribution Counting:</strong> $O(n+k)$ sort for small range $k$.</li>
-                        <li><i class="fa-solid fa-magnifying-glass mr-2"></i><strong>Horspool:</strong> String matching. Shift table based on <em>last</em> character of pattern. Avg $O(n)$.</li>
+                        <li>
+                            <i class="fa-solid fa-sort mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Distribution Counting:</strong><strong class="lang-ar lang-hidden">عد التوزيع:</strong>
+                            <span class="lang-en">$O(n+k)$ sort for small range $k$.</span>
+                            <span class="lang-ar lang-hidden">فرز $O(n+k)$ لنطاق صغير $k$.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-magnifying-glass mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Horspool:</strong><strong class="lang-ar lang-hidden">Horspool:</strong>
+                            <span class="lang-en">String matching. Shift table based on <em>last</em> character of pattern. Avg $O(n)$.</span>
+                            <span class="lang-ar lang-hidden">مطابقة النصوص. جدول الإزاحة يعتمد على <em>آخر</em> حرف في النمط. المتوسط $O(n)$.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
-                    <h3 class="font-bold text-lg mb-2">Hashing & B-Trees</h3>
+                    <h3 class="font-bold text-lg mb-2">
+                        <span class="lang-en">Hashing & B-Trees</span>
+                        <span class="lang-ar lang-hidden">التحويل (Hashing) و B-Trees</span>
+                    </h3>
                     <div class="space-y-3">
                         <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs">
-                            <span class="font-bold block text-purple-600">Hashing ($O(1)$ avg)</span>
-                            Open (Chaining) vs Closed (Open Addressing).
+                            <span class="font-bold block text-purple-600">
+                                <span class="lang-en">Hashing ($O(1)$ avg)</span>
+                                <span class="lang-ar lang-hidden">Hashing ($O(1)$ متوسط)</span>
+                            </span>
+                            <span class="lang-en">Open (Chaining) vs Closed (Open Addressing).</span>
+                            <span class="lang-ar lang-hidden">مفتوح (Chaining) مقابل مغلق (عنونة مفتوحة).</span>
                         </div>
                         <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs">
-                            <span class="font-bold block text-purple-600">B-Trees</span>
-                            Balanced trees for <strong>Disk Storage</strong>. Nodes have multiple keys to minimize height (disk seeks).
+                            <span class="font-bold block text-purple-600">
+                                <span class="lang-en">B-Trees</span>
+                                <span class="lang-ar lang-hidden">B-Trees</span>
+                            </span>
+                            <span class="lang-en">Balanced trees for <strong>Disk Storage</strong>. Nodes have multiple keys to minimize height (disk seeks).</span>
+                            <span class="lang-ar lang-hidden">أشجار متوازنة لـ <strong>تخزين القرص</strong>. العقد تحتوي على مفاتيح متعددة لتقليل الارتفاع (disk seeks).</span>
                         </div>
                     </div>
                 </div>
@@ -235,44 +362,69 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Algorithm Design Paradigms</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Algorithm Design Paradigms</span>
+                    <span class="lang-ar lang-hidden">نماذج تصميم الخوارزميات</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <div class="absolute top-0 right-0 rtl:left-0 rtl:right-auto p-4 opacity-10">
                         <i class="fa-solid fa-layer-group text-8xl text-brand-500"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-4">Dynamic Programming</h3>
+                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-4">
+                        <span class="lang-en">Dynamic Programming</span>
+                        <span class="lang-ar lang-hidden">البرمجة الديناميكية (Dynamic Programming)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Solves overlapping subproblems once and stores the result (Memoization/Tabulation).
+                        <span class="lang-en">Solves overlapping subproblems once and stores the result (Memoization/Tabulation).</span>
+                        <span class="lang-ar lang-hidden">تحل المشاكل الفرعية المتداخلة مرة واحدة وتخزن النتيجة (Memoization/Tabulation).</span>
                     </p>
                     
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left">
                             <thead class="text-xs uppercase bg-gray-100 dark:bg-gray-800 text-gray-500">
                                 <tr>
-                                    <th class="px-2 py-1">Problem</th>
-                                    <th class="px-2 py-1">Logic</th>
-                                    <th class="px-2 py-1">Complexity</th>
+                                    <th class="px-2 py-1"><span class="lang-en">Problem</span><span class="lang-ar lang-hidden">المشكلة</span></th>
+                                    <th class="px-2 py-1"><span class="lang-en">Logic</span><span class="lang-ar lang-hidden">المنطق</span></th>
+                                    <th class="px-2 py-1"><span class="lang-en">Complexity</span><span class="lang-ar lang-hidden">التعقيد</span></th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                 <tr>
-                                    <td class="px-2 py-2 font-bold">Knapsack 0/1</td>
-                                    <td class="px-2 py-2">Max(Exclude, Include)</td>
+                                    <td class="px-2 py-2 font-bold">
+                                        <span class="lang-en">Knapsack 0/1</span>
+                                        <span class="lang-ar lang-hidden">Knapsack 0/1</span>
+                                    </td>
+                                    <td class="px-2 py-2">
+                                        <span class="lang-en">Max(Exclude, Include)</span>
+                                        <span class="lang-ar lang-hidden">Max(استبعاد، تضمين)</span>
+                                    </td>
                                     <td class="px-2 py-2 font-mono">$O(nW)$</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-2 py-2 font-bold">Warshall</td>
-                                    <td class="px-2 py-2">Transitive Closure (OR/AND)</td>
+                                    <td class="px-2 py-2 font-bold">
+                                        <span class="lang-en">Warshall</span>
+                                        <span class="lang-ar lang-hidden">Warshall</span>
+                                    </td>
+                                    <td class="px-2 py-2">
+                                        <span class="lang-en">Transitive Closure (OR/AND)</span>
+                                        <span class="lang-ar lang-hidden">الإغلاق المتعدي (OR/AND)</span>
+                                    </td>
                                     <td class="px-2 py-2 font-mono">$O(n^3)$</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-2 py-2 font-bold">Floyd</td>
-                                    <td class="px-2 py-2">All-Pairs Shortest Path</td>
+                                    <td class="px-2 py-2 font-bold">
+                                        <span class="lang-en">Floyd</span>
+                                        <span class="lang-ar lang-hidden">Floyd</span>
+                                    </td>
+                                    <td class="px-2 py-2">
+                                        <span class="lang-en">All-Pairs Shortest Path</span>
+                                        <span class="lang-ar lang-hidden">أقصر مسار لكل الأزواج</span>
+                                    </td>
                                     <td class="px-2 py-2 font-mono">$O(n^3)$</td>
                                 </tr>
                             </tbody>
@@ -281,30 +433,58 @@
                 </div>
 
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <div class="absolute top-0 right-0 rtl:left-0 rtl:right-auto p-4 opacity-10">
                         <i class="fa-solid fa-hand-holding-dollar text-8xl text-emerald-500"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mb-4">Greedy Technique</h3>
+                    <h3 class="text-xl font-bold text-emerald-600 dark:text-emerald-400 mb-4">
+                        <span class="lang-en">Greedy Technique</span>
+                        <span class="lang-ar lang-hidden">تقنية الجشع (Greedy Technique)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Makes the locally optimal choice at each step. Fast, but only works for specific problems (Matroids).
+                        <span class="lang-en">Makes the locally optimal choice at each step. Fast, but only works for specific problems (Matroids).</span>
+                        <span class="lang-ar lang-hidden">تتخذ الخيار الأمثل محلياً في كل خطوة. سريعة، لكنها تعمل فقط لمشاكل محددة (Matroids).</span>
                     </p>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">Prim's Algorithm</h4>
-                            <p class="text-xs text-gray-500 mt-1">Grow 1 tree. Use Priority Queue. Good for Dense graphs.</p>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                <span class="lang-en">Prim's Algorithm</span>
+                                <span class="lang-ar lang-hidden">Prim's Algorithm</span>
+                            </h4>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="lang-en">Grow 1 tree. Use Priority Queue. Good for Dense graphs.</span>
+                                <span class="lang-ar lang-hidden">تنمية شجرة واحدة. استخدم Priority Queue. جيد للرسوم الكثيفة.</span>
+                            </p>
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">Kruskal's Algorithm</h4>
-                            <p class="text-xs text-gray-500 mt-1">Merge forests. Use Union-Find. Good for Sparse graphs.</p>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                <span class="lang-en">Kruskal's Algorithm</span>
+                                <span class="lang-ar lang-hidden">Kruskal's Algorithm</span>
+                            </h4>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="lang-en">Merge forests. Use Union-Find. Good for Sparse graphs.</span>
+                                <span class="lang-ar lang-hidden">دمج الغابات. استخدم Union-Find. جيد للرسوم المتناثرة.</span>
+                            </p>
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">Dijkstra</h4>
-                            <p class="text-xs text-gray-500 mt-1">Shortest Path. Like Prim's but accumulates weight. <span class="text-red-500">No Negative Edges.</span></p>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                <span class="lang-en">Dijkstra</span>
+                                <span class="lang-ar lang-hidden">Dijkstra</span>
+                            </h4>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="lang-en">Shortest Path. Like Prim's but accumulates weight. <span class="text-red-500">No Negative Edges.</span></span>
+                                <span class="lang-ar lang-hidden">أقصر مسار. مثل Prim لكن يراكم الوزن. <span class="text-red-500">لا أضلاع سالبة.</span></span>
+                            </p>
                         </div>
                         <div class="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">Huffman</h4>
-                            <p class="text-xs text-gray-500 mt-1">Lossless Compression. Prefix-free codes. Bottom-up tree build.</p>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                <span class="lang-en">Huffman</span>
+                                <span class="lang-ar lang-hidden">Huffman</span>
+                            </h4>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <span class="lang-en">Lossless Compression. Prefix-free codes. Bottom-up tree build.</span>
+                                <span class="lang-ar lang-hidden">ضغط بدون فقدان. أكواد خالية من البادئة. بناء الشجرة من الأسفل للأعلى.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -312,57 +492,96 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Limits of Computing</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Limits of Computing</span>
+                    <span class="lang-ar lang-hidden">حدود الحوسبة</span>
+                </h2>
             </div>
 
             <div class="glass-card p-8 rounded-xl">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-8">
                     <div class="space-y-4 w-full md:w-1/2">
                         <div class="flex items-center">
-                            <span class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 flex items-center justify-center font-bold text-lg mr-4">P</span>
+                            <span class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 flex items-center justify-center font-bold text-lg mr-4 rtl:ml-4 rtl:mr-0">P</span>
                             <div>
-                                <h4 class="font-bold text-gray-900 dark:text-white">Class P</h4>
-                                <p class="text-xs text-gray-500">Solvable in Polynomial Time ($O(n^k)$).</p>
+                                <h4 class="font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Class P</span>
+                                    <span class="lang-ar lang-hidden">الفئة P</span>
+                                </h4>
+                                <p class="text-xs text-gray-500">
+                                    <span class="lang-en">Solvable in Polynomial Time ($O(n^k)$).</span>
+                                    <span class="lang-ar lang-hidden">قابلة للحل في وقت كثير الحدود ($O(n^k)$).</span>
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <span class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-600 flex items-center justify-center font-bold text-lg mr-4">NP</span>
+                            <span class="w-12 h-12 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-600 flex items-center justify-center font-bold text-lg mr-4 rtl:ml-4 rtl:mr-0">NP</span>
                             <div>
-                                <h4 class="font-bold text-gray-900 dark:text-white">Class NP</h4>
-                                <p class="text-xs text-gray-500">Solution <strong>Verifiable</strong> in Polynomial Time. (Includes P).</p>
+                                <h4 class="font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Class NP</span>
+                                    <span class="lang-ar lang-hidden">الفئة NP</span>
+                                </h4>
+                                <p class="text-xs text-gray-500">
+                                    <span class="lang-en">Solution <strong>Verifiable</strong> in Polynomial Time. (Includes P).</span>
+                                    <span class="lang-ar lang-hidden">الحل <strong>قابل للتحقق</strong> في وقت كثير الحدود. (تتضمن P).</span>
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center">
-                            <span class="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900 text-rose-600 flex items-center justify-center font-bold text-sm mr-4">NPC</span>
+                            <span class="w-12 h-12 rounded-full bg-rose-100 dark:bg-rose-900 text-rose-600 flex items-center justify-center font-bold text-sm mr-4 rtl:ml-4 rtl:mr-0">NPC</span>
                             <div>
-                                <h4 class="font-bold text-gray-900 dark:text-white">NP-Complete</h4>
-                                <p class="text-xs text-gray-500">The hardest problems in NP. If one is solved in P, $P=NP$. (e.g., TSP, SAT).</p>
+                                <h4 class="font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">NP-Complete</span>
+                                    <span class="lang-ar lang-hidden">NP-Complete</span>
+                                </h4>
+                                <p class="text-xs text-gray-500">
+                                    <span class="lang-en">The hardest problems in NP. If one is solved in P, $P=NP$. (e.g., TSP, SAT).</span>
+                                    <span class="lang-ar lang-hidden">أصعب المشاكل في NP. إذا حُلت واحدة في P، فإن $P=NP$. (مثل TSP, SAT).</span>
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <div class="w-full md:w-1/2 bg-gray-100 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">How to Cope with NP-Hard?</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-4 border-b border-gray-300 dark:border-gray-600 pb-2">
+                            <span class="lang-en">How to Cope with NP-Hard?</span>
+                            <span class="lang-ar lang-hidden">كيف نتعامل مع NP-Hard؟</span>
+                        </h4>
                         
                         <div class="space-y-4">
                             <div>
-                                <span class="text-sm font-bold text-blue-500">1. Exact Solutions (Smart Brute Force)</span>
+                                <span class="text-sm font-bold text-blue-500">
+                                    <span class="lang-en">1. Exact Solutions (Smart Brute Force)</span>
+                                    <span class="lang-ar lang-hidden">1. حلول دقيقة (Smart Brute Force)</span>
+                                </span>
                                 <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                                    <strong>Backtracking:</strong> DFS state-space tree. Prune non-promising nodes. (N-Queens).
+                                    <strong class="lang-en">Backtracking:</strong><strong class="lang-ar lang-hidden">Backtracking:</strong>
+                                    <span class="lang-en">DFS state-space tree. Prune non-promising nodes. (N-Queens).</span>
+                                    <span class="lang-ar lang-hidden">شجرة فضاء حالة DFS. قلم العقد غير الواعدة. (N-Queens).</span>
                                     <br>
-                                    <strong>Branch-and-Bound:</strong> Optimization. Use bounds to prune. (Knapsack/TSP).
+                                    <strong class="lang-en">Branch-and-Bound:</strong><strong class="lang-ar lang-hidden">Branch-and-Bound:</strong>
+                                    <span class="lang-en">Optimization. Use bounds to prune. (Knapsack/TSP).</span>
+                                    <span class="lang-ar lang-hidden">التحسين. استخدم الحدود للتقليم. (Knapsack/TSP).</span>
                                 </p>
                             </div>
                             <div>
-                                <span class="text-sm font-bold text-purple-500">2. Approximation Algorithms</span>
+                                <span class="text-sm font-bold text-purple-500">
+                                    <span class="lang-en">2. Approximation Algorithms</span>
+                                    <span class="lang-ar lang-hidden">2. خوارزميات التقريب</span>
+                                </span>
                                 <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                                    Accept a sub-optimal answer for speed.
+                                    <span class="lang-en">Accept a sub-optimal answer for speed.</span>
+                                    <span class="lang-ar lang-hidden">قبول إجابة دون المستوى الأمثل للسرعة.</span>
                                     <br>
-                                    <strong>Nearest Neighbor (TSP):</strong> Greedy. Unbounded error.
+                                    <strong class="lang-en">Nearest Neighbor (TSP):</strong><strong class="lang-ar lang-hidden">أقرب جار (TSP):</strong>
+                                    <span class="lang-en">Greedy. Unbounded error.</span>
+                                    <span class="lang-ar lang-hidden">جشع. خطأ غير محدود.</span>
                                     <br>
-                                    <strong>Multifragment Heuristic:</strong> Sort edges, add if no cycle/degree<3.
+                                    <strong class="lang-en">Multifragment Heuristic:</strong><strong class="lang-ar lang-hidden">Multifragment Heuristic:</strong>
+                                    <span class="lang-en">Sort edges, add if no cycle/degree<3.</span>
+                                    <span class="lang-ar lang-hidden">رتب الأضلاع، أضف إذا لم يكن هناك دورة/درجة < 3.</span>
                                 </p>
                             </div>
                         </div>
@@ -375,73 +594,102 @@
             <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
             
             <div class="p-8 relative z-10">
-                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg shadow-yellow-500/30">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Mega Exam Vault (Finals Edition)</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Mega Exam Vault (Finals Edition)</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار الكبرى (إصدار النهائيات)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Heapsort Stability
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Heapsort Stability</span>
+                            <span class="lang-ar lang-hidden">فخ: استقرار Heapsort</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                            Heapsort is <strong>NOT stable</strong>. The operation of swapping the root with the last leaf destroys the relative order of equal elements. Do not use it if stability is required (Use MergeSort instead).
+                            <span class="lang-en">Heapsort is <strong>NOT stable</strong>. The operation of swapping the root with the last leaf destroys the relative order of equal elements. Do not use it if stability is required (Use MergeSort instead).</span>
+                            <span class="lang-ar lang-hidden">الـ Heapsort <strong>ليس مستقراً (Not Stable)</strong>. عملية تبديل الجذر مع الورقة الأخيرة تدمر الترتيب النسبي للعناصر المتساوية. لا تستخدمه إذا كان الاستقرار مطلوباً (استخدم MergeSort بدلاً منه).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Hashing "O(1)"
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Hashing "O(1)"</span>
+                            <span class="lang-ar lang-hidden">فخ: Hashing "O(1)"</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                            Never say "Hashing is O(1)" without adding <strong>"on average"</strong>. In the worst case (all keys collide), it degrades to $O(n)$. This distinction is often a 5-point deduction in exams.
+                            <span class="lang-en">Never say "Hashing is O(1)" without adding <strong>"on average"</strong>. In the worst case (all keys collide), it degrades to $O(n)$. This distinction is often a 5-point deduction in exams.</span>
+                            <span class="lang-ar lang-hidden">لا تقل أبداً "Hashing هو O(1)" دون إضافة <strong>"في المتوسط"</strong>. في أسوأ الحالات (تضارب جميع المفاتيح)، يتراجع إلى $O(n)$. هذا التمييز غالباً ما يخصم 5 درجات في الامتحانات.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: NP Definition
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: NP Definition</span>
+                            <span class="lang-ar lang-hidden">فخ: تعريف NP</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                            NP does <strong>NOT</strong> mean "Not Polynomial". It stands for <strong>Nondeterministic Polynomial</strong>. It means a solution can be <em>verified</em> in polynomial time. P is a subset of NP.
+                            <span class="lang-en">NP does <strong>NOT</strong> mean "Not Polynomial". It stands for <strong>Nondeterministic Polynomial</strong>. It means a solution can be <em>verified</em> in polynomial time. P is a subset of NP.</span>
+                            <span class="lang-ar lang-hidden">NP <strong>لا</strong> تعني "Not Polynomial". إنها تعني <strong>Nondeterministic Polynomial</strong>. تعني أن الحل يمكن <em>التحقق منه</em> في وقت كثير الحدود. P هي مجموعة فرعية من NP.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Prim vs Kruskal
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Prim vs Kruskal</span>
+                            <span class="lang-ar lang-hidden">سر: Prim مقابل Kruskal</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                            When to use which?
+                            <span class="lang-en">When to use which?
                             <br><strong>Dense Graphs ($E \approx V^2$):</strong> Use Prim's (with Adjacency Matrix).
-                            <br><strong>Sparse Graphs ($E \approx V$):</strong> Use Kruskal's (depends on edges).
+                            <br><strong>Sparse Graphs ($E \approx V$):</strong> Use Kruskal's (depends on edges).</span>
+                            <span class="lang-ar lang-hidden">متى تستخدم أياً منهما؟
+                            <br><strong>الرسوم الكثيفة ($E \approx V^2$):</strong> استخدم Prim's (مع مصفوفة الجوار).
+                            <br><strong>الرسوم المتناثرة ($E \approx V$):</strong> استخدم Kruskal's (يعتمد على الأضلاع).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-key mr-2"></i> SECRET: Knapsack Distinction
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Knapsack Distinction</span>
+                            <span class="lang-ar lang-hidden">سر: التمييز بين أنواع Knapsack</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                            <strong>Fractional Knapsack:</strong> Solvable by Greedy (Value/Weight ratio).
-                            <br><strong>0/1 Knapsack:</strong> Greedy Fails. Requires Dynamic Programming ($O(nW)$).
+                            <span class="lang-en"><strong>Fractional Knapsack:</strong> Solvable by Greedy (Value/Weight ratio).
+                            <br><strong>0/1 Knapsack:</strong> Greedy Fails. Requires Dynamic Programming ($O(nW)$).</span>
+                            <span class="lang-ar lang-hidden"><strong>Fractional Knapsack:</strong> قابلة للحل بواسطة Greedy (نسبة القيمة/الوزن).
+                            <br><strong>0/1 Knapsack:</strong> تفشل Greedy. تتطلب البرمجة الديناميكية ($O(nW)$).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: Backtracking vs B&B
+                            <i class="fa-solid fa-lightbulb mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Backtracking vs B&B</span>
+                            <span class="lang-ar lang-hidden">سر: Backtracking مقابل B&B</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                            Both use state-space trees.
+                            <span class="lang-en">Both use state-space trees.
                             <br><strong>Backtracking:</strong> For finding *all* solutions or feasibility (N-Queens).
-                            <br><strong>Branch-and-Bound:</strong> For *optimization* (Min/Max cost). Uses bounds to prune more aggressively.
+                            <br><strong>Branch-and-Bound:</strong> For *optimization* (Min/Max cost). Uses bounds to prune more aggressively.</span>
+                            <span class="lang-ar lang-hidden">كلاهما يستخدم أشجار فضاء الحالة.
+                            <br><strong>Backtracking:</strong> لإيجاد *كل* الحلول أو الجدوى (N-Queens).
+                            <br><strong>Branch-and-Bound:</strong> لـ *التحسين* (أقل/أقصى تكلفة). يستخدم الحدود للتقليم بقوة أكبر.</span>
                         </p>
                     </div>
                 </div>
@@ -452,18 +700,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="../index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Dashboard</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="../index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Dashboard</span>
+                    <span class="lang-ar lang-hidden">لوحة التحكم</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Home</span>
+                    <span class="lang-ar lang-hidden">الصفحة الرئيسية للمقرر</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Quiz</span>
+                    <span class="lang-ar lang-hidden">الاختبار النهائي</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -481,6 +742,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 </body>

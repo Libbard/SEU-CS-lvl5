@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 7: Transform-and-Conquer II</title>
@@ -50,6 +59,55 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .ltr-protection { 
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-r-2 { border-right-width: 0; border-left-width: 2px; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r { border-right-width: 0; border-left-width: 1px; }
+
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -115,33 +173,73 @@
         .node-anim {
             animation: pulse-node 2s infinite;
         }
+
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
+
+        
+        @keyframes vault-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+        .vault-border {
+            animation: vault-pulse 2s infinite;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 7</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 7</span>
+                        <span class="lang-ar lang-hidden">الوحدة 7</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module8.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -158,47 +256,74 @@
                 <i class="fa-solid fa-cubes-stacked text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Heaps, Heapsort & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Problem Reduction</span>
+                <span class="lang-en">Heaps, Heapsort & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Problem Reduction</span></span>
+                <span class="lang-ar lang-hidden">Heaps, Heapsort و <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Problem Reduction (اختزال المشاكل)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Part II of Transform-and-Conquer. Mastering data structures that bridge the gap between trees and arrays, and solving problems by transforming them into ones we already know.
+                <span class="lang-en">Part II of Transform-and-Conquer. Mastering data structures that bridge the gap between trees and arrays, and solving problems by transforming them into ones we already know.</span>
+                <span class="lang-ar lang-hidden">الجزء الثاني من "التحويل والسيطرة". إتقان هياكل البيانات التي تربط بين الأشجار والمصفوفات، وحل المشاكل عن طريق تحويلها إلى مشاكل نعرف حلها مسبقاً.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Representation Change</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Heap Property</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Priority Queues</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Reductions</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Representation Change</span>
+                    <span class="lang-ar lang-hidden">Representation Change</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Heap Property</span>
+                    <span class="lang-ar lang-hidden">Heap Property</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Priority Queues</span>
+                    <span class="lang-ar lang-hidden">Priority Queues</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Reductions</span>
+                    <span class="lang-ar lang-hidden">Reductions</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Heaps: The Binary Tree in an Array</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Heaps: The Binary Tree in an Array</span>
+                    <span class="lang-ar lang-hidden">Heaps: الشجرة الثنائية داخل مصفوفة</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Definition</h3>
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-brand-500">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                        <span class="lang-en">Definition</span>
+                        <span class="lang-ar lang-hidden">التعريف</span>
+                    </h3>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">
-                        A <span class="smart-term font-bold text-brand-500" data-ar="كومة">Heap</span> is a binary tree with two critical properties:
+                        <span class="lang-en">A <span class="smart-term font-bold text-brand-500" data-ar="كومة">Heap</span> is a binary tree with two critical properties:</span>
+                        <span class="lang-ar lang-hidden">الـ <span class="smart-term font-bold text-brand-500" data-ar="كومة">Heap</span> هي شجرة ثنائية تتمتع بخاصيتين حاسمتين:</span>
                     </p>
                     <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
                         <li class="flex items-start">
-                            <i class="fa-solid fa-sitemap text-brand-500 mt-1 mr-2"></i>
-                            <span><strong>Structural Property:</strong> It is <em class="text-gray-900 dark:text-white font-semibold">Essentially Complete</em>. All levels are full except possibly the last, which is filled from left to right. This allows implementation as an ARRAY.</span>
+                            <i class="fa-solid fa-sitemap text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span>
+                                <span class="lang-en"><strong>Structural Property:</strong> It is <em class="text-gray-900 dark:text-white font-semibold">Essentially Complete</em>. All levels are full except possibly the last, which is filled from left to right. This allows implementation as an ARRAY.</span>
+                                <span class="lang-ar lang-hidden"><strong>الخاصية الهيكلية:</strong> هي <em class="text-gray-900 dark:text-white font-semibold">Essentially Complete (شبه كاملة)</em>. جميع المستويات ممتلئة ما عدا الأخير، الذي يُملأ من اليسار إلى اليمين. هذا يسمح بتنفيذها كمصفوفة (ARRAY).</span>
+                            </span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fa-solid fa-arrow-up-right-dots text-brand-500 mt-1 mr-2"></i>
-                            <span><strong>Parental Dominance:</strong> The key at every node is $\ge$ (or $\le$ for min-heap) the keys of its children.</span>
+                            <i class="fa-solid fa-arrow-up-right-dots text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span>
+                                <span class="lang-en"><strong>Parental Dominance:</strong> The key at every node is $\ge$ (or $\le$ for min-heap) the keys of its children.</span>
+                                <span class="lang-ar lang-hidden"><strong>هيمنة الوالد (Parental Dominance):</strong> المفتاح في كل عقدة هو $\ge$ (أو $\le$ في الـ min-heap) مفاتيح أبنائها.</span>
+                            </span>
                         </li>
                     </ul>
                 </div>
 
-                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl flex flex-col items-center justify-center space-y-4">
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl flex flex-col items-center justify-center space-y-4 ltr-protection" dir="ltr">
                     <div class="flex flex-col items-center">
                         <div class="w-12 h-12 rounded-full bg-brand-500 text-white flex items-center justify-center font-bold shadow-lg z-10 node-anim">10</div>
                         <div class="flex space-x-8 mt-4 relative">
@@ -217,7 +342,10 @@
                         </div>
                     </div>
                     <div class="w-full mt-4">
-                        <p class="text-xs text-center text-gray-500 mb-1">Array Representation</p>
+                        <p class="text-xs text-center text-gray-500 mb-1">
+                            <span class="lang-en">Array Representation</span>
+                            <span class="lang-ar lang-hidden">تمثيل المصفوفة</span>
+                        </p>
                         <div class="flex border border-gray-400 rounded overflow-hidden">
                             <div class="flex-1 bg-brand-500 text-white text-center py-1 text-xs border-r border-gray-400">10</div>
                             <div class="flex-1 bg-brand-400 text-white text-center py-1 text-xs border-r border-gray-400">5</div>
@@ -234,121 +362,186 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Heap Construction</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Heap Construction</span>
+                    <span class="lang-ar lang-hidden">بناء الـ Heap (Heap Construction)</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The "Heapify" Process</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">The "Heapify" Process</span>
+                        <span class="lang-ar lang-hidden">عملية "Heapify"</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        We don't insert elements one by one ($O(n \log n)$). Instead, we dump data into an array and fix it <strong>Bottom-Up</strong>.
+                        <span class="lang-en">We don't insert elements one by one ($O(n \log n)$). Instead, we dump data into an array and fix it <strong>Bottom-Up</strong>.</span>
+                        <span class="lang-ar lang-hidden">نحن لا ندرج العناصر واحداً تلو الآخر ($O(n \log n)$). بدلاً من ذلك، نضع البيانات في مصفوفة ونصلحها بطريقة <strong>من الأسفل للأعلى (Bottom-Up)</strong>.</span>
                     </p>
-                    <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                        <li>Start at the last parent node (index $\lfloor n/2 \rfloor$).</li>
-                        <li>Check if the parent dominates its children.</li>
-                        <li>If not, <strong>Swap</strong> with the larger child (sift down).</li>
-                        <li>Move backwards to index 1.</li>
+                    <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700 dark:text-gray-300 rtl:pr-4 rtl:pl-0">
+                        <li>
+                            <span class="lang-en">Start at the last parent node (index $\lfloor n/2 \rfloor$).</span>
+                            <span class="lang-ar lang-hidden">ابدأ عند آخر عقدة أب (المؤشر $\lfloor n/2 \rfloor$).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Check if the parent dominates its children.</span>
+                            <span class="lang-ar lang-hidden">تحقق مما إذا كان الأب يهيمن على أبنائه.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">If not, <strong>Swap</strong> with the larger child (sift down).</span>
+                            <span class="lang-ar lang-hidden">إذا لم يكن كذلك، <strong>بَدّل (Swap)</strong> مع الابن الأكبر (الغربلة لأسفل / sift down).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Move backwards to index 1.</span>
+                            <span class="lang-ar lang-hidden">تحرك للخلف حتى المؤشر 1.</span>
+                        </li>
                     </ol>
                     <div class="mt-4 p-3 bg-brand-50 dark:bg-brand-900/20 rounded-lg text-center border border-brand-200 dark:border-brand-800">
-                        <span class="text-sm font-bold text-brand-700 dark:text-brand-300">Efficiency: $O(n)$</span>
-                        <p class="text-xs text-brand-600 dark:text-brand-400">Surprisingly, building a heap is linear time, not log-linear.</p>
+                        <span class="text-sm font-bold text-brand-700 dark:text-brand-300">
+                            <span class="lang-en">Efficiency: $O(n)$</span>
+                            <span class="lang-ar lang-hidden">الكفاءة: $O(n)$</span>
+                        </span>
+                        <p class="text-xs text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">Surprisingly, building a heap is linear time, not log-linear.</span>
+                            <span class="lang-ar lang-hidden">بشكل مفاجئ، بناء الـ heap يتم في وقت خطي، وليس لوغاريتمي-خطي.</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Heapsort: The 2-Stage Algorithm</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Heapsort: The 2-Stage Algorithm</span>
+                    <span class="lang-ar lang-hidden">Heapsort: الخوارزمية ذات المرحلتين</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-2 text-6xl text-gray-200 dark:text-gray-700 font-bold opacity-20">1</div>
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 z-10 relative">Stage 1: Construction</h4>
+                    <div class="absolute top-0 right-0 p-2 text-6xl text-gray-200 dark:text-gray-700 font-bold opacity-20 rtl:right-auto rtl:left-0">1</div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 z-10 relative">
+                        <span class="lang-en">Stage 1: Construction</span>
+                        <span class="lang-ar lang-hidden">المرحلة 1: البناء</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 z-10 relative">
-                        Construct a heap from the given array using the Bottom-Up approach.
+                        <span class="lang-en">Construct a heap from the given array using the Bottom-Up approach.</span>
+                        <span class="lang-ar lang-hidden">بناء الـ heap من المصفوفة المعطاة باستخدام نهج Bottom-Up.</span>
 						<br><br><br>
                     </p>
                     <div class="text-xs font-mono bg-gray-100 dark:bg-gray-900 p-2 rounded text-center">
-                        Cost: $O(n)$
+                        <span class="lang-en">Cost: $O(n)$</span>
+                        <span class="lang-ar lang-hidden">Cost: $O(n)$</span>
                     </div>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-2 text-6xl text-gray-200 dark:text-gray-700 font-bold opacity-20">2</div>
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 z-10 relative">Stage 2: Root Deletion</h4>
+                    <div class="absolute top-0 right-0 p-2 text-6xl text-gray-200 dark:text-gray-700 font-bold opacity-20 rtl:right-auto rtl:left-0">2</div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2 z-10 relative">
+                        <span class="lang-en">Stage 2: Root Deletion</span>
+                        <span class="lang-ar lang-hidden">المرحلة 2: حذف الجذر</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 z-10 relative">
+                        <span class="lang-en">
                         1. Swap Root (Max) with Last Element.<br>
                         2. Decrease heap size by 1.<br>
                         3. Sift down the new root.<br>
                         4. Repeat $n-1$ times.
+                        </span>
+                        <span class="lang-ar lang-hidden">
+                        1. بدل الجذر (الأكبر) مع آخر عنصر.<br>
+                        2. قلل حجم الـ heap بمقدار 1.<br>
+                        3. غربل الجذر الجديد للأسفل.<br>
+                        4. كرر العملية $n-1$ مرة.
+                        </span>
                     </p>
                     <div class="text-xs font-mono bg-gray-100 dark:bg-gray-900 p-2 rounded text-center">
-                        Cost: $O(n \log n)$
+                        <span class="lang-en">Cost: $O(n \log n)$</span>
+                        <span class="lang-ar lang-hidden">Cost: $O(n \log n)$</span>
                     </div>
                 </div>
             </div>
 
             <div class="mt-6 text-center">
                 <span class="inline-block px-4 py-2 rounded-full bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-bold shadow-lg">
-                    Total Complexity: $O(n \log n)$
+                    <span class="lang-en">Total Complexity: $O(n \log n)$</span>
+                    <span class="lang-ar lang-hidden">التعقيد الكلي: $O(n \log n)$</span>
                 </span>
-                <p class="text-xs text-gray-500 mt-2">Space Complexity: $O(1)$ (In-place)</p>
+                <p class="text-xs text-gray-500 mt-2">
+                    <span class="lang-en">Space Complexity: $O(1)$ (In-place)</span>
+                    <span class="lang-ar lang-hidden">تعقيد المساحة: $O(1)$ (In-place)</span>
+                </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Problem Reduction</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Problem Reduction</span>
+                    <span class="lang-ar lang-hidden">اختزال المشكلة (Problem Reduction)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                    <i class="fa-solid fa-right-left text-brand-500 mr-2"></i>
-                    "If you can't solve a problem, transform it into one you <em>can</em> solve."
+                    <i class="fa-solid fa-right-left text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                    <span class="lang-en">"If you can't solve a problem, transform it into one you <em>can</em> solve."</span>
+                    <span class="lang-ar lang-hidden">"إذا لم تتمكن من حل المشكلة، حولها إلى مشكلة <em>تستطيع</em> حلها."</span>
                 </p>
 
                 <div class="space-y-4">
                     <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <div class="flex-shrink-0 bg-rose-100 dark:bg-rose-900 text-rose-500 p-2 rounded-lg mr-4">
+                        <div class="flex-shrink-0 bg-rose-100 dark:bg-rose-900 text-rose-500 p-2 rounded-lg mr-4 rtl:ml-4 rtl:mr-0">
                             <i class="fa-solid fa-calculator"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-gray-900 dark:text-white">LCM via GCD</h4>
+                            <h4 class="font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">LCM via GCD</span>
+                                <span class="lang-ar lang-hidden">المضاعف المشترك الأصغر (LCM) عبر GCD</span>
+                            </h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400">
-                                Finding the Least Common Multiple (LCM) is hard. Finding GCD (Euclid's) is easy.
+                                <span class="lang-en">Finding the Least Common Multiple (LCM) is hard. Finding GCD (Euclid's) is easy.</span>
+                                <span class="lang-ar lang-hidden">إيجاد المضاعف المشترك الأصغر (LCM) صعب. إيجاد القاسم المشترك الأكبر (GCD) باستخدام إقليدس سهل.</span>
                             </p>
-                            <code class="block mt-2 text-xs bg-gray-200 dark:bg-gray-700 p-1 rounded w-max">
+                            <code class="block mt-2 text-xs bg-gray-200 dark:bg-gray-700 p-1 rounded w-max font-mono math-block ltr-protection" dir="ltr">
                                 LCM(u, v) = (u * v) / GCD(u, v)
                             </code>
                         </div>
                     </div>
 
                     <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <div class="flex-shrink-0 bg-blue-100 dark:bg-blue-900 text-blue-500 p-2 rounded-lg mr-4">
+                        <div class="flex-shrink-0 bg-blue-100 dark:bg-blue-900 text-blue-500 p-2 rounded-lg mr-4 rtl:ml-4 rtl:mr-0">
                             <i class="fa-solid fa-route"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-gray-900 dark:text-white">Counting Paths</h4>
+                            <h4 class="font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Counting Paths</span>
+                                <span class="lang-ar lang-hidden">عد المسارات (Counting Paths)</span>
+                            </h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400">
-                                Count paths of length $n$ in a graph? Reduce it to <strong>Matrix Multiplication</strong>. Compute $A^n$ (Adjacency Matrix to power $n$).
+                                <span class="lang-en">Count paths of length $n$ in a graph? Reduce it to <strong>Matrix Multiplication</strong>. Compute $A^n$ (Adjacency Matrix to power $n$).</span>
+                                <span class="lang-ar lang-hidden">عد المسارات بطول $n$ في رسم بياني؟ حولها إلى <strong>ضرب المصفوفات</strong>. احسب $A^n$ (مصفوفة المجاورة للقوة $n$).</span>
                             </p>
                         </div>
                     </div>
 
                     <div class="flex items-start p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <div class="flex-shrink-0 bg-emerald-100 dark:bg-emerald-900 text-emerald-500 p-2 rounded-lg mr-4">
+                        <div class="flex-shrink-0 bg-emerald-100 dark:bg-emerald-900 text-emerald-500 p-2 rounded-lg mr-4 rtl:ml-4 rtl:mr-0">
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
                         <div>
-                            <h4 class="font-bold text-gray-900 dark:text-white">Linear Programming</h4>
+                            <h4 class="font-bold text-gray-900 dark:text-white">
+                                <span class="lang-en">Linear Programming</span>
+                                <span class="lang-ar lang-hidden">البرمجة الخطية (Linear Programming)</span>
+                            </h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400">
-                                Many optimization problems (Network Flow, Knapsack) can be reduced to a standard <strong>Linear Programming</strong> model and solved using Simplex.
+                                <span class="lang-en">Many optimization problems (Network Flow, Knapsack) can be reduced to a standard <strong>Linear Programming</strong> model and solved using Simplex.</span>
+                                <span class="lang-ar lang-hidden">العديد من مشاكل التحسين (تدفق الشبكات، Knapsack) يمكن تحويلها إلى نموذج <strong>برمجة خطية</strong> قياسي وحلها باستخدام Simplex.</span>
                             </p>
                         </div>
                     </div>
@@ -358,57 +551,80 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Heap vs BST
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Heap vs BST</span>
+                            <span class="lang-ar lang-hidden">فخ: Heap مقابل BST</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            A Heap is <strong>NOT</strong> a Binary Search Tree.
+                            <span class="lang-en">A Heap is <strong>NOT</strong> a Binary Search Tree.
                             <br>BST: Left < Parent < Right.
                             <br>Heap: Parent > Children (Left AND Right).
-                            <br>Heaps are ordered top-to-bottom, <br>BSTs left-to-right. Don't confuse them! 
+                            <br>Heaps are ordered top-to-bottom, <br>BSTs left-to-right. Don't confuse them!</span>
+                            <span class="lang-ar lang-hidden">الـ Heap <strong>ليست</strong> شجرة بحث ثنائية (BST).
+                            <br>BST: اليسار < الأب < اليمين.
+                            <br>Heap: الأب > الأبناء (اليسار واليمين).
+                            <br>الـ Heaps مرتبة من الأعلى للأسفل، <br>والـ BSTs من اليسار لليمين. لا تخلط بينهما!</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Array Indices
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Array Indices</span>
+                            <span class="lang-ar lang-hidden">فخ: فهارس المصفوفات (Indices)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In algorithm theory, arrays often start at index 1 for easier math (Left child = $2i$, Right = $2i+1$). <br>In C++/Java, they start at 0 (Left = $2i+1$, Right = $2i+2$). Check the context of the question! 
+                            <span class="lang-en">In algorithm theory, arrays often start at index 1 for easier math (Left child = $2i$, Right = $2i+1$). <br>In C++/Java, they start at 0 (Left = $2i+1$, Right = $2i+2$). Check the context of the question!</span>
+                            <span class="lang-ar lang-hidden">في نظرية الخوارزميات، غالباً ما تبدأ المصفوفات عند المؤشر 1 لسهولة الحساب (الابن الأيسر = $2i$، الأيمن = $2i+1$). <br>في C++/Java، تبدأ عند 0 (اليسار = $2i+1$، اليمين = $2i+2$). تحقق من سياق السؤال!</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Construction Speed
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Construction Speed</span>
+                            <span class="lang-ar lang-hidden">سر: سرعة البناء</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Constructing a heap using `HeapInsert` $n$ times takes $O(n \log n)$. Using the Bottom-Up approach takes $O(n)$. <br>This linear time construction is the "secret sauce" of Heapsort efficiency. 
+                            <span class="lang-en">Constructing a heap using `HeapInsert` $n$ times takes $O(n \log n)$. Using the Bottom-Up approach takes $O(n)$. <br>This linear time construction is the "secret sauce" of Heapsort efficiency.</span>
+                            <span class="lang-ar lang-hidden">بناء الـ heap باستخدام `HeapInsert` لـ $n$ مرات يستغرق $O(n \log n)$. استخدام نهج Bottom-Up يستغرق $O(n)$. <br>هذا الوقت الخطي هو "السر" وراء كفاءة Heapsort.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Reduction Direction
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Reduction Direction</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: اتجاه الاختزال</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Always reduce the <strong>Unknown</strong> problem TO the <strong>Known</strong> problem.
+                            <span class="lang-en">Always reduce the <strong>Unknown</strong> problem TO the <strong>Known</strong> problem.
                             <br>Correct: "I can solve LCM by reducing it to GCD."
-                            <br>Incorrect: "I can solve GCD by reducing it to LCM." 
+                            <br>Incorrect: "I can solve GCD by reducing it to LCM."</span>
+                            <span class="lang-ar lang-hidden">دائماً اختزل المشكلة <strong>المجهولة</strong> إلى المشكلة <strong>المعروفة</strong>.
+                            <br>صحيح: "يمكنني حل LCM عن طريق اختزاله إلى GCD."
+                            <br>خطأ: "يمكنني حل GCD عن طريق اختزاله إلى LCM."</span>
                         </p>
                     </div>
                 </div>
@@ -419,18 +635,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 6</span>
+                    <span class="lang-ar lang-hidden">الوحدة 6</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 8</span>
+                    <span class="lang-ar lang-hidden">الوحدة 8</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -449,46 +678,53 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 2: Processes & Threads</title>
@@ -40,15 +49,15 @@
             }
         }
     </script>
-	
-	<script>
+
+    <script>
         MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']]
             }
         };
     </script>
-	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -123,17 +132,33 @@
         }
 
         
-        .terminal {
-            background-color: #1e1e1e;
-            color: #d4d4d4;
-            font-family: 'JetBrains Mono', monospace;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border-left: 4px solid #10b981;
-            overflow-x: auto;
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l { border-left-width: 0; border-right-width: 1px; }
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .pl-8 { padding-left: 0; padding-right: 2rem; }
+        [dir="rtl"] .border-l { border-left-width: 0; border-right-width: 1px; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
+        
+        
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .mermaid {
+            direction: ltr !important;
+            text-align: left !important;
         }
-        .terminal-prompt { color: #10b981; font-weight: bold; }
-        .terminal-cmd { color: #60a5fa; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -141,26 +166,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module1.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 2</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 2</span>
+                        <span class="lang-ar lang-hidden">الوحدة 2</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-microchip text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module3.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -177,66 +217,122 @@
                 <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Execution: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Processes & Threads</span>
+                <span class="lang-en">Execution: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Processes & Threads</span></span>
+                <span class="lang-ar lang-hidden">التنفيذ: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">العمليات والخيوط (Processes & Threads)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Understanding the life cycle of a process, scheduling, context switching, and the power of multithreading.
+                <span class="lang-en">Understanding the life cycle of a process, scheduling, context switching, and the power of multithreading.</span>
+                <span class="lang-ar lang-hidden">فهم دورة حياة العملية، الجدولة، تبديل السياق (Context Switching)، وقوة تعدد الخيوط (Multithreading).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">PCB</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Context Switch</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">IPC (Pipes/Shared Mem)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Threads</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Amdahl's Law</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">PCB</span>
+                    <span class="lang-ar lang-hidden">PCB</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Context Switch</span>
+                    <span class="lang-ar lang-hidden">Context Switch</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">IPC (Pipes/Shared Mem)</span>
+                    <span class="lang-ar lang-hidden">IPC (Pipes/Shared Mem)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Threads</span>
+                    <span class="lang-ar lang-hidden">Threads</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Amdahl's Law</span>
+                    <span class="lang-ar lang-hidden">Amdahl's Law</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Process</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Process</span>
+                    <span class="lang-ar lang-hidden">العملية (The Process)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    A <strong class="text-brand-600 dark:text-brand-400">Process</strong> is a program in execution. It is the active entity, unlike a program (which is passive code on disk).
+                    <span class="lang-en">A <strong class="text-brand-600 dark:text-brand-400">Process</strong> is a program in execution. It is the active entity, unlike a program (which is passive code on disk).</span>
+                    <span class="lang-ar lang-hidden">الـ <strong class="text-brand-600 dark:text-brand-400">Process</strong> هي برنامج قيد التنفيذ. إنها الكيان النشط، على عكس البرنامج (الذي هو كود خامل على القرص).</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wide">Process in Memory</h4>
-                        <div class="flex flex-col border-2 border-gray-700 rounded-lg overflow-hidden text-center text-xs font-mono">
-                            <div class="bg-red-500/20 p-2 border-b border-gray-700">Stack (Function calls, local vars) <br> <i class="fa-solid fa-arrow-down"></i></div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wide">
+                            <span class="lang-en">Process in Memory</span>
+                            <span class="lang-ar lang-hidden">العملية في الذاكرة</span>
+                        </h4>
+                        <div class="flex flex-col border-2 border-gray-700 rounded-lg overflow-hidden text-center text-xs font-mono" dir="ltr">
+                            <div class="bg-red-500/20 p-2 border-b border-gray-700">
+                                Stack (Function calls, local vars) <br> <i class="fa-solid fa-arrow-down"></i>
+                            </div>
                             <div class="p-4 bg-transparent text-gray-500 italic">Free Space</div>
-                            <div class="bg-blue-500/20 p-2 border-t border-gray-700"><i class="fa-solid fa-arrow-up"></i> <br> Heap (Dynamic Allocation)</div>
+                            <div class="bg-blue-500/20 p-2 border-t border-gray-700">
+                                <i class="fa-solid fa-arrow-up"></i> <br> Heap (Dynamic Allocation)
+                            </div>
                             <div class="bg-green-500/20 p-2 border-t border-gray-700">Data (Global Variables)</div>
                             <div class="bg-gray-500/20 p-2 border-t border-gray-700">Text (Code Instructions)</div>
                         </div>
                     </div>
 
                     <div class="space-y-2">
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wide">Process Control Block (PCB)</h4>
-                        <p class="text-xs text-gray-500 mb-2">The data structure the OS uses to manage a process.</p>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wide">
+                            <span class="lang-en">Process Control Block (PCB)</span>
+                            <span class="lang-ar lang-hidden">Process Control Block (PCB)</span>
+                        </h4>
+                        <p class="text-xs text-gray-500 mb-2">
+                            <span class="lang-en">The data structure the OS uses to manage a process.</span>
+                            <span class="lang-ar lang-hidden">هيكل البيانات الذي يستخدمه نظام التشغيل لإدارة العملية.</span>
+                        </p>
                         <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-300 space-y-1 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                            <li><strong>Process State:</strong> Running, Waiting, etc.</li>
-                            <li><strong>Program Counter:</strong> Address of next instruction.</li>
-                            <li><strong>CPU Registers:</strong> Accumulators, index registers.</li>
-                            <li><strong>CPU Scheduling Info:</strong> Priority, pointers.</li>
-                            <li><strong>Memory Mgmt Info:</strong> Base/Limit registers.</li>
-                            <li><strong>Accounting Info:</strong> CPU time used.</li>
-                            <li><strong>I/O Status Info:</strong> List of open files.</li>
+                            <li>
+                                <strong class="lang-en">Process State:</strong><strong class="lang-ar lang-hidden">Process State:</strong>
+                                <span class="lang-en">Running, Waiting, etc.</span><span class="lang-ar lang-hidden"> قيد التشغيل، الانتظار، إلخ.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Program Counter:</strong><strong class="lang-ar lang-hidden">Program Counter:</strong>
+                                <span class="lang-en">Address of next instruction.</span><span class="lang-ar lang-hidden"> عنوان التعليمة التالية.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">CPU Registers:</strong><strong class="lang-ar lang-hidden">CPU Registers:</strong>
+                                <span class="lang-en">Accumulators, index registers.</span><span class="lang-ar lang-hidden"> المراكم، سجلات الفهرسة.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">CPU Scheduling Info:</strong><strong class="lang-ar lang-hidden">CPU Scheduling Info:</strong>
+                                <span class="lang-en">Priority, pointers.</span><span class="lang-ar lang-hidden"> الأولوية، المؤشرات.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Memory Mgmt Info:</strong><strong class="lang-ar lang-hidden">Memory Mgmt Info:</strong>
+                                <span class="lang-en">Base/Limit registers.</span><span class="lang-ar lang-hidden"> سجلات الأساس/الحد.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Accounting Info:</strong><strong class="lang-ar lang-hidden">Accounting Info:</strong>
+                                <span class="lang-en">CPU time used.</span><span class="lang-ar lang-hidden"> وقت CPU المستخدم.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">I/O Status Info:</strong><strong class="lang-ar lang-hidden">I/O Status Info:</strong>
+                                <span class="lang-en">List of open files.</span><span class="lang-ar lang-hidden"> قائمة الملفات المفتوحة.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <div class="mt-8 glass-card p-6 rounded-xl">
-                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">Process State Diagram</h4>
+                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">
+                    <span class="lang-en">Process State Diagram</span>
+                    <span class="lang-ar lang-hidden">مخطط حالة العملية</span>
+                </h4>
                 
-
-
                 <div class="mermaid flex justify-center">
                     stateDiagram-v2
                         [*] --> New: Create
@@ -252,34 +348,51 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Scheduling</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Scheduling</span>
+                    <span class="lang-ar lang-hidden">الجدولة (Scheduling)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Context Switch</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Context Switch</span>
+                        <span class="lang-ar lang-hidden">تبديل السياق (Context Switch)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        When CPU switches to another process, the system must <span class="text-red-500 font-bold">save the state</span> of the old process and <span class="text-green-500 font-bold">load the saved state</span> for the new process.
+                        <span class="lang-en">When CPU switches to another process, the system must <span class="text-red-500 font-bold">save the state</span> of the old process and <span class="text-green-500 font-bold">load the saved state</span> for the new process.</span>
+                        <span class="lang-ar lang-hidden">عندما يتحول الـ CPU لعملية أخرى، يجب على النظام <span class="text-red-500 font-bold">حفظ حالة</span> العملية القديمة و <span class="text-green-500 font-bold">تحميل الحالة المحفوظة</span> للعملية الجديدة.</span>
                     </p>
                     <p class="text-xs text-gray-500 mt-2 italic">
-                        *Pure overhead. The system does no useful work while switching.
+                        <span class="lang-en">*Pure overhead. The system does no useful work while switching.</span>
+                        <span class="lang-ar lang-hidden">*تكلفة تشغيلية بحتة (Overhead). النظام لا يقوم بأي عمل مفيد أثناء التبديل.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Operations</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Operations</span>
+                        <span class="lang-ar lang-hidden">العمليات</span>
+                    </h3>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
                         <li>
-                            <strong class="text-brand-600">Creation:</strong> Parent creates children, forming a tree.
-                            <br><span class="font-mono bg-gray-800 px-1 rounded text-green-400">fork()</span>: Creates a duplicate process.
-                            <br><span class="font-mono bg-gray-800 px-1 rounded text-green-400">exec()</span>: Loads a new binary into memory.
+                            <strong class="text-brand-600">
+                                <span class="lang-en">Creation:</span><span class="lang-ar lang-hidden">الإنشاء (Creation):</span>
+                            </strong> 
+                            <span class="lang-en">Parent creates children, forming a tree.</span><span class="lang-ar lang-hidden"> الأب ينشئ الأبناء، مشكلاً شجرة.</span>
+                            <br><span class="font-mono bg-gray-800 px-1 rounded text-green-400">fork()</span>: <span class="lang-en">Creates a duplicate process.</span><span class="lang-ar lang-hidden"> ينشئ عملية مكررة.</span>
+                            <br><span class="font-mono bg-gray-800 px-1 rounded text-green-400">exec()</span>: <span class="lang-en">Loads a new binary into memory.</span><span class="lang-ar lang-hidden"> يحمل كوداً ثنائياً جديداً للذاكرة.</span>
                         </li>
                         <li>
-                            <strong class="text-brand-600">Termination:</strong> Process executes last statement or `exit()`.
-                            <br><em>Zombie:</em> Terminated but parent hasn't called `wait()`.
-                            <br><em>Orphan:</em> Parent terminated without invoking `wait()`.
+                            <strong class="text-brand-600">
+                                <span class="lang-en">Termination:</span><span class="lang-ar lang-hidden">الإنهاء (Termination):</span>
+                            </strong> 
+                            <span class="lang-en">Process executes last statement or `exit()`.</span><span class="lang-ar lang-hidden"> العملية تنفذ آخر جملة أو تستدعي `exit()`.</span>
+                            <br><em class="lang-en">Zombie:</em><em class="lang-ar lang-hidden">Zombie:</em> <span class="lang-en">Terminated but parent hasn't called `wait()`.</span><span class="lang-ar lang-hidden"> انتهت ولكن الأب لم يستدعِ `wait()`.</span>
+                            <br><em class="lang-en">Orphan:</em><em class="lang-ar lang-hidden">Orphan:</em> <span class="lang-en">Parent terminated without invoking `wait()`.</span><span class="lang-ar lang-hidden"> انتهى الأب دون استدعاء `wait()`.</span>
                         </li>
                     </ul>
                 </div>
@@ -287,32 +400,40 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Inter-Process Communication (IPC)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Inter-Process Communication (IPC)</span>
+                    <span class="lang-ar lang-hidden">الاتصال بين العمليات (IPC)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Processes can be <strong>Independent</strong> or <strong>Cooperating</strong>. Cooperating processes need IPC.
+                    <span class="lang-en">Processes can be <strong>Independent</strong> or <strong>Cooperating</strong>. Cooperating processes need IPC.</span>
+                    <span class="lang-ar lang-hidden">يمكن أن تكون العمليات <strong>مستقلة</strong> أو <strong>متعاونة</strong>. العمليات المتعاونة تحتاج إلى IPC.</span>
                 </p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-brand-600 mb-2"><i class="fa-solid fa-memory mr-2"></i>Shared Memory</strong>
+                        <strong class="block text-brand-600 mb-2"><i class="fa-solid fa-memory mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Shared Memory</span><span class="lang-ar lang-hidden">Shared Memory (الذاكرة المشتركة)</span>
+                        </strong>
                         <ul class="list-disc list-inside text-gray-500 text-xs">
-                            <li>Fastest (memory speed).</li>
-                            <li>Convenient for large data.</li>
-                            <li>Complex synchronization required (locks).</li>
+                            <li><span class="lang-en">Fastest (memory speed).</span><span class="lang-ar lang-hidden">الأسرع (سرعة الذاكرة).</span></li>
+                            <li><span class="lang-en">Convenient for large data.</span><span class="lang-ar lang-hidden">مناسبة للبيانات الكبيرة.</span></li>
+                            <li><span class="lang-en">Complex synchronization required (locks).</span><span class="lang-ar lang-hidden">تتطلب مزامنة معقدة (أقفال).</span></li>
                         </ul>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-brand-600 mb-2"><i class="fa-solid fa-envelope mr-2"></i>Message Passing</strong>
+                        <strong class="block text-brand-600 mb-2"><i class="fa-solid fa-envelope mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Message Passing</span><span class="lang-ar lang-hidden">Message Passing (تمرير الرسائل)</span>
+                        </strong>
                         <ul class="list-disc list-inside text-gray-500 text-xs">
-                            <li>Implemented via OS Kernel (`send()`, `receive()`).</li>
-                            <li>No conflict issues (easier sync).</li>
-                            <li>Slower (System call overhead).</li>
-                            <li>Good for distributed systems.</li>
+                            <li><span class="lang-en">Implemented via OS Kernel (`send()`, `receive()`).</span><span class="lang-ar lang-hidden">تنفذ عبر نواة النظام (`send`، `receive`).</span></li>
+                            <li><span class="lang-en">No conflict issues (easier sync).</span><span class="lang-ar lang-hidden">لا مشاكل تعارض (مزامنة أسهل).</span></li>
+                            <li><span class="lang-en">Slower (System call overhead).</span><span class="lang-ar lang-hidden">أبطأ (تكلفة System call).</span></li>
+                            <li><span class="lang-en">Good for distributed systems.</span><span class="lang-ar lang-hidden">جيدة للأنظمة الموزعة.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -320,39 +441,76 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Threads</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Threads</span>
+                    <span class="lang-ar lang-hidden">الخيوط (Threads)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="flex flex-col md:flex-row gap-8">
                     <div class="flex-1">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Why Threads?</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Why Threads?</span>
+                            <span class="lang-ar lang-hidden">لماذا Threads؟</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            A thread is a basic unit of CPU utilization. It is "Lightweight" compared to a process.
+                            <span class="lang-en">A thread is a basic unit of CPU utilization. It is "Lightweight" compared to a process.</span>
+                            <span class="lang-ar lang-hidden">الخيط هو وحدة أساسية لاستخدام الـ CPU. يعتبر "خفيف الوزن" مقارنة بالعملية.</span>
                         </p>
                         <ul class="text-xs text-gray-500 space-y-2">
-                            <li><i class="fa-solid fa-bolt text-yellow-500 mr-1"></i> <strong>Responsiveness:</strong> UI stays active even if backend is blocked.</li>
-                            <li><i class="fa-solid fa-share-nodes text-blue-500 mr-1"></i> <strong>Resource Sharing:</strong> Threads share code/data by default.</li>
-                            <li><i class="fa-solid fa-money-bill text-green-500 mr-1"></i> <strong>Economy:</strong> Cheaper to create/switch than processes.</li>
-                            <li><i class="fa-solid fa-maximize text-purple-500 mr-1"></i> <strong>Scalability:</strong> Utilizing multicore architectures.</li>
+                            <li><i class="fa-solid fa-bolt text-yellow-500 mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                                <strong class="lang-en">Responsiveness:</strong><strong class="lang-ar lang-hidden">الاستجابة:</strong> 
+                                <span class="lang-en">UI stays active even if backend is blocked.</span><span class="lang-ar lang-hidden"> تظل الواجهة نشطة حتى لو توقفت الخلفية.</span>
+                            </li>
+                            <li><i class="fa-solid fa-share-nodes text-blue-500 mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                                <strong class="lang-en">Resource Sharing:</strong><strong class="lang-ar lang-hidden">مشاركة الموارد:</strong> 
+                                <span class="lang-en">Threads share code/data by default.</span><span class="lang-ar lang-hidden"> تشارك الخيوط الكود/البيانات افتراضياً.</span>
+                            </li>
+                            <li><i class="fa-solid fa-money-bill text-green-500 mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                                <strong class="lang-en">Economy:</strong><strong class="lang-ar lang-hidden">الاقتصاد:</strong> 
+                                <span class="lang-en">Cheaper to create/switch than processes.</span><span class="lang-ar lang-hidden"> أرخص في الإنشاء/التبديل من العمليات.</span>
+                            </li>
+                            <li><i class="fa-solid fa-maximize text-purple-500 mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                                <strong class="lang-en">Scalability:</strong><strong class="lang-ar lang-hidden">القابلية للتوسع:</strong> 
+                                <span class="lang-en">Utilizing multicore architectures.</span><span class="lang-ar lang-hidden"> استغلال المعالجات متعددة الأنوية.</span>
+                            </li>
                         </ul>
                     </div>
-                    <div class="flex-1 border-l border-gray-200 dark:border-gray-700 pl-0 md:pl-8">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Multithreading Models</h3>
+                    <div class="flex-1 border-l border-gray-200 dark:border-gray-700 pl-8 rtl:pl-0 rtl:pr-8 rtl:border-l-0 rtl:border-r">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Multithreading Models</span>
+                            <span class="lang-ar lang-hidden">نماذج Multithreading</span>
+                        </h3>
                         <ul class="space-y-4 text-xs">
                             <li>
-                                <strong class="text-brand-500">Many-to-One:</strong> Many user threads mapped to 1 kernel thread.
-                                <br><span class="text-gray-500">Blocking one blocks all. No true parallel running.</span>
+                                <strong class="text-brand-500">
+                                    <span class="lang-en">Many-to-One:</span><span class="lang-ar lang-hidden">Many-to-One:</span>
+                                </strong> 
+                                <span class="lang-en">Many user threads mapped to 1 kernel thread.</span><span class="lang-ar lang-hidden"> خيوط مستخدم متعددة ترتبط بخيط نواة واحد.</span>
+                                <br><span class="text-gray-500">
+                                    <span class="lang-en">Blocking one blocks all. No true parallel running.</span><span class="lang-ar lang-hidden"> حجب واحد يحجب الجميع. لا توازي حقيقي.</span>
+                                </span>
                             </li>
                             <li>
-                                <strong class="text-brand-500">One-to-One:</strong> Each user thread maps to a kernel thread.
-                                <br><span class="text-gray-500">True concurrency. Creating user thread creates kernel thread (overhead). Used by Linux/Windows.</span>
+                                <strong class="text-brand-500">
+                                    <span class="lang-en">One-to-One:</span><span class="lang-ar lang-hidden">One-to-One:</span>
+                                </strong> 
+                                <span class="lang-en">Each user thread maps to a kernel thread.</span><span class="lang-ar lang-hidden"> كل خيط مستخدم يرتبط بخيط نواة.</span>
+                                <br><span class="text-gray-500">
+                                    <span class="lang-en">True concurrency. Creating user thread creates kernel thread (overhead). Used by Linux/Windows.</span><span class="lang-ar lang-hidden"> توازي حقيقي. إنشاء خيط مستخدم ينشئ خيط نواة (تكلفة). يستخدم في Linux/Windows.</span>
+                                </span>
                             </li>
                             <li>
-                                <strong class="text-brand-500">Many-to-Many:</strong> Many user threads mapped to smaller/equal number of kernel threads.
-                                <br><span class="text-gray-500">Flexible but complex.</span>
+                                <strong class="text-brand-500">
+                                    <span class="lang-en">Many-to-Many:</span><span class="lang-ar lang-hidden">Many-to-Many:</span>
+                                </strong> 
+                                <span class="lang-en">Many user threads mapped to smaller/equal number of kernel threads.</span><span class="lang-ar lang-hidden"> خيوط مستخدم متعددة ترتبط بعدد أقل/مساوٍ من خيوط النواة.</span>
+                                <br><span class="text-gray-500">
+                                    <span class="lang-en">Flexible but complex.</span><span class="lang-ar lang-hidden"> مرن ولكنه معقد.</span>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -364,57 +522,82 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Amdahl's Law
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Amdahl's Law</span>
+                            <span class="lang-ar lang-hidden">فخ: Amdahl's Law</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Adding cores does not mean linear speedup. The serial portion of the program limits the maximum speedup.
+                            <span class="lang-en">Adding cores does not mean linear speedup. The serial portion of the program limits the maximum speedup.
                             <br><em>Formula:</em> $Speedup \le \frac{1}{S + \frac{1-S}{N}}$
-                            <br>If 25% of code is serial ($S=0.25$), even with infinite cores, max speedup is 4x.
+                            <br>If 25% of code is serial ($S=0.25$), even with infinite cores, max speedup is 4x.</span>
+                            <span class="lang-ar lang-hidden">إضافة أنوية لا تعني تسريعاً خطياً. الجزء المتسلسل (Serial) يحد من السرعة القصوى.
+                            <br><em>المعادلة:</em> $Speedup \le \frac{1}{S + \frac{1-S}{N}}$
+                            <br>إذا كان 25% من الكود متسلسلاً ($S=0.25$)، حتى مع عدد لا نهائي من الأنوية، السرعة القصوى هي 4x.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Zombie vs Orphan
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Zombie vs Orphan</span>
+                            <span class="lang-ar lang-hidden">فخ: Zombie vs Orphan</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Zombie:</strong> Child finished, parent running but hasn't called wait(). (Entry still in process table).
+                            <span class="lang-en"><strong>Zombie:</strong> Child finished, parent running but hasn't called wait(). (Entry still in process table).
                             <br><strong>Orphan:</strong> Parent finished without waiting, child still running. (Adopted by `init`).
-                            Do not confuse them!
+                            Do not confuse them!</span>
+                            <span class="lang-ar lang-hidden"><strong>Zombie:</strong> الابن انتهى، الأب يعمل لكنه لم يستدعِ wait(). (لا يزال السجل في جدول العمليات).
+                            <br><strong>Orphan:</strong> الأب انتهى دون انتظار، الابن لا يزال يعمل. (يتبناه `init`).
+                            لا تخلط بينهم!</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Context Switch Cost
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Context Switch Cost</span>
+                            <span class="lang-ar lang-hidden">سر: تكلفة Context Switch</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Context Switching is pure overhead. The system does NO useful work during switching. It depends on memory speed, number of registers, and hardware support.
+                            <span class="lang-en">Context Switching is pure overhead. The system does NO useful work during switching. It depends on memory speed, number of registers, and hardware support.</span>
+                            <span class="lang-ar lang-hidden">تبديل السياق هو تكلفة إضافية بحتة. النظام لا يقوم بأي عمل مفيد أثناء التبديل. يعتمد على سرعة الذاكرة، عدد السجلات، ودعم الأجهزة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Fork() Return Value
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Fork() Return Value</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: قيمة إرجاع Fork()</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            `fork()` creates a clone.
+                            <span class="lang-en">`fork()` creates a clone.
                             <br>It returns <strong>0</strong> to the Child Process.
                             <br>It returns the <strong>Child's PID</strong> (Non-zero) to the Parent Process.
-                            This is how you distinguish who you are in the code.
+                            This is how you distinguish who you are in the code.</span>
+                            <span class="lang-ar lang-hidden">`fork()` تنشئ نسخة.
+                            <br>ترجع <strong>0</strong> للعملية الابن (Child).
+                            <br>ترجع <strong>PID الابن</strong> (غير صفري) للعملية الأب (Parent).
+                            هكذا تميز "من أنت" داخل الكود.</span>
                         </p>
                     </div>
                 </div>
@@ -425,18 +608,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 1</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module1.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 1</span>
+                    <span class="lang-ar lang-hidden">الوحدة 1</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 3</span>
+                    <span class="lang-ar lang-hidden">الوحدة 3</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -454,6 +650,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

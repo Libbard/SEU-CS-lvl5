@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 5: Divide-and-Conquer</title>
@@ -50,6 +59,44 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -115,33 +162,73 @@
         .split-visual {
             animation: split-anim 3s infinite;
         }
+
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
+
+        
+        @keyframes vault-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+        .vault-border {
+            animation: vault-pulse 2s infinite;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module4.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 5</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 5</span>
+                        <span class="lang-ar lang-hidden">الوحدة 5</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -158,59 +245,103 @@
                 <i class="fa-solid fa-scissors text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Divide-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer</span>
+                <span class="lang-en">Divide-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer</span></span>
+                <span class="lang-ar lang-hidden">Divide-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer (فرق تسد)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                The most famous algorithm design paradigm. Divide the problem into equal sub-problems, solve them recursively, and combine the results.
+                <span class="lang-en">The most famous algorithm design paradigm. Divide the problem into equal sub-problems, solve them recursively, and combine the results.</span>
+                <span class="lang-ar lang-hidden">أشهر نموذج لتصميم الخوارزميات. قسم المشكلة إلى مشاكل فرعية متساوية، حلها بشكل متكرر (recursively)، وادمج النتائج.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Mergesort</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Quicksort</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Master Theorem</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Strassen's Matrix</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Mergesort</span>
+                    <span class="lang-ar lang-hidden">Mergesort</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Quicksort</span>
+                    <span class="lang-ar lang-hidden">Quicksort</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Master Theorem</span>
+                    <span class="lang-ar lang-hidden">Master Theorem (النظرية الأساسية)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Strassen's Matrix</span>
+                    <span class="lang-ar lang-hidden">Strassen's Matrix</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Strategy & Analysis</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Strategy & Analysis</span>
+                    <span class="lang-ar lang-hidden">الاستراتيجية والتحليل</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 mb-8">
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">The 3-Step Process</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">
+                        <span class="lang-en">The 3-Step Process</span>
+                        <span class="lang-ar lang-hidden">العملية ذات الخطوات الثلاث</span>
+                    </h3>
                     <ul class="space-y-4">
                         <li class="flex items-start">
-                            <div class="flex-shrink-0 w-8 h-8 bg-brand-100 dark:bg-brand-900 rounded-full flex items-center justify-center text-brand-500 font-bold mr-3">1</div>
+                            <div class="flex-shrink-0 w-8 h-8 bg-brand-100 dark:bg-brand-900 rounded-full flex items-center justify-center text-brand-500 font-bold mr-3 rtl:mr-0 rtl:ml-3">1</div>
                             <div>
-                                <h4 class="font-bold text-sm text-gray-900 dark:text-white">Divide</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Split problem into several subproblems of the same type (ideally equal size).</p>
+                                <h4 class="font-bold text-sm text-gray-900 dark:text-white">
+                                    <span class="lang-en">Divide</span>
+                                    <span class="lang-ar lang-hidden">Divide (التقسيم)</span>
+                                </h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="lang-en">Split problem into several subproblems of the same type (ideally equal size).</span>
+                                    <span class="lang-ar lang-hidden">تقسيم المشكلة إلى عدة مشاكل فرعية من نفس النوع (مثالياً بحجم متساوٍ).</span>
+                                </p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <div class="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-500 font-bold mr-3">2</div>
+                            <div class="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-500 font-bold mr-3 rtl:mr-0 rtl:ml-3">2</div>
                             <div>
-                                <h4 class="font-bold text-sm text-gray-900 dark:text-white">Conquer</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Solve subproblems recursively.</p>
+                                <h4 class="font-bold text-sm text-gray-900 dark:text-white">
+                                    <span class="lang-en">Conquer</span>
+                                    <span class="lang-ar lang-hidden">Conquer (الحل/السيطرة)</span>
+                                </h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="lang-en">Solve subproblems recursively.</span>
+                                    <span class="lang-ar lang-hidden">حل المشاكل الفرعية بشكل تكراري (Recursively).</span>
+                                </p>
                             </div>
                         </li>
                         <li class="flex items-start">
-                            <div class="flex-shrink-0 w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center text-emerald-500 font-bold mr-3">3</div>
+                            <div class="flex-shrink-0 w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center text-emerald-500 font-bold mr-3 rtl:mr-0 rtl:ml-3">3</div>
                             <div>
-                                <h4 class="font-bold text-sm text-gray-900 dark:text-white">Combine</h4>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">Merge solutions to get the original answer.</p>
+                                <h4 class="font-bold text-sm text-gray-900 dark:text-white">
+                                    <span class="lang-en">Combine</span>
+                                    <span class="lang-ar lang-hidden">Combine (الدمج)</span>
+                                </h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">
+                                    <span class="lang-en">Merge solutions to get the original answer.</span>
+                                    <span class="lang-ar lang-hidden">دمج الحلول للحصول على الإجابة الأصلية.</span>
+                                </p>
                             </div>
                         </li>
                     </ul>
                 </div>
 
-                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Master Theorem</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">For recurrence $T(n) = aT(n/b) + f(n)$ where $f(n) \in O(n^d)$:</p>
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-brand-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">The Master Theorem</span>
+                        <span class="lang-ar lang-hidden">The Master Theorem (النظرية الأساسية)</span>
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        <span class="lang-en">For recurrence $T(n) = aT(n/b) + f(n)$ where $f(n) \in O(n^d)$:</span>
+                        <span class="lang-ar lang-hidden">للعلاقة التكرارية $T(n) = aT(n/b) + f(n)$ حيث $f(n) \in O(n^d)$:</span>
+                    </p>
                     
                     <div class="space-y-2 text-sm font-mono bg-gray-100 dark:bg-gray-800 p-3 rounded">
                         <div class="flex justify-between items-center border-b border-gray-300 dark:border-gray-700 pb-1">
@@ -226,25 +357,32 @@
                             <span>$T(n) \in O(n^{\log_b a})$</span>
                         </div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2 text-right"></p>
+                    <p class="text-xs text-gray-500 mt-2 text-right rtl:text-left"></p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Sorting Titans</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Sorting Titans</span>
+                    <span class="lang-ar lang-hidden">عمالقة الفرز (The Sorting Titans)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
                     <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400">Mergesort</h3>
+                        <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400">
+                            <span class="lang-en">Mergesort</span>
+                            <span class="lang-ar lang-hidden">Mergesort</span>
+                        </h3>
                         <span class="text-xs font-mono bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded">Stable</span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Divides array into two halves, sorts recursively, then <strong>merges</strong> sorted halves.
+                        <span class="lang-en">Divides array into two halves, sorts recursively, then <strong>merges</strong> sorted halves.</span>
+                        <span class="lang-ar lang-hidden">يقسم المصفوفة إلى نصفين، يفرزهما بشكل تكراري، ثم <strong>يدمج (merges)</strong> النصفين المرتبين.</span>
                     </p>
                     <div class="bg-gray-900 p-3 rounded text-xs font-mono text-gray-300 mb-4 border border-gray-700">
                         <span class="text-purple-400">Recurrence:</span> $T(n) = 2T(n/2) + cn$<br>
@@ -256,11 +394,15 @@
 
                 <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
                     <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold text-rose-600 dark:text-rose-400">Quicksort</h3>
+                        <h3 class="text-xl font-bold text-rose-600 dark:text-rose-400">
+                            <span class="lang-en">Quicksort</span>
+                            <span class="lang-ar lang-hidden">Quicksort</span>
+                        </h3>
                         <span class="text-xs font-mono bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300 px-2 py-1 rounded">In-place</span>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Divides based on a <strong>pivot</strong>. Elements $<$ pivot go left, $>$ pivot go right. Then sorts partitions.
+                        <span class="lang-en">Divides based on a <strong>pivot</strong>. Elements $<$ pivot go left, $>$ pivot go right. Then sorts partitions.</span>
+                        <span class="lang-ar lang-hidden">يقسم بناءً على <strong>محور (pivot)</strong>. العناصر $<$ المحور تذهب لليسار، $>$ المحور تذهب لليمين. ثم يفرز الأقسام.</span>
                     </p>
                     <div class="bg-gray-900 p-3 rounded text-xs font-mono text-gray-300 mb-4 border border-gray-700">
                         <span class="text-purple-400">Best/Avg:</span> $O(n \log n)$<br>
@@ -273,57 +415,83 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Applications</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Advanced Applications</span>
+                    <span class="lang-ar lang-hidden">تطبيقات متقدمة</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">Large Integer Multiplication</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Large Integer Multiplication</span>
+                        <span class="lang-ar lang-hidden">ضرب الأعداد الصحيحة الكبيرة</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        Brute force multiplication takes $O(n^2)$. By using a algebraic trick to compute $(A_1+A_2)(B_1+B_2)$, we reduce multiplications from 4 to 3.
+                        <span class="lang-en">Brute force multiplication takes $O(n^2)$. By using a algebraic trick to compute $(A_1+A_2)(B_1+B_2)$, we reduce multiplications from 4 to 3.</span>
+                        <span class="lang-ar lang-hidden">الضرب بالقوة الغاشمة يستغرق $O(n^2)$. باستخدام خدعة جبرية لحساب $(A_1+A_2)(B_1+B_2)$، نقلل عمليات الضرب من 4 إلى 3.</span>
                     </p>
                     <div class="flex items-center justify-between bg-gray-100 dark:bg-gray-900 p-2 rounded">
                         <span class="text-xs font-mono">Recurrence: $T(n) = 3T(n/2)$</span>
                         <span class="text-sm font-bold text-brand-500">$O(n^{1.585})$</span>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2 text-right"></p>
+                    <p class="text-xs text-gray-500 mt-2 text-right rtl:text-left"></p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-5 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">Strassen's Matrix Multiplication</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Strassen's Matrix Multiplication</span>
+                        <span class="lang-ar lang-hidden">ضرب مصفوفات ستراسن (Strassen)</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                        Standard matrix multiplication takes $O(n^3)$ (8 mults for 2x2). Strassen found a way to do it with <strong>7 multiplications</strong>.
+                        <span class="lang-en">Standard matrix multiplication takes $O(n^3)$ (8 mults for 2x2). Strassen found a way to do it with <strong>7 multiplications</strong>.</span>
+                        <span class="lang-ar lang-hidden">ضرب المصفوفات القياسي يستغرق $O(n^3)$ (8 عمليات ضرب لـ 2x2). وجد Strassen طريقة للقيام بذلك بـ <strong>7 عمليات ضرب</strong>.</span>
 						<br><br>
                     </p>
                     <div class="flex items-center justify-between bg-gray-100 dark:bg-gray-900 p-2 rounded">
                         <span class="text-xs font-mono">Recurrence: $T(n) = 7T(n/2)$</span>
                         <span class="text-sm font-bold text-brand-500">$O(n^{2.807})$</span>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2 text-right"></p>
+                    <p class="text-xs text-gray-500 mt-2 text-right rtl:text-left"></p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Binary Tree Traversals</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Binary Tree Traversals</span>
+                    <span class="lang-ar lang-hidden">اجتياز الأشجار الثنائية</span>
+                </h2>
             </div>
             <div class="glass-card p-6 rounded-xl">
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Recursive algorithms defined by when the <strong>Root</strong> is visited .</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    <span class="lang-en">Recursive algorithms defined by when the <strong>Root</strong> is visited .</span>
+                    <span class="lang-ar lang-hidden">خوارزميات تكرارية (Recursive) تُعرف بناءً على متى تتم زيارة <strong>الجذر (Root)</strong>.</span>
+                </p>
                 <div class="grid grid-cols-3 gap-4 text-center">
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                        <h5 class="font-bold text-brand-600 dark:text-brand-400">Preorder</h5>
+                        <h5 class="font-bold text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">Preorder</span>
+                            <span class="lang-ar lang-hidden">Preorder</span>
+                        </h5>
                         <p class="text-xs text-gray-500">Root $\to$ Left $\to$ Right</p>
                     </div>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                        <h5 class="font-bold text-brand-600 dark:text-brand-400">Inorder</h5>
+                        <h5 class="font-bold text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">Inorder</span>
+                            <span class="lang-ar lang-hidden">Inorder</span>
+                        </h5>
                         <p class="text-xs text-gray-500">Left $\to$ Root $\to$ Right</p>
                     </div>
                     <div class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                        <h5 class="font-bold text-brand-600 dark:text-brand-400">Postorder</h5>
+                        <h5 class="font-bold text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">Postorder</span>
+                            <span class="lang-ar lang-hidden">Postorder</span>
+                        </h5>
                         <p class="text-xs text-gray-500">Left $\to$ Right $\to$ Root</p>
                     </div>
                 </div>
@@ -332,59 +500,84 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Quicksort's Worst Case
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Quicksort's Worst Case</span>
+                            <span class="lang-ar lang-hidden">فخ: أسوأ حالة لـ Quicksort</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Is Quicksort always $O(n \log n)$?" <br>
-                            <strong>NO!</strong> If the array is already sorted (or reverse sorted) and you pick the first element as pivot, it degrades to $O(n^2)$. This is the most common trick question .
+                            <span class="lang-en">"Is Quicksort always $O(n \log n)$?" <br>
+                            <strong>NO!</strong> If the array is already sorted (or reverse sorted) and you pick the first element as pivot, it degrades to $O(n^2)$. This is the most common trick question .</span>
+                            <span class="lang-ar lang-hidden">"هل Quicksort دائماً $O(n \log n)$؟" <br>
+                            <strong>لا!</strong> إذا كانت المصفوفة مرتبة بالفعل (أو مرتبة عكسياً) واخترت العنصر الأول كمحور، فإنها تتدهور إلى $O(n^2)$. هذا هو السؤال الخادع الأكثر شيوعاً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Mergesort Space
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Mergesort Space</span>
+                            <span class="lang-ar lang-hidden">فخ: مساحة Mergesort</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Mergesort is "perfect" in time ($O(n \log n)$), but it is <strong>NOT in-place</strong>. It requires $O(n)$ extra auxiliary space for the merge step. If memory is tight, QuickSort is preferred .
+                            <span class="lang-en">Mergesort is "perfect" in time ($O(n \log n)$), but it is <strong>NOT in-place</strong>. It requires $O(n)$ extra auxiliary space for the merge step. If memory is tight, QuickSort is preferred .</span>
+                            <span class="lang-ar lang-hidden">Mergesort "مثالية" في الوقت ($O(n \log n)$)، لكنها <strong>ليست في المكان (in-place)</strong>. تتطلب مساحة إضافية $O(n)$ لخطوة الدمج. إذا كانت الذاكرة ضيقة، يفضل QuickSort.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Master Theorem Shortcut
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Master Theorem Shortcut</span>
+                            <span class="lang-ar lang-hidden">سر: اختصار Master Theorem</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Compare $a$ vs $b^d$.
+                            <span class="lang-en">Compare $a$ vs $b^d$.
                             <br>
                             If $a > b^d$, the recursion (leaves) dominates ($O(n^{\log_b a})$).
                             <br>
                             If $a < b^d$, the work at root dominates ($O(n^d)$).
                             <br>
-                            If equal, multiply by $\log n$ ($O(n^d \log n)$).
+                            If equal, multiply by $\log n$ ($O(n^d \log n)$).</span>
+                            <span class="lang-ar lang-hidden">قارن $a$ مقابل $b^d$.
+                            <br>
+                            إذا كان $a > b^d$، فإن التكرار (الأوراق) هو المسيطر ($O(n^{\log_b a})$).
+                            <br>
+                            إذا كان $a < b^d$، فإن العمل عند الجذر هو المسيطر ($O(n^d)$).
+                            <br>
+                            إذا تساويا، اضرب في $\log n$ ($O(n^d \log n)$).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Strassen's Limit
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Strassen's Limit</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: حد Strassen</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Strassen's algorithm ($O(n^{2.8})$) is asymptotically faster than Brute Force ($O(n^3)$), but it has a huge constant factor. It is only faster in practice for very large matrices ($N > 100$) .
+                            <span class="lang-en">Strassen's algorithm ($O(n^{2.8})$) is asymptotically faster than Brute Force ($O(n^3)$), but it has a huge constant factor. It is only faster in practice for very large matrices ($N > 100$) .</span>
+                            <span class="lang-ar lang-hidden">خوارزمية Strassen ($O(n^{2.8})$) أسرع مقاربة من القوة الغاشمة ($O(n^3)$)، لكن لديها عامل ثابت ضخم. هي أسرع فقط عملياً للمصفوفات الكبيرة جداً ($N > 100$).</span>
                         </p>
                     </div>
                 </div>
@@ -395,18 +588,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 4</span>
+                    <span class="lang-ar lang-hidden">الوحدة 4</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 6</span>
+                    <span class="lang-ar lang-hidden">الوحدة 6</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -425,46 +631,53 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 6: EER & Mapping</title>
@@ -129,6 +138,34 @@
         .map-arrow {
             animation: map-flow 1s ease-in-out infinite alternate;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+
+        
+        [dir="rtl"] .mermaid {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -136,26 +173,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module5.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 6</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 6</span>
+                        <span class="lang-ar lang-hidden">الوحدة 6</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-code-branch text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -172,38 +224,62 @@
                 <i class="fa-solid fa-sitemap text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Advanced EER & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Mapping</span>
+                <span class="lang-en">Advanced EER & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Mapping</span></span>
+                <span class="lang-ar lang-hidden">Advanced EER & <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Mapping (التحويل)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Concluding the EER model with Hierarchies and Union Types, then learning the critical skill of transforming ERD into Relational Schemas.
+                <span class="lang-en">Concluding the EER model with Hierarchies and Union Types, then learning the critical skill of transforming ERD into Relational Schemas.</span>
+                <span class="lang-ar lang-hidden">استكمال نموذج EER مع الهرميات (Hierarchies) و Union Types، ثم تعلم المهارة الحاسمة لتحويل ERD إلى Relational Schemas.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Specialization Hierarchy</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Lattice</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Union Type (Category)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">ER-to-Relational Mapping</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Foreign Keys</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Specialization Hierarchy</span>
+                    <span class="lang-ar lang-hidden">Specialization Hierarchy</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Lattice</span>
+                    <span class="lang-ar lang-hidden">Lattice</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Union Type (Category)</span>
+                    <span class="lang-ar lang-hidden">Union Type (Category)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">ER-to-Relational Mapping</span>
+                    <span class="lang-ar lang-hidden">ER-to-Relational Mapping</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Foreign Keys</span>
+                    <span class="lang-ar lang-hidden">Foreign Keys</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Hierarchies vs. Lattices</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Hierarchies vs. Lattices</span>
+                    <span class="lang-ar lang-hidden">Hierarchies vs. Lattices</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="flex flex-col items-center text-center">
                         <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-full mb-3">
-                            <i class="fa-solid fa-list-tree text-2xl text-blue-500"></i>
+                            <i class="fa-solid fa-sitemap text-2xl text-blue-500"></i>
                         </div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">Specialization Hierarchy</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Specialization Hierarchy</span>
+                            <span class="lang-ar lang-hidden">Specialization Hierarchy</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Every subclass has only <span class="font-bold text-blue-500">ONE</span> superclass. It's a strict tree structure. Single Inheritance.
+                            <span class="lang-en">Every subclass has only <span class="font-bold text-blue-500">ONE</span> superclass. It's a strict tree structure. Single Inheritance.</span>
+                            <span class="lang-ar lang-hidden">كل subclass لديه superclass <span class="font-bold text-blue-500">واحد</span> فقط. هيكل شجري صارم. Single Inheritance.</span>
                         </p>
                     </div>
 
@@ -211,10 +287,15 @@
                         <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-full mb-3">
                             <i class="fa-solid fa-network-wired text-2xl text-green-500"></i>
                         </div>
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">Specialization Lattice</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Specialization Lattice</span>
+                            <span class="lang-ar lang-hidden">Specialization Lattice</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            A subclass can have <span class="font-bold text-green-500">MULTIPLE</span> superclasses. This is known as <strong>Multiple Inheritance</strong>.
-                            <br><em>Example:</em> Engineering_Manager inherits from both Engineer and Manager.
+                            <span class="lang-en">A subclass can have <span class="font-bold text-green-500">MULTIPLE</span> superclasses. This is known as <strong>Multiple Inheritance</strong>.
+                            <br><em>Example:</em> Engineering_Manager inherits from both Engineer and Manager.</span>
+                            <span class="lang-ar lang-hidden">يمكن للـ subclass أن يكون لديه <span class="font-bold text-green-500">متعدد</span> superclasses. يُعرف هذا بـ <strong>Multiple Inheritance</strong>.
+                            <br><em>مثال:</em> مدير_هندسي يرث من كل من Engineer و Manager.</span>
                         </p>
                     </div>
                 </div>
@@ -222,98 +303,148 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Union Types (Categories)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Union Types (Categories)</span>
+                    <span class="lang-ar lang-hidden">Union Types (Categories)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-purple-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">The Concept</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">The Concept</span>
+                    <span class="lang-ar lang-hidden">المفهوم</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Sometimes a single subclass/relationship needs to connect to multiple distinct entity types that play the same role.
-                    <br>Example: An <span class="font-mono text-purple-500">OWNER</span> of a vehicle can be a <strong>PERSON</strong>, a <strong>BANK</strong>, or a <strong>COMPANY</strong>.
+                    <span class="lang-en">Sometimes a single subclass/relationship needs to connect to multiple distinct entity types that play the same role.
+                    <br>Example: An <span class="font-mono text-purple-500">OWNER</span> of a vehicle can be a <strong>PERSON</strong>, a <strong>BANK</strong>, or a <strong>COMPANY</strong>.</span>
+                    <span class="lang-ar lang-hidden">أحياناً يحتاج subclass/علاقة واحدة للاتصال بأنواع كيانات متميزة متعددة تلعب نفس الدور.
+                    <br>مثال: <span class="font-mono text-purple-500">OWNER</span> (المالك) لمركبة يمكن أن يكون <strong>PERSON</strong>، أو <strong>BANK</strong>، أو <strong>COMPANY</strong>.</span>
                 </p>
                 <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded text-xs">
-                    <strong class="block text-purple-700 dark:text-purple-300 mb-1">Key Difference:</strong>
-                    In Shared Subclass (Lattice), the entity must exist in ALL superclasses (AND).
-                    <br>In Category (Union), the entity must exist in <span class="font-bold underline">AT LEAST ONE</span> of the superclasses (OR).
+                    <strong class="block text-purple-700 dark:text-purple-300 mb-1">
+                        <span class="lang-en">Key Difference:</span>
+                        <span class="lang-ar lang-hidden">الفرق الجوهري:</span>
+                    </strong>
+                    <span class="lang-en">In Shared Subclass (Lattice), the entity must exist in ALL superclasses (AND).
+                    <br>In Category (Union), the entity must exist in <span class="font-bold underline">AT LEAST ONE</span> of the superclasses (OR).</span>
+                    <span class="lang-ar lang-hidden">في Shared Subclass (Lattice)، الكيان يجب أن يوجد في كل الـ superclasses (AND).
+                    <br>في Category (Union)، الكيان يجب أن يوجد في <span class="font-bold underline">واحد على الأقل</span> من الـ superclasses (OR).</span>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">ER-to-Relational Mapping Algorithm</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">ER-to-Relational Mapping Algorithm</span>
+                    <span class="lang-ar lang-hidden">خوارزمية ER-to-Relational Mapping</span>
+                </h2>
             </div>
 
             <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
-                How do we turn bubbles and diamonds into tables? Follow the 7-Step Algorithm.
+                <span class="lang-en">How do we turn bubbles and diamonds into tables? Follow the 7-Step Algorithm.</span>
+                <span class="lang-ar lang-hidden">كيف نحول الفقاعات والمعينات إلى جداول؟ اتبع الخوارزمية المكونة من 7 خطوات.</span>
             </p>
 
             <div class="space-y-4">
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3">1</div>
+                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">1</div>
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Regular Entities</h4>
-                        <p class="text-xs text-gray-500">Create a relation (table) for each strong entity. Simple attributes become columns. Composite attributes are flattened.</p>
-                    </div>
-                </div>
-
-                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3">2</div>
-                    <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Weak Entities</h4>
-                        <p class="text-xs text-gray-500">Create a relation. Include attributes. Add Owner's Primary Key (PK) as Foreign Key (FK). The PK of this table is (Owner PK + Partial Key).</p>
-                    </div>
-                </div>
-
-                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3">3</div>
-                    <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Binary 1:1 Relationships</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                            <span class="lang-en">Regular Entities</span>
+                            <span class="lang-ar lang-hidden">Regular Entities</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            <strong>Foreign Key approach:</strong> Add PK of one side as FK to the other. Prefer adding to the side with Total Participation to avoid NULLs.
+                            <span class="lang-en">Create a relation (table) for each strong entity. Simple attributes become columns. Composite attributes are flattened.</span>
+                            <span class="lang-ar lang-hidden">أنشئ علاقة (جدول) لكل كيان قوي. السمات البسيطة تصبح أعمدة. السمات المركبة يتم تسطيحها (flattened).</span>
                         </p>
                     </div>
                 </div>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3">4</div>
+                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">2</div>
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Binary 1:N Relationships</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                            <span class="lang-en">Weak Entities</span>
+                            <span class="lang-ar lang-hidden">Weak Entities</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Take PK from the "1-side" and put it as FK in the "N-side". (e.g., Dept PK goes into Employee table).
+                            <span class="lang-en">Create a relation. Include attributes. Add Owner's Primary Key (PK) as Foreign Key (FK). The PK of this table is (Owner PK + Partial Key).</span>
+                            <span class="lang-ar lang-hidden">أنشئ علاقة. ضمن السمات. أضف الـ Primary Key (PK) للمالك كـ Foreign Key (FK). الـ PK لهذا الجدول هو (Owner PK + Partial Key).</span>
                         </p>
                     </div>
                 </div>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3">5</div>
+                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">3</div>
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Binary M:N Relationships</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                            <span class="lang-en">Binary 1:1 Relationships</span>
+                            <span class="lang-ar lang-hidden">Binary 1:1 Relationships</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Create a new relation <strong class="text-brand-500">(Associative Entity)</strong>. Include PKs of both sides as FKs. The combination of these FKs becomes the PK.
+                            <strong class="lang-en">Foreign Key approach:</strong><strong class="lang-ar lang-hidden">نهج Foreign Key:</strong>
+                            <span class="lang-en">Add PK of one side as FK to the other. Prefer adding to the side with Total Participation to avoid NULLs.</span>
+                            <span class="lang-ar lang-hidden">أضف الـ PK من أحد الجانبين كـ FK للآخر. يفضل الإضافة للجانب ذو Total Participation لتجنب الـ NULLs.</span>
                         </p>
                     </div>
                 </div>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3">6</div>
+                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">4</div>
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">Multivalued Attributes</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                            <span class="lang-en">Binary 1:N Relationships</span>
+                            <span class="lang-ar lang-hidden">Binary 1:N Relationships</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Create a new relation. Include attribute value + FK of parent entity. PK is the combination of both.
+                            <span class="lang-en">Take PK from the "1-side" and put it as FK in the "N-side". (e.g., Dept PK goes into Employee table).</span>
+                            <span class="lang-ar lang-hidden">خُذ الـ PK من "جانب 1" وضعه كـ FK في "جانب N". (مثال: Dept PK يذهب إلى جدول Employee).</span>
                         </p>
                     </div>
                 </div>
 
                 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
-                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3">7</div>
+                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">5</div>
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">N-ary Relationships (>2)</h4>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                            <span class="lang-en">Binary M:N Relationships</span>
+                            <span class="lang-ar lang-hidden">Binary M:N Relationships</span>
+                        </h4>
                         <p class="text-xs text-gray-500">
-                            Create a new relation. Include PKs of all participating entities as FKs.
+                            <span class="lang-en">Create a new relation <strong class="text-brand-500">(Associative Entity)</strong>. Include PKs of both sides as FKs. The combination of these FKs becomes the PK.</span>
+                            <span class="lang-ar lang-hidden">أنشئ علاقة جديدة <strong class="text-brand-500">(Associative Entity)</strong>. ضمن PKs من كلا الجانبين كـ FKs. مزيج هذه الـ FKs يصبح هو الـ PK.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">6</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                            <span class="lang-en">Multivalued Attributes</span>
+                            <span class="lang-ar lang-hidden">Multivalued Attributes</span>
+                        </h4>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Create a new relation. Include attribute value + FK of parent entity. PK is the combination of both.</span>
+                            <span class="lang-ar lang-hidden">أنشئ علاقة جديدة. ضمن قيمة السمة + FK للكيان الأب. الـ PK هو المزيج بينهما.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-brand-500 text-white rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">7</div>
+                    <div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                            <span class="lang-en">N-ary Relationships (>2)</span>
+                            <span class="lang-ar lang-hidden">N-ary Relationships (>2)</span>
+                        </h4>
+                        <p class="text-xs text-gray-500">
+                            <span class="lang-en">Create a new relation. Include PKs of all participating entities as FKs.</span>
+                            <span class="lang-ar lang-hidden">أنشئ علاقة جديدة. ضمن PKs لجميع الكيانات المشاركة كـ FKs.</span>
                         </p>
                     </div>
                 </div>
@@ -321,35 +452,59 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Mapping EER Concepts</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Mapping EER Concepts</span>
+                    <span class="lang-ar lang-hidden">Mapping EER Concepts</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    How to map Superclass/Subclass? There are 4 options (A, B, C, D).
+                    <span class="lang-en">How to map Superclass/Subclass? There are 4 options (A, B, C, D).</span>
+                    <span class="lang-ar lang-hidden">كيف يتم تحويل Superclass/Subclass؟ هناك 4 خيارات (A, B, C, D).</span>
                 </p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="text-brand-600 block mb-1">Option 8A: Multiple Relations</strong>
-                        Create table for Superclass. Create tables for Subclasses (PK = PK of Superclass).
-                        <br><em>Best for:</em> Any specialization (Total/Partial, Disjoint/Overlap).
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Option 8A: Multiple Relations</span>
+                            <span class="lang-ar lang-hidden">Option 8A: Multiple Relations</span>
+                        </strong>
+                        <span class="lang-en">Create table for Superclass. Create tables for Subclasses (PK = PK of Superclass).
+                        <br><em>Best for:</em> Any specialization (Total/Partial, Disjoint/Overlap).</span>
+                        <span class="lang-ar lang-hidden">أنشئ جدولاً للـ Superclass. أنشئ جداول للـ Subclasses (الـ PK = الـ PK للـ Superclass).
+                        <br><em>الأفضل لـ:</em> أي specialization (Total/Partial, Disjoint/Overlap).</span>
                     </div>
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="text-brand-600 block mb-1">Option 8B: Subclass Relations Only</strong>
-                        Create tables for Subclasses only. Include Superclass attributes in them.
-                        <br><em>Best for:</em> Total Participation + Disjoint.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Option 8B: Subclass Relations Only</span>
+                            <span class="lang-ar lang-hidden">Option 8B: Subclass Relations Only</span>
+                        </strong>
+                        <span class="lang-en">Create tables for Subclasses only. Include Superclass attributes in them.
+                        <br><em>Best for:</em> Total Participation + Disjoint.</span>
+                        <span class="lang-ar lang-hidden">أنشئ جداول للـ Subclasses فقط. ضمن سمات الـ Superclass فيها.
+                        <br><em>الأفضل لـ:</em> Total Participation + Disjoint.</span>
                     </div>
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="text-brand-600 block mb-1">Option 8C: One Big Relation (Type Attribute)</strong>
-                        One table for everything. Add a "Type" column to distinguish. NULLs for non-applicable attributes.
-                        <br><em>Best for:</em> Disjoint + Few attributes.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Option 8C: One Big Relation (Type Attribute)</span>
+                            <span class="lang-ar lang-hidden">Option 8C: One Big Relation (Type Attribute)</span>
+                        </strong>
+                        <span class="lang-en">One table for everything. Add a "Type" column to distinguish. NULLs for non-applicable attributes.
+                        <br><em>Best for:</em> Disjoint + Few attributes.</span>
+                        <span class="lang-ar lang-hidden">جدول واحد للكل. أضف عمود "Type" للتمييز. قيم NULL للسمات غير القابلة للتطبيق.
+                        <br><em>الأفضل لـ:</em> Disjoint + سمات قليلة.</span>
                     </div>
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
-                        <strong class="text-brand-600 block mb-1">Option 8D: One Big Relation (Boolean Flags)</strong>
-                        One table. Multiple boolean columns (IsManager?, IsEngineer?) to distinguish.
-                        <br><em>Best for:</em> Overlapping.
+                        <strong class="text-brand-600 block mb-1">
+                            <span class="lang-en">Option 8D: One Big Relation (Boolean Flags)</span>
+                            <span class="lang-ar lang-hidden">Option 8D: One Big Relation (Boolean Flags)</span>
+                        </strong>
+                        <span class="lang-en">One table. Multiple boolean columns (IsManager?, IsEngineer?) to distinguish.
+                        <br><em>Best for:</em> Overlapping.</span>
+                        <span class="lang-ar lang-hidden">جدول واحد. أعمدة boolean متعددة (IsManager?, IsEngineer?) للتمييز.
+                        <br><em>الأفضل لـ:</em> Overlapping.</span>
                     </div>
                 </div>
             </div>
@@ -359,54 +514,76 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 1:N Mapping Direction
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 1:N Mapping Direction</span>
+                            <span class="lang-ar lang-hidden">فخ: اتجاه 1:N Mapping</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Where does the Foreign Key go?</strong>
+                            <span class="lang-en"><strong>Where does the Foreign Key go?</strong>
                             <br>It always goes to the <strong>N-side</strong> (Child side).
-                            <br>If Employee(N) works for Dept(1), the Dept_ID goes into the Employee table. If you put Employee_ID into Dept table, you can't handle multiple employees per dept (violates 1NF).
+                            <br>If Employee(N) works for Dept(1), the Dept_ID goes into the Employee table. If you put Employee_ID into Dept table, you can't handle multiple employees per dept (violates 1NF).</span>
+                            <span class="lang-ar lang-hidden"><strong>أين يذهب الـ Foreign Key؟</strong>
+                            <br>دائماً يذهب إلى <strong>الجانب N</strong> (جانب الطفل).
+                            <br>إذا كان الموظف Employee(N) يعمل في قسم Dept(1)، فإن Dept_ID يذهب إلى جدول Employee. إذا وضعت Employee_ID في جدول Dept، لن تتمكن من التعامل مع عدة موظفين في القسم الواحد (ينتهك 1NF).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Multivalued Attributes
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Multivalued Attributes</span>
+                            <span class="lang-ar lang-hidden">فخ: Multivalued Attributes</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Can I just add columns like Phone1, Phone2?"
+                            <span class="lang-en">"Can I just add columns like Phone1, Phone2?"
                             <br><strong>NO.</strong> That is bad design.
-                            <br>You MUST create a separate table for the multivalued attribute. The PK of this new table is a <strong>composite key</strong> (ParentFK + Value).
+                            <br>You MUST create a separate table for the multivalued attribute. The PK of this new table is a <strong>composite key</strong> (ParentFK + Value).</span>
+                            <span class="lang-ar lang-hidden">"هل يمكنني فقط إضافة أعمدة مثل Phone1, Phone2؟"
+                            <br><strong>لا.</strong> هذا تصميم سيء.
+                            <br>يجب عليك إنشاء جدول منفصل للسمة متعددة القيم. الـ PK لهذا الجدول الجديد هو <strong>composite key</strong> (ParentFK + القيمة).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Surrogate Keys
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Surrogate Keys</span>
+                            <span class="lang-ar lang-hidden">سر: Surrogate Keys</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If a Category (Union Type) has superclasses with different Primary Key types (e.g., String SSN vs Int CompanyID), you cannot inherit the PK. You must create a new <strong>Surrogate Key</strong> (artificial ID) for the Category.
+                            <span class="lang-en">If a Category (Union Type) has superclasses with different Primary Key types (e.g., String SSN vs Int CompanyID), you cannot inherit the PK. You must create a new <strong>Surrogate Key</strong> (artificial ID) for the Category.</span>
+                            <span class="lang-ar lang-hidden">إذا كان للـ Category (Union Type) كيانات superclasses بأنواع Primary Key مختلفة (مثال: نص SSN مقابل رقم CompanyID)، لا يمكنك وراثة الـ PK. يجب عليك إنشاء <strong>Surrogate Key</strong> (معرف اصطناعي) جديد للـ Category.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Mapping Weak Entities
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Mapping Weak Entities</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Mapping Weak Entities</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The Primary Key of a Weak Entity table is <strong>always composite</strong>. It consists of the Foreign Key from the Owner table PLUS the Weak Entity's own Partial Key.
+                            <span class="lang-en">The Primary Key of a Weak Entity table is <strong>always composite</strong>. It consists of the Foreign Key from the Owner table PLUS the Weak Entity's own Partial Key.</span>
+                            <span class="lang-ar lang-hidden">الـ Primary Key لجدول الـ Weak Entity هو <strong>دائماً مركب (composite)</strong>. يتكون من الـ Foreign Key من جدول المالك بالإضافة إلى الـ Partial Key الخاص بالـ Weak Entity.</span>
                         </p>
                     </div>
                 </div>
@@ -417,18 +594,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 5</span>
+                    <span class="lang-ar lang-hidden">الوحدة 5</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Review</span>
+                    <span class="lang-ar lang-hidden">المراجعة النصفية</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -446,6 +636,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

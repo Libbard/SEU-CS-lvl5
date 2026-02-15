@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 1: Foundations of Systems Development</title>
@@ -51,13 +60,66 @@
 
     <style>
         
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .text-center { text-align: center !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .border-l { border-left-width: 0; border-right-width: 1px; }
+        [dir="rtl"] .border-r { border-right-width: 0; border-left-width: 1px; }
+        
+        
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .ml-1 { margin-left: 0; margin-right: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .pl-8 { padding-left: 0; padding-right: 2rem; }
+        [dir="rtl"] .pr-8 { padding-right: 0; padding-left: 2rem; }
+        
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
+        
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .dark .glass {
-            background: rgba(31, 41, 55, 0.7); 
+            background: rgba(31, 41, 55, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
@@ -68,7 +130,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         .dark .glass-card {
-            background: rgba(17, 24, 39, 0.6); 
+            background: rgba(17, 24, 39, 0.6);
             border: 1px solid rgba(75, 85, 99, 0.4);
         }
 
@@ -107,21 +169,6 @@
         }
 
         
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1f2937; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1e3a8a; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #3b82f6; 
-        }
-
-        
         @keyframes vault-pulse {
             0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
             70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
@@ -132,31 +179,46 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="index.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 1</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 1</span>
+                        <span class="lang-ar lang-hidden">الوحدة 1</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-sitemap text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module2.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -173,99 +235,170 @@
                 <i class="fa-solid fa-building-columns text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Foundations of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Systems Development</span>
+                <span class="lang-en">Foundations of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Systems Development</span></span>
+                <span class="lang-ar lang-hidden">أسس <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">تطوير النظم</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Understanding the ecosystem of software creation: from Agile methodologies to procuring billion-dollar enterprise systems.
+                <span class="lang-en">Understanding the ecosystem of software creation: from Agile methodologies to procuring billion-dollar enterprise systems.</span>
+                <span class="lang-ar lang-hidden">فهم بيئة إنشاء البرمجيات: من منهجيات Agile إلى شراء أنظمة المؤسسات بمليارات الدولارات.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Analysis vs Design</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Agile & XP</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">OOAD & RUP</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Acquisition</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Software Reuse</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Analysis vs Design</span>
+                    <span class="lang-ar lang-hidden">التحليل مقابل التصميم</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Agile & XP</span>
+                    <span class="lang-ar lang-hidden">Agile و XP</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">OOAD & RUP</span>
+                    <span class="lang-ar lang-hidden">OOAD و RUP</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Acquisition</span>
+                    <span class="lang-ar lang-hidden">الاستحواذ (Acquisition)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Software Reuse</span>
+                    <span class="lang-ar lang-hidden">إعادة استخدام البرمجيات</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Analysis vs. Design</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Analysis vs. Design</span>
+                    <span class="lang-ar lang-hidden">التحليل مقابل التصميم</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <div class="absolute top-0 right-0 rtl:left-0 rtl:right-auto p-4 opacity-10">
                         <i class="fa-solid fa-magnifying-glass text-9xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-2">System Analysis</h3>
-                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">"The What"</p>
+                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">System Analysis</span>
+                        <span class="lang-ar lang-hidden">تحليل النظم (System Analysis)</span>
+                    </h3>
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">
+                        <span class="lang-en">"The What"</span>
+                        <span class="lang-ar lang-hidden">"ماذا" (The What)</span>
+                    </p>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">
-                        The process of studying a procedure or business to identify its goals and purposes and create systems and procedures that will efficiently achieve them.
+                        <span class="lang-en">The process of studying a procedure or business to identify its goals and purposes and create systems and procedures that will efficiently achieve them.</span>
+                        <span class="lang-ar lang-hidden">عملية دراسة إجراء أو عمل تجاري لتحديد أهدافه وأغراضه وإنشاء أنظمة وإجراءات تحققها بكفاءة.</span>
                     </p>
                     <ul class="text-sm space-y-2 text-gray-600 dark:text-gray-400">
-                        <li><i class="fa-solid fa-check text-brand-500 mr-2"></i>Understanding current problems.</li>
-                        <li><i class="fa-solid fa-check text-brand-500 mr-2"></i>Gathering requirements.</li>
-                        <li><i class="fa-solid fa-check text-brand-500 mr-2"></i>Specifying <strong>what</strong> the system should do.</li>
+                        <li>
+                            <i class="fa-solid fa-check text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Understanding current problems.</span>
+                            <span class="lang-ar lang-hidden">فهم المشاكل الحالية.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Gathering requirements.</span>
+                            <span class="lang-ar lang-hidden">جمع المتطلبات.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Specifying <strong>what</strong> the system should do.</span>
+                            <span class="lang-ar lang-hidden">تحديد <strong>ماذا</strong> يجب أن يفعل النظام.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <div class="absolute top-0 right-0 rtl:left-0 rtl:right-auto p-4 opacity-10">
                         <i class="fa-solid fa-pen-ruler text-9xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">System Design</h3>
-                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">"The How"</p>
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">System Design</span>
+                        <span class="lang-ar lang-hidden">تصميم النظم (System Design)</span>
+                    </h3>
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">
+                        <span class="lang-en">"The How"</span>
+                        <span class="lang-ar lang-hidden">"كيف" (The How)</span>
+                    </p>
                     <p class="text-gray-700 dark:text-gray-300 mb-4">
-                        The process of defining the architecture, components, modules, interfaces, and data for a system to satisfy specified requirements.
+                        <span class="lang-en">The process of defining the architecture, components, modules, interfaces, and data for a system to satisfy specified requirements.</span>
+                        <span class="lang-ar lang-hidden">عملية تعريف البنية والمكونات والوحدات والواجهات والبيانات للنظام لتلبية المتطلبات المحددة.</span>
                     </p>
                     <ul class="text-sm space-y-2 text-gray-600 dark:text-gray-400">
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i>Creating blueprints (UML).</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i>Designing Database schemas.</li>
-                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i>Specifying <strong>how</strong> the system will be built.</li>
+                        <li>
+                            <i class="fa-solid fa-check text-blue-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Creating blueprints (UML).</span>
+                            <span class="lang-ar lang-hidden">إنشاء المخططات (UML).</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-blue-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Designing Database schemas.</span>
+                            <span class="lang-ar lang-hidden">تصميم مخططات قواعد البيانات.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-blue-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Specifying <strong>how</strong> the system will be built.</span>
+                            <span class="lang-ar lang-hidden">تحديد <strong>كيف</strong> سيتم بناء النظام.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Modern Methodologies</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Modern Methodologies</span>
+                    <span class="lang-ar lang-hidden">المنهجيات الحديثة</span>
+                </h2>
             </div>
 
             <div class="space-y-8">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                     <div class="flex items-start">
-                        <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg mr-4 text-green-600 dark:text-green-400">
+                        <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg mr-4 rtl:ml-4 rtl:mr-0 text-green-600 dark:text-green-400">
                             <i class="fa-solid fa-arrows-rotate text-2xl"></i>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Agile Methodologies</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                                <span class="lang-en">Agile Methodologies</span>
+                                <span class="lang-ar lang-hidden">منهجيات Agile</span>
+                            </h3>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                A reaction to rigid, document-heavy methods. Agile prioritizes individuals, interactions, and working software over strict processes.
+                                <span class="lang-en">A reaction to rigid, document-heavy methods. Agile prioritizes individuals, interactions, and working software over strict processes.</span>
+                                <span class="lang-ar lang-hidden">رد فعل على الأساليب الصارمة والمثقلة بالوثائق. تعطي Agile الأولوية للأفراد والتفاعلات والبرمجيات العاملة على العمليات الصارمة.</span>
                             </p>
                             
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
-                                    <h4 class="font-bold text-sm mb-2">eXtreme Programming (XP)</h4>
+                                    <h4 class="font-bold text-sm mb-2">
+                                        <span class="lang-en">eXtreme Programming (XP)</span>
+                                        <span class="lang-ar lang-hidden">eXtreme Programming (XP)</span>
+                                    </h4>
                                     <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
-                                        <li>• Short cycles & incremental planning.</li>
-                                        <li>• <span class="text-brand-500 font-semibold">Pair Programming</span>: Two devs, one screen.</li>
-                                        <li>• Automated testing is core.</li>
-                                        <li>• Heavy client involvement.</li>
+                                        <li>• <span class="lang-en">Short cycles & incremental planning.</span><span class="lang-ar lang-hidden">دورات قصيرة وتخطيط تزايدي.</span></li>
+                                        <li>• <span class="text-brand-500 font-semibold"><span class="lang-en">Pair Programming</span><span class="lang-ar lang-hidden">Pair Programming</span></span>: <span class="lang-en">Two devs, one screen.</span><span class="lang-ar lang-hidden">مطوران، شاشة واحدة.</span></li>
+                                        <li>• <span class="lang-en">Automated testing is core.</span><span class="lang-ar lang-hidden">الاختبار الآلي هو الجوهر.</span></li>
+                                        <li>• <span class="lang-en">Heavy client involvement.</span><span class="lang-ar lang-hidden">مشاركة مكثفة من العميل.</span></li>
                                     </ul>
                                 </div>
                                 <div class="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
-                                    <h4 class="font-bold text-sm mb-2">Scrum</h4>
+                                    <h4 class="font-bold text-sm mb-2">
+                                        <span class="lang-en">Scrum</span>
+                                        <span class="lang-ar lang-hidden">Scrum</span>
+                                    </h4>
                                     <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
-                                        <li>• Designed for high chaos/flux.</li>
-                                        <li>• <span class="text-brand-500 font-semibold">Sprints</span>: 2-4 week work units.</li>
-                                        <li>• <span class="text-brand-500 font-semibold">Product Backlog</span>: List of all desired features.</li>
-                                        <li>• Daily Standups (15 min meetings).</li>
+                                        <li>• <span class="lang-en">Designed for high chaos/flux.</span><span class="lang-ar lang-hidden">صمم للفوضى/التغيير العالي.</span></li>
+                                        <li>• <span class="text-brand-500 font-semibold"><span class="lang-en">Sprints</span><span class="lang-ar lang-hidden">Sprints</span></span>: <span class="lang-en">2-4 week work units.</span><span class="lang-ar lang-hidden">وحدات عمل لمدة 2-4 أسابيع.</span></li>
+                                        <li>• <span class="text-brand-500 font-semibold"><span class="lang-en">Product Backlog</span><span class="lang-ar lang-hidden">Product Backlog</span></span>: <span class="lang-en">List of all desired features.</span><span class="lang-ar lang-hidden">قائمة بكل الميزات المطلوبة.</span></li>
+                                        <li>• <span class="lang-en">Daily Standups (15 min meetings).</span><span class="lang-ar lang-hidden">اجتماعات يومية (Standups) لمدة 15 دقيقة.</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -275,35 +408,54 @@
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                     <div class="flex items-start">
-                        <div class="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg mr-4 text-purple-600 dark:text-purple-400">
+                        <div class="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-lg mr-4 rtl:ml-4 rtl:mr-0 text-purple-600 dark:text-purple-400">
                             <i class="fa-solid fa-cubes text-2xl"></i>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Object-Oriented Analysis & Design (OOAD)</h3>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                                <span class="lang-en">Object-Oriented Analysis & Design (OOAD)</span>
+                                <span class="lang-ar lang-hidden">تحليل وتصميم كائني التوجه (OOAD)</span>
+                            </h3>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                                
-                                Modeling systems as collections of objects (combining data and behavior) rather than separating data from logic. Commonly implemented via <span class="smart-term font-bold text-purple-500" data-ar="عملية موحدة منطقية">RUP (Rational Unified Process)</span>.
+                                <span class="lang-en">Modeling systems as collections of objects (combining data and behavior) rather than separating data from logic. Commonly implemented via <span class="smart-term font-bold text-purple-500" data-ar="عملية موحدة منطقية">RUP (Rational Unified Process)</span>.</span>
+                                <span class="lang-ar lang-hidden">نمذجة الأنظمة كمجموعات من الكائنات (الجمع بين البيانات والسلوك) بدلاً من فصل البيانات عن المنطق. ينفذ عادة عبر <span class="smart-term font-bold text-purple-500" data-ar="Rational Unified Process">RUP</span>.</span>
                             </p>
                             
                             <div class="flex flex-col md:flex-row justify-between items-center text-center gap-2 text-xs font-mono mt-4">
                                 <div class="bg-purple-50 dark:bg-purple-900/20 p-2 rounded w-full border border-purple-200 dark:border-purple-800">
-                                    <strong class="block text-purple-600 dark:text-purple-300">1. Inception</strong>
-                                    Scope & Feasibility
+                                    <strong class="block text-purple-600 dark:text-purple-300">
+                                        <span class="lang-en">1. Inception</span>
+                                        <span class="lang-ar lang-hidden">1. Inception (الاستهلال)</span>
+                                    </strong>
+                                    <span class="lang-en">Scope & Feasibility</span>
+                                    <span class="lang-ar lang-hidden">النطاق والجدوى</span>
                                 </div>
-                                <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block"></i>
+                                <i class="fa-solid fa-arrow-right rtl:rotate-180 text-gray-400 hidden md:block"></i>
                                 <div class="bg-purple-50 dark:bg-purple-900/20 p-2 rounded w-full border border-purple-200 dark:border-purple-800">
-                                    <strong class="block text-purple-600 dark:text-purple-300">2. Elaboration</strong>
-                                    Plan & Architecture
+                                    <strong class="block text-purple-600 dark:text-purple-300">
+                                        <span class="lang-en">2. Elaboration</span>
+                                        <span class="lang-ar lang-hidden">2. Elaboration (التوضيح)</span>
+                                    </strong>
+                                    <span class="lang-en">Plan & Architecture</span>
+                                    <span class="lang-ar lang-hidden">الخطة والبنية</span>
                                 </div>
-                                <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block"></i>
+                                <i class="fa-solid fa-arrow-right rtl:rotate-180 text-gray-400 hidden md:block"></i>
                                 <div class="bg-purple-50 dark:bg-purple-900/20 p-2 rounded w-full border border-purple-200 dark:border-purple-800">
-                                    <strong class="block text-purple-600 dark:text-purple-300">3. Construction</strong>
-                                    Build the Product
+                                    <strong class="block text-purple-600 dark:text-purple-300">
+                                        <span class="lang-en">3. Construction</span>
+                                        <span class="lang-ar lang-hidden">3. Construction (البناء)</span>
+                                    </strong>
+                                    <span class="lang-en">Build the Product</span>
+                                    <span class="lang-ar lang-hidden">بناء المنتج</span>
                                 </div>
-                                <i class="fa-solid fa-arrow-right text-gray-400 hidden md:block"></i>
+                                <i class="fa-solid fa-arrow-right rtl:rotate-180 text-gray-400 hidden md:block"></i>
                                 <div class="bg-purple-50 dark:bg-purple-900/20 p-2 rounded w-full border border-purple-200 dark:border-purple-800">
-                                    <strong class="block text-purple-600 dark:text-purple-300">4. Transition</strong>
-                                    Deploy to Users
+                                    <strong class="block text-purple-600 dark:text-purple-300">
+                                        <span class="lang-en">4. Transition</span>
+                                        <span class="lang-ar lang-hidden">4. Transition (الانتقال)</span>
+                                    </strong>
+                                    <span class="lang-en">Deploy to Users</span>
+                                    <span class="lang-ar lang-hidden">النشر للمستخدمين</span>
                                 </div>
                             </div>
                         </div>
@@ -313,113 +465,204 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Where does Software Come From?</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Where does Software Come From?</span>
+                    <span class="lang-ar lang-hidden">من أين تأتي البرمجيات؟</span>
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="glass-card p-5 rounded-lg border-t-4 border-red-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">1. Outsourcing</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Hiring external firms to build/run systems.</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">1. Outsourcing</span>
+                        <span class="lang-ar lang-hidden">1. Outsourcing (الاستعانة بمصادر خارجية)</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        <span class="lang-en">Hiring external firms to build/run systems.</span>
+                        <span class="lang-ar lang-hidden">توظيف شركات خارجية لبناء/تشغيل الأنظمة.</span>
+                    </p>
                     <ul class="text-xs space-y-1 text-gray-500">
-                        <li><i class="fa-solid fa-plus text-green-500 mr-1"></i> Cost-effective, Focus on core business.</li>
-                        <li><i class="fa-solid fa-minus text-red-500 mr-1"></i> Loss of control, Security risks.</li>
+                        <li><i class="fa-solid fa-plus text-green-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Cost-effective, Focus on core business.</span><span class="lang-ar lang-hidden">فعالة من حيث التكلفة، التركيز على العمل الأساسي.</span></li>
+                        <li><i class="fa-solid fa-minus text-red-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Loss of control, Security risks.</span><span class="lang-ar lang-hidden">فقدان السيطرة، مخاطر أمنية.</span></li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-lg border-t-4 border-blue-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">2. Off-the-Shelf</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Buying pre-packaged software (e.g., Microsoft Office, SAP).</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">2. Off-the-Shelf</span>
+                        <span class="lang-ar lang-hidden">2. Off-the-Shelf (جاهزة)</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        <span class="lang-en">Buying pre-packaged software (e.g., Microsoft Office, SAP).</span>
+                        <span class="lang-ar lang-hidden">شراء برمجيات جاهزة (مثل Microsoft Office, SAP).</span>
+                    </p>
                     <ul class="text-xs space-y-1 text-gray-500">
-                        <li><i class="fa-solid fa-plus text-green-500 mr-1"></i> Fast deployment, Standard.</li>
-                        <li><i class="fa-solid fa-minus text-red-500 mr-1"></i> May not fit specific needs perfectly.</li>
+                        <li><i class="fa-solid fa-plus text-green-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Fast deployment, Standard.</span><span class="lang-ar lang-hidden">نشر سريع، قياسي.</span></li>
+                        <li><i class="fa-solid fa-minus text-red-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">May not fit specific needs perfectly.</span><span class="lang-ar lang-hidden">قد لا تناسب الاحتياجات المحددة تماماً.</span></li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-lg border-t-4 border-purple-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">3. Enterprise (ERP)</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Integrated systems for all biz functions (HR, Finance, Sales).</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">3. Enterprise (ERP)</span>
+                        <span class="lang-ar lang-hidden">3. Enterprise (ERP)</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        <span class="lang-en">Integrated systems for all biz functions (HR, Finance, Sales).</span>
+                        <span class="lang-ar lang-hidden">أنظمة متكاملة لجميع وظائف الأعمال (HR، المالية، المبيعات).</span>
+                    </p>
                     <ul class="text-xs space-y-1 text-gray-500">
-                        <li><i class="fa-solid fa-plus text-green-500 mr-1"></i> Single data source, Process integration.</li>
-                        <li><i class="fa-solid fa-minus text-red-500 mr-1"></i> Extremely complex & expensive implementation.</li>
+                        <li><i class="fa-solid fa-plus text-green-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Single data source, Process integration.</span><span class="lang-ar lang-hidden">مصدر بيانات واحد، تكامل العمليات.</span></li>
+                        <li><i class="fa-solid fa-minus text-red-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Extremely complex & expensive implementation.</span><span class="lang-ar lang-hidden">تنفيذ معقد للغاية ومكلف.</span></li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-lg border-t-4 border-cyan-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">4. Cloud / SaaS</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Renting software over the internet (e.g., Salesforce, Google Docs).</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">4. Cloud / SaaS</span>
+                        <span class="lang-ar lang-hidden">4. Cloud / SaaS</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        <span class="lang-en">Renting software over the internet (e.g., Salesforce, Google Docs).</span>
+                        <span class="lang-ar lang-hidden">استئجار البرمجيات عبر الإنترنت (مثل Salesforce, Google Docs).</span>
+                    </p>
                     <ul class="text-xs space-y-1 text-gray-500">
-                        <li><i class="fa-solid fa-plus text-green-500 mr-1"></i> Low upfront cost, Scalable.</li>
-                        <li><i class="fa-solid fa-minus text-red-500 mr-1"></i> Data ownership/security concerns.</li>
+                        <li><i class="fa-solid fa-plus text-green-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Low upfront cost, Scalable.</span><span class="lang-ar lang-hidden">تكلفة أولية منخفضة، قابل للتوسع.</span></li>
+                        <li><i class="fa-solid fa-minus text-red-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Data ownership/security concerns.</span><span class="lang-ar lang-hidden">مخاوف ملكية البيانات والأمن.</span></li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-lg border-t-4 border-green-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">5. Open Source</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Code is free to use/modify (e.g., Linux, MySQL, Firefox).</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">5. Open Source</span>
+                        <span class="lang-ar lang-hidden">5. Open Source (مفتوح المصدر)</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        <span class="lang-en">Code is free to use/modify (e.g., Linux, MySQL, Firefox).</span>
+                        <span class="lang-ar lang-hidden">الكود مجاني للاستخدام/التعديل (مثل Linux, MySQL).</span>
+                    </p>
                     <ul class="text-xs space-y-1 text-gray-500">
-                        <li><i class="fa-solid fa-plus text-green-500 mr-1"></i> Free license, Community driven.</li>
-                        <li><i class="fa-solid fa-minus text-red-500 mr-1"></i> Support can be costly/inconsistent.</li>
+                        <li><i class="fa-solid fa-plus text-green-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Free license, Community driven.</span><span class="lang-ar lang-hidden">رخصة مجانية، مدعوم من المجتمع.</span></li>
+                        <li><i class="fa-solid fa-minus text-red-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Support can be costly/inconsistent.</span><span class="lang-ar lang-hidden">الدعم قد يكون مكلفاً/غير متسق.</span></li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-lg border-t-4 border-gray-500">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">6. In-House</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">Building it yourself from scratch.</p>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">6. In-House</span>
+                        <span class="lang-ar lang-hidden">6. In-House (داخلي)</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        <span class="lang-en">Building it yourself from scratch.</span>
+                        <span class="lang-ar lang-hidden">بناؤه بنفسك من الصفر.</span>
+                    </p>
                     <ul class="text-xs space-y-1 text-gray-500">
-                        <li><i class="fa-solid fa-plus text-green-500 mr-1"></i> Perfect fit, Competitive advantage.</li>
-                        <li><i class="fa-solid fa-minus text-red-500 mr-1"></i> Highest cost, Staffing burden.</li>
+                        <li><i class="fa-solid fa-plus text-green-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Perfect fit, Competitive advantage.</span><span class="lang-ar lang-hidden">ملاءمة مثالية، ميزة تنافسية.</span></li>
+                        <li><i class="fa-solid fa-minus text-red-500 mr-1 rtl:ml-1 rtl:mr-0"></i> <span class="lang-en">Highest cost, Staffing burden.</span><span class="lang-ar lang-hidden">أعلى تكلفة، عبء التوظيف.</span></li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Software Reuse</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Software Reuse</span>
+                    <span class="lang-ar lang-hidden">إعادة استخدام البرمجيات</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl overflow-hidden">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Why reinvent the wheel? Reuse increases productivity and quality. However, it requires a culture shift.
+                    <span class="lang-en">Why reinvent the wheel? Reuse increases productivity and quality. However, it requires a culture shift.</span>
+                    <span class="lang-ar lang-hidden">لماذا نعيد اختراع العجلة؟ إعادة الاستخدام تزيد الإنتاجية والجودة. ومع ذلك، تتطلب تغييراً في الثقافة.</span>
                 </p>
 
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left">
                         <thead class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 uppercase font-bold text-xs">
                             <tr>
-                                <th class="px-6 py-3">Approach</th>
-                                <th class="px-6 py-3">Reuse Level</th>
-                                <th class="px-6 py-3">Cost</th>
-                                <th class="px-6 py-3">Policy</th>
+                                <th class="px-6 py-3"><span class="lang-en">Approach</span><span class="lang-ar lang-hidden">النهج</span></th>
+                                <th class="px-6 py-3"><span class="lang-en">Reuse Level</span><span class="lang-ar lang-hidden">مستوى إعادة الاستخدام</span></th>
+                                <th class="px-6 py-3"><span class="lang-en">Cost</span><span class="lang-ar lang-hidden">التكلفة</span></th>
+                                <th class="px-6 py-3"><span class="lang-en">Policy</span><span class="lang-ar lang-hidden">السياسة</span></th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Ad hoc</td>
-                                <td class="px-6 py-4 text-gray-500">None to Low</td>
-                                <td class="px-6 py-4 text-green-500 font-bold">Low</td>
-                                <td class="px-6 py-4 text-xs">Informal. "Use it if you find it." No enforcement.</td>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Ad hoc</span>
+                                    <span class="lang-ar lang-hidden">Ad hoc (ارتجالي)</span>
+                                </td>
+                                <td class="px-6 py-4 text-gray-500">
+                                    <span class="lang-en">None to Low</span>
+                                    <span class="lang-ar lang-hidden">معدوم إلى منخفض</span>
+                                </td>
+                                <td class="px-6 py-4 text-green-500 font-bold">
+                                    <span class="lang-en">Low</span>
+                                    <span class="lang-ar lang-hidden">منخفضة</span>
+                                </td>
+                                <td class="px-6 py-4 text-xs">
+                                    <span class="lang-en">Informal. "Use it if you find it." No enforcement.</span>
+                                    <span class="lang-ar lang-hidden">غير رسمي. "استخدمه إذا وجدته". لا فرض.</span>
+                                </td>
                             </tr>
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Facilitated</td>
-                                <td class="px-6 py-4 text-gray-500">Low</td>
-                                <td class="px-6 py-4 text-green-500 font-bold">Low</td>
-                                <td class="px-6 py-4 text-xs">Developers encouraged. Some tools available.</td>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Facilitated</span>
+                                    <span class="lang-ar lang-hidden">Facilitated (مُيسر)</span>
+                                </td>
+                                <td class="px-6 py-4 text-gray-500">
+                                    <span class="lang-en">Low</span>
+                                    <span class="lang-ar lang-hidden">منخفض</span>
+                                </td>
+                                <td class="px-6 py-4 text-green-500 font-bold">
+                                    <span class="lang-en">Low</span>
+                                    <span class="lang-ar lang-hidden">منخفضة</span>
+                                </td>
+                                <td class="px-6 py-4 text-xs">
+                                    <span class="lang-en">Developers encouraged. Some tools available.</span>
+                                    <span class="lang-ar lang-hidden">يتم تشجيع المطورين. بعض الأدوات متاحة.</span>
+                                </td>
                             </tr>
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Managed</td>
-                                <td class="px-6 py-4 text-gray-500">Moderate</td>
-                                <td class="px-6 py-4 text-yellow-500 font-bold">Moderate</td>
-                                <td class="px-6 py-4 text-xs">Mandated policies. Established processes for sharing.</td>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Managed</span>
+                                    <span class="lang-ar lang-hidden">Managed (مُدار)</span>
+                                </td>
+                                <td class="px-6 py-4 text-gray-500">
+                                    <span class="lang-en">Moderate</span>
+                                    <span class="lang-ar lang-hidden">متوسط</span>
+                                </td>
+                                <td class="px-6 py-4 text-yellow-500 font-bold">
+                                    <span class="lang-en">Moderate</span>
+                                    <span class="lang-ar lang-hidden">متوسطة</span>
+                                </td>
+                                <td class="px-6 py-4 text-xs">
+                                    <span class="lang-en">Mandated policies. Established processes for sharing.</span>
+                                    <span class="lang-ar lang-hidden">سياسات مفروضة. عمليات ثابتة للمشاركة.</span>
+                                </td>
                             </tr>
                             <tr class="bg-brand-50/50 dark:bg-brand-900/10 hover:bg-brand-50 dark:hover:bg-brand-900/20">
-                                <td class="px-6 py-4 font-bold text-brand-600 dark:text-brand-400">Designed</td>
-                                <td class="px-6 py-4 text-gray-500">High</td>
-                                <td class="px-6 py-4 text-red-500 font-bold">High</td>
-                                <td class="px-6 py-4 text-xs">Code is written <em>specifically</em> for reuse from the start. Corporate "Reuse Office".</td>
+                                <td class="px-6 py-4 font-bold text-brand-600 dark:text-brand-400">
+                                    <span class="lang-en">Designed</span>
+                                    <span class="lang-ar lang-hidden">Designed (مُصمم)</span>
+                                </td>
+                                <td class="px-6 py-4 text-gray-500">
+                                    <span class="lang-en">High</span>
+                                    <span class="lang-ar lang-hidden">عالي</span>
+                                </td>
+                                <td class="px-6 py-4 text-red-500 font-bold">
+                                    <span class="lang-en">High</span>
+                                    <span class="lang-ar lang-hidden">عالية</span>
+                                </td>
+                                <td class="px-6 py-4 text-xs">
+                                    <span class="lang-en">Code is written <em>specifically</em> for reuse from the start. Corporate "Reuse Office".</span>
+                                    <span class="lang-ar lang-hidden">يتم كتابة الكود <em>خصيصاً</em> لإعادة الاستخدام من البداية. "مكتب إعادة استخدام" مؤسسي.</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -429,56 +672,78 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Open Source Cost
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Open Source Cost</span>
+                            <span class="lang-ar lang-hidden">فخ: تكلفة المصدر المفتوح</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Open Source is free." <br>
-                            <strong>FALSE.</strong> The <em>license</em> might be free, but the <strong>Total Cost of Ownership (TCO)</strong> can be high due to implementation costs, lack of support, and need for internal expertise to maintain it.
+                            <span class="lang-en">"Open Source is free." <br>
+                            <strong>FALSE.</strong> The <em>license</em> might be free, but the <strong>Total Cost of Ownership (TCO)</strong> can be high due to implementation costs, lack of support, and need for internal expertise to maintain it.</span>
+                            <span class="lang-ar lang-hidden">"المصدر المفتوح مجاني." <br>
+                            <strong>خطأ.</strong> قد تكون <em>الرخصة</em> مجانية، لكن <strong>التكلفة الإجمالية للملكية (TCO)</strong> قد تكون عالية بسبب تكاليف التنفيذ، نقص الدعم، والحاجة لخبرة داخلية للصيانة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The Reuse Fallacy
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: The Reuse Fallacy</span>
+                            <span class="lang-ar lang-hidden">فخ: مغالطة إعادة الاستخدام</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Ad hoc reuse saves money." <br>
-                            Usually false in the long run. Without management, ad hoc reuse leads to finding bad code, duplicating bugs, and high maintenance costs. <strong>Designed</strong> reuse has high initial cost but massive long-term savings.
+                            <span class="lang-en">"Ad hoc reuse saves money." <br>
+                            Usually false in the long run. Without management, ad hoc reuse leads to finding bad code, duplicating bugs, and high maintenance costs. <strong>Designed</strong> reuse has high initial cost but massive long-term savings.</span>
+                            <span class="lang-ar lang-hidden">"إعادة الاستخدام الارتجالية توفر المال." <br>
+                            عادة خطأ على المدى الطويل. بدون إدارة، تؤدي إلى كود سيء، تكرار الأخطاء، وتكاليف صيانة عالية. إعادة الاستخدام <strong>المصممة</strong> لها تكلفة أولية عالية لكن توفير هائل على المدى الطويل.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Analysis vs Design
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Analysis vs Design</span>
+                            <span class="lang-ar lang-hidden">سر: التحليل مقابل التصميم</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If a question asks "Determining business requirements," it is <strong>Analysis</strong>. <br>
+                            <span class="lang-en">If a question asks "Determining business requirements," it is <strong>Analysis</strong>. <br>
                             If it asks "Specifying hardware or database schema," it is <strong>Design</strong>. <br>
-                            Think: Analysis = Problem Space. Design = Solution Space.
+                            Think: Analysis = Problem Space. Design = Solution Space.</span>
+                            <span class="lang-ar lang-hidden">إذا سأل السؤال عن "تحديد متطلبات العمل"، فهو <strong>تحليل</strong>. <br>
+                            إذا سأل عن "تحديد الأجهزة أو مخطط قاعدة البيانات"، فهو <strong>تصميم</strong>. <br>
+                            تذكر: التحليل = مساحة المشكلة. التصميم = مساحة الحل.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Iron Triangle
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: The Iron Triangle</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: المثلث الحديدي</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In project management (and acquisition), you can't have it all. <strong>Fast, Cheap, Good</strong> — pick two. Off-the-shelf is Fast and Good, but maybe not cheap (licensing) or perfect fit. In-house is Good (fit) but Slow and Expensive.
+                            <span class="lang-en">In project management (and acquisition), you can't have it all. <strong>Fast, Cheap, Good</strong> — pick two. Off-the-shelf is Fast and Good, but maybe not cheap (licensing) or perfect fit. In-house is Good (fit) but Slow and Expensive.</span>
+                            <span class="lang-ar lang-hidden">في إدارة المشاريع (والاستحواذ)، لا يمكنك الحصول على كل شيء. <strong>سريع، رخيص، جيد</strong> — اختر اثنين. الجاهز (Off-the-shelf) سريع وجيد، لكن ربما ليس رخيصاً (تراخيص) أو ملائماً تماماً. الداخلي (In-house) جيد (ملائم) لكنه بطيء ومكلف.</span>
                         </p>
                     </div>
                 </div>
@@ -489,12 +754,21 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 2</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
@@ -518,46 +792,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

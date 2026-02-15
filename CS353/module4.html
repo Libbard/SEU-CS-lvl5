@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 4: Decrease-and-Conquer</title>
@@ -50,6 +59,59 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .ml-1 { margin-left: 0; margin-right: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        
+        
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .border-t-4 { border-top-width: 4px; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-divide,
+        [dir="rtl"] .fa-minus {
+            
+        }
+        [dir="rtl"] .fa-chevron-left, [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left {
+             transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -115,33 +177,73 @@
         .animate-shrink {
             animation: shrink 2s infinite ease-in-out;
         }
+        
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
+        
+        
+        @keyframes vault-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+        .vault-border {
+            animation: vault-pulse 2s infinite;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module3.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 4</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 4</span>
+                        <span class="lang-ar lang-hidden">الوحدة 4</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module5.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -158,78 +260,129 @@
                 <i class="fa-solid fa-compress-arrows-alt text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Decrease-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer</span>
+                <span class="lang-en">Decrease-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer</span></span>
+                <span class="lang-ar lang-hidden">Decrease-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer (التقليص والسيطرة)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Exploiting the relationship between a problem of size $n$ and a smaller instance to solve it efficiently.
+                <span class="lang-en">Exploiting the relationship between a problem of size $n$ and a smaller instance to solve it efficiently.</span>
+                <span class="lang-ar lang-hidden">استغلال العلاقة بين مشكلة بحجم $n$ ونموذج أصغر منها لحلها بكفاءة.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Insertion Sort</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Topological Sort</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Binary Search</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">QuickSelect</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Insertion Sort</span>
+                    <span class="lang-ar lang-hidden">Insertion Sort</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Topological Sort</span>
+                    <span class="lang-ar lang-hidden">Topological Sort</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Binary Search</span>
+                    <span class="lang-ar lang-hidden">Binary Search</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">QuickSelect</span>
+                    <span class="lang-ar lang-hidden">QuickSelect</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Three Variations of Reduction</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Three Variations of Reduction</span>
+                    <span class="lang-ar lang-hidden">ثلاثة أنواع من التقليص (Reduction)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-t-brand-500 hover:scale-105 transition-transform">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-gray-900 dark:text-white">Decrease by Constant</h3>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Decrease by Constant</span>
+                            <span class="lang-ar lang-hidden">تقليص بمقدار ثابت</span>
+                        </h3>
                         <i class="fa-solid fa-minus text-brand-400"></i>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Reduce problem size by a fixed amount (usually 1).</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        <span class="lang-en">Reduce problem size by a fixed amount (usually 1).</span>
+                        <span class="lang-ar lang-hidden">تقليل حجم المشكلة بمقدار ثابت (عادة 1).</span>
+                    </p>
                     <div class="text-xs bg-gray-100 dark:bg-gray-800 p-2 rounded font-mono mb-2">
                         $f(n) \rightarrow f(n-1)$
                     </div>
-                    <p class="text-xs text-brand-600 dark:text-brand-400 font-semibold">Ex: Insertion Sort, DFS, BFS</p>
+                    <p class="text-xs text-brand-600 dark:text-brand-400 font-semibold">
+                        <span class="lang-en">Ex: Insertion Sort, DFS, BFS</span>
+                        <span class="lang-ar lang-hidden">أمثلة: Insertion Sort, DFS, BFS</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-t-blue-500 hover:scale-105 transition-transform">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-gray-900 dark:text-white">Decrease by Factor</h3>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Decrease by Factor</span>
+                            <span class="lang-ar lang-hidden">تقليص بعامل (Factor)</span>
+                        </h3>
                         <i class="fa-solid fa-divide text-blue-400"></i>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Reduce problem size by a factor (usually 2, i.e., half).</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        <span class="lang-en">Reduce problem size by a factor (usually 2, i.e., half).</span>
+                        <span class="lang-ar lang-hidden">تقليل حجم المشكلة بعامل (عادة 2، أي النصف).</span>
+                    </p>
                     <div class="text-xs bg-gray-100 dark:bg-gray-800 p-2 rounded font-mono mb-2">
                         $f(n) \rightarrow f(n/2)$
                     </div>
-                    <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold">Ex: Binary Search</p>
+                    <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold">
+                        <span class="lang-en">Ex: Binary Search</span>
+                        <span class="lang-ar lang-hidden">أمثلة: Binary Search</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-t-emerald-500 hover:scale-105 transition-transform">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-gray-900 dark:text-white">Variable Decrease</h3>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Variable Decrease</span>
+                            <span class="lang-ar lang-hidden">تقليص متغير (Variable)</span>
+                        </h3>
                         <i class="fa-solid fa-ruler-horizontal text-emerald-400"></i>
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Size reduction pattern varies at each step.</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                        <span class="lang-en">Size reduction pattern varies at each step.</span>
+                        <span class="lang-ar lang-hidden">نمط تقليل الحجم يختلف في كل خطوة.</span>
+                    </p>
                     <div class="text-xs bg-gray-100 dark:bg-gray-800 p-2 rounded font-mono mb-2">
                         $f(n) \rightarrow f(?)$
                     </div>
-                    <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Ex: Euclid's GCD, Selection Problem</p>
+                    <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">
+                        <span class="lang-en">Ex: Euclid's GCD, Selection Problem</span>
+                        <span class="lang-ar lang-hidden">أمثلة: Euclid's GCD, Selection Problem</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section class="space-y-6">
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Insertion Sort</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Insertion Sort</span>
+                    <span class="lang-ar lang-hidden">Insertion Sort (الفرز بالإدراج)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8 items-start">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">The Logic</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">
+                        <span class="lang-en">The Logic</span>
+                        <span class="lang-ar lang-hidden">المنطق</span>
+                    </h3>
                     <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                        Think of sorting cards in your hand. You pick the next card ($A[i]$) and insert it into the correct position among the already sorted cards to its left ($A[0..i-1]$). This is a recursive idea implemented iteratively (Bottom-Up) .
+                        <span class="lang-en">Think of sorting cards in your hand. You pick the next card ($A[i]$) and insert it into the correct position among the already sorted cards to its left ($A[0..i-1]$). This is a recursive idea implemented iteratively (Bottom-Up) .</span>
+                        <span class="lang-ar lang-hidden">فكر في ترتيب البطاقات في يدك. تلتقط البطاقة التالية ($A[i]$) وتدخلها في الموضع الصحيح بين البطاقات المرتبة بالفعل على يسارها ($A[0..i-1]$). هذه فكرة عودية (Recursive) تنفذ بشكل تكراري (Bottom-Up).</span>
                     </p>
                     <div class="bg-gray-900 rounded-lg p-4 font-mono text-xs text-green-400 border border-gray-700">
                         <span class="text-rose-400">for</span> i $\leftarrow$ 1 <span class="text-rose-400">to</span> n-1 <span class="text-rose-400">do</span><br>
@@ -244,23 +397,40 @@
 
                 <div class="space-y-4">
                     <div class="p-4 bg-rose-50 dark:bg-rose-900/20 rounded-lg border border-rose-100 dark:border-rose-900/50">
-                        <h4 class="font-bold text-rose-700 dark:text-rose-300 mb-1"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Worst Case</h4>
+                        <h4 class="font-bold text-rose-700 dark:text-rose-300 mb-1">
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Worst Case</span>
+                            <span class="lang-ar lang-hidden">الحالة الأسوأ (Worst Case)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Reverse sorted array. Each element must move all the way to the start.<br>
-                            $C_{worst}(n) \in O(n^2)$ 
+                            <span class="lang-en">Reverse sorted array. Each element must move all the way to the start.<br>
+                            $C_{worst}(n) \in O(n^2)$</span>
+                            <span class="lang-ar lang-hidden">مصفوفة مرتبة عكسياً. يجب أن يتحرك كل عنصر طوال الطريق إلى البداية.<br>
+                            $C_{worst}(n) \in O(n^2)$</span>
                         </p>
                     </div>
                     <div class="p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border border-emerald-100 dark:border-emerald-900/50">
-                        <h4 class="font-bold text-emerald-700 dark:text-emerald-300 mb-1"><i class="fa-solid fa-bolt mr-2"></i> Best Case</h4>
+                        <h4 class="font-bold text-emerald-700 dark:text-emerald-300 mb-1">
+                            <i class="fa-solid fa-bolt mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Best Case</span>
+                            <span class="lang-ar lang-hidden">الحالة الأفضل (Best Case)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Already sorted array. Only 1 comparison per element. <br>
-                            $C_{best}(n) = n - 1 \in O(n)$ 
+                            <span class="lang-en">Already sorted array. Only 1 comparison per element. <br>
+                            $C_{best}(n) = n - 1 \in O(n)$</span>
+                            <span class="lang-ar lang-hidden">مصفوفة مرتبة بالفعل. مقارنة واحدة فقط لكل عنصر. <br>
+                            $C_{best}(n) = n - 1 \in O(n)$</span>
                         </p>
                     </div>
                     <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/50">
-                        <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-1"><i class="fa-solid fa-scale-balanced mr-2"></i> Average Case</h4>
+                        <h4 class="font-bold text-blue-700 dark:text-blue-300 mb-1">
+                            <i class="fa-solid fa-scale-balanced mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Average Case</span>
+                            <span class="lang-ar lang-hidden">الحالة المتوسطة (Average Case)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Random data. Average $\approx n^2/4$. Still quadratic, but twice as fast as Selection Sort on average .
+                            <span class="lang-en">Random data. Average $\approx n^2/4$. Still quadratic, but twice as fast as Selection Sort on average .</span>
+                            <span class="lang-ar lang-hidden">بيانات عشوائية. المتوسط $\approx n^2/4$. لا تزال تربيعية، ولكن أسرع مرتين من Selection Sort في المتوسط.</span>
                         </p>
                     </div>
                 </div>
@@ -268,31 +438,62 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Topological Sorting</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Topological Sorting</span>
+                    <span class="lang-ar lang-hidden">الفرز الطوبولوجي (Topological Sorting)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="mb-4 text-gray-700 dark:text-gray-300">
-                    The problem of ordering vertices in a <span class="smart-term font-bold text-brand-500" data-ar="رسم بياني موجه غير دوري">Directed Acyclic Graph (DAG)</span> such that for every edge $u \to v$, $u$ comes before $v$ in the ordering. Used for scheduling tasks with prerequisites .
+                    <span class="lang-en">The problem of ordering vertices in a <span class="smart-term font-bold text-brand-500" data-ar="رسم بياني موجه غير دوري">Directed Acyclic Graph (DAG)</span> such that for every edge $u \to v$, $u$ comes before $v$ in the ordering. Used for scheduling tasks with prerequisites .</span>
+                    <span class="lang-ar lang-hidden">مشكلة ترتيب الرؤوس (Vertices) في <span class="smart-term font-bold text-brand-500" data-ar="رسم بياني موجه غير دوري">Directed Acyclic Graph (DAG)</span> بحيث أنه لكل حافة $u \to v$، يأتي $u$ قبل $v$ في الترتيب. يستخدم لجدولة المهام ذات المتطلبات المسبقة.</span>
                 </p>
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="flex-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">Method 1: Source Removal</h4>
-                        <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2">
-                            <li>Identify a <strong>Source</strong> (vertex with in-degree 0).</li>
-                            <li>Delete it and all outgoing edges.</li>
-                            <li>Repeat until graph is empty.</li>
-                            <li>Order of deletion = Topological Sort .</li>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Method 1: Source Removal</span>
+                            <span class="lang-ar lang-hidden">الطريقة 1: إزالة المصدر (Source Removal)</span>
+                        </h4>
+                        <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2 rtl:pr-4 rtl:pl-0">
+                            <li>
+                                <span class="lang-en">Identify a <strong>Source</strong> (vertex with in-degree 0).</span>
+                                <span class="lang-ar lang-hidden">تحديد <strong>المصدر (Source)</strong> (رأس بدرجة دخول 0).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Delete it and all outgoing edges.</span>
+                                <span class="lang-ar lang-hidden">حذفه وجميع الحواف الخارجة منه.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Repeat until graph is empty.</span>
+                                <span class="lang-ar lang-hidden">التكرار حتى يصبح الرسم البياني فارغاً.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Order of deletion = Topological Sort .</span>
+                                <span class="lang-ar lang-hidden">ترتيب الحذف = الفرز الطوبولوجي.</span>
+                            </li>
                         </ol>
                     </div>
                     <div class="flex-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">Method 2: DFS Based</h4>
-                        <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2">
-                            <li>Perform DFS traversal.</li>
-                            <li>Note the order in which vertices are <strong>popped</strong> (dead ends).</li>
-                            <li>Reverse that order.</li>
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">Method 2: DFS Based</span>
+                            <span class="lang-ar lang-hidden">الطريقة 2: معتمدة على DFS</span>
+                        </h4>
+                        <ol class="list-decimal list-inside text-sm text-gray-600 dark:text-gray-400 space-y-2 rtl:pr-4 rtl:pl-0">
+                            <li>
+                                <span class="lang-en">Perform DFS traversal.</span>
+                                <span class="lang-ar lang-hidden">إجراء اجتياز DFS.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Note the order in which vertices are <strong>popped</strong> (dead ends).</span>
+                                <span class="lang-ar lang-hidden">ملاحظة الترتيب الذي يتم فيه <strong>إخراج (pop)</strong> الرؤوس (النهايات المسدودة).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Reverse that order.</span>
+                                <span class="lang-ar lang-hidden">عكس ذلك الترتيب.</span>
+                            </li>
                         </ol>
                     </div>
                 </div>
@@ -300,23 +501,28 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Binary Search</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Binary Search</span>
+                    <span class="lang-ar lang-hidden">Binary Search (البحث الثنائي)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="space-y-4">
                     <p class="text-gray-700 dark:text-gray-300">
-                        The ultimate example of efficiency. Reduces problem size by half at every step. Requires a <strong>sorted array</strong>.
+                        <span class="lang-en">The ultimate example of efficiency. Reduces problem size by half at every step. Requires a <strong>sorted array</strong>.</span>
+                        <span class="lang-ar lang-hidden">المثال الأسمى للكفاءة. يقلل حجم المشكلة بمقدار النصف في كل خطوة. يتطلب <strong>مصفوفة مرتبة</strong>.</span>
                     </p>
-                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg font-mono text-sm border-l-4 border-blue-500">
-                        Recurrence Relation:<br>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg font-mono text-sm border-l-4 border-blue-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-blue-500">
+                        <span class="lang-en">Recurrence Relation:<br></span>
+                        <span class="lang-ar lang-hidden">علاقة التكرار:<br></span>
                         $C_{worst}(n) = C_{worst}(\lfloor n/2 \rfloor) + 1$<br>
                         $C_{worst}(1) = 1$
                     </div>
-                    <div class="flex items-center space-x-2 text-xl font-bold text-brand-600 dark:text-brand-400">
-                        <i class="fa-solid fa-arrow-right"></i>
+                    <div class="flex items-center space-x-2 text-xl font-bold text-brand-600 dark:text-brand-400 rtl:space-x-reverse">
+                        <i class="fa-solid fa-arrow-right rtl:rotate-180"></i>
                         <span>$O(\log_2 n)$</span>
                     </div>
                     <p class="text-xs text-gray-500"></p>
@@ -324,46 +530,80 @@
                 
                 <div class="glass-card p-6 rounded-xl flex flex-col items-center justify-center space-y-2">
                     <div class="w-full h-8 bg-gray-300 dark:bg-gray-700 rounded relative overflow-hidden">
-                        <div class="absolute left-0 top-0 h-full w-full bg-brand-500 opacity-20 animate-shrink"></div>
-                        <div class="absolute left-1/2 top-0 h-full w-1 bg-brand-500"></div>
+                        <div class="absolute left-0 top-0 h-full w-full bg-brand-500 opacity-20 animate-shrink rtl:right-0 rtl:left-auto"></div>
+                        <div class="absolute left-1/2 top-0 h-full w-1 bg-brand-500 rtl:right-1/2 rtl:left-auto"></div>
                     </div>
-                    <span class="text-xs text-gray-500">Search Space Halves Every Step</span>
+                    <span class="text-xs text-gray-500">
+                        <span class="lang-en">Search Space Halves Every Step</span>
+                        <span class="lang-ar lang-hidden">مساحة البحث تتنصف كل خطوة</span>
+                    </span>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Selection Problem (QuickSelect)</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Selection Problem (QuickSelect)</span>
+                    <span class="lang-ar lang-hidden">مشكلة الاختيار (QuickSelect)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border border-gray-200 dark:border-gray-700">
                 <div class="flex justify-between items-start mb-4">
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Finding the $k$-th Smallest Element</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Can we find the median without sorting the whole array?</p>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Finding the $k$-th Smallest Element</span>
+                            <span class="lang-ar lang-hidden">إيجاد العنصر الـ $k$ الأصغر</span>
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            <span class="lang-en">Can we find the median without sorting the whole array?</span>
+                            <span class="lang-ar lang-hidden">هل يمكننا إيجاد الوسيط دون ترتيب المصفوفة بالكامل؟</span>
+                        </p>
                     </div>
-                    <span class="px-2 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 text-xs rounded font-bold">Lomuto Partition</span>
+                    <span class="px-2 py-1 bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 text-xs rounded font-bold">
+                        <span class="lang-en">Lomuto Partition</span>
+                        <span class="lang-ar lang-hidden">Lomuto Partition</span>
+                    </span>
                 </div>
 
                 <div class="space-y-4">
                     <p class="text-sm text-gray-700 dark:text-gray-300">
-                        Uses <strong>Partitioning</strong> (like QuickSort). Pick a pivot $p$. Rearrange array so elements $< p$ are left, $> p$ are right.
+                        <span class="lang-en">Uses <strong>Partitioning</strong> (like QuickSort). Pick a pivot $p$. Rearrange array so elements $< p$ are left, $> p$ are right.</span>
+                        <span class="lang-ar lang-hidden">يستخدم <strong>التقسيم (Partitioning)</strong> (مثل QuickSort). اختر محوراً (pivot) $p$. أعد ترتيب المصفوفة بحيث تكون العناصر $< p$ يساراً، والعناصر $> p$ يميناً.</span>
                     </p>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> If pivot index $s = k-1$, we found it!</li>
-                        <li><i class="fa-solid fa-arrow-left text-blue-500 mr-2"></i> If $s > k-1$, look in left part (discard right).</li>
-                        <li><i class="fa-solid fa-arrow-right text-blue-500 mr-2"></i> If $s < k-1$, look in right part (discard left).</li>
+                        <li>
+                            <i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">If pivot index $s = k-1$, we found it!</span>
+                            <span class="lang-ar lang-hidden">إذا كان مؤشر المحور $s = k-1$، لقد وجدناه!</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-arrow-left text-blue-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">If $s > k-1$, look in left part (discard right).</span>
+                            <span class="lang-ar lang-hidden">إذا كان $s > k-1$، ابحث في الجزء الأيسر (تجاهل الأيمن).</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-arrow-right text-blue-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">If $s < k-1$, look in right part (discard left).</span>
+                            <span class="lang-ar lang-hidden">إذا كان $s < k-1$، ابحث في الجزء الأيمن (تجاهل الأيسر).</span>
+                        </li>
                     </ul>
                     
                     <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div>
-                            <span class="block text-xs uppercase text-gray-500 font-bold">Best/Avg Case</span>
+                            <span class="block text-xs uppercase text-gray-500 font-bold">
+                                <span class="lang-en">Best/Avg Case</span>
+                                <span class="lang-ar lang-hidden">أفضل/متوسط حالة</span>
+                            </span>
                             <span class="text-lg font-mono font-bold text-emerald-500">$O(n)$</span>
                         </div>
                         <div>
-                            <span class="block text-xs uppercase text-gray-500 font-bold">Worst Case</span>
+                            <span class="block text-xs uppercase text-gray-500 font-bold">
+                                <span class="lang-en">Worst Case</span>
+                                <span class="lang-ar lang-hidden">أسوأ حالة</span>
+                            </span>
                             <span class="text-lg font-mono font-bold text-rose-500">$O(n^2)$</span>
                         </div>
                     </div>
@@ -373,53 +613,72 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Insertion Sort Efficiency
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Insertion Sort Efficiency</span>
+                            <span class="lang-ar lang-hidden">فخ: كفاءة Insertion Sort</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Is Insertion Sort always slow?" <br>
-                            <strong>No!</strong> On an <em>almost sorted</em> array, it runs in $O(n)$ time (Best Case). It is often faster than QuickSort for very small arrays ($n < 20$) .
+                            <span class="lang-en">"Is Insertion Sort always slow?" <br>
+                            <strong>No!</strong> On an <em>almost sorted</em> array, it runs in $O(n)$ time (Best Case). It is often faster than QuickSort for very small arrays ($n < 20$) .</span>
+                            <span class="lang-ar lang-hidden">"هل Insertion Sort بطيء دائماً؟" <br>
+                            <strong>لا!</strong> في مصفوفة <em>شبه مرتبة</em>، يعمل في وقت $O(n)$ (أفضل حالة). وغالباً ما يكون أسرع من QuickSort للمصفوفات الصغيرة جداً ($n < 20$).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Cycles in Topo Sort
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Cycles in Topo Sort</span>
+                            <span class="lang-ar lang-hidden">فخ: الدورات في Topo Sort</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Topological Sort is IMPOSSIBLE if the graph has a <strong>Cycle</strong>. It only works on <strong>DAGs</strong> (Directed Acyclic Graphs). If an exam question asks you to topo-sort a graph with a loop, the answer is "No Solution".
+                            <span class="lang-en">Topological Sort is IMPOSSIBLE if the graph has a <strong>Cycle</strong>. It only works on <strong>DAGs</strong> (Directed Acyclic Graphs). If an exam question asks you to topo-sort a graph with a loop, the answer is "No Solution".</span>
+                            <span class="lang-ar lang-hidden">الفرز الطوبولوجي مستحيل إذا كان الرسم البياني يحتوي على <strong>دورة (Cycle)</strong>. يعمل فقط على <strong>DAGs</strong>. إذا طلب منك سؤال اختبار فرز رسم بياني به حلقة طوبولوجياً، فالإجابة هي "لا يوجد حل".</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Binary Search Ceiling
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Binary Search Ceiling</span>
+                            <span class="lang-ar lang-hidden">سر: سقف البحث الثنائي</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When calculating mid, we usually do $\lfloor (l+r)/2 \rfloor$. If the array size is even, this picks the <em>left</em> middle. Be careful tracing this manually in exams; picking the wrong middle index changes the trace path.
+                            <span class="lang-en">When calculating mid, we usually do $\lfloor (l+r)/2 \rfloor$. If the array size is even, this picks the <em>left</em> middle. Be careful tracing this manually in exams; picking the wrong middle index changes the trace path.</span>
+                            <span class="lang-ar lang-hidden">عند حساب المنتصف، عادة ما نستخدم $\lfloor (l+r)/2 \rfloor$. إذا كان حجم المصفوفة زوجياً، فهذا يختار المنتصف <em>الأيسر</em>. كن حذراً عند تتبع هذا يدوياً في الاختبارات؛ اختيار مؤشر المنتصف الخاطئ يغير مسار التتبع.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Pivot
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: The Pivot</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: المحور (The Pivot)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The efficiency of QuickSelect (and QuickSort) depends entirely on the <strong>Pivot</strong>. If the pivot splits the array into 0 and $n-1$ elements every time, you hit the $O(n^2)$ worst case .
+                            <span class="lang-en">The efficiency of QuickSelect (and QuickSort) depends entirely on the <strong>Pivot</strong>. If the pivot splits the array into 0 and $n-1$ elements every time, you hit the $O(n^2)$ worst case .</span>
+                            <span class="lang-ar lang-hidden">كفاءة QuickSelect (و QuickSort) تعتمد كلياً على <strong>المحور (Pivot)</strong>. إذا قسم المحور المصفوفة إلى 0 و $n-1$ عنصر في كل مرة، فإنك تصل إلى أسوأ حالة $O(n^2)$.</span>
                         </p>
                     </div>
                 </div>
@@ -430,18 +689,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 3</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 3</span>
+                    <span class="lang-ar lang-hidden">الوحدة 3</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 5</span>
+                    <span class="lang-ar lang-hidden">الوحدة 5</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -460,46 +732,53 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

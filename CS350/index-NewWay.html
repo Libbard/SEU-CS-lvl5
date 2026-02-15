@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS350: Intro to Database | Digital Garden</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b', 
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(253, 230, 138, 0.6);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(75, 85, 99, 0.4);
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: #f59e0b;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2);
+        }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l { border-left-width: 0; border-right-width: 1px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <div class="p-2 bg-brand-500 rounded-lg text-white">
+                        <i class="fa-solid fa-database text-xl"></i>
+                    </div>
+                    <span class="font-bold text-lg tracking-tight hidden sm:block">
+                        <span class="lang-en">CS350 Digital Garden</span>
+                        <span class="lang-ar lang-hidden">CS350 الحديقة الرقمية</span>
+                    </span>
+                </div>
+
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <div class="hidden md:flex flex-col items-end rtl:items-start mr-4 rtl:ml-4 rtl:mr-0">
+                        <span class="text-[10px] uppercase font-bold text-gray-400">
+                            <span class="lang-en">Progress</span>
+                            <span class="lang-ar lang-hidden">التقدم</span>
+                        </span>
+                        <div class="w-24 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mt-1">
+                            <div id="nav-progress-bar" class="h-1.5 bg-brand-500 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative overflow-hidden bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+            <div class="inline-flex items-center justify-center p-3 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full mb-6 ring-1 ring-brand-200 dark:ring-brand-800">
+                <i class="fa-solid fa-seedling mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                <span class="text-sm font-bold uppercase tracking-wider">
+                    <span class="lang-en">Welcome to the Garden</span>
+                    <span class="lang-ar lang-hidden">مرحباً بكم في الحديقة</span>
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
+                <span class="lang-en">Master <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-orange-600">Database Systems</span></span>
+                <span class="lang-ar lang-hidden">أتقن <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-orange-600">نظم قواعد البيانات</span></span>
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+                <span class="lang-en">A curated, interactive learning path for CS350. From basic concepts to advanced security, structured for your success.</span>
+                <span class="lang-ar lang-hidden">مسار تعليمي تفاعلي ومنسق لمقرر CS350. من المفاهيم الأساسية إلى الأمن المتقدم، مهيكل لضمان نجاحك.</span>
+            </p>
+            
+            <div class="max-w-lg mx-auto bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1 h-full bg-brand-500"></div>
+                <div class="flex justify-between items-end mb-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Your Journey</span>
+                            <span class="lang-ar lang-hidden">رحلتك</span>
+                        </h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">Track your completion</span>
+                            <span class="lang-ar lang-hidden">تتبع إنجازك</span>
+                        </p>
+                    </div>
+                    <span id="progress-text" class="text-3xl font-black text-brand-500">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-4 overflow-hidden">
+                    <div id="progress-fill" class="bg-brand-500 h-3 rounded-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                </div>
+                <button onclick="resetProgress()" class="text-xs text-gray-400 hover:text-red-500 flex items-center justify-center w-full transition-colors">
+                    <i class="fa-solid fa-rotate-right mr-1 rtl:ml-1 rtl:mr-0"></i> 
+                    <span class="lang-en">Reset Progress</span>
+                    <span class="lang-ar lang-hidden">إعادة تعيين التقدم</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+
+        <section>
+            <div class="flex items-center space-x-4 rtl:space-x-reverse mb-8">
+                <div class="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold">1</div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Foundations</span>
+                    <span class="lang-ar lang-hidden">الأساسيات</span>
+                </h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="module1.html" onclick="markModuleComplete(1)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-server text-6xl text-brand-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-brand-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 1</span>
+                            <span class="lang-ar lang-hidden">الوحدة 1</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">
+                            <span class="lang-en">Databases & Users</span>
+                            <span class="lang-ar lang-hidden">قواعد البيانات والمستخدمين</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">Basic definitions, actors, and the database approach characteristics.</span>
+                            <span class="lang-ar lang-hidden">التعريفات الأساسية، الجهات الفاعلة، وخصائص نهج قاعدة البيانات.</span>
+                        </p>
+                    </div>
+                </a>
+                <a href="module2.html" onclick="markModuleComplete(2)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-sitemap text-6xl text-brand-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-brand-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 2</span>
+                            <span class="lang-ar lang-hidden">الوحدة 2</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">
+                            <span class="lang-en">System Architecture</span>
+                            <span class="lang-ar lang-hidden">بنية النظام</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">Three-Schema Architecture, Data Independence, and Languages (DDL/DML).</span>
+                            <span class="lang-ar lang-hidden">معمارية المخططات الثلاثة، استقلالية البيانات، واللغات (DDL/DML).</span>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-4 rtl:space-x-reverse mb-8">
+                <div class="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-400 font-bold">2</div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Relational & Conceptual Design</span>
+                    <span class="lang-ar lang-hidden">التصميم العلائقي والمفاهيمي</span>
+                </h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="module3.html" onclick="markModuleComplete(3)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-table text-6xl text-green-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 3</span>
+                            <span class="lang-ar lang-hidden">الوحدة 3</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-green-500 transition-colors">
+                            <span class="lang-en">Relational Model</span>
+                            <span class="lang-ar lang-hidden">النموذج العلائقي</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">Relations, Tuples, Domains, and Integrity Constraints.</span>
+                            <span class="lang-ar lang-hidden">العلاقات، الصفوف، المجالات، وقيود التكامل.</span>
+                        </p>
+                    </div>
+                </a>
+                <a href="module4.html" onclick="markModuleComplete(4)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-diagram-project text-6xl text-green-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 4</span>
+                            <span class="lang-ar lang-hidden">الوحدة 4</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-green-500 transition-colors">
+                            <span class="lang-en">ER Modeling</span>
+                            <span class="lang-ar lang-hidden">نمذجة ER</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">Entities, Attributes, Relationships, and Cardinality Ratios.</span>
+                            <span class="lang-ar lang-hidden">الكيانات، السمات، العلاقات، ونسب التعددية (Cardinality).</span>
+                        </p>
+                    </div>
+                </a>
+                <a href="module5.html" onclick="markModuleComplete(5)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-code-branch text-6xl text-green-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 5</span>
+                            <span class="lang-ar lang-hidden">الوحدة 5</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-green-500 transition-colors">
+                            <span class="lang-en">Advanced ER (EER)</span>
+                            <span class="lang-ar lang-hidden">ER المتقدمة (EER)</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">Subclasses, Superclasses, Inheritance, and Specialization.</span>
+                            <span class="lang-ar lang-hidden">الفئات الفرعية، الفئات العليا، الوراثة، والتخصص.</span>
+                        </p>
+                    </div>
+                </a>
+                <a href="module6.html" onclick="markModuleComplete(6)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-arrows-rotate text-6xl text-green-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-green-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 6</span>
+                            <span class="lang-ar lang-hidden">الوحدة 6</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-green-500 transition-colors">
+                            <span class="lang-en">Mapping & Constraints</span>
+                            <span class="lang-ar lang-hidden">التحويل والقيود</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">The 7-Step Algorithm to convert ERD to Relational Schema.</span>
+                            <span class="lang-ar lang-hidden">الخوارزمية ذات الـ 7 خطوات لتحويل ERD إلى مخطط علائقي.</span>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 shadow-2xl">
+            <div class="absolute inset-0 bg-black/20"></div>
+            <div class="relative z-10 p-8 md:p-12 text-center text-white">
+                <i class="fa-solid fa-flag-checkered text-5xl mb-4 text-yellow-300"></i>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+                    <span class="lang-en">Midterm Checkpoint</span>
+                    <span class="lang-ar lang-hidden">نقطة الاختبار النصفي</span>
+                </h2>
+                <p class="text-indigo-100 max-w-xl mx-auto mb-8">
+                    <span class="lang-en">You've mastered the design phase. Test your knowledge before moving to implementation.</span>
+                    <span class="lang-ar lang-hidden">لقد أتقنت مرحلة التصميم. اختبر معلوماتك قبل الانتقال إلى التنفيذ.</span>
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="midterm-review.html" class="px-6 py-3 bg-white text-indigo-600 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                        <i class="fa-solid fa-book-open mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Review Notes</span>
+                        <span class="lang-ar lang-hidden">مراجعة الملاحظات</span>
+                    </a>
+                    <a href="midterm-quiz.html" class="px-6 py-3 bg-yellow-400 text-yellow-900 rounded-lg font-bold hover:bg-yellow-300 transition-colors">
+                        <i class="fa-solid fa-play mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Start Quiz</span>
+                        <span class="lang-ar lang-hidden">ابدأ الاختبار</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-4 rtl:space-x-reverse mb-8">
+                <div class="h-10 w-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-400 font-bold">3</div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">SQL Implementation</span>
+                    <span class="lang-ar lang-hidden">تطبيق SQL</span>
+                </h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="module7.html" onclick="markModuleComplete(7)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-terminal text-6xl text-purple-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-purple-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 7</span>
+                            <span class="lang-ar lang-hidden">الوحدة 7</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-500 transition-colors">
+                            <span class="lang-en">SQL DDL</span>
+                            <span class="lang-ar lang-hidden">SQL DDL (التعريف)</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">CREATE, ALTER, DROP tables and Constraints.</span>
+                            <span class="lang-ar lang-hidden">أوامر CREATE, ALTER, DROP للجداول والقيود.</span>
+                        </p>
+                    </div>
+                </a>
+                <a href="module8.html" onclick="markModuleComplete(8)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-magnifying-glass text-6xl text-purple-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-purple-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 8</span>
+                            <span class="lang-ar lang-hidden">الوحدة 8</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-500 transition-colors">
+                            <span class="lang-en">SQL DML Basics</span>
+                            <span class="lang-ar lang-hidden">أساسيات SQL DML</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">INSERT, UPDATE, DELETE, and Basic SELECT.</span>
+                            <span class="lang-ar lang-hidden">INSERT, UPDATE, DELETE, والاستعلام الأساسي SELECT.</span>
+                        </p>
+                    </div>
+                </a>
+                <a href="module9.html" onclick="markModuleComplete(9)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-gears text-6xl text-purple-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-purple-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 9</span>
+                            <span class="lang-ar lang-hidden">الوحدة 9</span>
+                        </span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-500 transition-colors">
+                            <span class="lang-en">Advanced SQL</span>
+                            <span class="lang-ar lang-hidden">SQL المتقدمة</span>
+                        </h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            <span class="lang-en">Joins, Nested Queries, Aggregation, and Triggers.</span>
+                            <span class="lang-ar lang-hidden">الربط (Joins)، الاستعلامات المتداخلة، التجميع، والقوادح (Triggers).</span>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-4 rtl:space-x-reverse mb-8">
+                <div class="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center text-red-600 dark:text-red-400 font-bold">4</div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Advanced Topics</span>
+                    <span class="lang-ar lang-hidden">مواضيع متقدمة</span>
+                </h2>
+            </div>
+            <div class="grid md:grid-cols-4 gap-6">
+                <a href="module10.html" onclick="markModuleComplete(10)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-infinity text-6xl text-red-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-red-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 10</span>
+                            <span class="lang-ar lang-hidden">الوحدة 10</span>
+                        </span>
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-500 transition-colors">
+                            <span class="lang-en">Relational Algebra</span>
+                            <span class="lang-ar lang-hidden">الجبر العلائقي</span>
+                        </h3>
+                    </div>
+                </a>
+                <a href="module11.html" onclick="markModuleComplete(11)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-filter text-6xl text-red-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-red-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 11</span>
+                            <span class="lang-ar lang-hidden">الوحدة 11</span>
+                        </span>
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-500 transition-colors">
+                            <span class="lang-en">Normalization I</span>
+                            <span class="lang-ar lang-hidden">التطبيع (Normalization) 1</span>
+                        </h3>
+                    </div>
+                </a>
+                <a href="module12.html" onclick="markModuleComplete(12)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-vial text-6xl text-red-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-red-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 12</span>
+                            <span class="lang-ar lang-hidden">الوحدة 12</span>
+                        </span>
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-500 transition-colors">
+                            <span class="lang-en">Normalization II</span>
+                            <span class="lang-ar lang-hidden">التطبيع (Normalization) 2</span>
+                        </h3>
+                    </div>
+                </a>
+                <a href="module13.html" onclick="markModuleComplete(13)" class="glass-card p-6 rounded-xl hover:bg-white dark:hover:bg-gray-800 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-shield-halved text-6xl text-red-500"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="text-xs font-bold text-red-500 uppercase tracking-wider mb-2 block">
+                            <span class="lang-en">Module 13</span>
+                            <span class="lang-ar lang-hidden">الوحدة 13</span>
+                        </span>
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-500 transition-colors">
+                            <span class="lang-en">DB Security</span>
+                            <span class="lang-ar lang-hidden">أمن قواعد البيانات</span>
+                        </h3>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-gray-800 to-black shadow-2xl mb-12">
+            <div class="relative z-10 p-8 md:p-12 text-center text-white">
+                <i class="fa-solid fa-graduation-cap text-5xl mb-4 text-brand-500"></i>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
+                    <span class="lang-en">The Final Challenge</span>
+                    <span class="lang-ar lang-hidden">التحدي النهائي</span>
+                </h2>
+                <p class="text-gray-300 max-w-xl mx-auto mb-8">
+                    <span class="lang-en">Complete Modules 7-13 to unlock the Final Exam materials.</span>
+                    <span class="lang-ar lang-hidden">أكمل الوحدات 7-13 لفتح مواد الاختبار النهائي.</span>
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="final-review.html" class="px-6 py-3 bg-gray-700 text-white rounded-lg font-bold hover:bg-gray-600 transition-colors">
+                        <i class="fa-solid fa-book-open mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">Final Review</span>
+                        <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                    </a>
+                    <a href="final-quiz.html" class="px-6 py-3 bg-brand-600 text-white rounded-lg font-bold hover:bg-brand-500 transition-colors">
+                        <i class="fa-solid fa-pen-nib mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">Final Quiz</span>
+                        <span class="lang-ar lang-hidden">الاختبار النهائي</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('lang-hidden', lang === 'ar'));
+            document.querySelectorAll('.lang-ar').forEach(el => el.classList.toggle('lang-hidden', lang !== 'ar'));
+        }
+
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        function calculateProgress() {
+            let completed = 0;
+            const total = 13;
+            for(let i=1; i<=total; i++) {
+                if(localStorage.getItem(`module_completed_${i}`) === 'true') {
+                    completed++;
+                }
+            }
+            const percent = Math.round((completed / total) * 100);
+            
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const navProgressBar = document.getElementById('nav-progress-bar');
+            
+            
+            setTimeout(() => {
+                progressFill.style.width = `${percent}%`;
+                navProgressBar.style.width = `${percent}%`;
+                progressText.innerText = `${percent}%`;
+            }, 500);
+        }
+
+        window.markModuleComplete = function(modNum) {
+            localStorage.setItem(`module_completed_${modNum}`, 'true');
+        };
+
+        
+        function resetProgress() {
+            const currentLang = htmlElement.getAttribute('lang');
+            const msg = currentLang === 'ar' ? "هل تريد تصفير العداد والبدء من جديد؟" : "Are you sure you want to reset your progress?";
+            
+            if (confirm(msg)) {
+                for (let i = 1; i <= 13; i++) {
+                    localStorage.removeItem(`module_completed_${i}`);
+                }
+                const progressFill = document.getElementById('progress-fill');
+                const navProgressBar = document.getElementById('nav-progress-bar');
+                const progressText = document.getElementById('progress-text');
+                
+                progressFill.style.width = '0%';
+                navProgressBar.style.width = '0%';
+                progressText.innerText = '0%';
+            }
+        }
+
+        
+        calculateProgress();
+    </script>
+</body>
+</html>

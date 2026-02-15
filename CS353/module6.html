@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 6: Transform-and-Conquer</title>
@@ -117,6 +126,41 @@
             height: 40px;
             animation: morph 3s infinite ease-in-out;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+
+        
+        [dir="rtl"] mjx-container, 
+        [dir="rtl"] .MathJax { 
+            direction: ltr !important; 
+            text-align: left !important;
+            display: inline-block;
+        }
+
+        
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l { border-left-width: 0; border-right-width: 1px; }
+        
+        
+        [dir="rtl"] .left-6 { left: auto; right: 1.5rem; }
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -124,26 +168,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module5.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 6</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 6</span>
+                        <span class="lang-ar lang-hidden">الوحدة 6</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -160,99 +219,171 @@
                 <i class="fa-solid fa-wand-magic-sparkles text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Transform-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer</span>
+                <span class="lang-en">Transform-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer</span></span>
+                <span class="lang-ar lang-hidden">Transform-and-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Conquer</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Solve a difficult problem by transforming it into a simpler or more convenient form. "If you can't solve the problem, change the problem."
+                <span class="lang-en">Solve a difficult problem by transforming it into a simpler or more convenient form. "If you can't solve the problem, change the problem."</span>
+                <span class="lang-ar lang-hidden">حل مشكلة صعبة عن طريق تحويلها إلى شكل أبسط أو أكثر ملاءمة. "إذا لم تستطع حل المشكلة، قم بتغيير المشكلة."</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Presorting</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Gaussian Elimination</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">AVL Trees</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Heaps</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Presorting</span>
+                    <span class="lang-ar lang-hidden">Presorting</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Gaussian Elimination</span>
+                    <span class="lang-ar lang-hidden">Gaussian Elimination</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">AVL Trees</span>
+                    <span class="lang-ar lang-hidden">AVL Trees</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Heaps</span>
+                    <span class="lang-ar lang-hidden">Heaps</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Three Variations</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Three Variations</span>
+                    <span class="lang-ar lang-hidden">الاختلافات الثلاثة (Three Variations)</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl relative group hover:border-brand-500 transition-colors">
-                    <div class="absolute -top-4 left-6 bg-brand-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
-                    <h3 class="mt-2 font-bold text-lg text-gray-900 dark:text-white mb-2">Instance Simplification</h3>
+                    <div class="absolute -top-4 left-6 rtl:left-auto rtl:right-6 bg-brand-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">1</div>
+                    <h3 class="mt-2 font-bold text-lg text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Instance Simplification</span>
+                        <span class="lang-ar lang-hidden">Instance Simplification (تبسيط الحالة)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Transform the instance into a <strong>simpler/more convenient</strong> property.
-						<br><br>
+                        <span class="lang-en">Transform the instance into a <strong>simpler/more convenient</strong> property.</span>
+                        <span class="lang-ar lang-hidden">تحويل الحالة (instance) إلى خاصية <strong>أبسط / أكثر ملاءمة</strong>.</span>
+                        <br><br>
                     </p>
-                    <p class="mt-3 text-xs font-mono text-brand-600 dark:text-brand-400">Ex: Presorting, Gaussian Elim.</p>
+                    <p class="mt-3 text-xs font-mono text-brand-600 dark:text-brand-400">
+                        <span class="lang-en">Ex: Presorting, Gaussian Elim.</span>
+                        <span class="lang-ar lang-hidden">Ex: Presorting, Gaussian Elim.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl relative group hover:border-blue-500 transition-colors">
-                    <div class="absolute -top-4 left-6 bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
-                    <h3 class="mt-2 font-bold text-lg text-gray-900 dark:text-white mb-2">Representation Change</h3>
+                    <div class="absolute -top-4 left-6 rtl:left-auto rtl:right-6 bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">2</div>
+                    <h3 class="mt-2 font-bold text-lg text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Representation Change</span>
+                        <span class="lang-ar lang-hidden">Representation Change (تغيير التمثيل)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Transform the instance into a <strong>different representation</strong>.
-						<br><br>
+                        <span class="lang-en">Transform the instance into a <strong>different representation</strong>.</span>
+                        <span class="lang-ar lang-hidden">تحويل الحالة إلى <strong>تمثيل مختلف (different representation)</strong>.</span>
+                        <br><br>
                     </p>
-                    <p class="mt-3 text-xs font-mono text-blue-600 dark:text-blue-400">Ex: AVL Trees, Heaps, 2-3 Trees.</p>
+                    <p class="mt-3 text-xs font-mono text-blue-600 dark:text-blue-400">
+                        <span class="lang-en">Ex: AVL Trees, Heaps, 2-3 Trees.</span>
+                        <span class="lang-ar lang-hidden">Ex: AVL Trees, Heaps, 2-3 Trees.</span>
+                    </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl relative group hover:border-emerald-500 transition-colors">
-                    <div class="absolute -top-4 left-6 bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
-                    <h3 class="mt-2 font-bold text-lg text-gray-900 dark:text-white mb-2">Problem Reduction</h3>
+                    <div class="absolute -top-4 left-6 rtl:left-auto rtl:right-6 bg-emerald-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">3</div>
+                    <h3 class="mt-2 font-bold text-lg text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Problem Reduction</span>
+                        <span class="lang-ar lang-hidden">Problem Reduction (تقليص المشكلة)</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        Transform the problem into a <strong>totally different problem</strong> for which an algorithm is known.
+                        <span class="lang-en">Transform the problem into a <strong>totally different problem</strong> for which an algorithm is known.</span>
+                        <span class="lang-ar lang-hidden">تحويل المشكلة إلى <strong>مشكلة مختلفة تماماً</strong> يوجد لها خوارزمية معروفة.</span>
                     </p>
-                    <p class="mt-3 text-xs font-mono text-emerald-600 dark:text-emerald-400">Ex: LCM via GCD, Linear Prog.</p>
+                    <p class="mt-3 text-xs font-mono text-emerald-600 dark:text-emerald-400">
+                        <span class="lang-en">Ex: LCM via GCD, Linear Prog.</span>
+                        <span class="lang-ar lang-hidden">Ex: LCM via GCD, Linear Prog.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Presorting</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Presorting</span>
+                    <span class="lang-ar lang-hidden">Presorting</span>
+                </h2>
             </div>
 
             <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                 <p class="mb-4 text-gray-700 dark:text-gray-300">
-                    Many problems become trivial if the input array is sorted first. The cost of sorting ($O(n \log n)$) is often justified if it avoids an $O(n^2)$ brute-force solution.
+                    <span class="lang-en">Many problems become trivial if the input array is sorted first. The cost of sorting ($O(n \log n)$) is often justified if it avoids an $O(n^2)$ brute-force solution.</span>
+                    <span class="lang-ar lang-hidden">تصبح العديد من المشاكل بديهية إذا تم فرز مصفوفة الإدخال (sorted) أولاً. غالباً ما تكون تكلفة الفرز ($O(n \log n)$) مبررة إذا كانت تجنبنا حل الـ Brute-Force ذو التكلفة $O(n^2)$.</span>
                 </p>
 
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-600 dark:text-gray-300">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-600 dark:text-gray-300">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th class="px-6 py-3">Problem</th>
-                                <th class="px-6 py-3">Brute Force</th>
-                                <th class="px-6 py-3">Presorting Approach</th>
-                                <th class="px-6 py-3">Total Efficiency</th>
+                                <th class="px-6 py-3">
+                                    <span class="lang-en">Problem</span>
+                                    <span class="lang-ar lang-hidden">المشكلة</span>
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span class="lang-en">Brute Force</span>
+                                    <span class="lang-ar lang-hidden">Brute Force</span>
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span class="lang-en">Presorting Approach</span>
+                                    <span class="lang-ar lang-hidden">نهج الـ Presorting</span>
+                                </th>
+                                <th class="px-6 py-3">
+                                    <span class="lang-en">Total Efficiency</span>
+                                    <span class="lang-ar lang-hidden">الكفاءة الكلية</span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Element Uniqueness</td>
-                                <td class="px-6 py-4 text-rose-500">$O(n^2)$</td>
-                                <td class="px-6 py-4">Sort, then check neighbors ($A[i] == A[i+1]$).</td>
-                                <td class="px-6 py-4 text-emerald-500">$O(n \log n)$</td>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Element Uniqueness</span>
+                                    <span class="lang-ar lang-hidden">Element Uniqueness</span>
+                                </td>
+                                <td class="px-6 py-4 text-rose-500 direction-ltr text-left">$O(n^2)$</td>
+                                <td class="px-6 py-4">
+                                    <span class="lang-en">Sort, then check neighbors ($A[i] == A[i+1]$).</span>
+                                    <span class="lang-ar lang-hidden">قم بالفرز، ثم افحص الجيران ($A[i] == A[i+1]$).</span>
+                                </td>
+                                <td class="px-6 py-4 text-emerald-500 direction-ltr text-left">$O(n \log n)$</td>
                             </tr>
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Computing Mode</td>
-                                <td class="px-6 py-4 text-rose-500">$O(n^2)$</td>
-                                <td class="px-6 py-4">Sort, then find longest run of equal values.</td>
-                                <td class="px-6 py-4 text-emerald-500">$O(n \log n)$</td>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Computing Mode</span>
+                                    <span class="lang-ar lang-hidden">Computing Mode</span>
+                                </td>
+                                <td class="px-6 py-4 text-rose-500 direction-ltr text-left">$O(n^2)$</td>
+                                <td class="px-6 py-4">
+                                    <span class="lang-en">Sort, then find longest run of equal values.</span>
+                                    <span class="lang-ar lang-hidden">قم بالفرز، ثم ابحث عن أطول سلسلة من القيم المتساوية.</span>
+                                </td>
+                                <td class="px-6 py-4 text-emerald-500 direction-ltr text-left">$O(n \log n)$</td>
                             </tr>
                             <tr class="bg-white dark:bg-gray-800">
-                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">Searching</td>
-                                <td class="px-6 py-4 text-blue-500">$O(n)$</td>
-                                <td class="px-6 py-4">Sort, then Binary Search.</td>
-                                <td class="px-6 py-4 text-emerald-500">$O(n \log n)$ + $O(\log n)$</td>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">
+                                    <span class="lang-en">Searching</span>
+                                    <span class="lang-ar lang-hidden">Searching</span>
+                                </td>
+                                <td class="px-6 py-4 text-blue-500 direction-ltr text-left">$O(n)$</td>
+                                <td class="px-6 py-4">
+                                    <span class="lang-en">Sort, then Binary Search.</span>
+                                    <span class="lang-ar lang-hidden">قم بالفرز، ثم استخدم Binary Search.</span>
+                                </td>
+                                <td class="px-6 py-4 text-emerald-500 direction-ltr text-left">$O(n \log n)$ + $O(\log n)$</td>
                             </tr>
                         </tbody>
                     </table>
@@ -261,34 +392,51 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Gaussian Elimination</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Gaussian Elimination</span>
+                    <span class="lang-ar lang-hidden">Gaussian Elimination</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="space-y-4">
                     <p class="text-gray-700 dark:text-gray-300">
-                        Used to solve systems of linear equations $Ax = b$, find matrix inverses, or computing determinants.
+                        <span class="lang-en">Used to solve systems of linear equations $Ax = b$, find matrix inverses, or computing determinants.</span>
+                        <span class="lang-ar lang-hidden">تستخدم لحل أنظمة المعادلات الخطية $Ax = b$، إيجاد معكوس المصفوفة، أو حساب المحددات (Determinants).</span>
                     </p>
                     <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-sm mb-2 text-brand-600 dark:text-brand-400">The Transformation</h4>
+                        <h4 class="font-bold text-sm mb-2 text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">The Transformation</span>
+                            <span class="lang-ar lang-hidden">التحويل (The Transformation)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                            Transform the matrix $A$ into an <strong>Upper Triangular Matrix</strong> (all zeros below diagonal) using elementary row operations. Then solve via backward substitution.
+                            <span class="lang-en">Transform the matrix $A$ into an <strong>Upper Triangular Matrix</strong> (all zeros below diagonal) using elementary row operations. Then solve via backward substitution.</span>
+                            <span class="lang-ar lang-hidden">حول المصفوفة $A$ إلى <strong>Upper Triangular Matrix</strong> (كل ما تحت القطر أصفار) باستخدام عمليات الصف الأولية. ثم قم بالحل عبر التعويض العكسي (backward substitution).</span>
                         </p>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs font-mono">Complexity: $\Theta(n^3)$</span>
-                        <span class="text-xs text-gray-500">Expensive but standard.</span>
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs font-mono direction-ltr text-left">Complexity: $\Theta(n^3)$</span>
+                        <span class="text-xs text-gray-500">
+                            <span class="lang-en">Expensive but standard.</span>
+                            <span class="lang-ar lang-hidden">مكلفة ولكنها قياسية.</span>
+                        </span>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl flex items-center justify-center">
-                    <div class="font-mono text-sm leading-loose">
-                        <div class="mb-2 text-center text-gray-500">Original</div>
+                    <div class="font-mono text-sm leading-loose direction-ltr text-left">
+                        <div class="mb-2 text-center text-gray-500">
+                            <span class="lang-en">Original</span>
+                            <span class="lang-ar lang-hidden">الأصلية</span>
+                        </div>
                         $$ \begin{bmatrix} 2 & 1 & 1 \\ 4 & -6 & 0 \\ -2 & 7 & 2 \end{bmatrix} $$
                         <div class="flex justify-center my-2 text-brand-500"><i class="fa-solid fa-arrow-down"></i></div>
-                        <div class="mb-2 text-center text-gray-500">Upper Triangular</div>
+                        <div class="mb-2 text-center text-gray-500">
+                            <span class="lang-en">Upper Triangular</span>
+                            <span class="lang-ar lang-hidden">Upper Triangular</span>
+                        </div>
                         $$ \begin{bmatrix} 2 & 1 & 1 \\ 0 & -8 & -2 \\ 0 & 0 & 1 \end{bmatrix} $$
                     </div>
                 </div>
@@ -296,33 +444,58 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">AVL Trees</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">AVL Trees</span>
+                    <span class="lang-ar lang-hidden">AVL Trees</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="p-4 bg-rose-50 dark:bg-rose-900/20 rounded-lg border border-rose-100 dark:border-rose-900/50">
-                    <h4 class="font-bold text-rose-700 dark:text-rose-300 mb-1"><i class="fa-solid fa-triangle-exclamation mr-2"></i> The Problem with standard BST</h4>
+                    <h4 class="font-bold text-rose-700 dark:text-rose-300 mb-1 flex items-center">
+                        <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">The Problem with standard BST</span>
+                        <span class="lang-ar lang-hidden">المشكلة في الـ BST القياسية</span>
+                    </h4>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
-                        If you insert sorted data ($1, 2, 3, 4, 5$) into a Binary Search Tree, it becomes a linked list (skewed). Search becomes $O(n)$ instead of $O(\log n)$.
+                        <span class="lang-en">If you insert sorted data ($1, 2, 3, 4, 5$) into a Binary Search Tree, it becomes a linked list (skewed). Search becomes $O(n)$ instead of $O(\log n)$.</span>
+                        <span class="lang-ar lang-hidden">إذا قمت بإدراج بيانات مفروزة ($1, 2, 3, 4, 5$) في Binary Search Tree، فإنها تصبح قائمة مرتبطة (مائلة/Skewed). يصبح البحث $O(n)$ بدلاً من $O(\log n)$.</span>
                     </p>
                 </div>
 
-                <div class="glass-card p-6 rounded-xl border-l-4 border-emerald-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">AVL Tree (Adelson-Velsky and Landis)</h3>
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-emerald-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-emerald-500">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">AVL Tree (Adelson-Velsky and Landis)</span>
+                        <span class="lang-ar lang-hidden">AVL Tree (Adelson-Velsky and Landis)</span>
+                    </h3>
                     <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                        A BST that maintains <strong>Balance</strong>. For every node, the height difference between left and right subtrees (Balance Factor) must be $-1, 0, \text{ or } 1$. If it becomes $\pm 2$, we <strong>Rotate</strong>.
+                        <span class="lang-en">A BST that maintains <strong>Balance</strong>. For every node, the height difference between left and right subtrees (Balance Factor) must be $-1, 0, \text{ or } 1$. If it becomes $\pm 2$, we <strong>Rotate</strong>.</span>
+                        <span class="lang-ar lang-hidden !important RTL" !important dir = 'RTL'>شجرة BST تحافظ على التوازن (<strong>Balance</strong>). لكل عقدة، يجب أن يكون فرق الارتفاع بين الأشجار الفرعية اليسرى واليمنى (Balance Factor) هو $-1  \text { وأ } 0 \text { وأ } 1$<br> إذا أصبح $\pm 2$، نقوم بعملية <strong>تدوير (Rotate)</strong>.</span>
+
                     </p>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
-                            <span class="block font-bold text-xs text-brand-500 mb-1">Single Rotation</span>
-                            <p class="text-xs text-gray-500">Used for LL or RR imbalance. One move fixes the tree.</p>
+                            <span class="block font-bold text-xs text-brand-500 mb-1">
+                                <span class="lang-en">Single Rotation</span>
+                                <span class="lang-ar lang-hidden">Single Rotation</span>
+                            </span>
+                            <p class="text-xs text-gray-500">
+                                <span class="lang-en">Used for LL or RR imbalance. One move fixes the tree.</span>
+                                <span class="lang-ar lang-hidden">تستخدم لعدم التوازن LL أو RR. حركة واحدة تصلح الشجرة.</span>
+                            </p>
                         </div>
                         <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
-                            <span class="block font-bold text-xs text-brand-500 mb-1">Double Rotation</span>
-                            <p class="text-xs text-gray-500">Used for LR or RL imbalance. Two moves (Left-Right or Right-Left) required.</p>
+                            <span class="block font-bold text-xs text-brand-500 mb-1">
+                                <span class="lang-en">Double Rotation</span>
+                                <span class="lang-ar lang-hidden">Double Rotation</span>
+                            </span>
+                            <p class="text-xs text-gray-500">
+                                <span class="lang-en">Used for LR or RL imbalance. Two moves (Left-Right or Right-Left) required.</span>
+                                <span class="lang-ar lang-hidden">تستخدم لعدم التوازن LR أو RL. حركتان (Left-Right أو Right-Left) مطلوبتان.</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -333,51 +506,70 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Presorting Cost
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Presorting Cost</span>
+                            <span class="lang-ar lang-hidden">فخ: تكلفة الـ Presorting</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "If we presort the array, searching is $O(\log n)$." <br>
-                            Technically true, but misleading. The <strong>total</strong> cost is Sort + Search = $O(n \log n) + O(\log n) = O(n \log n)$. Do not ignore the sorting cost in your analysis.
+                            <span class="lang-en">"If we presort the array, searching is $O(\log n)$." <br>
+                            Technically true, but misleading. The <strong>total</strong> cost is Sort + Search = $O(n \log n) + O(\log n) = O(n \log n)$. Do not ignore the sorting cost in your analysis.</span>
+                            <span class="lang-ar lang-hidden">"إذا قمنا بفرز المصفوفة مسبقاً (Presort)، يصبح البحث $O(\log n)$." <br>
+                            صحيح تقنياً، لكنه مضلل. التكلفة <strong>الكلية</strong> هي الفرز + البحث = $O(n \log n) + O(\log n) = O(n \log n)$. لا تتجاهل تكلفة الفرز في تحليلك.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Gaussian Division
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Gaussian Division</span>
+                            <span class="lang-ar lang-hidden">فخ: قسمة Gaussian</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Gaussian Elimination, we divide by the pivot $A[i,i]$. If $A[i,i] = 0$, the algorithm fails. We must swap rows (Partial Pivoting) to fix this. This is a common "edge case" exam question.
+                            <span class="lang-en">In Gaussian Elimination, we divide by the pivot $A[i,i]$. If $A[i,i] = 0$, the algorithm fails. We must swap rows (Partial Pivoting) to fix this. This is a common "edge case" exam question.</span>
+                            <span class="lang-ar lang-hidden">في Gaussian Elimination، نقسم على الـ pivot $A[i,i]$. إذا كان $A[i,i] = 0$، تفشل الخوارزمية. يجب تبديل الصفوف (Partial Pivoting) لإصلاح ذلك. هذا سؤال "حالة طرفية" شائع في الاختبارات.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: AVL vs Red-Black
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: AVL vs Red-Black</span>
+                            <span class="lang-ar lang-hidden">سر: AVL vs Red-Black</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            AVL trees are strictly balanced (height diff $\le 1$). Red-Black trees are loosely balanced (height diff up to factor of 2). AVL provides faster lookups, but slower insertions/deletions due to frequent rotations.
+                            <span class="lang-en">AVL trees are strictly balanced (height diff $\le 1$). Red-Black trees are loosely balanced (height diff up to factor of 2). AVL provides faster lookups, but slower insertions/deletions due to frequent rotations.</span>
+                            <span class="lang-ar lang-hidden">أشجار AVL متوازنة بصرامة (فرق الارتفاع $\le 1$). أشجار Red-Black متوازنة بشكل فضفاض (فرق الارتفاع يصل لعامل 2). توفر AVL بحثاً أسرع، ولكن إدراج/حذف أبطأ بسبب التدوير المتكرر.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: LU Decomposition
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: LU Decomposition</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: LU Decomposition</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Gaussian Elimination effectively decomposes matrix $A$ into Lower ($L$) and Upper ($U$) triangular matrices ($A = LU$). This transformation allows solving $Ax=b$ quickly for multiple different vectors $b$.
+                            <span class="lang-en">Gaussian Elimination effectively decomposes matrix $A$ into Lower ($L$) and Upper ($U$) triangular matrices ($A = LU$). This transformation allows solving $Ax=b$ quickly for multiple different vectors $b$.</span>
+                            <span class="lang-ar lang-hidden">تقوم Gaussian Elimination فعلياً بتحليل المصفوفة $A$ إلى مصفوفات مثلثية سفلى ($L$) وعليا ($U$) ($A = LU$). هذا التحويل يسمح بحل $Ax=b$ بسرعة لمتجهات $b$ مختلفة متعددة.</span>
                         </p>
                     </div>
                 </div>
@@ -388,20 +580,67 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 5</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 5</span>
+                    <span class="lang-ar lang-hidden">الوحدة 5</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 7</span>
+                    <span class="lang-ar lang-hidden">الوحدة 7</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
         const htmlElement = document.documentElement;
+
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
 
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
@@ -420,43 +659,18 @@
         });
     </script>
 <script>
-
     document.addEventListener("DOMContentLoaded", function() {
-
-        
-
         const path = window.location.pathname;
-
-        
-
-        
-
-        
-
         const match = path.match(/module(\d+)\.html/);
-
         
-
         if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
+            const moduleNumber = match[1];
             if (moduleNumber >= 1 && moduleNumber <= 13) {
-
                 localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
                 console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
             }
-
         }
-
     });
-
 </script>
 
 </body>

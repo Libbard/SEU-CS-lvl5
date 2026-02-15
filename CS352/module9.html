@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 9: Database Design</title>
@@ -19,16 +28,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6', 
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
@@ -42,14 +44,42 @@
 
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] .mermaid, [dir="rtl"] .math-block, 
+        [dir="rtl"] .tech-term {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+            display: inline-block;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        [dir="rtl"] .border-r { border-right-width: 0; border-left-width: 1px; } 
+        
+        
+        [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-chevron-left, 
+        [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-caret-right {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -127,24 +157,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module8.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 9</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 9</span>
+                        <span class="lang-ar lang-hidden">Module 9</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-database text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <a href="module10.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
@@ -163,52 +207,98 @@
                 <i class="fa-solid fa-table-columns text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Database Design</span>
+                <span class="lang-en">Design: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Database Design</span></span>
+                <span class="lang-ar lang-hidden">التصميم: <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-400 to-blue-600">تصميم قواعد البيانات</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Transforming conceptual models (ERD) into a physical database schema. Normalization, Relations, and Physical File Organizations.
+                <span class="lang-en">Transforming conceptual models (ERD) into a physical database schema. Normalization, Relations, and Physical File Organizations.</span>
+                <span class="lang-ar lang-hidden">تحويل النماذج المفاهيمية (ERD) إلى مخطط قاعدة بيانات مادي. التسوية (Normalization)، العلاقات، وتنظيم الملفات المادي.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Logical vs Physical</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Relational Model</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Normalization (1NF, 2NF, 3NF)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Indexing</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">File Hashing</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Logical vs Physical</span>
+                    <span class="lang-ar lang-hidden">المنطقي vs المادي</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Relational Model</span>
+                    <span class="lang-ar lang-hidden">Relational Model</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Normalization (1NF, 2NF, 3NF)</span>
+                    <span class="lang-ar lang-hidden">Normalization (1NF, 2NF, 3NF)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Indexing</span>
+                    <span class="lang-ar lang-hidden">Indexing (الفهرسة)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">File Hashing</span>
+                    <span class="lang-ar lang-hidden">File Hashing</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Design Process Steps</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Design Process Steps</span>
+                    <span class="lang-ar lang-hidden">خطوات عملية التصميم</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">1. Logical Database Modeling</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">1. Logical Database Modeling</span>
+                            <span class="lang-ar lang-hidden">1. النمذجة المنطقية (Logical Modeling)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                            Describes data using a notation that corresponds to a data organization used by a DBMS (e.g., Relational Tables).
+                            <span class="lang-en">Describes data using a notation that corresponds to a data organization used by a DBMS (e.g., Relational Tables).</span>
+                            <span class="lang-ar lang-hidden">وصف البيانات باستخدام تدوين يتوافق مع تنظيم البيانات المستخدم بواسطة الـ DBMS (مثل الجداول العلائقية).</span>
                         </p>
                         <ul class="text-xs text-gray-500 list-disc list-inside">
-                            <li>Transform ERD into Relations.</li>
-                            <li>Normalization (to remove redundancy).</li>
-                            <li>Independent of specific hardware.</li>
+                            <li>
+                                <span class="lang-en">Transform ERD into Relations.</span>
+                                <span class="lang-ar lang-hidden">تحويل الـ ERD إلى علاقات (Relations).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Normalization (to remove redundancy).</span>
+                                <span class="lang-ar lang-hidden">التسوية (Normalization) لإزالة التكرار.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Independent of specific hardware.</span>
+                                <span class="lang-ar lang-hidden">مستقل عن الأجهزة المحددة.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">2. Physical Database Design</h4>
+                        <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">
+                            <span class="lang-en">2. Physical Database Design</span>
+                            <span class="lang-ar lang-hidden">2. التصميم المادي (Physical Design)</span>
+                        </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                            Prescribing the technical specifications for data stored in computer memory.
+                            <span class="lang-en">Prescribing the technical specifications for data stored in computer memory.</span>
+                            <span class="lang-ar lang-hidden">تحديد المواصفات الفنية للبيانات المخزنة في ذاكرة الحاسوب.</span>
                         </p>
                         <ul class="text-xs text-gray-500 list-disc list-inside">
-                            <li>File organization (Sequential, Indexed).</li>
-                            <li>Hardware/OS choices.</li>
-                            <li>Performance tuning.</li>
+                            <li>
+                                <span class="lang-en">File organization (Sequential, Indexed).</span>
+                                <span class="lang-ar lang-hidden">تنظيم الملفات (تسلسلي، مفهرس).</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Hardware/OS choices.</span>
+                                <span class="lang-ar lang-hidden">خيارات الأجهزة ونظام التشغيل.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Performance tuning.</span>
+                                <span class="lang-ar lang-hidden">ضبط الأداء (Performance Tuning).</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -216,36 +306,64 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Relational Model</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Relational Model</span>
+                    <span class="lang-ar lang-hidden">النموذج العلائقي (Relational Model)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Data represented as a set of related tables (Relations). A <span class="smart-term font-bold text-brand-500" data-ar="علاقة">Relation</span> is a named, two-dimensional table of data.
+                    <span class="lang-en">Data represented as a set of related tables (Relations). A <span class="font-bold text-brand-500">Relation</span> is a named, two-dimensional table of data.</span>
+                    <span class="lang-ar lang-hidden">يتم تمثيل البيانات كمجموعة من الجداول المرتبطة. الـ <span class="font-bold text-brand-500">Relation</span> هي جدول بيانات مسمى ثنائي الأبعاد.</span>
                 </p>
                 
                 <div class="overflow-x-auto">
-                    <table class="w-full text-xs text-left border border-gray-200 dark:border-gray-700">
+                    <table class="w-full text-xs text-left rtl:text-right border border-gray-200 dark:border-gray-700">
                         <thead class="bg-gray-100 dark:bg-gray-800 font-bold">
                             <tr>
-                                <th class="p-2 border-r border-gray-200 dark:border-gray-700">Term</th>
-                                <th class="p-2">Description</th>
+                                <th class="p-2 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0">
+                                    <span class="lang-en">Term</span>
+                                    <span class="lang-ar lang-hidden">المصطلح</span>
+                                </th>
+                                <th class="p-2">
+                                    <span class="lang-en">Description</span>
+                                    <span class="lang-ar lang-hidden">الوصف</span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             <tr>
-                                <td class="p-2 font-bold text-brand-600">Primary Key</td>
-                                <td class="p-2">An attribute that uniquely identifies each row. (e.g., StudentID).</td>
+                                <td class="p-2 font-bold text-brand-600 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0">
+                                    <span class="lang-en">Primary Key</span>
+                                    <span class="lang-ar lang-hidden">Primary Key</span>
+                                </td>
+                                <td class="p-2">
+                                    <span class="lang-en">An attribute that uniquely identifies each row. (e.g., StudentID).</span>
+                                    <span class="lang-ar lang-hidden">الخاصية التي تعرف كل صف بشكل فريد (مثل: رقم الطالب).</span>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="p-2 font-bold text-brand-600">Foreign Key</td>
-                                <td class="p-2">An attribute in a relation that serves as the Primary Key of <em>another</em> relation. Links tables together.</td>
+                                <td class="p-2 font-bold text-brand-600 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0">
+                                    <span class="lang-en">Foreign Key</span>
+                                    <span class="lang-ar lang-hidden">Foreign Key</span>
+                                </td>
+                                <td class="p-2">
+                                    <span class="lang-en">An attribute in a relation that serves as the Primary Key of <em>another</em> relation. Links tables together.</span>
+                                    <span class="lang-ar lang-hidden">خاصية في علاقة تعمل بمثابة Primary Key في علاقة <em>أخرى</em>. تربط الجداول ببعضها.</span>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="p-2 font-bold text-brand-600">Composite Key</td>
-                                <td class="p-2">A primary key that consists of more than one attribute.</td>
+                                <td class="p-2 font-bold text-brand-600 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0">
+                                    <span class="lang-en">Composite Key</span>
+                                    <span class="lang-ar lang-hidden">Composite Key</span>
+                                </td>
+                                <td class="p-2">
+                                    <span class="lang-en">A primary key that consists of more than one attribute.</span>
+                                    <span class="lang-ar lang-hidden">مفتاح أساسي يتكون من أكثر من خاصية واحدة.</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -254,24 +372,34 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Normalization</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Normalization</span>
+                    <span class="lang-ar lang-hidden">التسوية (Normalization)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    The process of converting complex data structures into simple, stable data structures. It removes redundancy and prevents anomalies.
+                    <span class="lang-en">The process of converting complex data structures into simple, stable data structures. It removes redundancy and prevents anomalies.</span>
+                    <span class="lang-ar lang-hidden">عملية تحويل هياكل البيانات المعقدة إلى هياكل بسيطة ومستقرة. تزيل التكرار وتمنع الشذوذ (Anomalies).</span>
                 </p>
 
                 <div class="space-y-4">
                     <div class="flex items-start">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-purple-100 dark:bg-purple-900 text-purple-600 rounded-full font-bold text-xs mr-3">1</div>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-purple-100 dark:bg-purple-900 text-purple-600 rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">1</div>
                         <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">First Normal Form (1NF)</h4>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                <span class="lang-en">First Normal Form (1NF)</span>
+                                <span class="lang-ar lang-hidden">1NF (الصيغة المعيارية الأولى)</span>
+                            </h4>
                             <p class="text-xs text-gray-500">
-                                <strong>Rule:</strong> No multi-valued attributes. Every cell must hold a single value (Atomic).
-                                <br><em>Action:</em> Create new rows or tables to handle multiple values.
+                                <span class="lang-en"><strong>Rule:</strong> No multi-valued attributes. Every cell must hold a single value (Atomic).</span>
+                                <span class="lang-ar lang-hidden"><strong>القاعدة:</strong> لا خصائص متعددة القيم. يجب أن تحتوي كل خلية على قيمة واحدة (Atomic).</span>
+                                <br>
+                                <span class="lang-en"><em>Action:</em> Create new rows or tables to handle multiple values.</span>
+                                <span class="lang-ar lang-hidden"><em>الإجراء:</em> إنشاء صفوف أو جداول جديدة للتعامل مع القيم المتعددة.</span>
                             </p>
                         </div>
                     </div>
@@ -279,12 +407,18 @@
                     <div class="flex justify-center"><i class="fa-solid fa-arrow-down text-gray-300 norm-arrow"></i></div>
 
                     <div class="flex items-start">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-purple-100 dark:bg-purple-900 text-purple-600 rounded-full font-bold text-xs mr-3">2</div>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-purple-100 dark:bg-purple-900 text-purple-600 rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">2</div>
                         <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">Second Normal Form (2NF)</h4>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                <span class="lang-en">Second Normal Form (2NF)</span>
+                                <span class="lang-ar lang-hidden">2NF (الصيغة المعيارية الثانية)</span>
+                            </h4>
                             <p class="text-xs text-gray-500">
-                                <strong>Rule:</strong> 1NF + No Partial Functional Dependencies. Every non-key attribute must depend on the <em>whole</em> primary key.
-                                <br><em>Action:</em> Split tables if a field depends on only part of a Composite Key.
+                                <span class="lang-en"><strong>Rule:</strong> 1NF + No Partial Functional Dependencies. Every non-key attribute must depend on the <em>whole</em> primary key.</span>
+                                <span class="lang-ar lang-hidden"><strong>القاعدة:</strong> 1NF + لا اعتماد وظيفي جزئي. كل خاصية غير مفتاحية يجب أن تعتمد على المفتاح الأساسي <em>بالكامل</em>.</span>
+                                <br>
+                                <span class="lang-en"><em>Action:</em> Split tables if a field depends on only part of a Composite Key.</span>
+                                <span class="lang-ar lang-hidden"><em>الإجراء:</em> تقسيم الجداول إذا كان الحقل يعتمد على جزء فقط من مفتاح مركب.</span>
                             </p>
                         </div>
                     </div>
@@ -292,12 +426,18 @@
                     <div class="flex justify-center"><i class="fa-solid fa-arrow-down text-gray-300 norm-arrow"></i></div>
 
                     <div class="flex items-start">
-                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-purple-100 dark:bg-purple-900 text-purple-600 rounded-full font-bold text-xs mr-3">3</div>
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-purple-100 dark:bg-purple-900 text-purple-600 rounded-full font-bold text-xs mr-3 rtl:ml-3 rtl:mr-0">3</div>
                         <div class="flex-1">
-                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">Third Normal Form (3NF)</h4>
+                            <h4 class="font-bold text-gray-900 dark:text-white text-sm">
+                                <span class="lang-en">Third Normal Form (3NF)</span>
+                                <span class="lang-ar lang-hidden">3NF (الصيغة المعيارية الثالثة)</span>
+                            </h4>
                             <p class="text-xs text-gray-500">
-                                <strong>Rule:</strong> 2NF + No Transitive Dependencies. Non-key attributes must not depend on other non-key attributes.
-                                <br><em>Action:</em> Move transitive fields to their own lookup tables.
+                                <span class="lang-en"><strong>Rule:</strong> 2NF + No Transitive Dependencies. Non-key attributes must not depend on other non-key attributes.</span>
+                                <span class="lang-ar lang-hidden"><strong>القاعدة:</strong> 2NF + لا اعتماد متعدي. الخصائص غير المفتاحية يجب ألا تعتمد على خصائص غير مفتاحية أخرى.</span>
+                                <br>
+                                <span class="lang-en"><em>Action:</em> Move transitive fields to their own lookup tables.</span>
+                                <span class="lang-ar lang-hidden"><em>الإجراء:</em> نقل الحقول المتعدية إلى جداول بحث خاصة بها.</span>
                             </p>
                         </div>
                     </div>
@@ -306,42 +446,57 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Physical File Organization</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Physical File Organization</span>
+                    <span class="lang-ar lang-hidden">تنظيم الملفات المادي</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-5 rounded-xl text-center hover:border-blue-500 transition-colors">
-                    
-
-
-
-                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2 mt-4">1. Sequential</h4>
+                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2 mt-4">
+                        <span class="lang-en">1. Sequential</span>
+                        <span class="lang-ar lang-hidden">1. تسلسلي (Sequential)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Rows stored in sequence (e.g., by ID).
-                        <br><strong>Pros:</strong> Fast for full scans.
-                        <br><strong>Cons:</strong> Slow for random access.
+                        <span class="lang-en">Rows stored in sequence (e.g., by ID).</span>
+                        <span class="lang-ar lang-hidden">صفوف مخزنة بتسلسل (مثل الترتيب حسب الـ ID).</span>
+                        <br>
+                        <strong><span class="lang-en">Pros:</span><span class="lang-ar lang-hidden">المزايا:</span></strong> <span class="lang-en">Fast for full scans.</span><span class="lang-ar lang-hidden">سريع للمسح الكامل.</span>
+                        <br>
+                        <strong><span class="lang-en">Cons:</span><span class="lang-ar lang-hidden">العيوب:</span></strong> <span class="lang-en">Slow for random access.</span><span class="lang-ar lang-hidden">بطيء للوصول العشوائي.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl text-center hover:border-green-500 transition-colors">
-                    
-                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 mt-4">2. Indexed</h4>
+                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 mt-4">
+                        <span class="lang-en">2. Indexed</span>
+                        <span class="lang-ar lang-hidden">2. مفهرس (Indexed)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Uses an Index file (like a book index) to point to data locations.
-                        <br><strong>Pros:</strong> Fast random access.
-                        <br><strong>Cons:</strong> Storage overhead for indexes.
+                        <span class="lang-en">Uses an Index file to point to data locations.</span>
+                        <span class="lang-ar lang-hidden">يستخدم ملف فهرس للإشارة إلى مواقع البيانات.</span>
+                        <br>
+                        <strong><span class="lang-en">Pros:</span><span class="lang-ar lang-hidden">المزايا:</span></strong> <span class="lang-en">Fast random access.</span><span class="lang-ar lang-hidden">وصول عشوائي سريع.</span>
+                        <br>
+                        <strong><span class="lang-en">Cons:</span><span class="lang-ar lang-hidden">العيوب:</span></strong> <span class="lang-en">Storage overhead.</span><span class="lang-ar lang-hidden">عبء التخزين.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl text-center hover:border-purple-500 transition-colors">
-                    
-                    <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 mt-4">3. Hashed</h4>
+                    <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 mt-4">
+                        <span class="lang-en">3. Hashed</span>
+                        <span class="lang-ar lang-hidden">3. مجزأ (Hashed)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Address is calculated from Key using an algorithm.
-                        <br><strong>Pros:</strong> Very fast random access.
-                        <br><strong>Cons:</strong> Not good for sequential scanning.
+                        <span class="lang-en">Address is calculated from Key using an algorithm.</span>
+                        <span class="lang-ar lang-hidden">يتم حساب العنوان من المفتاح باستخدام خوارزمية.</span>
+                        <br>
+                        <strong><span class="lang-en">Pros:</span><span class="lang-ar lang-hidden">المزايا:</span></strong> <span class="lang-en">Very fast random access.</span><span class="lang-ar lang-hidden">وصول عشوائي سريع جداً.</span>
+                        <br>
+                        <strong><span class="lang-en">Cons:</span><span class="lang-ar lang-hidden">العيوب:</span></strong> <span class="lang-en">Bad for sequential scanning.</span><span class="lang-ar lang-hidden">سيء للمسح التسلسلي.</span>
                     </p>
                 </div>
             </div>
@@ -351,56 +506,68 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبارات</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 2NF vs 3NF
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 2NF vs 3NF</span>
+                            <span class="lang-ar lang-hidden">فخ: 2NF مقابل 3NF</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>2NF Issue:</strong> Dependency on *part* of the Primary Key (Partial Dependency). Only happens with Composite Keys.
-                            <strong>3NF Issue:</strong> Dependency on a *non-key* attribute (Transitive Dependency).
-                            If the PK is a single attribute, you are automatically in 2NF!
+                            <span class="lang-en"><strong>2NF Issue:</strong> Dependency on *part* of the Primary Key (Partial Dependency). Only happens with Composite Keys. <br><strong>3NF Issue:</strong> Dependency on a *non-key* attribute (Transitive Dependency).</span>
+                            <span class="lang-ar lang-hidden"><strong>مشكلة 2NF:</strong> الاعتماد على *جزء* من الـ Primary Key (اعتماد جزئي). يحدث فقط مع المفاتيح المركبة. <br><strong>مشكلة 3NF:</strong> الاعتماد على خاصية *غير مفتاحية* (اعتماد متعدي).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Referential Integrity
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Referential Integrity</span>
+                            <span class="lang-ar lang-hidden">فخ: التكامل المرجعي (Referential Integrity)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Can a Foreign Key be NULL?"
-                            <br><strong>Yes</strong> (usually), unless it's part of the Primary Key.
-                            "Can a Primary Key be NULL?"
-                            <br><strong>NEVER</strong> (Entity Integrity Rule).
+                            <span class="lang-en">"Can a Foreign Key be NULL?" <br><strong>Yes</strong> (usually), unless it's part of the Primary Key. <br>"Can a Primary Key be NULL?" <br><strong>NEVER</strong> (Entity Integrity Rule).</span>
+                            <span class="lang-ar lang-hidden">"هل يمكن أن يكون الـ Foreign Key قيمة NULL؟" <br><strong>نعم</strong> (عادة)، ما لم يكن جزءاً من الـ Primary Key. <br>"هل يمكن أن يكون الـ Primary Key قيمة NULL؟" <br><strong>أبداً</strong> (قاعدة سلامة الكيان).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Transforming M:N
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Transforming M:N</span>
+                            <span class="lang-ar lang-hidden">سر: تحويل العلاقات M:N</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If you see a Many-to-Many (M:N) relationship in an ERD, you MUST create a new relation (table) for it in the Relational Model. The Primary Key of this new table is a composite key of the two original PKs.
+                            <span class="lang-en">If you see a Many-to-Many (M:N) relationship in an ERD, you MUST create a new relation (table) for it in the Relational Model. The Primary Key of this new table is a composite key of the two original PKs.</span>
+                            <span class="lang-ar lang-hidden">إذا رأيت علاقة (M:N) في الـ ERD، يجب إنشاء علاقة (جدول) جديدة لها في النموذج العلائقي. المفتاح الأساسي لهذا الجدول الجديد هو مفتاح مركب من المفتاحين الأصليين.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Denormalization
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Denormalization</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Denormalization (إلغاء التسوية)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Normalization optimizes for storage and update speed (no anomalies).
-                            <strong>Denormalization</strong> (adding redundancy back) optimizes for <strong>read speed</strong> (fewer joins). This is a physical design decision.
+                            <span class="lang-en">Normalization optimizes for storage and update speed (no anomalies). <strong>Denormalization</strong> (adding redundancy back) optimizes for <strong>read speed</strong> (fewer joins). This is a physical design decision.</span>
+                            <span class="lang-ar lang-hidden">التسوية تحسن التخزين وسرعة التحديث. <strong>Denormalization</strong> (إعادة التكرار) تحسن <strong>سرعة القراءة</strong> (عدد أقل من عمليات الـ Join). هذا قرار تصميم مادي.</span>
                         </p>
                     </div>
                 </div>
@@ -411,21 +578,35 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 8</span>
+                    <span class="lang-ar lang-hidden">Module 8</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">Course Hub</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 10</span>
+                    <span class="lang-ar lang-hidden">Module 10</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صممت للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        const langToggleBtn = document.getElementById('lang-toggle');
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -441,46 +622,42 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
-        
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
-
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('lang-hidden', lang === 'ar'));
+            document.querySelectorAll('.lang-ar').forEach(el => el.classList.toggle('lang-hidden', lang !== 'ar'));
         }
 
-    });
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        langToggleBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('lang');
+            setLanguage(current === 'en' ? 'ar' : 'en');
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} completed.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

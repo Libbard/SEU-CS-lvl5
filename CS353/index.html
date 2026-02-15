@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353: Algorithms | Digital Garden</title>
@@ -108,6 +117,77 @@
         .progress-anim {
             animation: load 1.5s ease-out forwards;
         }
+
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+
+        
+        [dir="rtl"] .border-l-4 { 
+            border-left-width: 0; 
+            border-right-width: 4px; 
+        }
+        [dir="rtl"] .border-r-4 { 
+            border-right-width: 0; 
+            border-left-width: 4px; 
+        }
+
+        
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-angle-right {
+            transform: scaleX(-1);
+        }
+        
+        
+        [dir="rtl"] .hover-trigger .hover-target {
+            transform: translateX(10px); 
+        }
+        [dir="rtl"] .hover-trigger:hover .hover-target {
+            transform: translateX(0);
+        }
+
+        
+        
+        
+
+        
+        
+        [dir="rtl"] .absolute.right-4 {
+            right: auto !important;
+            left: 1rem !important;
+        }
+
+        
+        [dir="rtl"] .pl-4 { padding-left: 0 !important; padding-right: 1rem !important; }
+        [dir="rtl"] .pr-4 { padding-right: 0 !important; padding-left: 1rem !important; }
+        
+        
+        [dir="rtl"] .me-2 { margin-right: 0 !important; margin-left: 0.5rem !important; }
+        [dir="rtl"] .me-3 { margin-right: 0 !important; margin-left: 0.75rem !important; }
+        [dir="rtl"] .ms-1 { margin-left: 0 !important; margin-right: 0.25rem !important; }
+        [dir="rtl"] .ms-2 { margin-left: 0 !important; margin-right: 0.5rem !important; }
+
+        
+        
+        [dir="rtl"] .gap-1\.5 { gap: 0.375rem; }
+        [dir="rtl"] .gap-2 { gap: 0.5rem; }
+        [dir="rtl"] .gap-4 { gap: 1rem; }
+        [dir="rtl"] .gap-6 { gap: 1.5rem; }
+        [dir="rtl"] .gap-8 { gap: 2rem; }
+
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
@@ -115,13 +195,16 @@
     <nav class="sticky top-0 z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
-                    <a href="../index.html" class="group flex items-center text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">
-                        <i class="fa-solid fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i>
-                        <span class="text-sm font-medium">Dashboard</span>
+                <div class="flex items-center gap-4">
+                    <a href="../index.html" class="group flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-white transition-colors">
+                        <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-medium">
+                            <span class="lang-en">Dashboard</span>
+                            <span class="lang-ar lang-hidden">لوحة التحكم</span>
+                        </span>
                     </a>
                     <div class="h-6 w-px bg-slate-300 dark:bg-slate-700 mx-2"></div>
-                    <div class="flex items-center space-x-2">
+                    <div class="flex items-center gap-2">
                         <span class="p-1.5 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-500 border border-brand-500/20">
                             <i class="fa-solid fa-project-diagram"></i>
                         </span>
@@ -129,11 +212,23 @@
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <div class="hidden md:flex items-center space-x-2 text-xs font-mono text-slate-500 dark:text-slate-400">
-                        <span class="px-2 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">13 Modules</span>
-                        <span class="px-2 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">4 Reviews</span>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
+                        <span class="px-2 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                            <span class="lang-en">13 Modules</span>
+                            <span class="lang-ar lang-hidden">13 وحدة</span>
+                        </span>
+                        <span class="px-2 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                            <span class="lang-en">4 Reviews</span>
+                            <span class="lang-ar lang-hidden">4 مراجعات</span>
+                        </span>
                     </div>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-white dark:bg-slate-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-slate-700 hover:ring-2 ring-brand-400 transition-all flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-white dark:bg-slate-800 text-slate-600 dark:text-yellow-400 border border-slate-200 dark:border-slate-700 hover:ring-2 ring-brand-500 transition-all shadow-sm">
                         <i id="theme-icon" class="fa-solid fa-sun"></i>
                     </button>
@@ -148,36 +243,44 @@
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-brand-500/20 rounded-full blur-[100px] -z-10"></div>
             
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                Design & Analysis <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-rose-600">of Algorithms</span>
+                <span class="lang-en">Design & Analysis <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-rose-600">of Algorithms</span></span>
+                <span class="lang-ar lang-hidden">تصميم وتحليل <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-rose-600">الخوارزميات</span></span>
             </h1>
             <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                The logic of computation. Master complexity analysis, dynamic programming, graph theory, and NP-completeness to solve the unsolvable.
+                <span class="lang-en">The logic of computation. Master complexity analysis, dynamic programming, graph theory, and NP-completeness to solve the unsolvable.</span>
+                <span class="lang-ar lang-hidden">منطق الحوسبة. أتقن تحليل التعقيد، البرمجة الديناميكية، نظرية الرسوم البيانية، و NP-completeness لحل ما لا يمكن حله.</span>
             </p>
             
             <div class="max-w-md mx-auto bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
                 <div class="flex justify-between text-xs font-bold uppercase text-brand-600 dark:text-brand-500 mb-2">
-                    <span>Course Progress</span>
+                    <span>
+                        <span class="lang-en">Course Progress</span>
+                        <span class="lang-ar lang-hidden">تقدم الدورة</span>
+                    </span>
                     <span id="progress-text">0%</span>
                 </div>
                 <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
                     <div id="progress-fill" class="bg-brand-500 h-2 rounded-full transition-all duration-1000" style="width: 0%"></div>
                 </div>
-				<div class="mt-4 flex justify-end">
-					<button onclick="resetProgress()" 
-							class="group flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider uppercase text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-all duration-300">
-						<span>Reset</span>
-						<i class="fa-solid fa-arrow-rotate-right transition-transform duration-500 group-hover:-rotate-180"></i>
-					</button>
-				</div>
+                <div class="mt-4 flex justify-end">
+                    <button onclick="resetProgress()" 
+                            class="group flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider uppercase text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-all duration-300">
+                        <span>
+                            <span class="lang-en">Reset</span>
+                            <span class="lang-ar lang-hidden">إعادة ضبط</span>
+                        </span>
+                        <i class="fa-solid fa-arrow-rotate-right transition-transform duration-500 group-hover:-rotate-180"></i>
+                    </button>
+                </div>
             </div>
         </header>
 
         <section>
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center">
-                    <span class="w-1.5 h-8 bg-brand-500 rounded-full mr-3"></span>
-                    The Learning Path
+                    <span class="w-1.5 h-8 bg-brand-500 rounded-full me-3"></span>
+                    <span class="lang-en">The Learning Path</span>
+                    <span class="lang-ar lang-hidden">مسار التعلم</span>
                 </h2>
             </div>
 
@@ -189,11 +292,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-stopwatch text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Introduction</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Algorithm role, efficiency, and analyzing complexity (Big O).</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Introduction</span>
+                            <span class="lang-ar lang-hidden">مقدمة (Introduction)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Algorithm role, efficiency, and analyzing complexity (Big O).</span>
+                            <span class="lang-ar lang-hidden">دور الخوارزمية، الكفاءة، وتحليل التعقيد (Big O).</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -203,11 +314,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-scissors text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Divide & Conquer</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Merge Sort, Quick Sort, and recurrence relations.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Divide & Conquer</span>
+                            <span class="lang-ar lang-hidden">فرق تسد (Divide & Conquer)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Merge Sort, Quick Sort, and recurrence relations.</span>
+                            <span class="lang-ar lang-hidden">Merge Sort, Quick Sort, والعلاقات التكرارية.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -217,11 +336,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-chart-line text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Recurrences</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Master Theorem, Substitution Method, and Recursion Trees.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Recurrences</span>
+                            <span class="lang-ar lang-hidden">التكرارات (Recurrences)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Master Theorem, Substitution Method, and Recursion Trees.</span>
+                            <span class="lang-ar lang-hidden">نظرية السيد (Master Theorem)، طريقة التعويض، وأشجار العودية.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -231,11 +358,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-arrow-down-short-wide text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Sorting</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Heapsort, linear time sorting, and order statistics.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Sorting</span>
+                            <span class="lang-ar lang-hidden">الترتيب (Sorting)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Heapsort, linear time sorting, and order statistics.</span>
+                            <span class="lang-ar lang-hidden">Heapsort, الترتيب الخطي، وإحصائيات الترتيب.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -245,11 +380,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-tree text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Data Structures</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Binary Search Trees, Red-Black Trees, and augmentation.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Data Structures</span>
+                            <span class="lang-ar lang-hidden">هياكل البيانات (Data Structures)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Binary Search Trees, Red-Black Trees, and augmentation.</span>
+                            <span class="lang-ar lang-hidden">أشجار البحث الثنائية (BST)، أشجار Red-Black، والزيادة (Augmentation).</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -259,11 +402,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-hashtag text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Hashing</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Hash functions, collision resolution, and universal hashing.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Hashing</span>
+                            <span class="lang-ar lang-hidden">التجزئة (Hashing)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Hash functions, collision resolution, and universal hashing.</span>
+                            <span class="lang-ar lang-hidden">دوال التجزئة (Hash functions)، حل التضارب، والتجزئة الشاملة.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -273,11 +424,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-layer-group text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Dynamic Prog I</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Fundamentals of DP, memoization vs tabulation.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Dynamic Prog I</span>
+                            <span class="lang-ar lang-hidden">البرمجة الديناميكية I</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Fundamentals of DP, memoization vs tabulation.</span>
+                            <span class="lang-ar lang-hidden">أساسيات الـ DP، الـ Memoization مقابل الـ Tabulation.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -287,11 +446,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-cubes-stacked text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Dynamic Prog II</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Advanced DP: LCS, Matrix Chain Multiplication, and Knapsack.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Dynamic Prog II</span>
+                            <span class="lang-ar lang-hidden">البرمجة الديناميكية II</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Advanced DP: LCS, Matrix Chain Multiplication, and Knapsack.</span>
+                            <span class="lang-ar lang-hidden">الـ DP المتقدم: LCS, ضرب سلسلة المصفوفات، وحقيبة الظهر (Knapsack).</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -301,11 +468,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-hand-holding-dollar text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Greedy Algos</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Activity Selection, Huffman Coding, and Matroids.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Greedy Algos</span>
+                            <span class="lang-ar lang-hidden">الخوارزميات الجشعة (Greedy)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Activity Selection, Huffman Coding, and Matroids.</span>
+                            <span class="lang-ar lang-hidden">اختيار النشاط، ترميز هوفمان (Huffman)، والـ Matroids.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -315,11 +490,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-circle-nodes text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Graphs I</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Representations, BFS, DFS, and Topological Sort.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Graphs I</span>
+                            <span class="lang-ar lang-hidden">الرسوم البيانية I</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Representations, BFS, DFS, and Topological Sort.</span>
+                            <span class="lang-ar lang-hidden">التمثيلات، BFS, DFS, والفرز الطوبولوجي.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -329,11 +512,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-route text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Graphs II</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">MST (Prim/Kruskal) and Shortest Paths (Dijkstra/Bellman-Ford).</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Graphs II</span>
+                            <span class="lang-ar lang-hidden">الرسوم البيانية II</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">MST (Prim/Kruskal) and Shortest Paths (Dijkstra/Bellman-Ford).</span>
+                            <span class="lang-ar lang-hidden">الـ MST (Prim/Kruskal) وأقصر المسارات (Dijkstra/Bellman-Ford).</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -343,11 +534,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-brain text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">NP-Complete</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">P vs NP, Reductions, and proving hardness.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">NP-Complete</span>
+                            <span class="lang-ar lang-hidden">الـ NP-Complete</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">P vs NP, Reductions, and proving hardness.</span>
+                            <span class="lang-ar lang-hidden">P مقابل NP، الاختزال (Reductions)، وإثبات الصعوبة.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -357,11 +556,19 @@
                         <div class="mb-4 inline-flex p-3 rounded-lg bg-brand-100 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400 group-hover:bg-brand-500 group-hover:text-white transition-colors">
                             <i class="fa-solid fa-scale-balanced text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Approximation</h3>
-                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">Vertex Cover, TSP, and randomized algorithms.</p>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Approximation</span>
+                            <span class="lang-ar lang-hidden">التقريب (Approximation)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-gray-400 line-clamp-2">
+                            <span class="lang-en">Vertex Cover, TSP, and randomized algorithms.</span>
+                            <span class="lang-ar lang-hidden">Vertex Cover, TSP, والخوارزميات العشوائية.</span>
+                        </p>
                     </div>
-                    <div class="mt-auto pt-6 flex items-center text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
-                        Start Module <i class="fa-solid fa-arrow-right ml-2"></i>
+                    <div class="mt-auto pt-6 flex items-center gap-2 text-brand-600 dark:text-brand-400 text-xs font-bold uppercase tracking-widest hover-target">
+                        <span class="lang-en">Start Module</span>
+                        <span class="lang-ar lang-hidden">ابدأ الوحدة</span>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </div>
                 </a>
 
@@ -370,7 +577,8 @@
 
         <section class="pb-12">
             <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center border-l-4 border-brand-500 pl-4">
-                The Gauntlet
+                <span class="lang-en">The Gauntlet</span>
+                <span class="lang-ar lang-hidden">التحدي النهائي</span>
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -380,18 +588,31 @@
                     
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 bg-brand-400/20 text-brand-600 dark:text-brand-400 rounded text-xs font-bold uppercase tracking-wider">Modules 1-6</span>
+                            <span class="px-3 py-1 bg-brand-400/20 text-brand-600 dark:text-brand-400 rounded text-xs font-bold uppercase tracking-wider">
+                                <span class="lang-en">Modules 1-6</span>
+                                <span class="lang-ar lang-hidden">الوحدات 1-6</span>
+                            </span>
                             <i class="fa-solid fa-file-pen text-2xl text-brand-400"></i>
                         </div>
-                        <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Midterm Exam</h3>
-                        <p class="text-sm text-slate-600 dark:text-gray-400 mb-8">Complexity, Sorting, Hashing, and Data Structures.</p>
+                        <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Midterm Exam</span>
+                            <span class="lang-ar lang-hidden">الاختبار النصفي</span>
+                        </h3>
+                        <p class="text-sm text-slate-600 dark:text-gray-400 mb-8">
+                            <span class="lang-en">Complexity, Sorting, Hashing, and Data Structures.</span>
+                            <span class="lang-ar lang-hidden">التعقيد، الترتيب، التجزئة، وهياكل البيانات.</span>
+                        </p>
                         
                         <div class="grid grid-cols-2 gap-4">
-                            <a href="midterm-review.html" class="flex items-center justify-center py-3 px-4 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-300 transition-all font-bold text-sm">
-                                <i class="fa-solid fa-book-open mr-2"></i> Review
+                            <a href="midterm-review.html" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-300 transition-all font-bold text-sm">
+                                <i class="fa-solid fa-book-open"></i> 
+                                <span class="lang-en">Review</span>
+                                <span class="lang-ar lang-hidden">مراجعة</span>
                             </a>
-                            <a href="midterm-quiz.html" class="flex items-center justify-center py-3 px-4 rounded-lg bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105 font-bold text-sm">
-                                <i class="fa-solid fa-play mr-2"></i> Start Quiz
+                            <a href="midterm-quiz.html" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105 font-bold text-sm">
+                                <i class="fa-solid fa-play"></i> 
+                                <span class="lang-en">Start Quiz</span>
+                                <span class="lang-ar lang-hidden">ابدأ الاختبار</span>
                             </a>
                         </div>
                     </div>
@@ -402,18 +623,31 @@
                     
                     <div class="relative z-10">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="px-3 py-1 bg-rose-600/20 text-rose-600 dark:text-rose-400 rounded text-xs font-bold uppercase tracking-wider">Modules 7-13</span>
+                            <span class="px-3 py-1 bg-rose-600/20 text-rose-600 dark:text-rose-400 rounded text-xs font-bold uppercase tracking-wider">
+                                <span class="lang-en">Modules 7-13</span>
+                                <span class="lang-ar lang-hidden">الوحدات 7-13</span>
+                            </span>
                             <i class="fa-solid fa-flag-checkered text-2xl text-rose-600"></i>
                         </div>
-                        <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">Final Exam</h3>
-                        <p class="text-sm text-slate-600 dark:text-gray-400 mb-8">Dynamic Programming, Greedy, Graphs, and NP.</p>
+                        <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
+                            <span class="lang-en">Final Exam</span>
+                            <span class="lang-ar lang-hidden">الاختبار النهائي</span>
+                        </h3>
+                        <p class="text-sm text-slate-600 dark:text-gray-400 mb-8">
+                            <span class="lang-en">Dynamic Programming, Greedy, Graphs, and NP.</span>
+                            <span class="lang-ar lang-hidden">البرمجة الديناميكية، الخوارزميات الجشعة، الرسوم البيانية، والـ NP.</span>
+                        </p>
                         
                         <div class="grid grid-cols-2 gap-4">
-                            <a href="final-review.html" class="flex items-center justify-center py-3 px-4 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-300 transition-all font-bold text-sm">
-                                <i class="fa-solid fa-book-open mr-2"></i> Review
+                            <a href="final-review.html" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-gray-300 transition-all font-bold text-sm">
+                                <i class="fa-solid fa-book-open"></i> 
+                                <span class="lang-en">Review</span>
+                                <span class="lang-ar lang-hidden">مراجعة</span>
                             </a>
-                            <a href="final-quiz.html" class="flex items-center justify-center py-3 px-4 rounded-lg bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105 font-bold text-sm">
-                                <i class="fa-solid fa-play mr-2"></i> Start Quiz
+                            <a href="final-quiz.html" class="flex items-center justify-center gap-2 py-3 px-4 rounded-lg bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-500/30 transition-all transform hover:scale-105 font-bold text-sm">
+                                <i class="fa-solid fa-play"></i> 
+                                <span class="lang-en">Start Quiz</span>
+                                <span class="lang-ar lang-hidden">ابدأ الاختبار</span>
                             </a>
                         </div>
                     </div>
@@ -426,7 +660,10 @@
 
     <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-slate-500 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+            <p class="text-slate-500 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس CS. نسخة البروفيسور الذكي.</span>
+            </p>
         </div>
     </footer>
 
@@ -436,6 +673,7 @@
         const htmlElement = document.documentElement;
         const progressText = document.getElementById('progress-text');
         const progressFill = document.getElementById('progress-fill');
+        const langToggle = document.getElementById('lang-toggle');
 
         
         function updateThemeIcon() {
@@ -467,6 +705,30 @@
         });
 
         
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                document.querySelectorAll('.lang-en').forEach(el => el.classList.add('lang-hidden'));
+                document.querySelectorAll('.lang-ar').forEach(el => el.classList.remove('lang-hidden'));
+            } else {
+                htmlElement.removeAttribute('dir');
+                document.querySelectorAll('.lang-ar').forEach(el => el.classList.add('lang-hidden'));
+                document.querySelectorAll('.lang-en').forEach(el => el.classList.remove('lang-hidden'));
+            }
+            localStorage.setItem('preferredLang', lang);
+        }
+
+        langToggle.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('dir') === 'rtl' ? 'ar' : 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang === 'ar') setLanguage('ar');
+
+        
         function calculateProgress() {
             const totalModules = 13;
             let completed = 0;
@@ -479,6 +741,7 @@
             }
 
             const percent = Math.round((completed / totalModules) * 100);
+            
             
             setTimeout(() => {
                 progressFill.style.width = `${percent}%`;
@@ -493,31 +756,35 @@
 
         
         calculateProgress();
-		function resetProgress() {
-			
-			if (confirm("هل تريد تصفير العداد والبدء من جديد؟")) {
-				
-				
-				for (let i = 1; i <= 13; i++) {
-					localStorage.removeItem(`module_completed_${i}`);
-				}
 
-				
-				const progressFill = document.getElementById('progress-fill');
-				const progressText = document.getElementById('progress-text');
-				
-				
-				progressFill.style.width = '0%';
-				progressText.innerText = '0%';
-				
-				
-				const btnIcon = document.querySelector('.fa-arrow-rotate-right');
-				if(btnIcon) {
-					btnIcon.classList.add('fa-spin');
-					setTimeout(() => btnIcon.classList.remove('fa-spin'), 1000);
-				}
-			}
-		}
+        function resetProgress() {
+            const isAr = htmlElement.getAttribute('dir') === 'rtl';
+            const msg = isAr ? "هل تريد تصفير العداد والبدء من جديد؟" : "Are you sure you want to reset your progress?";
+            
+            
+            if (confirm(msg)) {
+                
+                
+                for (let i = 1; i <= 13; i++) {
+                    localStorage.removeItem(`module_completed_${i}`);
+                }
+
+                
+                const progressFill = document.getElementById('progress-fill');
+                const progressText = document.getElementById('progress-text');
+                
+                
+                progressFill.style.width = '0%';
+                progressText.innerText = '0%';
+                
+                
+                const btnIcon = document.querySelector('.fa-arrow-rotate-right');
+                if(btnIcon) {
+                    btnIcon.classList.add('fa-spin');
+                    setTimeout(() => btnIcon.classList.remove('fa-spin'), 1000);
+                }
+            }
+        }
     </script>
 </body>
 </html>

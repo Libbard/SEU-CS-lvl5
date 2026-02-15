@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 1: DB Concepts</title>
@@ -116,6 +125,23 @@
             justify-content: center;
             align-items: center;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -123,23 +149,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 1</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 1</span>
+                        <span class="lang-ar lang-hidden">الوحدة 1</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-database text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module2.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -156,102 +197,178 @@
                 <i class="fa-solid fa-server text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Foundations: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Databases & Users</span>
+                <span class="lang-en">Foundations: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Databases & Users</span></span>
+                <span class="lang-ar lang-hidden">الأساسيات: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">قواعد البيانات والمستخدمين</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Understanding the architecture, actors, and fundamental concepts that power modern data systems.
+                <span class="lang-en">Understanding the architecture, actors, and fundamental concepts that power modern data systems.</span>
+                <span class="lang-ar lang-hidden">فهم البنية التحتية، والجهات الفاعلة، والمفاهيم الأساسية التي تشغل أنظمة البيانات الحديثة.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Data vs Info</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">DBMS</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Meta-data</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Transaction Processing</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">End Users</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Data vs Info</span>
+                    <span class="lang-ar lang-hidden">Data vs Info</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">DBMS</span>
+                    <span class="lang-ar lang-hidden">DBMS</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Meta-data</span>
+                    <span class="lang-ar lang-hidden">Meta-data</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Transaction Processing</span>
+                    <span class="lang-ar lang-hidden">معالجة المعاملات</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">End Users</span>
+                    <span class="lang-ar lang-hidden">المستخدمون النهائيون</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Basic Definitions</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Basic Definitions</span>
+                    <span class="lang-ar lang-hidden">تعريفات أساسية</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-database text-brand-500 mr-2"></i>The Basics</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <i class="fa-solid fa-database text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">The Basics</span>
+                        <span class="lang-ar lang-hidden">المصطلحات الأساسية</span>
+                    </h3>
                     <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">Data:</strong> Known facts that have implicit meaning (e.g., Names, Numbers).
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Data:</span>
+                                <span class="lang-ar lang-hidden">Data (البيانات):</span>
+                            </strong> 
+                            <span class="lang-en">Known facts that have implicit meaning (e.g., Names, Numbers).</span>
+                            <span class="lang-ar lang-hidden">حقائق معروفة لها معنى ضمني (مثل: الأسماء، الأرقام).</span>
                         </li>
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">Database:</strong> A collection of <em>related</em> data. It represents a <span class="smart-term" data-ar="العالم المصغر">Miniworld</span> (Universe of Discourse).
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Database:</span>
+                                <span class="lang-ar lang-hidden">Database (قاعدة البيانات):</span>
+                            </strong> 
+                            <span class="lang-en">A collection of <em>related</em> data. It represents a <span class="smart-term" data-ar="العالم المصغر">Miniworld</span> (Universe of Discourse).</span>
+                            <span class="lang-ar lang-hidden">مجموعة من البيانات <em>المرتبطة</em> ببعضها. وهي تمثل <span class="smart-term" data-ar="العالم المصغر">Miniworld</span> (عالم الخطاب).</span>
                         </li>
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">Meta-data:</strong> "Data about Data". The description of the database structure (types, constraints) stored in the DBMS catalog.
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Meta-data:</span>
+                                <span class="lang-ar lang-hidden">Meta-data (وصف البيانات):</span>
+                            </strong> 
+                            <span class="lang-en">"Data about Data". The description of the database structure (types, constraints) stored in the DBMS catalog.</span>
+                            <span class="lang-ar lang-hidden">"بيانات عن البيانات". هو وصف لهيكل قاعدة البيانات (الأنواع، القيود) المخزنة في كتالوج الـ DBMS.</span>
                         </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2"><i class="fa-solid fa-cogs text-brand-500 mr-2"></i>The System</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <i class="fa-solid fa-cogs text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">The System</span>
+                        <span class="lang-ar lang-hidden">النظام</span>
+                    </h3>
                     <ul class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">DBMS:</strong> A software system to create, maintain, and control access to the database (e.g., Oracle, MySQL).
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">DBMS:</span>
+                                <span class="lang-ar lang-hidden">DBMS:</span>
+                            </strong> 
+                            <span class="lang-en">A software system to create, maintain, and control access to the database (e.g., Oracle, MySQL).</span>
+                            <span class="lang-ar lang-hidden">نظام برمجي لإنشاء وصيانة والتحكم في الوصول إلى قاعدة البيانات (مثل: Oracle, MySQL).</span>
                         </li>
                         <li>
-                            <strong class="text-brand-600 dark:text-brand-400">Database System:</strong> The combination of the Database + DBMS Software + Application Programs.
+                            <strong class="text-brand-600 dark:text-brand-400">
+                                <span class="lang-en">Database System:</span>
+                                <span class="lang-ar lang-hidden">Database System (نظام قاعدة البيانات):</span>
+                            </strong> 
+                            <span class="lang-en">The combination of the Database + DBMS Software + Application Programs.</span>
+                            <span class="lang-ar lang-hidden">المزيج المكون من قاعدة البيانات + برنامج DBMS + البرامج التطبيقية.</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
             <div class="mt-8 glass-card p-6 rounded-xl">
-                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">Simplified Database Environment</h4>
+                <h4 class="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">
+                    <span class="lang-en">Simplified Database Environment</span>
+                    <span class="lang-ar lang-hidden">بيئة قاعدة البيانات المبسطة</span>
+                </h4>
                 
                 <div id="mermaid-container" class="flex justify-center"></div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Why Use Databases?</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Why Use Databases?</span>
+                    <span class="lang-ar lang-hidden">لماذا نستخدم قواعد البيانات؟</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Traditional file processing (saving data in text files) has many issues. The Database Approach solves them via four main characteristics:
+                    <span class="lang-en">Traditional file processing (saving data in text files) has many issues. The Database Approach solves them via four main characteristics:</span>
+                    <span class="lang-ar lang-hidden">معالجة الملفات التقليدية (حفظ البيانات في ملفات نصية) تعاني من مشاكل عديدة. يحل "نهج قاعدة البيانات" هذه المشاكل عبر أربع خصائص رئيسية:</span>
                 </p>
 
                 <div class="grid md:grid-cols-2 gap-8 text-sm">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">1. Self-Describing Nature</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">
+                            <span class="lang-en">1. Self-Describing Nature</span>
+                            <span class="lang-ar lang-hidden">1. Self-Describing Nature (الطبيعة الوصفية الذاتية)</span>
+                        </h4>
                         <p class="text-gray-500 dark:text-gray-400">
-                            The system contains not only the data but the <strong>structure</strong> of the data (Meta-data) in a catalog. This allows the DBMS to work with any database application.
+                            <span class="lang-en">The system contains not only the data but the <strong>structure</strong> of the data (Meta-data) in a catalog. This allows the DBMS to work with any database application.</span>
+                            <span class="lang-ar lang-hidden">النظام لا يحتوي فقط على البيانات بل على <strong>هيكل</strong> البيانات (Meta-data) في الكتالوج. وهذا يسمح لـ DBMS بالعمل مع أي تطبيق قاعدة بيانات.</span>
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">2. Insulation (Data Abstraction)</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">
+                            <span class="lang-en">2. Insulation (Data Abstraction)</span>
+                            <span class="lang-ar lang-hidden">2. Insulation / Data Abstraction (العزل / تجريد البيانات)</span>
+                        </h4>
                         <p class="text-gray-500 dark:text-gray-400">
-                            <strong>Program-Data Independence:</strong> You can change the data structure (e.g., add a field) without rewriting the application code. The DBMS handles the mapping.
+                            <span class="lang-en"><strong>Program-Data Independence:</strong> You can change the data structure (e.g., add a field) without rewriting the application code. The DBMS handles the mapping.</span>
+                            <span class="lang-ar lang-hidden"><strong>استقلالية البرامج عن البيانات:</strong> يمكنك تغيير هيكل البيانات (مثل إضافة حقل) دون إعادة كتابة كود التطبيق. الـ DBMS يتولى عملية الربط (Mapping).</span>
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">3. Multiple Views</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">
+                            <span class="lang-en">3. Multiple Views</span>
+                            <span class="lang-ar lang-hidden">3. Multiple Views (تعدد وجهات النظر)</span>
+                        </h4>
                         <p class="text-gray-500 dark:text-gray-400">
-                            Different users see different subsets of the data. A student sees grades; an admin sees transcripts.
+                            <span class="lang-en">Different users see different subsets of the data. A student sees grades; an admin sees transcripts.</span>
+                            <span class="lang-ar lang-hidden">يرى المستخدمون المختلفون مجموعات فرعية مختلفة من البيانات. الطالب يرى الدرجات؛ والمشرف يرى السجلات الأكاديمية.</span>
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">4. Multi-user Transaction Processing</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-1">
+                            <span class="lang-en">4. Multi-user Transaction Processing</span>
+                            <span class="lang-ar lang-hidden">4. Transaction Processing (معالجة المعاملات)</span>
+                        </h4>
                         <p class="text-gray-500 dark:text-gray-400">
-                            Allows concurrent access. The DBMS ensures <span class="smart-term" data-ar="التزامن">Concurrency Control</span> (e.g., two people booking the same seat) and OLTP (Online Transaction Processing).
+                            <span class="lang-en">Allows concurrent access. The DBMS ensures <span class="smart-term" data-ar="التزامن">Concurrency Control</span> (e.g., two people booking the same seat) and OLTP (Online Transaction Processing).</span>
+                            <span class="lang-ar lang-hidden">يسمح بالوصول المتزامن. يضمن الـ DBMS <span class="smart-term" data-ar="التزامن">Concurrency Control</span> (مثل شخصين يحجزان نفس المقعد) و OLTP.</span>
                         </p>
                     </div>
                 </div>
@@ -259,40 +376,67 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Actors on the Scene</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Actors on the Scene</span>
+                    <span class="lang-ar lang-hidden">الجهات الفاعلة (Actors)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-5 rounded-xl text-center border-t-4 border-red-500">
                     <i class="fa-solid fa-user-shield text-4xl text-red-500 mb-3"></i>
-                    <h4 class="font-bold text-gray-900 dark:text-white">DBA (Administrator)</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">DBA (Administrator)</span>
+                        <span class="lang-ar lang-hidden">DBA (مدير قاعدة البيانات)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
-                        Controls access, coordinates use, acquires resources, and ensures efficiency. Accountable for security.
+                        <span class="lang-en">Controls access, coordinates use, acquires resources, and ensures efficiency. Accountable for security.</span>
+                        <span class="lang-ar lang-hidden">يتحكم في الوصول، ينسق الاستخدام، يوفر الموارد، ويضمن الكفاءة. وهو المسؤول عن الأمان.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl text-center border-t-4 border-blue-500">
                     <i class="fa-solid fa-pen-ruler text-4xl text-blue-500 mb-3"></i>
-                    <h4 class="font-bold text-gray-900 dark:text-white">Database Designers</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Database Designers</span>
+                        <span class="lang-ar lang-hidden">Database Designers</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
-                        Identify data, choose structures/constraints, and communicate with users.
+                        <span class="lang-en">Identify data, choose structures/constraints, and communicate with users.</span>
+                        <span class="lang-ar lang-hidden">يحددون البيانات، يختارون الهياكل/القيود، ويتواصلون مع المستخدمين.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl text-center border-t-4 border-green-500">
                     <i class="fa-solid fa-users text-4xl text-green-500 mb-3"></i>
-                    <h4 class="font-bold text-gray-900 dark:text-white">End Users</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">End Users</span>
+                        <span class="lang-ar lang-hidden">End Users</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mt-2">
-                        The people who query/update the data.
+                        <span class="lang-en">The people who query/update the data.</span>
+                        <span class="lang-ar lang-hidden">الأشخاص الذين يستعلمون/يحدثون البيانات.</span>
                     </p>
-                    <div class="mt-3 text-[10px] text-left bg-gray-100 dark:bg-gray-800 p-2 rounded">
-                        <strong class="block text-green-600">Categories:</strong>
+                    <div class="mt-3 text-[10px] text-left rtl:text-right bg-gray-100 dark:bg-gray-800 p-2 rounded">
+                        <strong class="block text-green-600">
+                            <span class="lang-en">Categories:</span>
+                            <span class="lang-ar lang-hidden">الفئات:</span>
+                        </strong>
                         <ul class="list-disc list-inside">
-                            <li><strong>Casual:</strong> Occasional access.</li>
-                            <li><strong>Naive (Parametric):</strong> Use "canned" transactions (e.g., Bank Tellers).</li>
-                            <li><strong>Sophisticated:</strong> Scientists/Analysts using tools.</li>
+                            <li>
+                                <strong class="lang-en">Casual:</strong><strong class="lang-ar lang-hidden">Casual:</strong>
+                                <span class="lang-en">Occasional access.</span><span class="lang-ar lang-hidden"> وصول عرضي (غير دائم).</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Naive (Parametric):</strong><strong class="lang-ar lang-hidden">Naive (Parametric):</strong>
+                                <span class="lang-en">Use "canned" transactions (e.g., Bank Tellers).</span><span class="lang-ar lang-hidden"> يستخدمون معاملات "جاهزة" (Canned) (مثل صرافي البنوك).</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">Sophisticated:</strong><strong class="lang-ar lang-hidden">Sophisticated:</strong>
+                                <span class="lang-en">Scientists/Analysts using tools.</span><span class="lang-ar lang-hidden"> علماء/محللون يستخدمون أدوات.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -300,74 +444,111 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">When NOT to use a DBMS?</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">When NOT to use a DBMS?</span>
+                    <span class="lang-ar lang-hidden">متى لا نستخدم DBMS؟</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-gray-500">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Using a DBMS incurs high costs (Investment, Hardware, Training, Overhead). Avoid it if:
+                    <span class="lang-en">Using a DBMS incurs high costs (Investment, Hardware, Training, Overhead). Avoid it if:</span>
+                    <span class="lang-ar lang-hidden">استخدام DBMS يترتب عليه تكاليف عالية (استثمار، أجهزة، تدريب، تكاليف تشغيلية). تجنبه إذا:</span>
                 </p>
                 <ul class="space-y-2 text-sm text-gray-500 dark:text-gray-400">
-                    <li class="flex items-center"><i class="fa-solid fa-xmark text-red-500 mr-2"></i> The database and applications are simple, well-defined, and not expected to change.</li>
-                    <li class="flex items-center"><i class="fa-solid fa-xmark text-red-500 mr-2"></i> Stringent real-time requirements (Overhead is too high).</li>
-                    <li class="flex items-center"><i class="fa-solid fa-xmark text-red-500 mr-2"></i> Multiple user access is NOT required.</li>
+                    <li class="flex items-center">
+                        <i class="fa-solid fa-xmark text-red-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">The database and applications are simple, well-defined, and not expected to change.</span>
+                        <span class="lang-ar lang-hidden">قاعدة البيانات والتطبيقات بسيطة، محددة جيداً، وغير متوقع تغييرها.</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fa-solid fa-xmark text-red-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">Stringent real-time requirements (Overhead is too high).</span>
+                        <span class="lang-ar lang-hidden">متطلبات الوقت الفعلي صارمة (التكاليف التشغيلية Overhead مرتفعة جداً).</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fa-solid fa-xmark text-red-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">Multiple user access is NOT required.</span>
+                        <span class="lang-ar lang-hidden">تعدد وصول المستخدمين (Multiple user access) غير مطلوب.</span>
+                    </li>
                 </ul>
             </div>
         </section>
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-lang-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Casual vs Naive Users
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Casual vs Naive Users</span>
+                            <span class="lang-ar lang-hidden">فخ: Casual vs Naive</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Naive (Parametric)</strong> users make up the largest group (e.g., Bank Tellers). They use standard, pre-programmed queries ("Canned Transactions").
+                            <span class="lang-en"><strong>Naive (Parametric)</strong> users make up the largest group (e.g., Bank Tellers). They use standard, pre-programmed queries ("Canned Transactions").
                             <br><strong>Casual</strong> users access the DB occasionally and may need different info each time.
-                            Do not swap them!
+                            Do not swap them!</span>
+                            <span class="lang-ar lang-hidden">المستخدمون <strong>Naive (Parametric)</strong> هم المجموعة الأكبر (مثل صرافي البنوك). يستخدمون استعلامات قياسية مبرمجة مسبقاً ("Canned Transactions").
+                            <br>المستخدمون <strong>Casual</strong> يصلون لقاعدة البيانات بشكل عرضي وقد يحتاجون معلومات مختلفة في كل مرة.
+                            لا تخلط بينهم!</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Program-Data Independence
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Program-Data Independence</span>
+                            <span class="lang-ar lang-hidden">فخ: استقلالية البرامج والبيانات</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In traditional file processing, if you change the data format (e.g., change zip code from 5 to 9 digits), you must rewrite <strong>every</strong> program that uses it.
-                            In a DBMS, you change the structure in the catalog (Meta-data) only. This is "Independence".
+                            <span class="lang-en">In traditional file processing, if you change the data format (e.g., change zip code from 5 to 9 digits), you must rewrite <strong>every</strong> program that uses it.
+                            In a DBMS, you change the structure in the catalog (Meta-data) only. This is "Independence".</span>
+                            <span class="lang-ar lang-hidden">في معالجة الملفات التقليدية، إذا غيرت تنسيق البيانات (مثلاً الرمز البريدي)، يجب إعادة كتابة <strong>كل</strong> برنامج يستخدمه.
+                            في DBMS، تقوم بتغيير الهيكل في الكتالوج (Meta-data) فقط. هذه هي "الاستقلالية".</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Meta-data
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Meta-data</span>
+                            <span class="lang-ar lang-hidden">سر: Meta-data</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If an exam question asks "What makes a database system self-describing?", the answer is <strong>Meta-data</strong> (stored in the Catalog). It describes the structure, types, and constraints.
+                            <span class="lang-en">If an exam question asks "What makes a database system self-describing?", the answer is <strong>Meta-data</strong> (stored in the Catalog). It describes the structure, types, and constraints.</span>
+                            <span class="lang-ar lang-hidden">إذا سأل الاختبار "ما الذي يجعل نظام قاعدة البيانات يصف نفسه ذاتياً؟"، الإجابة هي <strong>Meta-data</strong> (المخزنة في الكتالوج). فهي تصف الهيكل والأنواع والقيود.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Goal
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: The Goal</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: الهدف</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            The ultimate goal of the database approach is to control (not necessarily eliminate) <strong>Redundancy</strong>. Controlled redundancy improves performance; uncontrolled redundancy leads to Inconsistency.
+                            <span class="lang-en">The ultimate goal of the database approach is to control (not necessarily eliminate) <strong>Redundancy</strong>. Controlled redundancy improves performance; uncontrolled redundancy leads to Inconsistency.</span>
+                            <span class="lang-ar lang-hidden">الهدف النهائي لنهج قاعدة البيانات هو التحكم في (وليس بالضرورة إلغاء) <strong>Redundancy</strong> (التكرار). التكرار المنضبط يحسن الأداء؛ التكرار غير المنضبط يؤدي إلى عدم الاتساق (Inconsistency).</span>
                         </p>
                     </div>
                 </div>
@@ -378,12 +559,21 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 2</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
@@ -499,6 +689,40 @@
             if (window.updateMermaidDiagram) {
                 window.updateMermaidDiagram();
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

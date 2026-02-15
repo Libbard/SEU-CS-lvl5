@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 3: Relational Model</title>
@@ -111,6 +120,25 @@
         .smart-term:hover::after {
             opacity: 1;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -118,26 +146,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module2.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 3</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 3</span>
+                        <span class="lang-ar lang-hidden">الوحدة 3</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-table text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module4.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -154,63 +197,137 @@
                 <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Core: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Relational Model & Constraints</span>
+                <span class="lang-en">Core: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Relational Model & Constraints</span></span>
+                <span class="lang-ar lang-hidden">الجوهر: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">نموذج البيانات العلائقي والقيود</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                The mathematical foundation of modern databases. Relations, Tuples, Keys, and Integrity Constraints.
+                <span class="lang-en">The mathematical foundation of modern databases. Relations, Tuples, Keys, and Integrity Constraints.</span>
+                <span class="lang-ar lang-hidden">الأساس الرياضي لقواعد البيانات الحديثة. العلاقات (Relations)، الصفوف (Tuples)، المفاتيح (Keys)، وقيود التكامل (Integrity Constraints).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Relation Schema</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Tuples & Domains</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Superkey vs Candidate Key</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Referential Integrity</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Entity Integrity</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Relation Schema</span>
+                    <span class="lang-ar lang-hidden">Relation Schema</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Tuples & Domains</span>
+                    <span class="lang-ar lang-hidden">Tuples & Domains</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Superkey vs Candidate Key</span>
+                    <span class="lang-ar lang-hidden">Superkey vs Candidate Key</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Referential Integrity</span>
+                    <span class="lang-ar lang-hidden">Referential Integrity</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Entity Integrity</span>
+                    <span class="lang-ar lang-hidden">Entity Integrity</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Relational Terminology</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Relational Terminology</span>
+                    <span class="lang-ar lang-hidden">مصطلحات النموذج العلائقي</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl overflow-hidden">
-                <table class="w-full text-sm text-left">
+                <table class="w-full text-sm text-left rtl:text-right">
                     <thead class="bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white">
                         <tr>
-                            <th class="p-3">Formal Term</th>
-                            <th class="p-3">Informal (Common) Term</th>
-                            <th class="p-3">Definition</th>
+                            <th class="p-3">
+                                <span class="lang-en">Formal Term</span>
+                                <span class="lang-ar lang-hidden">المصطلح الرسمي</span>
+                            </th>
+                            <th class="p-3">
+                                <span class="lang-en">Informal (Common) Term</span>
+                                <span class="lang-ar lang-hidden">المصطلح الشائع</span>
+                            </th>
+                            <th class="p-3">
+                                <span class="lang-en">Definition</span>
+                                <span class="lang-ar lang-hidden">التعريف</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-gray-600 dark:text-gray-300">
                         <tr>
-                            <td class="p-3 font-bold text-brand-600">Relation</td>
-                            <td class="p-3">Table</td>
-                            <td class="p-3">A set of tuples. (The whole table).</td>
+                            <td class="p-3 font-bold text-brand-600">
+                                <span class="lang-en">Relation</span>
+                                <span class="lang-ar lang-hidden">Relation</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">Table</span>
+                                <span class="lang-ar lang-hidden">Table (جدول)</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">A set of tuples. (The whole table).</span>
+                                <span class="lang-ar lang-hidden">مجموعة من Tuples (الجدول بأكمله).</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-brand-600">Tuple</td>
-                            <td class="p-3">Row / Record</td>
-                            <td class="p-3">An ordered set of values: $< v_1, v_2, ..., v_n >$.</td>
+                            <td class="p-3 font-bold text-brand-600">
+                                <span class="lang-en">Tuple</span>
+                                <span class="lang-ar lang-hidden">Tuple</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">Row / Record</span>
+                                <span class="lang-ar lang-hidden">Row / Record (صف / سجل)</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">An ordered set of values: $< v_1, v_2, ..., v_n >$.</span>
+                                <span class="lang-ar lang-hidden">مجموعة مرتبة من القيم: $< v_1, v_2, ..., v_n >$.</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-brand-600">Attribute</td>
-                            <td class="p-3">Column Header / Field</td>
-                            <td class="p-3">Role played by a domain in a relation.</td>
+                            <td class="p-3 font-bold text-brand-600">
+                                <span class="lang-en">Attribute</span>
+                                <span class="lang-ar lang-hidden">Attribute</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">Column Header / Field</span>
+                                <span class="lang-ar lang-hidden">Column / Field (عمود / حقل)</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">Role played by a domain in a relation.</span>
+                                <span class="lang-ar lang-hidden">الدور الذي يلعبه الـ Domain في العلاقة.</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-brand-600">Domain</td>
-                            <td class="p-3">Data Type / Set of Values</td>
-                            <td class="p-3">Set of atomic values (e.g., Integer, Date).</td>
+                            <td class="p-3 font-bold text-brand-600">
+                                <span class="lang-en">Domain</span>
+                                <span class="lang-ar lang-hidden">Domain</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">Data Type / Set of Values</span>
+                                <span class="lang-ar lang-hidden">Data Type (نوع البيانات / نطاق القيم)</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">Set of atomic values (e.g., Integer, Date).</span>
+                                <span class="lang-ar lang-hidden">مجموعة من القيم الذرية (مثل: عدد صحيح، تاريخ).</span>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-brand-600">Relation State</td>
-                            <td class="p-3">Populated Table</td>
-                            <td class="p-3">The set of tuples at a given moment in time.</td>
+                            <td class="p-3 font-bold text-brand-600">
+                                <span class="lang-en">Relation State</span>
+                                <span class="lang-ar lang-hidden">Relation State</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">Populated Table</span>
+                                <span class="lang-ar lang-hidden">Populated Table (جدول معبأ بالبيانات)</span>
+                            </td>
+                            <td class="p-3">
+                                <span class="lang-en">The set of tuples at a given moment in time.</span>
+                                <span class="lang-ar lang-hidden">مجموعة الـ Tuples في لحظة زمنية معينة.</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -218,78 +335,150 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Formal Definitions</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Formal Definitions</span>
+                    <span class="lang-ar lang-hidden">تعريفات رسمية</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Relation State $r(R)$</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Relation State $r(R)$</span>
+                        <span class="lang-ar lang-hidden">Relation State $r(R)$</span>
+                    </h3>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">
-                        Formally, a relation state $r(R)$ is a subset of the <span class="smart-term" data-ar="الضرب الديكارتي">Cartesian Product</span> of the domains of its attributes.
+                        <span class="lang-en">Formally, a relation state $r(R)$ is a subset of the <span class="smart-term" data-ar="الضرب الديكارتي">Cartesian Product</span> of the domains of its attributes.</span>
+                        <span class="lang-ar lang-hidden">رسمياً، حالة العلاقة $r(R)$ هي مجموعة جزئية من <span class="smart-term" data-ar="الضرب الديكارتي">Cartesian Product</span> (الضرب الديكارتي) لمجالات سماتها (Attributes Domains).</span>
                     </p>
                     <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg font-mono text-xs text-brand-600 dark:text-brand-400">
                         $r(R) \subseteq dom(A_1) \times dom(A_2) \times ... \times dom(A_n)$
                     </div>
                     <p class="text-xs text-gray-500 mt-2">
-                        Example: If $dom(A1)=\{0,1\}$ and $dom(A2)=\{a,b\}$, Cartesian Product has 4 tuples. A state might have only $\{<0,a>, <1,b>\}$.
+                        <span class="lang-en">Example: If $dom(A1)=\{0,1\}$ and $dom(A2)=\{a,b\}$, Cartesian Product has 4 tuples. A state might have only $\{<0,a>, <1,b>\}$.</span>
+                        <span class="lang-ar lang-hidden">مثال: إذا كان $dom(A1)=\{0,1\}$ و $dom(A2)=\{a,b\}$، فإن الضرب الديكارتي يحتوي على 4 صفوف. قد تحتوي الحالة فقط على $\{<0,a>, <1,b>\}$.</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Characteristics</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Characteristics</span>
+                        <span class="lang-ar lang-hidden">الخصائص</span>
+                    </h3>
                     <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Ordering:</strong> Tuples are <em>unordered</em> (it's a Set). Attributes are ordered in the schema.</li>
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Atomicity:</strong> Values are atomic (indivisible). No composite or multivalued attributes in a cell (1NF).</li>
-                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i><strong>Nulls:</strong> Represents unknown or inapplicable values.</li>
+                        <li>
+                            <i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Ordering:</strong>
+                            <strong class="lang-ar lang-hidden">Ordering (الترتيب):</strong>
+                            <span class="lang-en">Tuples are <em>unordered</em> (it's a Set). Attributes are ordered in the schema.</span>
+                            <span class="lang-ar lang-hidden">الصفوف (Tuples) <em>غير مرتبة</em> (لأنها مجموعة Set). السمات مرتبة في المخطط.</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Atomicity:</strong>
+                            <strong class="lang-ar lang-hidden">Atomicity (الذرية):</strong>
+                            <span class="lang-en">Values are atomic (indivisible). No composite or multivalued attributes in a cell (1NF).</span>
+                            <span class="lang-ar lang-hidden">القيم ذرية (غير قابلة للتقسيم). لا توجد سمات مركبة أو متعددة القيم في الخلية الواحدة (1NF).</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check text-green-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <strong class="lang-en">Nulls:</strong>
+                            <strong class="lang-ar lang-hidden">Nulls:</strong>
+                            <span class="lang-en">Represents unknown or inapplicable values.</span>
+                            <span class="lang-ar lang-hidden">تمثل قيماً مجهولة أو غير قابلة للتطبيق.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Integrity Constraints</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Integrity Constraints</span>
+                    <span class="lang-ar lang-hidden">قيود التكامل (Integrity Constraints)</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
-                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">1. Key Constraints</h3>
+                    <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">1. Key Constraints</span>
+                        <span class="lang-ar lang-hidden">1. Key Constraints (قيود المفاتيح)</span>
+                    </h3>
                     <div class="grid md:grid-cols-2 gap-4 text-sm">
                         <div>
-                            <strong class="block text-gray-900 dark:text-white">Superkey (SK)</strong>
-                            <span class="text-xs text-gray-500">Any set of attributes that uniquely identifies a tuple. No duplicates allowed.</span>
+                            <strong class="block text-gray-900 dark:text-white">
+                                <span class="lang-en">Superkey (SK)</span>
+                                <span class="lang-ar lang-hidden">Superkey (SK)</span>
+                            </strong>
+                            <span class="text-xs text-gray-500">
+                                <span class="lang-en">Any set of attributes that uniquely identifies a tuple. No duplicates allowed.</span>
+                                <span class="lang-ar lang-hidden">أي مجموعة من السمات التي تحدد الـ Tuple بشكل فريد. التكرار غير مسموح.</span>
+                            </span>
                         </div>
                         <div>
-                            <strong class="block text-gray-900 dark:text-white">Candidate Key (K)</strong>
-                            <span class="text-xs text-gray-500">A <strong>Minimal</strong> Superkey. If you remove any attribute, it loses uniqueness.</span>
+                            <strong class="block text-gray-900 dark:text-white">
+                                <span class="lang-en">Candidate Key (K)</span>
+                                <span class="lang-ar lang-hidden">Candidate Key (K)</span>
+                            </strong>
+                            <span class="text-xs text-gray-500">
+                                <span class="lang-en">A <strong>Minimal</strong> Superkey. If you remove any attribute, it loses uniqueness.</span>
+                                <span class="lang-ar lang-hidden">هو <strong>Minimal</strong> Superkey (مفتاح فائق أصغري). إذا قمت بإزالة أي سمة منه، يفقد صفة التفرد.</span>
+                            </span>
                         </div>
                     </div>
                     <div class="mt-4 p-2 bg-blue-50 dark:bg-blue-900/20 rounded text-xs text-blue-700 dark:text-blue-300">
-                        <strong>Primary Key (PK):</strong> One of the candidate keys chosen to identify tuples. Underlined in schema.
+                        <strong>
+                            <span class="lang-en">Primary Key (PK):</span>
+                            <span class="lang-ar lang-hidden">Primary Key (PK):</span>
+                        </strong> 
+                        <span class="lang-en">One of the candidate keys chosen to identify tuples. Underlined in schema.</span>
+                        <span class="lang-ar lang-hidden">واحد من الـ Candidate Keys يتم اختياره لتعريف الصفوف. يوضع تحته خط في المخطط.</span>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-green-500">
-                    <h3 class="text-lg font-bold text-green-600 dark:text-green-400 mb-2">2. Entity Integrity Constraint</h3>
+                    <h3 class="text-lg font-bold text-green-600 dark:text-green-400 mb-2">
+                        <span class="lang-en">2. Entity Integrity Constraint</span>
+                        <span class="lang-ar lang-hidden">2. Entity Integrity Constraint</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                        The Primary Key attributes of a relation <strong>CANNOT have Null values</strong>.
-                        <br><em>Why?</em> Because PK is used to identify tuples. You cannot identify something with "Unknown".
+                        <span class="lang-en">The Primary Key attributes of a relation <strong>CANNOT have Null values</strong>.
+                        <br><em>Why?</em> Because PK is used to identify tuples. You cannot identify something with "Unknown".</span>
+                        <span class="lang-ar lang-hidden">سمات الـ Primary Key للعلاقة <strong>لا يمكن أن تكون Null</strong>.
+                        <br><em>لماذا؟</em> لأن الـ PK يُستخدم لتعريف الصفوف. لا يمكنك تعريف شيء بـ "مجهول".</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-l-4 border-l-red-500">
-                    <h3 class="text-lg font-bold text-red-600 dark:text-red-400 mb-2">3. Referential Integrity Constraint</h3>
+                    <h3 class="text-lg font-bold text-red-600 dark:text-red-400 mb-2">
+                        <span class="lang-en">3. Referential Integrity Constraint</span>
+                        <span class="lang-ar lang-hidden">3. Referential Integrity Constraint</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                        Specifies a relationship between two relations. A tuple in referencing relation $R_1$ referencing $R_2$ must refer to an <strong>existing</strong> tuple in $R_2$.
+                        <span class="lang-en">Specifies a relationship between two relations. A tuple in referencing relation $R_1$ referencing $R_2$ must refer to an <strong>existing</strong> tuple in $R_2$.</span>
+                        <span class="lang-ar lang-hidden">يحدد علاقة بين جدولين. أي صف في العلاقة $R_1$ يشير إلى $R_2$ يجب أن يشير إلى صف <strong>موجود</strong> فعلياً في $R_2$.</span>
                     </p>
                     <div class="bg-red-50 dark:bg-red-900/20 p-3 rounded text-xs">
-                        <strong>Foreign Key (FK) Rule:</strong> Value of FK must be either:
+                        <strong>
+                            <span class="lang-en">Foreign Key (FK) Rule:</span>
+                            <span class="lang-ar lang-hidden">قاعدة Foreign Key (FK):</span>
+                        </strong> 
+                        <span class="lang-en">Value of FK must be either:</span>
+                        <span class="lang-ar lang-hidden">قيمة الـ FK يجب أن تكون إما:</span>
                         <ul class="list-disc list-inside ml-2">
-                            <li>An existing Primary Key value in the referenced relation.</li>
-                            <li>Null (if allowed).</li>
+                            <li>
+                                <span class="lang-en">An existing Primary Key value in the referenced relation.</span>
+                                <span class="lang-ar lang-hidden">قيمة Primary Key موجودة في العلاقة المشار إليها.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Null (if allowed).</span>
+                                <span class="lang-ar lang-hidden">Null (إذا كان مسموحاً).</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -297,44 +486,70 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Operations & Violations</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Operations & Violations</span>
+                    <span class="lang-ar lang-hidden">العمليات والانتهاكات</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Basic operations: INSERT, DELETE, UPDATE. These can violate constraints.
+                    <span class="lang-en">Basic operations: INSERT, DELETE, UPDATE. These can violate constraints.</span>
+                    <span class="lang-ar lang-hidden">العمليات الأساسية: INSERT, DELETE, UPDATE. هذه العمليات قد تنتهك القيود.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-3 gap-4 text-xs">
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
                         <strong class="block text-brand-600 mb-1">INSERT</strong>
-                        Can violate:
+                        <span class="lang-en">Can violate:
                         <br>- Domain (wrong type)
                         <br>- Key (duplicate PK)
                         <br>- Entity Integrity (Null PK)
-                        <br>- Referential Integrity (FK not found)
+                        <br>- Referential Integrity (FK not found)</span>
+                        <span class="lang-ar lang-hidden">قد ينتهك:
+                        <br>- Domain (نوع خطأ)
+                        <br>- Key (تكرار PK)
+                        <br>- Entity Integrity (PK فارغ)
+                        <br>- Referential Integrity (FK غير موجود)</span>
                     </div>
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
                         <strong class="block text-brand-600 mb-1">DELETE</strong>
-                        Can violate:
+                        <span class="lang-en">Can violate:
                         <br>- Referential Integrity only.
-                        <br>(If you delete a parent referenced by children).
+                        <br>(If you delete a parent referenced by children).</span>
+                        <span class="lang-ar lang-hidden">قد ينتهك:
+                        <br>- Referential Integrity فقط.
+                        <br>(إذا حذفت أباً يُشار إليه من قبل أبناء).</span>
                     </div>
                     <div class="p-3 border rounded border-gray-200 dark:border-gray-700">
                         <strong class="block text-brand-600 mb-1">UPDATE</strong>
-                        Can violate:
-                        <br>- All constraints depending on what is updated (PK or FK or non-key).
+                        <span class="lang-en">Can violate:
+                        <br>- All constraints depending on what is updated (PK or FK or non-key).</span>
+                        <span class="lang-ar lang-hidden">قد ينتهك:
+                        <br>- جميع القيود اعتماداً على ما يتم تحديثه (PK أو FK أو حقل عادي).</span>
                     </div>
                 </div>
 
                 <div class="mt-4 p-3 bg-gray-100 dark:bg-gray-800 rounded">
-                    <strong class="text-xs block mb-1">Handling Violations (Options):</strong>
+                    <strong class="text-xs block mb-1">
+                        <span class="lang-en">Handling Violations (Options):</span>
+                        <span class="lang-ar lang-hidden">معالجة الانتهاكات (الخيارات):</span>
+                    </strong>
                     <ul class="text-xs list-disc list-inside text-gray-500">
-                        <li><strong>RESTRICT / REJECT:</strong> Stop the operation.</li>
-                        <li><strong>CASCADE:</strong> Propagate the update/delete (e.g., delete parent $\to$ delete children).</li>
-                        <li><strong>SET NULL:</strong> Set referencing FK to Null.</li>
+                        <li>
+                            <strong class="lang-en">RESTRICT / REJECT:</strong><strong class="lang-ar lang-hidden">RESTRICT / REJECT:</strong>
+                            <span class="lang-en">Stop the operation.</span><span class="lang-ar lang-hidden"> إيقاف العملية.</span>
+                        </li>
+                        <li>
+                            <strong class="lang-en">CASCADE:</strong><strong class="lang-ar lang-hidden">CASCADE:</strong>
+                            <span class="lang-en">Propagate the update/delete (e.g., delete parent $\to$ delete children).</span><span class="lang-ar lang-hidden"> نشر التحديث/الحذف (مثلاً: حذف الأب $\to$ حذف الأبناء).</span>
+                        </li>
+                        <li>
+                            <strong class="lang-en">SET NULL:</strong><strong class="lang-ar lang-hidden">SET NULL:</strong>
+                            <span class="lang-en">Set referencing FK to Null.</span><span class="lang-ar lang-hidden"> تعيين الـ FK المشير إلى Null.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -344,55 +559,78 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Superkey vs Key
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Superkey vs Key</span>
+                            <span class="lang-ar lang-hidden">فخ: Superkey vs Key</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Is every Key a Superkey?</strong> YES.
+                            <span class="lang-en"><strong>Is every Key a Superkey?</strong> YES.
                             <br><strong>Is every Superkey a Key?</strong> NO. Only <em>minimal</em> superkeys are Keys.
-                            If a Superkey has redundant attributes (e.g., {SSN, Name}), it is NOT a Candidate Key.
+                            If a Superkey has redundant attributes (e.g., {SSN, Name}), it is NOT a Candidate Key.</span>
+                            <span class="lang-ar lang-hidden"><strong>هل كل Key يعتبر Superkey؟</strong> نعم.
+                            <br><strong>هل كل Superkey يعتبر Key؟</strong> لا. فقط الـ Superkeys <em>الأصغرية (Minimal)</em> هي Keys.
+                            إذا كان الـ Superkey يحتوي على سمات زائدة (مثل {SSN, Name})، فهو ليس Candidate Key.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Foreign Key Nulls
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Foreign Key Nulls</span>
+                            <span class="lang-ar lang-hidden">فخ: Foreign Key Nulls</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Can a Foreign Key be NULL?"
+                            <span class="lang-en">"Can a Foreign Key be NULL?"
                             <br><strong>YES</strong> (usually), unless it is part of the Primary Key of the referencing table.
                             <br>"Can a Primary Key be NULL?"
-                            <br><strong>NEVER</strong> (Entity Integrity).
+                            <br><strong>NEVER</strong> (Entity Integrity).</span>
+                            <span class="lang-ar lang-hidden">"هل يمكن أن يكون Foreign Key قيمة NULL؟"
+                            <br><strong>نعم</strong> (عادة)، إلا إذا كان جزءاً من الـ Primary Key للجدول الذي يشير.
+                            <br>"هل يمكن أن يكون Primary Key قيمة NULL؟"
+                            <br><strong>أبداً</strong> (Entity Integrity).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Self-Referencing
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Self-Referencing</span>
+                            <span class="lang-ar lang-hidden">سر: Self-Referencing</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            A Foreign Key can refer to the <strong>same</strong> table. This is called a recursive relationship (e.g., Employee table with `Supervisor_SSN` referencing `SSN` in the same table).
+                            <span class="lang-en">A Foreign Key can refer to the <strong>same</strong> table. This is called a recursive relationship (e.g., Employee table with `Supervisor_SSN` referencing `SSN` in the same table).</span>
+                            <span class="lang-ar lang-hidden">يمكن لـ Foreign Key أن يشير إلى <strong>نفس</strong> الجدول. يسمى هذا علاقة تكرارية (Recursive) (مثل جدول الموظفين وحقل `Supervisor_SSN` يشير إلى `SSN` في نفس الجدول).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Delete Rules
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Delete Rules</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: Delete Rules</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            If you delete a parent record (referenced by others), the DBMS blocks it by default (RESTRICT). If you want it to automatically delete children, you must define <strong>ON DELETE CASCADE</strong> in the schema.
+                            <span class="lang-en">If you delete a parent record (referenced by others), the DBMS blocks it by default (RESTRICT). If you want it to automatically delete children, you must define <strong>ON DELETE CASCADE</strong> in the schema.</span>
+                            <span class="lang-ar lang-hidden">إذا قمت بحذف سجل أب (مشار إليه من قبل آخرين)، يمنع DBMS ذلك افتراضياً (RESTRICT). إذا كنت تريد حذف الأبناء تلقائياً، يجب عليك تعريف <strong>ON DELETE CASCADE</strong> في المخطط.</span>
                         </p>
                     </div>
                 </div>
@@ -403,18 +641,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 2</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module2.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 2</span>
+                    <span class="lang-ar lang-hidden">الوحدة 2</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 4</a>
+                <a href="module4.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 4</span>
+                    <span class="lang-ar lang-hidden">الوحدة 4</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -432,6 +683,40 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

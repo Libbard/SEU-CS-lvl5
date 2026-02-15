@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS350 Module 9: Advanced SQL</title>
@@ -137,6 +146,38 @@
             overflow-x: auto;
             position: relative;
         }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+
+        
+        [dir="rtl"] .code-block {
+            direction: ltr !important;
+            text-align: left !important;
+        }
+        [dir="rtl"] .mermaid {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
@@ -144,26 +185,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module8.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 9</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 9</span>
+                        <span class="lang-ar lang-hidden">الوحدة 9</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-gears text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS350 Intro to Database</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS350 Intro to Database</span>
+                        <span class="lang-ar lang-hidden">CS350 مقدمة في قواعد البيانات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module10.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -180,66 +236,115 @@
                 <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Advanced SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Complex Queries & Triggers</span>
+                <span class="lang-en">Advanced SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Complex Queries & Triggers</span></span>
+                <span class="lang-ar lang-hidden">Advanced SQL: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-orange-600">Complex Queries & Triggers</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Mastering logic with NULLs, Nested Queries, Joins, Aggregation, and Active Database elements.
+                <span class="lang-en">Mastering logic with NULLs, Nested Queries, Joins, Aggregation, and Active Database elements.</span>
+                <span class="lang-ar lang-hidden">إتقان المنطق باستخدام NULLs، الاستعلامات المتداخلة، Joins، التجميع، وعناصر Active Database.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">NULL & 3-Valued Logic</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Nested Queries (IN, EXISTS)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">OUTER JOINS</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">GROUP BY & HAVING</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Triggers & Assertions</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">NULL & 3-Valued Logic</span>
+                    <span class="lang-ar lang-hidden">NULL & 3-Valued Logic</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Nested Queries (IN, EXISTS)</span>
+                    <span class="lang-ar lang-hidden">Nested Queries (IN, EXISTS)</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">OUTER JOINS</span>
+                    <span class="lang-ar lang-hidden">OUTER JOINS</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">GROUP BY & HAVING</span>
+                    <span class="lang-ar lang-hidden">GROUP BY & HAVING</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Triggers & Assertions</span>
+                    <span class="lang-ar lang-hidden">Triggers & Assertions</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">NULLs & 3-Valued Logic</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">NULLs & 3-Valued Logic</span>
+                    <span class="lang-ar lang-hidden">NULLs & 3-Valued Logic</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    In SQL, <span class="smart-term" data-ar="قيمة فارغة">NULL</span> means "Unknown" or "Not Applicable". Comparisons with NULL do NOT return TRUE or FALSE; they return <strong>UNKNOWN</strong>.
+                    <span class="lang-en">In SQL, <span class="smart-term" data-ar="قيمة فارغة">NULL</span> means "Unknown" or "Not Applicable". Comparisons with NULL do NOT return TRUE or FALSE; they return <strong>UNKNOWN</strong>.</span>
+                    <span class="lang-ar lang-hidden">في SQL، تعني <span class="smart-term" data-ar="قيمة فارغة">NULL</span> "غير معروف" أو "غير قابل للتطبيق". المقارنات مع NULL لا تُرجع TRUE أو FALSE؛ بل تُرجع <strong>UNKNOWN</strong>.</span>
                 </p>
                 <div class="grid md:grid-cols-2 gap-8 text-sm">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">3-Valued Logic Rules </h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">3-Valued Logic Rules</span>
+                            <span class="lang-ar lang-hidden">قواعد المنطق ثلاثي القيم (3-Valued Logic)</span>
+                        </h4>
                         <ul class="list-disc list-inside text-gray-500">
-                            <li><strong>AND:</strong> True AND Unknown = <span class="text-yellow-500 font-bold">Unknown</span>.</li>
-                            <li><strong>OR:</strong> True OR Unknown = <span class="text-green-500 font-bold">True</span>.</li>
-                            <li><strong>NOT:</strong> NOT Unknown = <span class="text-yellow-500 font-bold">Unknown</span>.</li>
+                            <li>
+                                <strong class="lang-en">AND:</strong><strong class="lang-ar lang-hidden">AND:</strong>
+                                <span class="lang-en">True AND Unknown = <span class="text-yellow-500 font-bold">Unknown</span>.</span>
+                                <span class="lang-ar lang-hidden">True AND Unknown = <span class="text-yellow-500 font-bold">Unknown</span>.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">OR:</strong><strong class="lang-ar lang-hidden">OR:</strong>
+                                <span class="lang-en">True OR Unknown = <span class="text-green-500 font-bold">True</span>.</span>
+                                <span class="lang-ar lang-hidden">True OR Unknown = <span class="text-green-500 font-bold">True</span>.</span>
+                            </li>
+                            <li>
+                                <strong class="lang-en">NOT:</strong><strong class="lang-ar lang-hidden">NOT:</strong>
+                                <span class="lang-en">NOT Unknown = <span class="text-yellow-500 font-bold">Unknown</span>.</span>
+                                <span class="lang-ar lang-hidden">NOT Unknown = <span class="text-yellow-500 font-bold">Unknown</span>.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Testing for NULL </h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">Testing for NULL</span>
+                            <span class="lang-ar lang-hidden">فحص قيمة NULL</span>
+                        </h4>
                         <div class="code-block text-xs">
 <span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> EMPLOYEE
 <span class="sql-keyword">WHERE</span> Super_ssn <span class="sql-keyword">IS NULL</span>;
                         </div>
-                        <p class="text-[10px] text-red-400 mt-1">Never use "= NULL". It will always fail.</p>
+                        <p class="text-[10px] text-red-400 mt-1">
+                            <span class="lang-en">Never use "= NULL". It will always fail.</span>
+                            <span class="lang-ar lang-hidden">لا تستخدم "= NULL" أبداً. ستفشل دائماً.</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Nested Queries</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Nested Queries</span>
+                    <span class="lang-ar lang-hidden">Nested Queries (الاستعلامات المتداخلة)</span>
+                </h2>
             </div>
 
             <div class="space-y-6">
                 <div class="glass-card p-5 rounded-xl border-l-4 border-blue-500">
-                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">Uncorrelated Nested Query (IN) </h4>
+                    <h4 class="font-bold text-blue-600 dark:text-blue-400 mb-2">
+                        <span class="lang-en">Uncorrelated Nested Query (IN)</span>
+                        <span class="lang-ar lang-hidden">Uncorrelated Nested Query (IN)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        The inner query runs <strong>once</strong>. The outer query uses the result set.
+                        <span class="lang-en">The inner query runs <strong>once</strong>. The outer query uses the result set.</span>
+                        <span class="lang-ar lang-hidden">الاستعلام الداخلي يعمل <strong>مرة واحدة</strong>. الاستعلام الخارجي يستخدم مجموعة النتائج.</span>
                     </p>
                     <div class="code-block text-xs">
 <span class="sql-keyword">SELECT</span> DISTINCT Pno
@@ -253,9 +358,13 @@
                 </div>
 
                 <div class="glass-card p-5 rounded-xl border-l-4 border-purple-500">
-                    <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2">Correlated Nested Query </h4>
+                    <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2">
+                        <span class="lang-en">Correlated Nested Query</span>
+                        <span class="lang-ar lang-hidden">Correlated Nested Query (مترابط)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        The inner query references a column from the outer query (<span class="text-brand-500">E.Ssn</span>). It runs <strong>once for every row</strong> of the outer table.
+                        <span class="lang-en">The inner query references a column from the outer query (<span class="text-brand-500">E.Ssn</span>). It runs <strong>once for every row</strong> of the outer table.</span>
+                        <span class="lang-ar lang-hidden">الاستعلام الداخلي يشير إلى عمود من الاستعلام الخارجي (<span class="text-brand-500">E.Ssn</span>). يعمل <strong>مرة واحدة لكل صف</strong> في الجدول الخارجي.</span>
                     </p>
                     <div class="code-block text-xs">
 <span class="sql-keyword">SELECT</span> E.Fname, E.Lname
@@ -269,9 +378,13 @@
                 </div>
 
                 <div class="glass-card p-5 rounded-xl border-l-4 border-green-500">
-                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2">EXISTS Function </h4>
+                    <h4 class="font-bold text-green-600 dark:text-green-400 mb-2">
+                        <span class="lang-en">EXISTS Function</span>
+                        <span class="lang-ar lang-hidden">دالة EXISTS</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Checks if the inner query returns any rows. Returns TRUE or FALSE.
+                        <span class="lang-en">Checks if the inner query returns any rows. Returns TRUE or FALSE.</span>
+                        <span class="lang-ar lang-hidden">تتحقق مما إذا كان الاستعلام الداخلي يُرجع أي صفوف. تُرجع TRUE أو FALSE.</span>
                     </p>
                     <div class="code-block text-xs">
 <span class="sql-keyword">SELECT</span> Fname, Lname
@@ -286,28 +399,44 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Outer Joins</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Outer Joins</span>
+                    <span class="lang-ar lang-hidden">Outer Joins</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Unlike Inner Join (which keeps only matching rows), Outer Joins keep rows even if they have no match (padding with NULLs).
+                    <span class="lang-en">Unlike Inner Join (which keeps only matching rows), Outer Joins keep rows even if they have no match (padding with NULLs).</span>
+                    <span class="lang-ar lang-hidden">على عكس Inner Join (الذي يحتفظ فقط بالصفوف المتطابقة)، تحتفظ Outer Joins بالصفوف حتى لو لم يكن لها تطابق (مع التعبئة بـ NULLs).</span>
                 </p>
                 
                 <div class="grid md:grid-cols-3 gap-4 text-xs text-center">
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-brand-600 text-sm mb-1">LEFT OUTER JOIN</strong>
-                        Keep all rows from the Left table.
+                        <strong class="block text-brand-600 text-sm mb-1">
+                            <span class="lang-en">LEFT OUTER JOIN</span>
+                            <span class="lang-ar lang-hidden">LEFT OUTER JOIN</span>
+                        </strong>
+                        <span class="lang-en">Keep all rows from the Left table.</span>
+                        <span class="lang-ar lang-hidden">الاحتفاظ بجميع الصفوف من الجدول الأيسر.</span>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-brand-600 text-sm mb-1">RIGHT OUTER JOIN</strong>
-                        Keep all rows from the Right table.
+                        <strong class="block text-brand-600 text-sm mb-1">
+                            <span class="lang-en">RIGHT OUTER JOIN</span>
+                            <span class="lang-ar lang-hidden">RIGHT OUTER JOIN</span>
+                        </strong>
+                        <span class="lang-en">Keep all rows from the Right table.</span>
+                        <span class="lang-ar lang-hidden">الاحتفاظ بجميع الصفوف من الجدول الأيمن.</span>
                     </div>
                     <div class="p-4 border rounded border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <strong class="block text-brand-600 text-sm mb-1">FULL OUTER JOIN</strong>
-                        Keep all rows from both tables.
+                        <strong class="block text-brand-600 text-sm mb-1">
+                            <span class="lang-en">FULL OUTER JOIN</span>
+                            <span class="lang-ar lang-hidden">FULL OUTER JOIN</span>
+                        </strong>
+                        <span class="lang-en">Keep all rows from both tables.</span>
+                        <span class="lang-ar lang-hidden">الاحتفاظ بجميع الصفوف من كلا الجدولين.</span>
                     </div>
                 </div>
 
@@ -316,54 +445,76 @@
 <span class="sql-keyword">FROM</span> EMPLOYEE E <span class="sql-keyword">LEFT OUTER JOIN</span> EMPLOYEE S
 <span class="sql-keyword">ON</span> E.Super_ssn = S.Ssn;
                 </div>
-                <p class="text-[10px] text-gray-500 mt-2">Example: Lists all employees, even if they have no supervisor (S.Lname will be NULL).</p>
+                <p class="text-[10px] text-gray-500 mt-2">
+                    <span class="lang-en">Example: Lists all employees, even if they have no supervisor (S.Lname will be NULL).</span>
+                    <span class="lang-ar lang-hidden">مثال: يسرد جميع الموظفين، حتى لو لم يكن لديهم مشرف (سيكون S.Lname بقيمة NULL).</span>
+                </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Aggregate Functions & Grouping</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Aggregate Functions & Grouping</span>
+                    <span class="lang-ar lang-hidden">Aggregate Functions & Grouping</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">Aggregate Functions </h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Aggregate Functions</span>
+                        <span class="lang-ar lang-hidden">Aggregate Functions (دوال التجميع)</span>
+                    </h4>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
-                        <li><code>COUNT(*)</code>: Counts rows.</li>
-                        <li><code>COUNT(Col)</code>: Counts non-null values.</li>
-                        <li><code>SUM</code>, <code>MAX</code>, <code>MIN</code>, <code>AVG</code>: Math operations.</li>
+                        <li><code>COUNT(*)</code>: <span class="lang-en">Counts rows.</span><span class="lang-ar lang-hidden"> يحسب الصفوف.</span></li>
+                        <li><code>COUNT(Col)</code>: <span class="lang-en">Counts non-null values.</span><span class="lang-ar lang-hidden"> يحسب القيم غير الفارغة.</span></li>
+                        <li><code>SUM</code>, <code>MAX</code>, <code>MIN</code>, <code>AVG</code>: <span class="lang-en">Math operations.</span><span class="lang-ar lang-hidden"> عمليات رياضية.</span></li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">GROUP BY & HAVING </h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">GROUP BY & HAVING</span>
+                        <span class="lang-ar lang-hidden">GROUP BY & HAVING</span>
+                    </h4>
                     <div class="code-block text-[10px]">
 <span class="sql-keyword">SELECT</span> Dno, COUNT(*), AVG(Salary)
 <span class="sql-keyword">FROM</span> EMPLOYEE
 <span class="sql-keyword">GROUP BY</span> Dno
 <span class="sql-keyword">HAVING</span> AVG(Salary) > 30000;
                     </div>
-                    <p class="text-[9px] text-gray-500 mt-2">HAVING filters groups AFTER grouping.</p>
+                    <p class="text-[9px] text-gray-500 mt-2">
+                        <span class="lang-en">HAVING filters groups AFTER grouping.</span>
+                        <span class="lang-ar lang-hidden">HAVING يصفي المجموعات بعد التجميع.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Active Databases</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Active Databases</span>
+                    <span class="lang-ar lang-hidden">Active Databases (قواعد البيانات النشطة)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-t-4 border-red-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Triggers (E-C-A Model) </h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Triggers (E-C-A Model)</span>
+                    <span class="lang-ar lang-hidden">Triggers (E-C-A Model)</span>
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    A <span class="smart-term" data-ar="قادح">Trigger</span> is a procedure automatically executed by the DBMS in response to specific events.
+                    <span class="lang-en">A <span class="smart-term" data-ar="قادح">Trigger</span> is a procedure automatically executed by the DBMS in response to specific events.</span>
+                    <span class="lang-ar lang-hidden"><span class="smart-term" data-ar="قادح">Trigger</span> هو إجراء يتم تنفيذه تلقائياً بواسطة الـ DBMS استجابة لأحداث معينة.</span>
                 </p>
                 <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-2">
                     <li><strong class="text-red-500">Event:</strong> INSERT, DELETE, UPDATE.</li>
-                    <li><strong class="text-red-500">Condition:</strong> Optional check (WHEN).</li>
-                    <li><strong class="text-red-500">Action:</strong> SQL statements to execute.</li>
+                    <li><strong class="text-red-500">Condition:</strong> <span class="lang-en">Optional check (WHEN).</span><span class="lang-ar lang-hidden">فحص اختياري (WHEN).</span></li>
+                    <li><strong class="text-red-500">Action:</strong> <span class="lang-en">SQL statements to execute.</span><span class="lang-ar lang-hidden">جمل SQL للتنفيذ.</span></li>
                 </ul>
                 <div class="mt-4 code-block text-xs">
 <span class="sql-keyword">CREATE TRIGGER</span> INFORM_SUPERVISOR
@@ -379,53 +530,74 @@ INFORM_SUPERVISOR(NEW.Super_ssn, NEW.Ssn);
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: WHERE vs HAVING
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: WHERE vs HAVING</span>
+                            <span class="lang-ar lang-hidden">فخ: WHERE vs HAVING</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>WHERE</strong> filters rows <em>before</em> grouping.
+                            <span class="lang-en"><strong>WHERE</strong> filters rows <em>before</em> grouping.
                             <br><strong>HAVING</strong> filters groups <em>after</em> grouping.
-                            <br>You cannot put aggregate functions (e.g., `SUM(Salary)`) inside `WHERE`. They belong in `HAVING`.
+                            <br>You cannot put aggregate functions (e.g., `SUM(Salary)`) inside `WHERE`. They belong in `HAVING`.</span>
+                            <span class="lang-ar lang-hidden"><strong>WHERE</strong> يصفي الصفوف <em>قبل</em> التجميع.
+                            <br><strong>HAVING</strong> يصفي المجموعات <em>بعد</em> التجميع.
+                            <br>لا يمكنك وضع دوال التجميع (مثل `SUM(Salary)`) داخل `WHERE`. مكانها في `HAVING`.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: NULL Comparisons
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: NULL Comparisons</span>
+                            <span class="lang-ar lang-hidden">فخ: مقارنات NULL</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            `WHERE Salary > 5000` will <strong>NOT</strong> return rows where Salary is NULL. NULL comparisons yield UNKNOWN, which is treated as FALSE in the WHERE clause.
+                            <span class="lang-en">`WHERE Salary > 5000` will <strong>NOT</strong> return rows where Salary is NULL. NULL comparisons yield UNKNOWN, which is treated as FALSE in the WHERE clause.</span>
+                            <span class="lang-ar lang-hidden">`WHERE Salary > 5000` <strong>لن</strong> يرجع الصفوف حيث الراتب NULL. مقارنات NULL تعطي UNKNOWN، والتي تعامل معاملة FALSE في جملة WHERE.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Correlated Performance
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Correlated Performance</span>
+                            <span class="lang-ar lang-hidden">سر: Correlated Performance</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Correlated nested queries are powerful but <strong>slow</strong> ($O(N^2)$ complexity) because the inner query executes once for <em>every</em> row of the outer table. Use JOINs instead for better performance.
+                            <span class="lang-en">Correlated nested queries are powerful but <strong>slow</strong> ($O(N^2)$ complexity) because the inner query executes once for <em>every</em> row of the outer table. Use JOINs instead for better performance.</span>
+                            <span class="lang-ar lang-hidden">الاستعلامات المتداخلة المترابطة قوية ولكنها <strong>بطيئة</strong> (تعقيد $O(N^2)$) لأن الاستعلام الداخلي ينفذ مرة واحدة <em>لكل</em> صف من الجدول الخارجي. استخدم JOINs بدلاً منها لأداء أفضل.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: COUNT(*) vs COUNT(Col)
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: COUNT(*) vs COUNT(Col)</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: COUNT(*) vs COUNT(Col)</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            `COUNT(*)` counts <strong>all rows</strong>, including those with NULLs.
-                            <br>`COUNT(ColumnName)` counts only rows where that column is <strong>NOT NULL</strong>.
+                            <span class="lang-en">`COUNT(*)` counts <strong>all rows</strong>, including those with NULLs.
+                            <br>`COUNT(ColumnName)` counts only rows where that column is <strong>NOT NULL</strong>.</span>
+                            <span class="lang-ar lang-hidden">`COUNT(*)` يحسب <strong>جميع الصفوف</strong>، بما فيها التي تحتوي على NULLs.
+                            <br>`COUNT(ColumnName)` يحسب فقط الصفوف التي يكون العمود فيها <strong>ليس NULL</strong>.</span>
                         </p>
                     </div>
                 </div>
@@ -436,18 +608,31 @@ INFORM_SUPERVISOR(NEW.Super_ssn, NEW.Ssn);
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 8</span>
+                    <span class="lang-ar lang-hidden">الوحدة 8</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 10</a>
+                <a href="module10.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 10</span>
+                    <span class="lang-ar lang-hidden">الوحدة 10</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -465,6 +650,40 @@ INFORM_SUPERVISOR(NEW.Super_ssn, NEW.Ssn);
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 <script>

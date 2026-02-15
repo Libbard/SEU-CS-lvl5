@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351 Module 7: Main Memory</title>
@@ -45,6 +54,9 @@
         MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            chtml: {
+                displayAlign: 'left'
             }
         };
     </script>
@@ -52,10 +64,21 @@
 
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        const isDark = document.documentElement.classList.contains('dark') || localStorage.theme === 'dark';
+        
         mermaid.initialize({ 
             startOnLoad: true,
-            theme: 'dark',
-            fontFamily: 'Inter'
+            theme: isDark ? 'dark' : 'default',
+            fontFamily: 'Inter, sans-serif',
+            securityLevel: 'loose',
+            flowchart: {
+                htmlLabels: false,
+                useMaxWidth: false,
+                curve: 'basis',
+                nodeSpacing: 60, 
+                rankSpacing: 90  
+            }
         });
     </script>
 
@@ -131,33 +154,104 @@
             font-size: 0.8rem;
         }
         .dark .bit-box { border-color: #6b7280; }
+
+        
+        .diagram-canvas {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(139, 92, 246, 0.4) transparent;
+        }
+        .diagram-canvas::-webkit-scrollbar {
+            height: 6px;
+        }
+        .diagram-canvas::-webkit-scrollbar-thumb {
+            background-color: rgba(139, 92, 246, 0.4);
+            border-radius: 10px;
+        }
+        
+        .mermaid svg {
+            max-width: none !important;
+            display: block;
+            margin: auto;
+        }
+
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-t-4 { border-top-width: 4px; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-chevron-left { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-right { transform: rotate(180deg); }
+        [dir="rtl"] .fa-arrow-left { transform: rotate(180deg); }
+        
+        
+        [dir="rtl"] .mermaid, 
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .bit-box,
+        [dir="rtl"] .math-block {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+		
+		
+        .mermaid .node text, 
+        .mermaid .edgeLabel text {
+            white-space: pre !important;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col w-full overflow-x-hidden">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 7</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 7</span>
+                        <span class="lang-ar lang-hidden">الوحدة 7</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-memory text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module8.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -167,207 +261,341 @@
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 w-full">
 
         <header class="text-center space-y-4">
             <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
                 <i class="fa-solid fa-layer-group text-3xl text-brand-500"></i>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Space Management: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600">Main Memory</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white break-words">
+                <span class="lang-en">Space Management: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600 block sm:inline">Main Memory</span></span>
+                <span class="lang-ar lang-hidden">إدارة المساحة: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-green-600 block sm:inline">الذاكرة الرئيسية</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Bridging the gap between CPU and Storage. Contiguous Allocation, Fragmentation, Paging, and Translation Look-aside Buffers (TLB).
+                <span class="lang-en">Bridging the gap between CPU and Storage. Contiguous Allocation, Fragmentation, Paging, and Translation Look-aside Buffers (TLB).</span>
+                <span class="lang-ar lang-hidden">سد الفجوة بين الـ CPU والتخزين. التخصيص المتجاور، التجزئة، الترحيل (Paging)، ومخازن الترجمة المؤقتة (TLB).</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Logical vs Physical Address</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Fragmentation</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Paging</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Page Table</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">TLB</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Swapping</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Logical vs Physical Address</span>
+                    <span class="lang-ar lang-hidden">Logical vs Physical Address</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Fragmentation</span>
+                    <span class="lang-ar lang-hidden">Fragmentation</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Paging</span>
+                    <span class="lang-ar lang-hidden">Paging</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Page Table</span>
+                    <span class="lang-ar lang-hidden">Page Table</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">TLB</span>
+                    <span class="lang-ar lang-hidden">TLB</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Swapping</span>
+                    <span class="lang-ar lang-hidden">Swapping</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Core Concepts</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Core Concepts</span>
+                    <span class="lang-ar lang-hidden">المفاهيم الجوهرية</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl mb-6">
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    A program on disk is a passive file. To run, it must be loaded into memory.
-                    <br><strong>Address Binding</strong> maps instructions to physical memory addresses at different times.
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6 break-words">
+                    <span class="lang-en">A program on disk is a passive file. To run, it must be loaded into memory.
+                    <br><strong>Address Binding</strong> maps instructions to physical memory addresses at different times.</span>
+                    <span class="lang-ar lang-hidden">البرنامج على القرص هو ملف خامل. لكي يعمل، يجب تحميله إلى الذاكرة.
+                    <br><strong>Address Binding (ربط العناوين)</strong> يعين التعليمات لعناوين الذاكرة المادية في أوقات مختلفة.</span>
                 </p>
                 <div class="grid md:grid-cols-3 gap-4 text-center text-xs">
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Compile Time</strong>
-                        If memory location is known a priori, absolute code can be generated. Must recompile if location changes.
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Compile Time</span>
+                            <span class="lang-ar lang-hidden">Compile Time (وقت الترجمة)</span>
+                        </strong>
+                        <span class="lang-en">If memory location is known a priori, absolute code can be generated. Must recompile if location changes.</span>
+                        <span class="lang-ar lang-hidden">إذا كان موقع الذاكرة معروفاً مسبقاً، يمكن توليد كود مطلق. يجب إعادة الترجمة إذا تغير الموقع.</span>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Load Time</strong>
-                        Compiler generates relocatable code. Final binding happens when loading.
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Load Time</span>
+                            <span class="lang-ar lang-hidden">Load Time (وقت التحميل)</span>
+                        </strong>
+                        <span class="lang-en">Compiler generates relocatable code. Final binding happens when loading.</span>
+                        <span class="lang-ar lang-hidden">يولد المترجم كوداً قابلاً للنقل. الربط النهائي يحدث عند التحميل.</span>
                     </div>
                     <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-                        <strong class="block text-brand-600 mb-2">Execution Time</strong>
-                        Binding delayed until run time. Needs hardware support (MMU). Most modern OSs use this.
+                        <strong class="block text-brand-600 mb-2">
+                            <span class="lang-en">Execution Time</span>
+                            <span class="lang-ar lang-hidden">Execution Time (وقت التنفيذ)</span>
+                        </strong>
+                        <span class="lang-en">Binding delayed until run time. Needs hardware support (MMU). Most modern OSs use this.</span>
+                        <span class="lang-ar lang-hidden">يتأخر الربط حتى وقت التشغيل. يتطلب دعم الأجهزة (MMU). تستخدمه معظم أنظمة التشغيل الحديثة.</span>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-purple-500">
-                <div class="flex flex-col md:flex-row gap-8 items-center">
-                    <div class="flex-1">
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Memory Management Unit (MMU)</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">
-                            A hardware device that maps <span class="text-blue-500 font-bold">Logical</span> to <span class="text-green-500 font-bold">Physical</span> addresses at run time.
+                <div class="flex flex-col gap-8">
+                    <div class="w-full">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                            <span class="lang-en">Memory Management Unit (MMU)</span>
+                            <span class="lang-ar lang-hidden">وحدة إدارة الذاكرة (MMU)</span>
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 break-words leading-relaxed">
+                            <span class="lang-en">A hardware device that maps <span class="text-blue-500 font-bold bg-blue-50 dark:bg-blue-900/30 px-1 rounded">Logical</span> to <span class="text-green-500 font-bold bg-green-50 dark:bg-green-900/30 px-1 rounded">Physical</span> addresses at run time.</span>
+                            <span class="lang-ar lang-hidden">جهاز يحول العناوين <span class="text-blue-500 font-bold bg-blue-50 dark:bg-blue-900/30 px-1 rounded">المنطقية (Logical)</span> إلى عناوين <span class="text-green-500 font-bold bg-green-50 dark:bg-green-900/30 px-1 rounded">مادية (Physical)</span> في وقت التشغيل.</span>
                         </p>
-                        <div class="mt-4 p-3 bg-purple-50 dark:bg-purple-900/20 rounded text-xs">
-                            <strong class="block text-purple-700 dark:text-purple-300">Relocation Register Logic:</strong>
-                            User program deals with Logical Addresses (0 to max).
-                            <br>MMU adds the value in the Relocation Register to generate the Physical Address.
-                            <br><em>Physical = Logical + Relocation Register</em>
+                        <div class="mt-5 p-4 bg-purple-50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-800/30 rounded-lg text-sm break-words">
+                            <strong class="block text-purple-700 dark:text-purple-400 mb-2">
+                                <span class="lang-en"><i class="fa-solid fa-microchip mr-2"></i>Relocation Register Logic:</span>
+                                <span class="lang-ar lang-hidden"><i class="fa-solid fa-microchip ml-2"></i>منطق سجل النقل (Relocation Register):</span>
+                            </strong>
+                            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                <span class="lang-en">User program deals with Logical Addresses (0 to max).
+                                <br>MMU adds the value in the Relocation Register to generate the Physical Address.
+                                <br><span class="inline-block mt-2 font-mono text-xs bg-white dark:bg-gray-800 px-2 py-1 rounded border border-gray-200 dark:border-gray-700">Physical = Logical + Relocation Register</span></span>
+                                <span class="lang-ar lang-hidden">يتعامل برنامج المستخدم مع العناوين المنطقية (من 0 إلى الحد الأقصى).
+                                <br>تضيف الـ MMU القيمة الموجودة في سجل النقل لتوليد العنوان المادي.
+                                <br><span class="inline-block mt-2 font-sans text-xs bg-white dark:bg-gray-800 px-2 py-1 rounded border border-gray-200 dark:border-gray-700">المادي = المنطقي + سجل النقل</span></span>
+                            </p>
                         </div>
                     </div>
-                    <div class="mermaid">
-                        graph LR
-                        CPU -->|Logical Addr| MMU
-                        MMU -->|Physical Addr| MEM[Memory]
-                        MMU -- Relocation Reg --> ADD((+))
+                    
+                    <div class="w-full bg-white/60 dark:bg-gray-900/60 rounded-2xl border border-purple-200/60 dark:border-purple-500/20 p-8 pt-10 flex justify-center items-center shadow-inner overflow-x-auto diagram-canvas relative group">
+                        <div class="absolute top-4 left-4 flex space-x-2 rtl:space-x-reverse opacity-50 group-hover:opacity-100 transition-opacity">
+                            <div class="w-3 h-3 rounded-full bg-rose-400 shadow-sm"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber-400 shadow-sm"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-400 shadow-sm"></div>
+                        </div>
+                        
+                        <div class="mermaid w-full flex justify-center">
+                            flowchart LR
+                                CPU([CPU]) -- "Logical Addr" --> MMU(MMU)
+                                MMU -- "Physical Addr" --> MEM[(Memory)]
+                                MMU -. "Relocation Reg" .-> ADD((+))
+                                
+                                style CPU fill:#3b82f6,color:#fff,stroke:#2563eb,stroke-width:2px
+                                style MMU fill:#8b5cf6,color:#fff,stroke:#7c3aed,stroke-width:2px
+                                style MEM fill:#10b981,color:#fff,stroke:#059669,stroke-width:2px
+                                style ADD fill:#f59e0b,color:#fff,stroke:#d97706,stroke-width:2px
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Contiguous Allocation</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Contiguous Allocation</span>
+                    <span class="lang-ar lang-hidden">التخصيص المتجاور (Contiguous Allocation)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Each process is contained in a single contiguous section of memory.
-                    <br><strong>Dynamic Storage-Allocation Problem:</strong> How to satisfy a request of size <em>n</em> from a list of free holes?
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 break-words">
+                    <span class="lang-en">Each process is contained in a single contiguous section of memory.
+                    <br><strong>Dynamic Storage-Allocation Problem:</strong> How to satisfy a request of size <em>n</em> from a list of free holes?</span>
+                    <span class="lang-ar lang-hidden">تتواجد كل عملية في قسم واحد متصل من الذاكرة.
+                    <br><strong>مشكلة تخصيص التخزين الديناميكي:</strong> كيف تلبي طلباً بحجم <em>n</em> من قائمة الفجوات الحرة؟</span>
                 </p>
                 <ul class="list-disc list-inside text-xs text-gray-500 space-y-1 mb-4">
-                    <li><strong>First-Fit:</strong> Allocate the first hole that is big enough. (Fast).</li>
-                    <li><strong>Best-Fit:</strong> Allocate the smallest hole that is big enough. (Leaves tiny holes).</li>
-                    <li><strong>Worst-Fit:</strong> Allocate the largest hole. (Leaves largest remaining hole).</li>
+                    <li><strong class="lang-en">First-Fit:</strong><strong class="lang-ar lang-hidden">First-Fit:</strong> <span class="lang-en">Allocate the first hole that is big enough. (Fast).</span><span class="lang-ar lang-hidden"> تخصيص أول فجوة كبيرة بما يكفي. (سريع).</span></li>
+                    <li><strong class="lang-en">Best-Fit:</strong><strong class="lang-ar lang-hidden">Best-Fit:</strong> <span class="lang-en">Allocate the smallest hole that is big enough. (Leaves tiny holes).</span><span class="lang-ar lang-hidden"> تخصيص أصغر فجوة كبيرة بما يكفي. (يترك فجوات صغيرة جداً).</span></li>
+                    <li><strong class="lang-en">Worst-Fit:</strong><strong class="lang-ar lang-hidden">Worst-Fit:</strong> <span class="lang-en">Allocate the largest hole. (Leaves largest remaining hole).</span><span class="lang-ar lang-hidden"> تخصيص أكبر فجوة. (يترك أكبر فجوة متبقية).</span></li>
                 </ul>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl border-t-4 border-t-red-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">External Fragmentation</h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Total memory space exists to satisfy a request, but it is <strong>not contiguous</strong>.
-                        <br><em>Solution:</em> Compaction (Shuffle memory contents to place free memory together). Expensive.
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">External Fragmentation</span>
+                        <span class="lang-ar lang-hidden">External Fragmentation (تجزئة خارجية)</span>
+                    </h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 break-words">
+                        <span class="lang-en">Total memory space exists to satisfy a request, but it is <strong>not contiguous</strong>.
+                        <br><em>Solution:</em> Compaction (Shuffle memory contents to place free memory together). Expensive.</span>
+                        <span class="lang-ar lang-hidden">مساحة الذاكرة الإجمالية موجودة لتلبية الطلب، لكنها <strong>ليست متصلة</strong>.
+                        <br><em>الحل:</em> Compaction (خلط محتويات الذاكرة لتجميع المساحة الحرة). مكلف.</span>
                     </p>
                 </div>
                 <div class="glass-card p-6 rounded-xl border-t-4 border-t-orange-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Internal Fragmentation</h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-300">
-                        Allocated memory may be slightly larger than requested memory. The difference is unused memory internal to a partition.
-                        <br><em>Common in Paging.</em>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Internal Fragmentation</span>
+                        <span class="lang-ar lang-hidden">Internal Fragmentation (تجزئة داخلية)</span>
+                    </h3>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 break-words">
+                        <span class="lang-en">Allocated memory may be slightly larger than requested memory. The difference is unused memory internal to a partition.
+                        <br><em>Common in Paging.</em></span>
+                        <span class="lang-ar lang-hidden">الذاكرة المخصصة قد تكون أكبر قليلاً من المطلوبة. الفرق هو ذاكرة غير مستخدمة داخل القسم.
+                        <br><em>شائع في Paging.</em></span>
                     </p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Paging</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Paging</span>
+                    <span class="lang-ar lang-hidden">Paging (الترحيل)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl mb-6">
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Physical memory is divided into fixed-sized blocks called <span class="text-green-500 font-bold">Frames</span>.
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-6 break-words">
+                    <span class="lang-en">Physical memory is divided into fixed-sized blocks called <span class="text-green-500 font-bold">Frames</span>.
                     <br>Logical memory is divided into blocks of same size called <span class="text-blue-500 font-bold">Pages</span>.
-                    <br><strong>Benefit:</strong> Eliminates External Fragmentation. Allows non-contiguous allocation.
+                    <br><strong>Benefit:</strong> Eliminates External Fragmentation. Allows non-contiguous allocation.</span>
+                    <span class="lang-ar lang-hidden">تقسم الذاكرة المادية إلى كتل ثابتة الحجم تسمى <span class="text-green-500 font-bold">Frames (إطارات)</span>.
+                    <br>تقسم الذاكرة المنطقية إلى كتل بنفس الحجم تسمى <span class="text-blue-500 font-bold">Pages (صفحات)</span>.
+                    <br><strong>الفائدة:</strong> يلغي التجزئة الخارجية (External Fragmentation). يسمح بالتخصيص غير المتجاور.</span>
                 </p>
 
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex-1">
-                        <strong class="block text-gray-900 dark:text-white text-sm mb-3 text-center">Logical Address Structure</strong>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex-1 min-w-0 w-full">
+                        <strong class="block text-gray-900 dark:text-white text-sm mb-3 text-center">
+                            <span class="lang-en">Logical Address Structure</span>
+                            <span class="lang-ar lang-hidden">هيكل العنوان المنطقي</span>
+                        </strong>
                         <div class="flex justify-center mb-2">
-                            <div class="bit-box bg-blue-100 dark:bg-blue-900/30 w-1/2">Page Number (p)</div>
-                            <div class="bit-box bg-green-100 dark:bg-green-900/30 w-1/2">Page Offset (d)</div>
+                            <div class="bit-box bg-blue-100 dark:bg-blue-900/30 w-1/2">
+                                <span class="lang-en">Page Number (p)</span><span class="lang-ar lang-hidden">Page Number (p)</span>
+                            </div>
+                            <div class="bit-box bg-green-100 dark:bg-green-900/30 w-1/2">
+                                <span class="lang-en">Page Offset (d)</span><span class="lang-ar lang-hidden">Page Offset (d)</span>
+                            </div>
                         </div>
-                        <p class="text-[10px] text-gray-500 text-center">
-                            $p$ is index into Page Table.
-                            <br>$d$ is displacement within the page/frame.
+                        <p class="text-[10px] text-gray-500 text-center break-words">
+                            <span class="lang-en">$p$ is index into Page Table.
+                            <br>$d$ is displacement within the page/frame.</span>
+                            <span class="lang-ar lang-hidden">$p$ هو فهرس في جدول الصفحات.
+                            <br>$d$ هو الإزاحة داخل الصفحة/الإطار.</span>
                         </p>
                     </div>
                     
-                    <div class="text-2xl text-gray-400"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="text-2xl text-gray-400"><i class="fa-solid fa-arrow-right rtl:rotate-180"></i></div>
 
-                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex-1">
-                        <strong class="block text-gray-900 dark:text-white text-sm mb-3 text-center">Page Table</strong>
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg flex-1 min-w-0 w-full">
+                        <strong class="block text-gray-900 dark:text-white text-sm mb-3 text-center">
+                            <span class="lang-en">Page Table</span>
+                            <span class="lang-ar lang-hidden">Page Table (جدول الصفحات)</span>
+                        </strong>
                         
                         <div class="flex flex-col items-center space-y-2">
-                            <div class="w-full border border-gray-400 p-1 text-center text-xs">Maps <strong>p</strong> $\to$ <strong>f</strong></div>
+                            <div class="w-full border border-gray-400 p-1 text-center text-xs">
+                                <span class="lang-en">Maps <strong>p</strong> $\to$ <strong>f</strong></span>
+                                <span class="lang-ar lang-hidden">يربط <strong>p</strong> $\to$ <strong>f</strong></span>
+                            </div>
                             <div class="w-full bg-gray-700 h-px"></div>
-                            <div class="text-xs text-gray-500">Physical Addr = (f $\times$ Size) + d</div>
+                            <div class="text-xs text-gray-500 text-center break-words">
+                                <span class="lang-en">Physical Addr = (f $\times$ Size) + d</span>
+                                <span class="lang-ar lang-hidden">Physical Addr = (f $\times$ Size) + d</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-yellow-500">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Translation Look-aside Buffer (TLB)</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-300">
-                    The Page Table is stored in main memory. This means every data access requires <strong>two</strong> memory accesses (one for table, one for data). Too slow!
-                    <br><strong>Solution:</strong> TLB. A fast, special hardware cache for page translations.
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <span class="lang-en">Translation Look-aside Buffer (TLB)</span>
+                    <span class="lang-ar lang-hidden">Translation Look-aside Buffer (TLB)</span>
+                </h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 break-words">
+                    <span class="lang-en">The Page Table is stored in main memory. This means every data access requires <strong>two</strong> memory accesses (one for table, one for data). Too slow!
+                    <br><strong>Solution:</strong> TLB. A fast, special hardware cache for page translations.</span>
+                    <span class="lang-ar lang-hidden">يخزن جدول الصفحات في الذاكرة الرئيسية. هذا يعني أن كل وصول للبيانات يتطلب <strong>وصولين</strong> للذاكرة (واحد للجدول، وواحد للبيانات). بطيء جداً!
+                    <br><strong>الحل:</strong> TLB. ذاكرة تخزين مؤقت سريعة للأجهزة لترجمة الصفحات.</span>
                 </p>
                 <div class="mt-4 grid grid-cols-2 gap-4 text-xs">
                     <div class="p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded">
-                        <strong class="block text-yellow-700 dark:text-yellow-400">TLB Hit</strong>
-                        Translation found in fast cache. No extra memory access.
+                        <strong class="block text-yellow-700 dark:text-yellow-400">
+                            <span class="lang-en">TLB Hit</span>
+                            <span class="lang-ar lang-hidden">TLB Hit</span>
+                        </strong>
+                        <span class="lang-en">Translation found in fast cache. No extra memory access.</span>
+                        <span class="lang-ar lang-hidden">تم العثور على الترجمة في الكاش السريع. لا وصول إضافي للذاكرة.</span>
                     </div>
                     <div class="p-2 bg-red-50 dark:bg-red-900/20 rounded">
-                        <strong class="block text-red-700 dark:text-red-400">TLB Miss</strong>
-                        Must go to memory to fetch page table entry. Add to TLB for next time.
+                        <strong class="block text-red-700 dark:text-red-400">
+                            <span class="lang-en">TLB Miss</span>
+                            <span class="lang-ar lang-hidden">TLB Miss</span>
+                        </strong>
+                        <span class="lang-en">Must go to memory to fetch page table entry. Add to TLB for next time.</span>
+                        <span class="lang-ar lang-hidden">يجب الذهاب للذاكرة لجلب إدخال الجدول. أضفه لـ TLB للمرة القادمة.</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Structures</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Advanced Structures</span>
+                    <span class="lang-ar lang-hidden">الهياكل المتقدمة</span>
+                </h2>
             </div>
 
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                For large address spaces ($2^{64}$), the page table itself becomes too large to fit in contiguous memory.
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 break-words">
+                <span class="lang-en">For large address spaces ($2^{64}$), the page table itself becomes too large to fit in contiguous memory.</span>
+                <span class="lang-ar lang-hidden">لمساحات العناوين الكبيرة ($2^{64}$)، يصبح جدول الصفحات نفسه كبيراً جداً بحيث لا يتسع في ذاكرة متجاورة.</span>
             </p>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">Hierarchical Paging</h3>
-                    <p class="text-xs text-gray-500">
-                        "Page the Page Table". Break the page table into smaller pieces.
-                        <br>e.g., Two-Level Paging. Outer page table maps to inner page tables.
+                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Hierarchical Paging</span>
+                        <span class="lang-ar lang-hidden">Hierarchical Paging</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 break-words">
+                        <span class="lang-en">"Page the Page Table". Break the page table into smaller pieces.
+                        <br>e.g., Two-Level Paging. Outer page table maps to inner page tables.</span>
+                        <span class="lang-ar lang-hidden">"ترحيل جدول الصفحات". تقسيم الجدول إلى قطع أصغر.
+                        <br>مثال: Two-Level Paging. جدول خارجي يشير لجداول داخلية.</span>
                     </p>
                 </div>
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">Hashed Page Tables</h3>
-                    <p class="text-xs text-gray-500">
-                        Common for address spaces > 32 bits.
-                        <br>Virtual page number is hashed into a chain of elements.
+                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Hashed Page Tables</span>
+                        <span class="lang-ar lang-hidden">Hashed Page Tables</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 break-words">
+                        <span class="lang-en">Common for address spaces > 32 bits.
+                        <br>Virtual page number is hashed into a chain of elements.</span>
+                        <span class="lang-ar lang-hidden">شائعة لمساحات العناوين > 32 بت.
+                        <br>يتم عمل Hash لرقم الصفحة الافتراضية إلى سلسلة عناصر.</span>
                     </p>
                 </div>
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">Inverted Page Tables</h3>
-                    <p class="text-xs text-gray-500">
-                        One entry for each <strong>physical</strong> frame (not virtual page).
-                        <br>Saves memory, but searching is harder (needs hashing).
+                    <h3 class="text-md font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Inverted Page Tables</span>
+                        <span class="lang-ar lang-hidden">Inverted Page Tables</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 break-words">
+                        <span class="lang-en">One entry for each <strong>physical</strong> frame (not virtual page).
+                        <br>Saves memory, but searching is harder (needs hashing).</span>
+                        <span class="lang-ar lang-hidden">إدخال واحد لكل إطار <strong>مادي</strong> (ليس صفحة افتراضية).
+                        <br>يوفر الذاكرة، لكن البحث أصعب (يحتاج Hashing).</span>
                     </p>
                 </div>
             </div>
@@ -375,58 +603,82 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-x-auto shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white break-words">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider break-words">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: EAT Calculation
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: EAT Calculation</span>
+                            <span class="lang-ar lang-hidden">فخ: حساب EAT</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Effective Access Time (EAT)</strong> with TLB:
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en"><strong>Effective Access Time (EAT)</strong> with TLB:
                             <br>$EAT = (HitRate \times Time_{mem}) + (MissRate \times 2 \times Time_{mem})$
-                            <br><em>Note:</em> Miss usually costs 2 memory accesses (Table + Data). Don't forget the '2'!
+                            <br><em>Note:</em> Miss usually costs 2 memory accesses (Table + Data). Don't forget the '2'!</span>
+                            <span class="lang-ar lang-hidden"><strong>Effective Access Time (EAT)</strong> مع TLB:
+                            <br>$EAT = (HitRate \times Time_{mem}) + (MissRate \times 2 \times Time_{mem})$
+                            <br><em>ملاحظة:</em> الـ Miss يكلف عادة وصولين للذاكرة (الجدول + البيانات). لا تنسَ الرقم '2'!</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Fragmentation Types
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Fragmentation Types</span>
+                            <span class="lang-ar lang-hidden">فخ: أنواع التجزئة (Fragmentation)</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Segmentation</strong> suffers from <em>External</em> Fragmentation.
-                            <br><strong>Paging</strong> suffers from <em>Internal</em> Fragmentation (last frame may not be full).
-                            <br>Do not mix them up.
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en"><strong>Segmentation</strong> suffers from <em>External</em> Fragmentation.
+                            <br><br><strong>Paging</strong> suffers from <em>Internal</em> Fragmentation (last frame may not be full).
+                            <br>Do not mix them up.</span>
+                            <span class="lang-ar lang-hidden"><strong>Segmentation</strong> تعاني من التجزئة <em>الخارجية (External)</em>.
+                            <br><br><strong>Paging</strong> يعاني من التجزئة <em>الداخلية (Internal)</em> (الإطار الأخير قد لا يمتلئ).
+                            <br>لا تخلط بينهما.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Context Switch & TLB
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Context Switch & TLB</span>
+                            <span class="lang-ar lang-hidden">سر: Context Switch و TLB</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When switching processes, the TLB must be <strong>flushed</strong> (cleared) because the virtual-to-physical mapping changes completely. This adds to the cost of context switching. Some TLBs use ASIDs (Address Space IDs) to avoid flushing.
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en">When switching processes, the TLB must be <strong>flushed</strong> (cleared) because the virtual-to-physical mapping changes completely. This adds to the cost of context switching. Some TLBs use ASIDs (Address Space IDs) to avoid flushing.</span>
+                            <span class="lang-ar lang-hidden">عند تبديل العمليات، يجب <strong>مسح (flush)</strong> الـ TLB لأن ربط العناوين الافتراضية بالمادية يتغير تماماً. هذا يضيف لتكلفة تبديل السياق. بعض TLBs تستخدم ASIDs لتجنب المسح.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Shared Pages
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Shared Pages</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: الصفحات المشتركة (Shared Pages)</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Paging allows sharing common code (e.g., standard C library, text editors).
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en">Paging allows sharing common code (e.g., standard C library, text editors).
                             <br>The code must be <strong>Reentrant</strong> (read-only, no self-modification).
-                            <br>Multiple processes can map their virtual pages to the <em>same</em> physical frame holding the shared code.
+                            <br>Multiple processes can map their virtual pages to the <em>same</em> physical frame holding the shared code.</span>
+                            <span class="lang-ar lang-hidden">يسمح الـ Paging بمشاركة الكود المشترك (مثل مكتبة C القياسية).
+                            <br>يجب أن يكون الكود <strong>Reentrant</strong> (للقراءة فقط، لا يعدل نفسه).
+                            <br>يمكن لعدة عمليات ربط صفحاتها الافتراضية بـ <em>نفس</em> الإطار المادي الذي يحمل الكود المشترك.</span>
                         </p>
                     </div>
                 </div>
@@ -437,20 +689,67 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 6</span>
+                    <span class="lang-ar lang-hidden">الوحدة 6</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 8</span>
+                    <span class="lang-ar lang-hidden">الوحدة 8</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
         const htmlElement = document.documentElement;
+
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
 
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
@@ -466,6 +765,8 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+            
+            location.reload(); 
         });
     </script>
 <script>

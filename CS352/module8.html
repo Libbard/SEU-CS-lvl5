@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 8: Conceptual Data Modeling</title>
@@ -19,16 +28,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6', 
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
@@ -42,14 +44,41 @@
 
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] .mermaid, [dir="rtl"] .math-block, 
+        [dir="rtl"] .tech-term {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+            display: inline-block;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-chevron-left, 
+        [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-caret-right, [dir="rtl"] .fa-arrow-down-long, [dir="rtl"] .fa-arrow-up-long {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -128,24 +157,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 8</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 8</span>
+                        <span class="lang-ar lang-hidden">Module 8</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-database text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
@@ -164,52 +207,85 @@
                 <i class="fa-solid fa-diagram-project text-3xl text-brand-500 db-icon"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Analysis: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Conceptual Data Modeling</span>
+                <span class="lang-en">Analysis: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Conceptual Data Modeling</span></span>
+                <span class="lang-ar lang-hidden">التحليل: <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-400 to-blue-600">النمذجة المفاهيمية للبيانات (Conceptual Data Modeling)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Defining the "What". Structuring organizational data using ERDs and Class Diagrams, independent of any database technology.
+                <span class="lang-en">Defining the "What". Structuring organizational data using ERDs and Class Diagrams, independent of any database technology.</span>
+                <span class="lang-ar lang-hidden">تحديد "الماهية" (What). هيكلة البيانات التنظيمية باستخدام مخططات الـ ERD والـ Class Diagrams، بشكل مستقل عن أي تقنية لقواعد البيانات.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Entity-Relationship (ERD)</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Class Diagrams</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Cardinality</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Aggregation</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Business Rules</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Entity-Relationship (ERD)</span>
+                    <span class="lang-ar lang-hidden">ERD</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Class Diagrams</span>
+                    <span class="lang-ar lang-hidden">Class Diagrams</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Cardinality</span>
+                    <span class="lang-ar lang-hidden">Cardinality</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Aggregation</span>
+                    <span class="lang-ar lang-hidden">Aggregation</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Business Rules</span>
+                    <span class="lang-ar lang-hidden">قواعد العمل (Business Rules)</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Modeling Process</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">The Modeling Process</span>
+                    <span class="lang-ar lang-hidden">عملية النمذجة (The Modeling Process)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Conceptual data modeling captures the overall structure of organizational data. It is <strong>independent</strong> of any Database Management System (DBMS).
+                    <span class="lang-en">Conceptual data modeling captures the overall structure of organizational data. It is <strong>independent</strong> of any Database Management System (DBMS).</span>
+                    <span class="lang-ar lang-hidden">تجسد النمذجة المفاهيمية للبيانات الهيكل العام للبيانات التنظيمية. وهي <strong>مستقلة</strong> عن أي نظام إدارة قواعد بيانات (DBMS).</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                         <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 flex items-center">
-                            <i class="fa-solid fa-arrow-down-long mr-2"></i> Top-Down Approach
+                            <i class="fa-solid fa-arrow-down-long mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Top-Down Approach</span>
+                            <span class="lang-ar lang-hidden">نهج Top-Down</span>
                         </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-300">
-                            Derives the data model from an intimate understanding of the business nature.
-                            <br><span class="text-gray-500 italic">"What are the subjects of the business?"</span>
+                            <span class="lang-en">Derives the data model from an intimate understanding of the business nature.</span>
+                            <span class="lang-ar lang-hidden">يشتق نموذج البيانات من فهم عميق لطبيعة العمل.</span>
+                            <br><span class="text-gray-500 italic">
+                                <span class="lang-en">"What are the subjects of the business?"</span>
+                                <span class="lang-ar lang-hidden">"ما هي موضوعات العمل؟"</span>
+                            </span>
                         </p>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                         <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 flex items-center">
-                            <i class="fa-solid fa-arrow-up-long mr-2"></i> Bottom-Up Approach
+                            <i class="fa-solid fa-arrow-up-long mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Bottom-Up Approach</span>
+                            <span class="lang-ar lang-hidden">نهج Bottom-Up</span>
                         </h4>
                         <p class="text-xs text-gray-600 dark:text-gray-300">
-                            Derives the data model by reviewing specific business documents (forms, reports).
-                            <br><span class="text-gray-500 italic">"What data appears on this Invoice?"</span>
+                            <span class="lang-en">Derives the data model by reviewing specific business documents (forms, reports).</span>
+                            <span class="lang-ar lang-hidden">يشتق نموذج البيانات من خلال مراجعة مستندات عمل محددة (نماذج، تقارير).</span>
+                            <br><span class="text-gray-500 italic">
+                                <span class="lang-en">"What data appears on this Invoice?"</span>
+                                <span class="lang-ar lang-hidden">"ما هي البيانات التي تظهر في هذه الفاتورة؟"</span>
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -217,158 +293,249 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Entity-Relationship Modeling</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Entity-Relationship Modeling</span>
+                    <span class="lang-ar lang-hidden">نمذجة الكيان والعلاقة (Entity-Relationship)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="glass-card p-5 rounded-xl">
                     <div class="flex items-center mb-3">
-                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded mr-3"><i class="fa-regular fa-square"></i></div>
-                        <h3 class="font-bold text-gray-900 dark:text-white">Entities</h3>
+                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded mr-3 rtl:ml-3 rtl:mr-0"><i class="fa-regular fa-square"></i></div>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Entities</span>
+                            <span class="lang-ar lang-hidden">الكيانات (Entities)</span>
+                        </h3>
                     </div>
                     <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                        A person, place, object, event, or concept about which the organization wishes to maintain data.
+                        <span class="lang-en">A person, place, object, event, or concept about which the organization wishes to maintain data.</span>
+                        <span class="lang-ar lang-hidden">شخص، مكان، شيء، حدث، أو مفهوم ترغب المنظمة في حفظ بيانات عنه.</span>
                     </p>
                     <ul class="text-xs text-gray-500 list-disc list-inside">
-                        <li><strong>Entity Type:</strong> Collection of entities (e.g., Employee).</li>
-                        <li><strong>Entity Instance:</strong> Single occurrence (e.g., John Doe).</li>
+                        <li>
+                            <span class="lang-en"><strong>Entity Type:</strong> Collection of entities (e.g., Employee).</span>
+                            <span class="lang-ar lang-hidden"><strong>Entity Type:</strong> مجموعة من الكيانات (مثل: الموظف).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Entity Instance:</strong> Single occurrence (e.g., John Doe).</span>
+                            <span class="lang-ar lang-hidden"><strong>Entity Instance:</strong> مثيل واحد (مثل: أحمد).</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
                     <div class="flex items-center mb-3">
-                        <div class="bg-green-100 dark:bg-green-900 text-green-600 p-2 rounded mr-3"><i class="fa-regular fa-circle"></i></div>
-                        <h3 class="font-bold text-gray-900 dark:text-white">Attributes</h3>
+                        <div class="bg-green-100 dark:bg-green-900 text-green-600 p-2 rounded mr-3 rtl:ml-3 rtl:mr-0"><i class="fa-regular fa-circle"></i></div>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Attributes</span>
+                            <span class="lang-ar lang-hidden">الخصائص (Attributes)</span>
+                        </h3>
                     </div>
                     <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                        Properties or characteristics of an entity (e.g., Name, Address).
+                        <span class="lang-en">Properties or characteristics of an entity (e.g., Name, Address).</span>
+                        <span class="lang-ar lang-hidden">خصائص أو سمات الكيان (مثل: الاسم، العنوان).</span>
                     </p>
                     <ul class="text-xs text-gray-500 list-disc list-inside">
-                        <li><strong>Candidate Key:</strong> Uniquely identifies an instance (e.g., ID).</li>
-                        <li><strong>Multivalued:</strong> Takes >1 value (e.g., Skill). {Curly Brackets}.</li>
+                        <li>
+                            <span class="lang-en"><strong>Candidate Key:</strong> Uniquely identifies an instance (e.g., ID).</span>
+                            <span class="lang-ar lang-hidden"><strong>Candidate Key:</strong> يحدد المثيل بشكل فريد (مثل: الرقم التعريفي).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Multivalued:</strong> Takes >1 value (e.g., Skill). {Curly Brackets}.</span>
+                            <span class="lang-ar lang-hidden"><strong>Multivalued:</strong> يأخذ أكثر من قيمة (مثل: المهارة). {أقواس معقوفة}.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
                     <div class="flex items-center mb-3">
-                        <div class="bg-purple-100 dark:bg-purple-900 text-purple-600 p-2 rounded mr-3"><i class="fa-solid fa-diamond"></i></div>
-                        <h3 class="font-bold text-gray-900 dark:text-white">Relationships</h3>
+                        <div class="bg-purple-100 dark:bg-purple-900 text-purple-600 p-2 rounded mr-3 rtl:ml-3 rtl:mr-0"><i class="fa-solid fa-diamond"></i></div>
+                        <h3 class="font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">Relationships</span>
+                            <span class="lang-ar lang-hidden">العلاقات (Relationships)</span>
+                        </h3>
                     </div>
                     <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                        An association between the instances of one or more entity types.
+                        <span class="lang-en">An association between the instances of one or more entity types.</span>
+                        <span class="lang-ar lang-hidden">ارتباط بين مثيلات نوع كيان واحد أو أكثر.</span>
                     </p>
                     <ul class="text-xs text-gray-500 list-disc list-inside">
-                        <li><strong>Degree:</strong> Number of entity types involved (Unary, Binary, Ternary).</li>
-                        <li><strong>Cardinality:</strong> Constraint on number of instances (1:1, 1:M, M:N).</li>
+                        <li>
+                            <span class="lang-en"><strong>Degree:</strong> Number of entity types involved (Unary, Binary, Ternary).</span>
+                            <span class="lang-ar lang-hidden"><strong>Degree (الدرجة):</strong> عدد أنواع الكيانات المشاركة (أحادية، ثنائية، ثلاثية).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Cardinality:</strong> Constraint on number of instances (1:1, 1:M, M:N).</span>
+                            <span class="lang-ar lang-hidden"><strong>Cardinality (التعددية):</strong> قيد على عدد المثيلات (1:1, 1:M, M:N).</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="mt-6 bg-white dark:bg-gray-800 p-4 rounded-xl border-l-4 border-yellow-500 shadow-sm">
-                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1"><i class="fa-solid fa-link mr-2 text-yellow-500"></i>Associative Entity</h4>
+                <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-1">
+                    <i class="fa-solid fa-link mr-2 rtl:ml-2 rtl:mr-0 text-yellow-500"></i>
+                    <span class="lang-en">Associative Entity</span>
+                    <span class="lang-ar lang-hidden">الكيان الرابط (Associative Entity)</span>
+                </h4>
                 <p class="text-xs text-gray-600 dark:text-gray-300">
-                    An entity type that associates the instances of one or more entity types and contains attributes that are peculiar to the relationship between those entity instances. Often used to resolve <strong>Many-to-Many (M:N)</strong> relationships.
+                    <span class="lang-en">An entity type that associates the instances of one or more entity types and contains attributes that are peculiar to the relationship between those entity instances. Often used to resolve <strong>Many-to-Many (M:N)</strong> relationships.</span>
+                    <span class="lang-ar lang-hidden">نوع كيان يربط بين مثيلات نوع كيان واحد أو أكثر ويحتوي على خصائص خاصة بالعلاقة بين تلك المثيلات. غالباً ما يستخدم لحل علاقات <strong>Many-to-Many (M:N)</strong>.</span>
                 </p>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">UML Class Diagrams</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">UML Class Diagrams</span>
+                    <span class="lang-ar lang-hidden">مخططات الفئات (UML Class Diagrams)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
                 <div class="flex justify-between items-start mb-4">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Object Modeling</h3>
-                    <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 px-2 py-1 rounded">Static Structure</span>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">Object Modeling</span>
+                        <span class="lang-ar lang-hidden">نمذجة الكائنات (Object Modeling)</span>
+                    </h3>
+                    <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 px-2 py-1 rounded">
+                        <span class="lang-en">Static Structure</span>
+                        <span class="lang-ar lang-hidden">Static Structure</span>
+                    </span>
                 </div>
                 
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Shows the static structure of an object-oriented model: classes, their internal structure, and the relationships between them.
+                    <span class="lang-en">Shows the static structure of an object-oriented model: classes, their internal structure, and the relationships between them.</span>
+                    <span class="lang-ar lang-hidden">يظهر الهيكل الثابت لنموذج كائني التوجه: الفئات (Classes)، هيكلها الداخلي، والعلاقات بينها.</span>
                 </p>
 
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900">
+                    <div class="border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-left" dir="ltr">
                         <div class="p-2 border-b border-gray-300 dark:border-gray-600 font-bold text-center text-sm">ClassName</div>
-                        <div class="p-2 border-b border-gray-300 dark:border-gray-600 text-xs">
+                        <div class="p-2 border-b border-gray-300 dark:border-gray-600 text-xs font-mono">
                             - attribute1: type<br>
                             - attribute2: type
                         </div>
-                        <div class="p-2 text-xs">
+                        <div class="p-2 text-xs font-mono">
                             + operation1(params): return<br>
                             + operation2()
                         </div>
                     </div>
 
                     <div class="space-y-4 text-xs">
-						<div class="space-y-4 text-xs">
-							<div class="flex items-center group">
-								<span class="w-24 font-bold text-gray-500 shrink-0">Association</span>
-								<div class="flex-grow flex items-center mx-3">
-									<div class="h-px bg-gray-400 w-full"></div>
-								</div>
-								<span class="shrink-0 text-gray-600 dark:text-gray-400">Named relationship</span>
-							</div>
+                        <div class="flex items-center group">
+                            <span class="w-24 font-bold text-gray-500 shrink-0">
+                                <span class="lang-en">Association</span>
+                                <span class="lang-ar lang-hidden">Association</span>
+                            </span>
+                            <div class="flex-grow flex items-center mx-3">
+                                <div class="h-px bg-gray-400 w-full"></div>
+                            </div>
+                            <span class="shrink-0 text-gray-600 dark:text-gray-400">
+                                <span class="lang-en">Named relationship</span>
+                                <span class="lang-ar lang-hidden">علاقة مسماة</span>
+                            </span>
+                        </div>
 
-							<div class="flex items-center group">
-								<span class="w-24 font-bold text-gray-500 shrink-0">Generalization</span>
-								<div class="flex-grow flex items-center mx-3">
-									<div class="h-px bg-gray-400 flex-grow"></div>
-									<i class="fa-solid fa-caret-right text-gray-400 text-lg -ml-1"></i>
-								</div>
-								<span class="shrink-0 text-gray-600 dark:text-gray-400">Inheritance (Is-a)</span>
-							</div>
+                        <div class="flex items-center group">
+                            <span class="w-24 font-bold text-gray-500 shrink-0">
+                                <span class="lang-en">Generalization</span>
+                                <span class="lang-ar lang-hidden">Generalization</span>
+                            </span>
+                            <div class="flex-grow flex items-center mx-3">
+                                <div class="h-px bg-gray-400 flex-grow"></div>
+                                <i class="fa-solid fa-caret-right text-gray-400 text-lg -ml-1 rtl:rotate-180"></i>
+                            </div>
+                            <span class="shrink-0 text-gray-600 dark:text-gray-400">
+                                <span class="lang-en">Inheritance (Is-a)</span>
+                                <span class="lang-ar lang-hidden">الوراثة (Is-a)</span>
+                            </span>
+                        </div>
 
-							<div class="flex items-center group">
-								<span class="w-24 font-bold text-gray-500 shrink-0">Aggregation</span>
-								<div class="flex-grow flex items-center mx-3">
-									<i class="fa-regular fa-gem text-gray-400 transform rotate-90 -mr-1 bg-transparent"></i>
-									<div class="h-px bg-gray-400 flex-grow"></div>
-								</div>
-								<span class="shrink-0 text-gray-600 dark:text-gray-400">Part-of (Shared)</span>
-							</div>
+                        <div class="flex items-center group">
+                            <span class="w-24 font-bold text-gray-500 shrink-0">
+                                <span class="lang-en">Aggregation</span>
+                                <span class="lang-ar lang-hidden">Aggregation</span>
+                            </span>
+                            <div class="flex-grow flex items-center mx-3">
+                                <i class="fa-regular fa-gem text-gray-400 transform rotate-90 -mr-1 bg-transparent"></i>
+                                <div class="h-px bg-gray-400 flex-grow"></div>
+                            </div>
+                            <span class="shrink-0 text-gray-600 dark:text-gray-400">
+                                <span class="lang-en">Part-of (Shared)</span>
+                                <span class="lang-ar lang-hidden">جزء من (مشترك)</span>
+                            </span>
+                        </div>
 
-							<div class="flex items-center group">
-								<span class="w-24 font-bold text-gray-500 shrink-0">Composition</span>
-								<div class="flex-grow flex items-center mx-3">
-									<i class="fa-solid fa-gem text-gray-400 transform rotate-90 -mr-1 bg-transparent"></i>
-									<div class="h-px bg-gray-400 flex-grow"></div>
-								</div>
-								<span class="shrink-0 text-gray-600 dark:text-gray-400">Part-of (Exclusive)</span>
-							</div>
-						</div>
-					</div>
+                        <div class="flex items-center group">
+                            <span class="w-24 font-bold text-gray-500 shrink-0">
+                                <span class="lang-en">Composition</span>
+                                <span class="lang-ar lang-hidden">Composition</span>
+                            </span>
+                            <div class="flex-grow flex items-center mx-3">
+                                <i class="fa-solid fa-gem text-gray-400 transform rotate-90 -mr-1 bg-transparent"></i>
+                                <div class="h-px bg-gray-400 flex-grow"></div>
+                            </div>
+                            <span class="shrink-0 text-gray-600 dark:text-gray-400">
+                                <span class="lang-en">Part-of (Exclusive)</span>
+                                <span class="lang-ar lang-hidden">جزء من (حصري)</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Advanced Relationships</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Advanced Relationships</span>
+                    <span class="lang-ar lang-hidden">علاقات متقدمة</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Generalization</h4>
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Generalization</span>
+                        <span class="lang-ar lang-hidden">Generalization (التعميم)</span>
+                    </h4>
                     <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">
-                        Abstracting common features (attributes/operations) into a <span class="font-bold">Superclass</span> and defining specific features in <span class="font-bold">Subclasses</span>.
+                        <span class="lang-en">Abstracting common features (attributes/operations) into a <span class="font-bold">Superclass</span> and defining specific features in <span class="font-bold">Subclasses</span>.</span>
+                        <span class="lang-ar lang-hidden">تجريد الميزات المشتركة (الخصائص/العمليات) في <span class="font-bold">Superclass</span> وتعريف الميزات المحددة في <span class="font-bold">Subclasses</span>.</span>
                     </p>
-                    <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs text-center">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs text-center font-mono">
                         Vehicle $\leftarrow$ Car, Truck, Bike
                     </div>
                 </div>
 
                 <div class="glass-card p-5 rounded-xl">
-                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Aggregation vs. Composition</h4>
+                    <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Aggregation vs. Composition</span>
+                        <span class="lang-ar lang-hidden">Aggregation vs. Composition</span>
+                    </h4>
                     <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
                         <li>
-                            <strong class="text-gray-900 dark:text-white">Aggregation (Hollow Diamond):</strong> Weak "Part-of". Parts can exist independently. (e.g., Computer has a Monitor).
+                            <strong class="text-gray-900 dark:text-white">
+                                <span class="lang-en">Aggregation (Hollow Diamond):</span>
+                                <span class="lang-ar lang-hidden">Aggregation (معين مفرغ):</span>
+                            </strong>
+                            <span class="lang-en">Weak "Part-of". Parts can exist independently. (e.g., Computer has a Monitor).</span>
+                            <span class="lang-ar lang-hidden">"جزء من" ضعيف. الأجزاء يمكن أن توجد بشكل مستقل. (مثال: الحاسوب لديه شاشة).</span>
                         </li>
                         <li>
-                            <strong class="text-gray-900 dark:text-white">Composition (Solid Diamond):</strong> Strong "Part-of". Parts live and die with the whole. (e.g., Building has Rooms) .
+                            <strong class="text-gray-900 dark:text-white">
+                                <span class="lang-en">Composition (Solid Diamond):</span>
+                                <span class="lang-ar lang-hidden">Composition (معين ممتلئ):</span>
+                            </strong>
+                            <span class="lang-en">Strong "Part-of". Parts live and die with the whole. (e.g., Building has Rooms).</span>
+                            <span class="lang-ar lang-hidden">"جزء من" قوي. الأجزاء تحيا وتموت مع الكل. (مثال: المبنى لديه غرف).</span>
                         </li>
                     </ul>
                 </div>
@@ -379,58 +546,68 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">The Exam Vault (خزنة الاختبارات)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Cardinality vs Degree
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Cardinality vs Degree</span>
+                            <span class="lang-ar lang-hidden">TRAP: Cardinality vs Degree</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Degree:</strong> The number of entity types that participate in a relationship (Unary, Binary, Ternary).
-                            <strong>Cardinality:</strong> The number of instances of entity B that can be associated with entity A (One, Many).
-                            Don't confuse "Binary Relationship" (Degree 2) with "One-to-Many" (Cardinality).
+                            <span class="lang-en"><strong>Degree:</strong> The number of entity types that participate in a relationship (Unary, Binary, Ternary). <br><strong>Cardinality:</strong> The number of instances of entity B that can be associated with entity A (One, Many). <br>Don't confuse "Binary Relationship" (Degree 2) with "One-to-Many" (Cardinality).</span>
+                            <span class="lang-ar lang-hidden"><strong>Degree:</strong> عدد أنواع الكيانات المشاركة في العلاقة. <br><strong>Cardinality:</strong> عدد المثيلات المرتبطة. <br>لا تخلط بين "علاقة ثنائية" (Degree 2) و "One-to-Many" (Cardinality).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: The M:N Solution
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: The M:N Solution</span>
+                            <span class="lang-ar lang-hidden">TRAP: The M:N Solution</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "How do you implement a Many-to-Many relationship in a database?"
-                            <br>You <strong>CANNOT</strong> do it directly. You must create an <strong>Associative Entity</strong> (junction table) to break it into two 1:M relationships. Example: Student $\leftrightarrow$ Course becomes Student $\to$ Registration $\leftarrow$ Course.
+                            <span class="lang-en">"How do you implement a Many-to-Many relationship in a database?" <br>You <strong>CANNOT</strong> do it directly. You must create an <strong>Associative Entity</strong> (junction table) to break it into two 1:M relationships.</span>
+                            <span class="lang-ar lang-hidden">"كيف تنفذ علاقة Many-to-Many في قاعدة البيانات؟" <br><strong>لا يمكنك</strong> فعل ذلك مباشرة. يجب إنشاء <strong>Associative Entity</strong> لتقسيمها إلى علاقتين 1:M.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Attribute Types
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Attribute Types</span>
+                            <span class="lang-ar lang-hidden">SECRET: Attribute Types</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Pay attention to attribute notation.
-                            <br><u>Underlined</u> = Primary/Identifier Key.
-                            <br>{Curly Brackets} = Multivalued Attribute (e.g., Skills).
-                            <br>(Parentheses) = Composite Attribute (e.g., Address composed of Street, City).
+                            <span class="lang-en">Pay attention to attribute notation. <br><u>Underlined</u> = Primary/Identifier Key. <br>{Curly Brackets} = Multivalued Attribute. <br>(Parentheses) = Composite Attribute.</span>
+                            <span class="lang-ar lang-hidden">انتبه لتدوين الخصائص. <br><u>تحته خط</u> = Primary Key. <br>{أقواس معقوفة} = Multivalued. <br>(أقواس) = Composite.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: The Diamond Rule
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: The Diamond Rule</span>
+                            <span class="lang-ar lang-hidden">KEY CONCEPT: The Diamond Rule</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In UML Class Diagrams:
-                            <br><strong>Solid Diamond (Composition):</strong> If the University is destroyed, the Departments are destroyed.
-                            <br><strong>Hollow Diamond (Aggregation):</strong> If the Computer is destroyed, the Mouse/Keyboard can be reused elsewhere.
+                            <span class="lang-en">In UML Class Diagrams: <br><strong>Solid Diamond (Composition):</strong> If the University is destroyed, the Departments are destroyed. <br><strong>Hollow Diamond (Aggregation):</strong> If the Computer is destroyed, the Mouse/Keyboard can be reused elsewhere.</span>
+                            <span class="lang-ar lang-hidden">في الـ Class Diagrams: <br><strong>Solid Diamond (Composition):</strong> إذا دُمرت الجامعة، تُدمر الأقسام. <br><strong>Hollow Diamond (Aggregation):</strong> إذا دُمر الحاسوب، يمكن إعادة استخدام الفأرة/لوحة المفاتيح.</span>
                         </p>
                     </div>
                 </div>
@@ -441,21 +618,35 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 7</span>
+                    <span class="lang-ar lang-hidden">Module 7</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">Course Hub</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">Module 9</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صممت للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        const langToggleBtn = document.getElementById('lang-toggle');
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -471,46 +662,42 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
-        
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
-
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('lang-hidden', lang === 'ar'));
+            document.querySelectorAll('.lang-ar').forEach(el => el.classList.toggle('lang-hidden', lang !== 'ar'));
         }
 
-    });
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        langToggleBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('lang');
+            setLanguage(current === 'en' ? 'ar' : 'en');
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} completed.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

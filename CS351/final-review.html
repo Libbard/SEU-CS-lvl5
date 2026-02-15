@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS351: Final Review (Mod 7-13)</title>
@@ -68,6 +77,57 @@
     <style>
         
         body { transition: background-color 0.3s, color 0.3s; }
+
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .language-sql,
+        [dir="rtl"] .language-javascript,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .raid-disk {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
+        [dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
 
         
         .glass {
@@ -140,26 +200,41 @@
     <nav class="sticky top-0 z-50 glass transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
-                    <a href="#" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors" title="Previous Module">
+                    <a href="midterm-review.html" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-slate-400 dark:text-slate-500">Final Review</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-slate-400 dark:text-slate-500">
+                        <span class="lang-en">Final Review</span>
+                        <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-server text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS351 Operating Systems</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS351 Operating Systems</span>
+                        <span class="lang-ar lang-hidden">CS351 نظم التشغيل</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="final-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-slate-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Quiz</span>
+                            <span class="lang-ar lang-hidden">الاختبار</span>
+                        </span>
                         <i class="fa-solid fa-flag-checkered"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -176,54 +251,99 @@
                 <i class="fa-solid fa-infinity text-4xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                The Final <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-700">Compendium</span>
+                <span class="lang-en">The Final <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-700">Compendium</span></span>
+                <span class="lang-ar lang-hidden">الموجز <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-700">الشامل (Compendium)</span></span>
             </h1>
             <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-                Comprehensive coverage of Memory, Storage, Files, I/O, and Security. The essential knowledge base for the Final Exam.
+                <span class="lang-en">Comprehensive coverage of Memory, Storage, Files, I/O, and Security. The essential knowledge base for the Final Exam.</span>
+                <span class="lang-ar lang-hidden">تغطية شاملة للذاكرة، التخزين، الملفات، الـ I/O، والأمن. قاعدة المعرفة الأساسية للاختبار النهائي.</span>
             </p>
             
             <div class="w-full max-w-md mx-auto bg-slate-200 dark:bg-slate-800 rounded-full h-2.5 mt-4">
                 <div class="bg-brand-500 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
             </div>
-            <p class="text-xs text-slate-500 mt-2">Modules 7-13</p>
+            <p class="text-xs text-slate-500 mt-2">
+                <span class="lang-en">Modules 7-13</span>
+                <span class="lang-ar lang-hidden">الوحدات 7-13</span>
+            </p>
         </header>
 
         <hr class="border-slate-200 dark:border-slate-800">
 
         <section id="mod7">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 7: Main Memory</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 7: Main Memory</span>
+                    <span class="lang-ar lang-hidden">الوحدة 7: الذاكرة الرئيسية</span>
+                </h2>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Address Binding</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Address Binding</span>
+                        <span class="lang-ar lang-hidden">ربط العناوين (Address Binding)</span>
+                    </h3>
                     <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                        Mapping code to physical addresses.
+                        <span class="lang-en">Mapping code to physical addresses.</span>
+                        <span class="lang-ar lang-hidden">تعيين الكود إلى عناوين مادية.</span>
                     </p>
                     <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                        <li><strong>Compile Time:</strong> Absolute code. If start location changes, recompile.</li>
-                        <li><strong>Load Time:</strong> Relocatable code. Final binding when loaded.</li>
-                        <li><strong>Execution Time:</strong> Binding delayed until run time. Needs <strong>MMU</strong> (Relocation Register).</li>
+                        <li>
+                            <span class="lang-en"><strong>Compile Time:</strong> Absolute code. If start location changes, recompile.</span>
+                            <span class="lang-ar lang-hidden"><strong>Compile Time (وقت الترجمة):</strong> كود مطلق. إذا تغير موقع البدء، يجب إعادة الترجمة.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Load Time:</strong> Relocatable code. Final binding when loaded.</span>
+                            <span class="lang-ar lang-hidden"><strong>Load Time (وقت التحميل):</strong> كود قابل للنقل. الربط النهائي عند التحميل.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Execution Time:</strong> Binding delayed until run time. Needs <strong>MMU</strong> (Relocation Register).</span>
+                            <span class="lang-ar lang-hidden"><strong>Execution Time (وقت التنفيذ):</strong> يتأخر الربط حتى وقت التشغيل. يحتاج <strong>MMU</strong> (سجل النقل).</span>
+                        </li>
                     </ul>
                     <div class="mt-4 p-2 bg-slate-100 dark:bg-slate-800 rounded text-center text-xs font-mono text-emerald-600 dark:text-emerald-400 border border-slate-200 dark:border-slate-700">
-                        Physical Addr = Logical Addr + Relocation Register
+                        <span class="lang-en">Physical Addr = Logical Addr + Relocation Register</span>
+                        <span class="lang-ar lang-hidden">Physical Addr = Logical Addr + Relocation Register</span>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Fragmentation</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Fragmentation</span>
+                        <span class="lang-ar lang-hidden">التجزئة (Fragmentation)</span>
+                    </h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/30 rounded text-center">
-                            <strong class="text-red-600 dark:text-red-400 block mb-1">External</strong>
-                            <span class="text-slate-600 dark:text-slate-300 text-xs">Total memory exists, but not contiguous.</span>
-                            <br><em class="text-xs text-slate-400">Solved by Paging.</em>
+                            <strong class="text-red-600 dark:text-red-400 block mb-1">
+                                <span class="lang-en">External</span>
+                                <span class="lang-ar lang-hidden">خارجية</span>
+                            </strong>
+                            <span class="text-slate-600 dark:text-slate-300 text-xs">
+                                <span class="lang-en">Total memory exists, but not contiguous.</span>
+                                <span class="lang-ar lang-hidden">إجمالي الذاكرة موجود، لكنه غير متصل.</span>
+                            </span>
+                            <br>
+                            <em class="text-xs text-slate-400">
+                                <span class="lang-en">Solved by Paging.</span>
+                                <span class="lang-ar lang-hidden">تُحل بواسطة الـ Paging.</span>
+                            </em>
                         </div>
                         <div class="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-500/30 rounded text-center">
-                            <strong class="text-orange-600 dark:text-orange-400 block mb-1">Internal</strong>
-                            <span class="text-slate-600 dark:text-slate-300 text-xs">Allocated memory is slightly larger than requested.</span>
-                            <br><em class="text-xs text-slate-400">Unavoidable in Paging.</em>
+                            <strong class="text-orange-600 dark:text-orange-400 block mb-1">
+                                <span class="lang-en">Internal</span>
+                                <span class="lang-ar lang-hidden">داخلية</span>
+                            </strong>
+                            <span class="text-slate-600 dark:text-slate-300 text-xs">
+                                <span class="lang-en">Allocated memory is slightly larger than requested.</span>
+                                <span class="lang-ar lang-hidden">الذاكرة المخصصة أكبر قليلاً من المطلوبة.</span>
+                            </span>
+                            <br>
+                            <em class="text-xs text-slate-400">
+                                <span class="lang-en">Unavoidable in Paging.</span>
+                                <span class="lang-ar lang-hidden">لا مفر منها في الـ Paging.</span>
+                            </em>
                         </div>
                     </div>
                 </div>
@@ -231,46 +351,75 @@
         </section>
 
         <section id="mod8">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 8: Virtual Memory</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 8: Virtual Memory</span>
+                    <span class="lang-ar lang-hidden">الوحدة 8: الذاكرة الافتراضية</span>
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="glass-card p-6 rounded-xl col-span-1 lg:col-span-2">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Effective Access Time (EAT)</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Effective Access Time (EAT)</span>
+                        <span class="lang-ar lang-hidden">Effective Access Time (EAT)</span>
+                    </h3>
                     <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                        The performance of Demand Paging relies on the Page Fault Rate ($p$).
+                        <span class="lang-en">The performance of Demand Paging relies on the Page Fault Rate ($p$).</span>
+                        <span class="lang-ar lang-hidden">يعتمد أداء الـ Demand Paging على معدل خطأ الصفحة ($p$).</span>
                     </p>
                     <div class="text-center p-4 bg-slate-100 dark:bg-slate-800 rounded-lg mb-4 border border-slate-200 dark:border-slate-700">
-                        $$EAT = (1 - p) \times \text{mem\_access} + p \times \text{fault\_overhead}$$
+                        <span class="math-block">$$EAT = (1 - p) \times \texttt{mem_access} + p \times \texttt{fault_overhead}$$</span>
                     </div>
                     <p class="text-xs text-slate-500">
-                        *Fault overhead includes: Interrupt, Read Page (Disk I/O), Restart Process. Disk I/O (~8ms) is millions of times slower than RAM (~100ns).
+                        <span class="lang-en">*Fault overhead includes: Interrupt, Read Page (Disk I/O), Restart Process. Disk I/O (~8ms) is millions of times slower than RAM (~100ns).</span>
+                        <span class="lang-ar lang-hidden">*تكلفة الخطأ تشمل: المقاطعة، قراءة الصفحة (Disk I/O)، إعادة تشغيل العملية. الـ Disk I/O (~8ms) أبطأ بملايين المرات من الرام (~100ns).</span>
                     </p>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Replacement Algos</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Replacement Algos</span>
+                        <span class="lang-ar lang-hidden">خوارزميات الاستبدال</span>
+                    </h3>
                     <ul class="list-disc list-inside text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                        <li><strong>FIFO:</strong> Oldest out. Suffers <em>Belady's Anomaly</em>.</li>
-                        <li><strong>Optimal:</strong> Replace page used furthest in future. (Benchmark only).</li>
-                        <li><strong>LRU:</strong> Replace least recently used. (Best approximation).</li>
-                        <li><strong>Thrashing:</strong> Busy swapping pages. $\sum$ Locality > Total Memory.</li>
+                        <li>
+                            <span class="lang-en"><strong>FIFO:</strong> Oldest out. Suffers <em>Belady's Anomaly</em>.</span>
+                            <span class="lang-ar lang-hidden"><strong>FIFO:</strong> الأقدم يخرج. تعاني من <em>Belady's Anomaly</em>.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Optimal:</strong> Replace page used furthest in future. (Benchmark only).</span>
+                            <span class="lang-ar lang-hidden"><strong>Optimal:</strong> استبدال الصفحة المستخدمة في أبعد مستقبل. (للمقارنة فقط).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>LRU:</strong> Replace least recently used. (Best approximation).</span>
+                            <span class="lang-ar lang-hidden"><strong>LRU:</strong> استبدال الأقل استخداماً مؤخراً. (أفضل تقريب).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Thrashing:</strong> Busy swapping pages. $\sum$ Locality > Total Memory.</span>
+                            <span class="lang-ar lang-hidden"><strong>Thrashing:</strong> مشغول بتبديل الصفحات. مجموع الـ Locality > إجمالي الذاكرة.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="mod9">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 9: Mass Storage</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 9: Mass Storage</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9: التخزين الشامل</span>
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">RAID Levels</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4">
+                        <span class="lang-en">RAID Levels</span>
+                        <span class="lang-ar lang-hidden">مستويات RAID</span>
+                    </h3>
                     
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
@@ -278,89 +427,171 @@
                             <div class="flex-1 raid-grid mx-2">
                                 <div class="raid-disk">A1</div><div class="raid-disk">A2</div><div class="raid-disk">A3</div>
                             </div>
-                            <span class="text-xs text-slate-500 w-20 text-right">Striping (Fast)</span>
+                            <span class="text-xs text-slate-500 w-20 text-right rtl:text-left">
+                                <span class="lang-en">Striping (Fast)</span>
+                                <span class="lang-ar lang-hidden">Striping (سريع)</span>
+                            </span>
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-bold text-slate-700 dark:text-white w-16">RAID 1</span>
                             <div class="flex-1 raid-grid mx-2">
                                 <div class="raid-disk">A1</div><div class="raid-disk">A1</div><div class="raid-disk text-slate-300">Empty</div>
                             </div>
-                            <span class="text-xs text-slate-500 w-20 text-right">Mirroring (Safe)</span>
+                            <span class="text-xs text-slate-500 w-20 text-right rtl:text-left">
+                                <span class="lang-en">Mirroring (Safe)</span>
+                                <span class="lang-ar lang-hidden">Mirroring (آمن)</span>
+                            </span>
                         </div>
                         <div class="flex items-center justify-between">
                             <span class="text-sm font-bold text-slate-700 dark:text-white w-16">RAID 5</span>
                             <div class="flex-1 raid-grid mx-2">
                                 <div class="raid-disk">A1</div><div class="raid-disk">A2</div><div class="raid-disk parity">P</div>
                             </div>
-                            <span class="text-xs text-slate-500 w-20 text-right">Parity (Balanced)</span>
+                            <span class="text-xs text-slate-500 w-20 text-right rtl:text-left">
+                                <span class="lang-en">Parity (Balanced)</span>
+                                <span class="lang-ar lang-hidden">Parity (متوازن)</span>
+                            </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Disk Scheduling</h3>
-                    <p class="text-xs text-slate-500 mb-4">Goal: Minimize <strong>Seek Time</strong> (Arm movement).</p>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Disk Scheduling</span>
+                        <span class="lang-ar lang-hidden">جدولة القرص (Disk Scheduling)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">
+                        <span class="lang-en">Goal: Minimize <strong>Seek Time</strong> (Arm movement).</span>
+                        <span class="lang-ar lang-hidden">الهدف: تقليل <strong>Seek Time</strong> (حركة الذراع).</span>
+                    </p>
                     <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                        <li><strong>FCFS:</strong> Fair, but head jumps around wildly.</li>
-                        <li><strong>SCAN (Elevator):</strong> Head moves end-to-end. Biased distribution.</li>
-                        <li><strong>C-SCAN (Circular):</strong> Head moves end-to-end, then jumps back to start immediately. Provides <strong>Uniform Wait Time</strong>.</li>
+                        <li>
+                            <span class="lang-en"><strong>FCFS:</strong> Fair, but head jumps around wildly.</span>
+                            <span class="lang-ar lang-hidden"><strong>FCFS:</strong> عادلة، لكن الرأس يقفز بشكل عشوائي.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>SCAN (Elevator):</strong> Head moves end-to-end. Biased distribution.</span>
+                            <span class="lang-ar lang-hidden"><strong>SCAN (المصعد):</strong> يتحرك الرأس من النهاية للنهاية. توزيع متحيز.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>C-SCAN (Circular):</strong> Head moves end-to-end, then jumps back to start immediately. Provides <strong>Uniform Wait Time</strong>.</span>
+                            <span class="lang-ar lang-hidden"><strong>C-SCAN (الدائري):</strong> يتحرك الرأس للنهاية، ثم يقفز للبداية فوراً. يوفر <strong>وقت انتظار موحد</strong>.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="mod10">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 10: I/O Systems</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 10: I/O Systems</span>
+                    <span class="lang-ar lang-hidden">الوحدة 10: أنظمة الإدخال/الإخراج</span>
+                </h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="glass-card p-4 rounded-xl text-center">
                     <i class="fa-solid fa-arrows-spin text-3xl text-blue-500 mb-2"></i>
-                    <h4 class="font-bold text-slate-800 dark:text-white">Polling</h4>
-                    <p class="text-xs text-slate-500 mt-2">Busy-wait loop. Good for fast devices. Wasteful for slow ones.</p>
+                    <h4 class="font-bold text-slate-800 dark:text-white">
+                        <span class="lang-en">Polling</span>
+                        <span class="lang-ar lang-hidden">Polling</span>
+                    </h4>
+                    <p class="text-xs text-slate-500 mt-2">
+                        <span class="lang-en">Busy-wait loop. Good for fast devices. Wasteful for slow ones.</span>
+                        <span class="lang-ar lang-hidden">حلقة انتظار نشطة. جيدة للأجهزة السريعة. مهدرة للأجهزة البطيئة.</span>
+                    </p>
                 </div>
                 <div class="glass-card p-4 rounded-xl text-center">
                     <i class="fa-solid fa-bell text-3xl text-yellow-500 mb-2"></i>
-                    <h4 class="font-bold text-slate-800 dark:text-white">Interrupts</h4>
-                    <p class="text-xs text-slate-500 mt-2">Device signals CPU. CPU saves state, runs handler. Good for slow devices.</p>
+                    <h4 class="font-bold text-slate-800 dark:text-white">
+                        <span class="lang-en">Interrupts</span>
+                        <span class="lang-ar lang-hidden">Interrupts</span>
+                    </h4>
+                    <p class="text-xs text-slate-500 mt-2">
+                        <span class="lang-en">Device signals CPU. CPU saves state, runs handler. Good for slow devices.</span>
+                        <span class="lang-ar lang-hidden">الجهاز يرسل إشارة للمعالج. المعالج يحفظ الحالة ويشغل المعالج. جيدة للأجهزة البطيئة.</span>
+                    </p>
                 </div>
                 <div class="glass-card p-4 rounded-xl text-center">
                     <i class="fa-solid fa-truck-fast text-3xl text-emerald-500 mb-2"></i>
-                    <h4 class="font-bold text-slate-800 dark:text-white">DMA</h4>
-                    <p class="text-xs text-slate-500 mt-2">Direct Memory Access. Controller writes block to memory. Interrupt only at end.</p>
+                    <h4 class="font-bold text-slate-800 dark:text-white">
+                        <span class="lang-en">DMA</span>
+                        <span class="lang-ar lang-hidden">DMA</span>
+                    </h4>
+                    <p class="text-xs text-slate-500 mt-2">
+                        <span class="lang-en">Direct Memory Access. Controller writes block to memory. Interrupt only at end.</span>
+                        <span class="lang-ar lang-hidden">الوصول المباشر للذاكرة. وحدة التحكم تكتب الكتلة في الذاكرة. المقاطعة في النهاية فقط.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section id="mod11">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 11: File Systems</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Module 11: File Systems</span>
+                    <span class="lang-ar lang-hidden">الوحدة 11: أنظمة الملفات</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">On-Disk Structures</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">On-Disk Structures</span>
+                        <span class="lang-ar lang-hidden">هياكل القرص (On-Disk Structures)</span>
+                    </h3>
                     <ul class="list-disc list-inside text-xs text-slate-700 dark:text-slate-300 space-y-1">
-                        <li><strong>Boot Control Block:</strong> Bootloader code.</li>
-                        <li><strong>Volume Control Block:</strong> Total blocks, free count.</li>
-                        <li><strong>Directory Structure:</strong> Maps File Names $\to$ FCBs.</li>
-                        <li><strong>FCB (Inode):</strong> Permissions, Size, Data Pointers.</li>
+                        <li>
+                            <span class="lang-en"><strong>Boot Control Block:</strong> Bootloader code.</span>
+                            <span class="lang-ar lang-hidden"><strong>Boot Control Block:</strong> كود محمل الإقلاع.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Volume Control Block:</strong> Total blocks, free count.</span>
+                            <span class="lang-ar lang-hidden"><strong>Volume Control Block:</strong> إجمالي الكتل، العدد الحر.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Directory Structure:</strong> Maps File Names $\to$ FCBs.</span>
+                            <span class="lang-ar lang-hidden"><strong>هيكل الدليل:</strong> يربط أسماء الملفات $\to$ FCBs.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>FCB (Inode):</strong> Permissions, Size, Data Pointers.</span>
+                            <span class="lang-ar lang-hidden"><strong>FCB (Inode):</strong> الأذونات، الحجم، مؤشرات البيانات.</span>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Allocation Methods</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Allocation Methods</span>
+                        <span class="lang-ar lang-hidden">طرق التخصيص</span>
+                    </h3>
                     <table class="w-full text-xs text-left">
                         <thead>
-                            <tr class="text-slate-500 border-b border-slate-300 dark:border-slate-700"><th class="pb-1">Method</th><th class="pb-1">Pros</th><th class="pb-1">Cons</th></tr>
+                            <tr class="text-slate-500 border-b border-slate-300 dark:border-slate-700">
+                                <th class="pb-1"><span class="lang-en">Method</span><span class="lang-ar lang-hidden">الطريقة</span></th>
+                                <th class="pb-1"><span class="lang-en">Pros</span><span class="lang-ar lang-hidden">إيجابيات</span></th>
+                                <th class="pb-1"><span class="lang-en">Cons</span><span class="lang-ar lang-hidden">سلبيات</span></th>
+                            </tr>
                         </thead>
                         <tbody class="text-slate-700 dark:text-slate-300">
-                            <tr><td class="py-1">Contiguous</td><td>Fast read</td><td>External Frag</td></tr>
-                            <tr><td class="py-1">Linked</td><td>No Frag</td><td>Slow Seek</td></tr>
-                            <tr><td class="py-1">Indexed</td><td>Direct Access</td><td>Index Overhead</td></tr>
+                            <tr>
+                                <td class="py-1"><span class="lang-en">Contiguous</span><span class="lang-ar lang-hidden">متجاور</span></td>
+                                <td><span class="lang-en">Fast read</span><span class="lang-ar lang-hidden">قراءة سريعة</span></td>
+                                <td><span class="lang-en">External Frag</span><span class="lang-ar lang-hidden">تجزئة خارجية</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-1"><span class="lang-en">Linked</span><span class="lang-ar lang-hidden">متصل</span></td>
+                                <td><span class="lang-en">No Frag</span><span class="lang-ar lang-hidden">لا تجزئة</span></td>
+                                <td><span class="lang-en">Slow Seek</span><span class="lang-ar lang-hidden">بحث بطيء</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-1"><span class="lang-en">Indexed</span><span class="lang-ar lang-hidden">مفهرس</span></td>
+                                <td><span class="lang-en">Direct Access</span><span class="lang-ar lang-hidden">وصول مباشر</span></td>
+                                <td><span class="lang-en">Index Overhead</span><span class="lang-ar lang-hidden">عبء الفهرس</span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -368,28 +599,52 @@
         </section>
 
         <section id="mod12-13">
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Mod 12/13: Security & Virtualization</h2>
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                    <span class="lang-en">Mod 12/13: Security & Virtualization</span>
+                    <span class="lang-ar lang-hidden">الوحدات 12/13: الأمن والمحاكاة الافتراضية</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Access Matrix</h3>
-                    <p class="text-xs text-slate-500 mb-2">Rows = Domains, Columns = Objects.</p>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Access Matrix</span>
+                        <span class="lang-ar lang-hidden">مصفوفة الوصول (Access Matrix)</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-2">
+                        <span class="lang-en">Rows = Domains, Columns = Objects.</span>
+                        <span class="lang-ar lang-hidden">الصفوف = النطاقات، الأعمدة = الكائنات.</span>
+                    </p>
                     <div class="text-xs text-slate-700 dark:text-slate-300">
-                        <strong>Implementation:</strong>
-                        <br>1. <span class="text-slate-900 dark:text-white font-bold">ACL (Column):</span> List on Object. "Who can access me?"
-                        <br>2. <span class="text-slate-900 dark:text-white font-bold">Capability (Row):</span> List on User. "What can I access?"
+                        <strong class="block mb-1"><span class="lang-en">Implementation:</span><span class="lang-ar lang-hidden">التنفيذ:</span></strong>
+                        <br>1. <span class="text-slate-900 dark:text-white font-bold"><span class="lang-en">ACL (Column):</span><span class="lang-ar lang-hidden">ACL (العمود):</span></span> <span class="lang-en">List on Object. "Who can access me?"</span><span class="lang-ar lang-hidden">قائمة على الكائن. "من يستطيع الوصول إلي؟"</span>
+                        <br>2. <span class="text-slate-900 dark:text-white font-bold"><span class="lang-en">Capability (Row):</span><span class="lang-ar lang-hidden">Capability (الصف):</span></span> <span class="lang-en">List on User. "What can I access?"</span><span class="lang-ar lang-hidden">قائمة على المستخدم. "ماذا يمكنني الوصول إليه؟"</span>
                     </div>
                 </div>
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">Hypervisors</h3>
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-2">
+                        <span class="lang-en">Hypervisors</span>
+                        <span class="lang-ar lang-hidden">Hypervisors</span>
+                    </h3>
                     <ul class="text-xs text-slate-700 dark:text-slate-300 space-y-2">
-                        <li><strong>Type 0:</strong> Hardware/Firmware based.</li>
-                        <li><strong>Type 1 (Bare Metal):</strong> Runs directly on hardware (ESXi, Hyper-V). Faster.</li>
-                        <li><strong>Type 2 (Hosted):</strong> Runs on Host OS (VirtualBox). Slower.</li>
-                        <li><strong>Technique:</strong> Trap-and-Emulate (Privileged instructions trap to VMM).</li>
+                        <li>
+                            <span class="lang-en"><strong>Type 0:</strong> Hardware/Firmware based.</span>
+                            <span class="lang-ar lang-hidden"><strong>Type 0:</strong> قائم على العتاد/البرامج الثابتة.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Type 1 (Bare Metal):</strong> Runs directly on hardware (ESXi, Hyper-V). Faster.</span>
+                            <span class="lang-ar lang-hidden"><strong>Type 1 (Bare Metal):</strong> يعمل مباشرة على العتاد. أسرع.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Type 2 (Hosted):</strong> Runs on Host OS (VirtualBox). Slower.</span>
+                            <span class="lang-ar lang-hidden"><strong>Type 2 (Hosted):</strong> يعمل على نظام تشغيل مضيف. أبطأ.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en"><strong>Technique:</strong> Trap-and-Emulate (Privileged instructions trap to VMM).</span>
+                            <span class="lang-ar lang-hidden"><strong>التقنية:</strong> Trap-and-Emulate (تعليمات الامتياز تسبب Trap للـ VMM).</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -398,46 +653,83 @@
         <section class="relative mt-16">
             <div class="absolute inset-0 bg-brand-500/5 dark:bg-brand-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-brand-500/50 rounded-2xl p-8 overflow-hidden bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm shadow-xl">
-                <div class="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">PROFESSOR'S SECRETS</div>
+                <div class="absolute top-0 right-0 rtl:right-auto rtl:left-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rtl:rounded-bl-none rtl:rounded-br-lg">
+                    <span class="lang-en">PROFESSOR'S SECRETS</span>
+                    <span class="lang-ar lang-hidden">أسرار البروفيسور</span>
+                </div>
                 
-                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">The Mega Vault: Final Exam Edition</h2>
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+                    <span class="lang-en">The Mega Vault: Final Exam Edition</span>
+                    <span class="lang-ar lang-hidden">الخزنة الكبرى: إصدار الاختبار النهائي</span>
+                </h2>
                 
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Belady's Anomaly</strong>
+                        <strong class="text-red-500 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Belady's Anomaly</span>
+                            <span class="lang-ar lang-hidden">Belady's Anomaly</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            Happens ONLY in <strong>FIFO</strong>. Increasing frame count can INCREASE page faults. Does NOT happen in LRU/Optimal (Stack Algorithms).
+                            <span class="lang-en">Happens ONLY in <strong>FIFO</strong>. Increasing frame count can INCREASE page faults. Does NOT happen in LRU/Optimal (Stack Algorithms).</span>
+                            <span class="lang-ar lang-hidden">تحدث فقط في <strong>FIFO</strong>. زيادة عدد الإطارات قد تزيد أخطاء الصفحة. لا تحدث في LRU/Optimal.</span>
                         </p>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>TLB Flush</strong>
+                        <strong class="text-red-500 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">TLB Flush</span>
+                            <span class="lang-ar lang-hidden">TLB Flush</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            Context Switching requires <strong>Flushing the TLB</strong> because virtual addresses of the new process map to different physical frames. This makes switching expensive.
+                            <span class="lang-en">Context Switching requires <strong>Flushing the TLB</strong> because virtual addresses of the new process map to different physical frames. This makes switching expensive.</span>
+                            <span class="lang-ar lang-hidden">تبديل السياق يتطلب <strong>مسح الـ TLB</strong> لأن العناوين الافتراضية للعملية الجديدة ترتبط بإطارات مادية مختلفة. هذا يجعل التبديل مكلفاً.</span>
                         </p>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>DMA & Caches</strong>
+                        <strong class="text-red-500 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">DMA & Caches</span>
+                            <span class="lang-ar lang-hidden">DMA والكاش</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            DMA writes directly to RAM, bypassing CPU Cache. This causes <strong>Cache Incoherency</strong> (CPU sees stale data). Hardware must invalidate cache lines.
+                            <span class="lang-en">DMA writes directly to RAM, bypassing CPU Cache. This causes <strong>Cache Incoherency</strong> (CPU sees stale data). Hardware must invalidate cache lines.</span>
+                            <span class="lang-ar lang-hidden">الـ DMA يكتب مباشرة للرام، متجاوزاً كاش المعالج. هذا يسبب <strong>Cache Incoherency</strong> (يرى المعالج بيانات قديمة). يجب على العتاد إبطال خطوط الكاش.</span>
                         </p>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Modify Bit</strong>
+                        <strong class="text-red-500 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Modify Bit</span>
+                            <span class="lang-ar lang-hidden">Modify (Dirty) Bit</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            During Page Replacement, check the <strong>Modify (Dirty) Bit</strong>. If 0, no need to write back to disk. Saves 50% I/O overhead.
+                            <span class="lang-en">During Page Replacement, check the <strong>Modify (Dirty) Bit</strong>. If 0, no need to write back to disk. Saves 50% I/O overhead.</span>
+                            <span class="lang-ar lang-hidden">أثناء استبدال الصفحة، افحص <strong>Modify Bit</strong>. إذا كان 0، لا حاجة للكتابة للقرص. يوفر 50% من عبء الـ I/O.</span>
                         </p>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>Hard vs Soft Link</strong>
+                        <strong class="text-red-500 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Hard vs Soft Link</span>
+                            <span class="lang-ar lang-hidden">الرابط الصلب vs اللين</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            <strong>Hard Link:</strong> Points to Inode. Valid if original file deleted.
-                            <strong>Soft Link:</strong> Points to Path. Broken (dangling) if original file deleted.
+                            <span class="lang-en"><strong>Hard Link:</strong> Points to Inode. Valid if original file deleted.
+                            <strong>Soft Link:</strong> Points to Path. Broken (dangling) if original file deleted.</span>
+                            <span class="lang-ar lang-hidden"><strong>الصلب:</strong> يشير للـ Inode. صالح حتى لو حذف الأصلي.
+                            <strong>اللين:</strong> يشير للمسار. ينكسر إذا حذف الملف الأصلي.</span>
                         </p>
                     </div>
                     <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <strong class="text-red-500 dark:text-red-400 block mb-2"><i class="fa-solid fa-skull mr-2"></i>RAID Parity</strong>
+                        <strong class="text-red-500 dark:text-red-400 block mb-2">
+                            <i class="fa-solid fa-skull mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">RAID Parity</span>
+                            <span class="lang-ar lang-hidden">RAID Parity</span>
+                        </strong>
                         <p class="text-xs text-slate-600 dark:text-slate-400">
-                            RAID 5 protects against <strong>1 Disk Failure</strong>. It is NOT a backup. It protects Availability, not Data Integrity against corruption/virus.
+                            <span class="lang-en">RAID 5 protects against <strong>1 Disk Failure</strong>. It is NOT a backup. It protects Availability, not Data Integrity against corruption/virus.</span>
+                            <span class="lang-ar lang-hidden">RAID 5 يحمي من <strong>فشل قرص واحد</strong>. هو ليس نسخاً احتياطياً. يحمي التوافر، وليس سلامة البيانات من الفساد/الفيروسات.</span>
                         </p>
                     </div>
                 </div>
@@ -448,18 +740,31 @@
 
     <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-slate-500 hover:text-brand-500 transition-colors">Course Hub</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="index.html" class="text-slate-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                </a>
                 <span class="text-slate-300 dark:text-slate-700">|</span>
-                <a href="quiz.html" class="text-slate-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <a href="final-quiz.html" class="text-slate-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Quiz</span>
+                    <span class="lang-ar lang-hidden">الاختبار النهائي</span>
+                </a>
                 <span class="text-slate-300 dark:text-slate-700">|</span>
-                <a href="midterm-review.html" class="text-slate-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+                <a href="midterm-review.html" class="text-slate-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Review</span>
+                    <span class="lang-ar lang-hidden">مراجعة النصفي</span>
+                </a>
             </div>
-            <p class="text-slate-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</p>
+            <p class="text-slate-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Professor AI Edition.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. نسخة البروفيسور.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -477,6 +782,39 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en');
+            }
+
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
+
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 </body>

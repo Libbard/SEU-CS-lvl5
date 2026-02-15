@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Final Master Review (Mod 7-13)</title>
@@ -51,6 +60,57 @@
 
     <style>
         
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] mjx-container {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .border-t-4 { border-top-width: 4px; }
+        
+        
+        [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+        [dir="rtl"] .ml-1 { margin-left: 0; margin-right: 0.25rem; }
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
+        
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -93,26 +153,41 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module13.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Final Review</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Final Review</span>
+                        <span class="lang-ar lang-hidden">المراجعة النهائية</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-graduation-cap text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="final-quiz.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Take Quiz">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Quiz</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Quiz</span>
+                            <span class="lang-ar lang-hidden">الاختبار</span>
+                        </span>
                         <i class="fa-solid fa-flag-checkered"></i>
                     </a>
+                    
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -129,16 +204,21 @@
                 <i class="fa-solid fa-infinity text-4xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Knowledge Compendium</span>
+                <span class="lang-en">Final Exam <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Knowledge Compendium</span></span>
+                <span class="lang-ar lang-hidden">الموجز المعرفي <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">للنهائيات</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                A complete synthesis of Modules 7 through 13. Mastering Advanced Modeling, Database Design, Implementation Strategies, and Maintenance.
+                <span class="lang-en">A complete synthesis of Modules 7 through 13. Mastering Advanced Modeling, Database Design, Implementation Strategies, and Maintenance.</span>
+                <span class="lang-ar lang-hidden">توليفة كاملة للوحدات من 7 إلى 13. إتقان النمذجة المتقدمة، تصميم قواعد البيانات، استراتيجيات التنفيذ، والصيانة.</span>
             </p>
             
             <div class="w-full max-w-md mx-auto bg-gray-300 dark:bg-gray-800 rounded-full h-2.5 mt-4">
                 <div class="bg-brand-600 h-2.5 rounded-full progress-anim" style="width: 100%"></div>
             </div>
-            <p class="text-xs text-gray-500 mt-2">Modules 7-13 Covered</p>
+            <p class="text-xs text-gray-500 mt-2">
+                <span class="lang-en">Modules 7-13 Covered</span>
+                <span class="lang-ar lang-hidden">تم تغطية الوحدات 7-13</span>
+            </p>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
@@ -147,29 +227,44 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-purple-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">07. Process Logic</h2>
-                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded text-xs font-bold uppercase">Activity & Use Cases</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">07. Process Logic</span>
+                        <span class="lang-ar lang-hidden">07. منطق العمليات</span>
+                    </h2>
+                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Activity & Use Cases</span>
+                        <span class="lang-ar lang-hidden">Activity & Use Cases</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Activity Diagrams (Dynamic Flow)</h4>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Activity Diagrams (Dynamic Flow)</span>
+                            <span class="lang-ar lang-hidden">مخططات النشاط (التدفق الديناميكي)</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                            <li><strong class="text-gray-900 dark:text-white">Gateways:</strong> Control the path logic.</li>
-                            <li><strong class="text-purple-600 dark:text-purple-400">XOR (Diamond/X):</strong> Decision point. Only ONE path is taken.</li>
-                            <li><strong class="text-purple-600 dark:text-purple-400">AND (Bar/Plus):</strong> Parallel fork. ALL paths are taken simultaneously.</li>
+                            <li><strong class="text-gray-900 dark:text-white"><span class="lang-en">Gateways:</span><span class="lang-ar lang-hidden">البوابات (Gateways):</span></strong> <span class="lang-en">Control the path logic.</span><span class="lang-ar lang-hidden">تتحكم في منطق المسار.</span></li>
+                            <li><strong class="text-purple-600 dark:text-purple-400"><span class="lang-en">XOR (Diamond/X):</span><span class="lang-ar lang-hidden">XOR (معين/X):</span></strong> <span class="lang-en">Decision point. Only ONE path is taken.</span><span class="lang-ar lang-hidden">نقطة قرار. يتم اتخاذ مسار واحد فقط.</span></li>
+                            <li><strong class="text-purple-600 dark:text-purple-400"><span class="lang-en">AND (Bar/Plus):</span><span class="lang-ar lang-hidden">AND (شريط/زائد):</span></strong> <span class="lang-en">Parallel fork. ALL paths are taken simultaneously.</span><span class="lang-ar lang-hidden">تفرع متوازي. يتم اتخاذ كل المسارات في وقت واحد.</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Use Case Diagrams</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Static view of system functionality.</p>
+                        <h4 class="font-bold text-purple-600 dark:text-purple-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Use Case Diagrams</span>
+                            <span class="lang-ar lang-hidden">مخططات حالة الاستخدام (Use Case)</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            <span class="lang-en">Static view of system functionality.</span>
+                            <span class="lang-ar lang-hidden">عرض ثابت لوظائف النظام.</span>
+                        </p>
                         <div class="grid grid-cols-2 gap-4 text-xs">
                             <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
-                                <strong>Include:</strong> Mandatory execution (Always happens).
+                                <strong><span class="lang-en">Include:</span><span class="lang-ar lang-hidden">Include:</span></strong> <span class="lang-en">Mandatory execution (Always happens).</span><span class="lang-ar lang-hidden">تنفيذ إلزامي (يحدث دائماً).</span>
                             </div>
                             <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded">
-                                <strong>Extend:</strong> Optional execution (Conditional).
+                                <strong><span class="lang-en">Extend:</span><span class="lang-ar lang-hidden">Extend:</span></strong> <span class="lang-en">Optional execution (Conditional).</span><span class="lang-ar lang-hidden">تنفيذ اختياري (مشروط).</span>
                             </div>
                         </div>
                     </div>
@@ -178,23 +273,37 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-blue-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">08. Conceptual Data</h2>
-                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">ERD & UML</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">08. Conceptual Data</span>
+                        <span class="lang-ar lang-hidden">08. البيانات المفاهيمية</span>
+                    </h2>
+                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">ERD & UML</span>
+                        <span class="lang-ar lang-hidden">ERD & UML</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Entity Relationships</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Entity Relationships</span>
+                            <span class="lang-ar lang-hidden">علاقات الكيانات</span>
+                        </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>M:N Problem:</strong> Many-to-Many relationships cannot be implemented directly in a relational DB. You must use an <strong>Associative Entity</strong> (Junction Table) to break it into two 1:M relationships.
+                            <strong class="lang-en">M:N Problem:</strong><strong class="lang-ar lang-hidden">مشكلة M:N:</strong>
+                            <span class="lang-en">Many-to-Many relationships cannot be implemented directly in a relational DB. You must use an <strong>Associative Entity</strong> (Junction Table) to break it into two 1:M relationships.</span>
+                            <span class="lang-ar lang-hidden">العلاقات متعدد-إلى-متعدد لا يمكن تنفيذها مباشرة في قاعدة بيانات علائقية. يجب استخدام <strong>كيان رابط (Associative Entity)</strong> لتقسيمها إلى علاقتين 1:M.</span>
                         </p>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">UML Class Relationships</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">UML Class Relationships</span>
+                            <span class="lang-ar lang-hidden">علاقات فئات UML</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                            <li><strong class="text-gray-900 dark:text-white">Aggregation (Hollow ◇):</strong> "Has-a". Weak bond. Parts survive if whole dies (e.g., Computer/Mouse).</li>
-                            <li><strong class="text-gray-900 dark:text-white">Composition (Solid ◆):</strong> "Part-of". Strong bond. Parts die if whole dies (e.g., Building/Room).</li>
+                            <li><strong class="text-gray-900 dark:text-white"><span class="lang-en">Aggregation (Hollow ◇):</span><span class="lang-ar lang-hidden">Aggregation (مجوف ◇):</span></strong> <span class="lang-en">"Has-a". Weak bond. Parts survive if whole dies (e.g., Computer/Mouse).</span><span class="lang-ar lang-hidden">"يملك". رابط ضعيف. الأجزاء تبقى إذا اختفى الكل (مثال: كمبيوتر/ماوس).</span></li>
+                            <li><strong class="text-gray-900 dark:text-white"><span class="lang-en">Composition (Solid ◆):</span><span class="lang-ar lang-hidden">Composition (ممتلئ ◆):</span></strong> <span class="lang-en">"Part-of". Strong bond. Parts die if whole dies (e.g., Building/Room).</span><span class="lang-ar lang-hidden">"جزء من". رابط قوي. الأجزاء تختفي إذا اختفى الكل (مثال: مبنى/غرفة).</span></li>
                         </ul>
                     </div>
                 </div>
@@ -202,31 +311,49 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-green-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">09. DB Design</h2>
-                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">Normalization</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">09. DB Design</span>
+                        <span class="lang-ar lang-hidden">09. تصميم قواعد البيانات</span>
+                    </h2>
+                    <span class="bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Normalization</span>
+                        <span class="lang-ar lang-hidden">التسوية (Normalization)</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Normalization Rules</h4>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Normalization Rules</span>
+                            <span class="lang-ar lang-hidden">قواعد التسوية</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                            <li><strong class="text-green-600 dark:text-green-400">1NF:</strong> Atomic values. No lists/repeating groups.</li>
-                            <li><strong class="text-green-600 dark:text-green-400">2NF:</strong> 1NF + No Partial Dependency. (Only relevant for Composite Keys).</li>
-                            <li><strong class="text-green-600 dark:text-green-400">3NF:</strong> 2NF + No Transitive Dependency. (Non-key depends on Non-key).</li>
+                            <li><strong class="text-green-600 dark:text-green-400">1NF:</strong> <span class="lang-en">Atomic values. No lists/repeating groups.</span><span class="lang-ar lang-hidden">قيم ذرية. لا قوائم أو مجموعات مكررة.</span></li>
+                            <li><strong class="text-green-600 dark:text-green-400">2NF:</strong> <span class="lang-en">1NF + No Partial Dependency. (Only relevant for Composite Keys).</span><span class="lang-ar lang-hidden">1NF + لا اعتماد جزئي. (مهم فقط للمفاتيح المركبة).</span></li>
+                            <li><strong class="text-green-600 dark:text-green-400">3NF:</strong> <span class="lang-en">2NF + No Transitive Dependency. (Non-key depends on Non-key).</span><span class="lang-ar lang-hidden">2NF + لا اعتماد متعدي. (غير المفتاح يعتمد على غير المفتاح).</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Physical Design</h4>
+                        <h4 class="font-bold text-green-600 dark:text-green-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Physical Design</span>
+                            <span class="lang-ar lang-hidden">التصميم الفيزيائي</span>
+                        </h4>
                         <div class="grid grid-cols-3 gap-2 text-[10px] text-center">
                             <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
-                                <strong>Sequential</strong><br>Fast Scan<br>Slow Random
+                                <strong class="lang-en">Sequential</strong><strong class="lang-ar lang-hidden">تتابعي</strong><br>
+                                <span class="lang-en">Fast Scan</span><span class="lang-ar lang-hidden">مسح سريع</span><br>
+                                <span class="lang-en">Slow Random</span><span class="lang-ar lang-hidden">عشوائي بطيء</span>
                             </div>
                             <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
-                                <strong>Indexed</strong><br>Fast Random<br>Overhead
+                                <strong class="lang-en">Indexed</strong><strong class="lang-ar lang-hidden">مفهرس</strong><br>
+                                <span class="lang-en">Fast Random</span><span class="lang-ar lang-hidden">عشوائي سريع</span><br>
+                                <span class="lang-en">Overhead</span><span class="lang-ar lang-hidden">تكلفة إضافية</span>
                             </div>
                             <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded">
-                                <strong>Hashed</strong><br>Direct Address<br>No Scan
+                                <strong class="lang-en">Hashed</strong><strong class="lang-ar lang-hidden">تجزئة</strong><br>
+                                <span class="lang-en">Direct Address</span><span class="lang-ar lang-hidden">عنوان مباشر</span><br>
+                                <span class="lang-en">No Scan</span><span class="lang-ar lang-hidden">لا مسح</span>
                             </div>
                         </div>
                     </div>
@@ -235,26 +362,38 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-yellow-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">10. Interface</h2>
-                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">Usability</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">10. Interface</span>
+                        <span class="lang-ar lang-hidden">10. الواجهة (Interface)</span>
+                    </h2>
+                    <span class="bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Usability</span>
+                        <span class="lang-ar lang-hidden">قابلية الاستخدام</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Definitions</h4>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Definitions</span>
+                            <span class="lang-ar lang-hidden">تعريفات</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                            <li><strong>Form:</strong> Input (Write). User $\to$ System.</li>
-                            <li><strong>Report:</strong> Output (Read). System $\to$ User.</li>
-                            <li><strong>Turnaround Doc:</strong> Output that becomes Input (e.g., Bill stub).</li>
+                            <li><strong class="lang-en">Form:</strong><strong class="lang-ar lang-hidden">نموذج (Form):</strong> <span class="lang-en">Input (Write). User $\to$ System.</span><span class="lang-ar lang-hidden">إدخال (كتابة). المستخدم $\to$ النظام.</span></li>
+                            <li><strong class="lang-en">Report:</strong><strong class="lang-ar lang-hidden">تقرير (Report):</strong> <span class="lang-en">Output (Read). System $\to$ User.</span><span class="lang-ar lang-hidden">إخراج (قراءة). النظام $\to$ المستخدم.</span></li>
+                            <li><strong class="lang-en">Turnaround Doc:</strong><strong class="lang-ar lang-hidden">وثيقة دورية:</strong> <span class="lang-en">Output that becomes Input (e.g., Bill stub).</span><span class="lang-ar lang-hidden">مخرج يصبح مدخلاً (مثل كعب الفاتورة).</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Usability Metrics</h4>
+                        <h4 class="font-bold text-yellow-600 dark:text-yellow-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Usability Metrics</span>
+                            <span class="lang-ar lang-hidden">مقاييس قابلية الاستخدام</span>
+                        </h4>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            1. Learnability (Time to learn).<br>
-                            2. Efficiency (Speed of use).<br>
-                            3. Error Rate (Accuracy).
+                            <span class="lang-en">1. Learnability (Time to learn).</span><span class="lang-ar lang-hidden">1. القابلية للتعلم (وقت التعلم).</span><br>
+                            <span class="lang-en">2. Efficiency (Speed of use).</span><span class="lang-ar lang-hidden">2. الكفاءة (سرعة الاستخدام).</span><br>
+                            <span class="lang-en">3. Error Rate (Accuracy).</span><span class="lang-ar lang-hidden">3. معدل الخطأ (الدقة).</span>
                         </p>
                     </div>
                 </div>
@@ -262,25 +401,37 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-cyan-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">11. Architecture</h2>
-                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">Cloud & Network</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">11. Architecture</span>
+                        <span class="lang-ar lang-hidden">11. البنية (Architecture)</span>
+                    </h2>
+                    <span class="bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Cloud & Network</span>
+                        <span class="lang-ar lang-hidden">السحابة والشبكة</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">LAN Architectures</h4>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">LAN Architectures</span>
+                            <span class="lang-ar lang-hidden">بنى الشبكات المحلية (LAN)</span>
+                        </h4>
                         <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                            <p><strong>File Server:</strong> Sends entire file to client. High traffic. Fat Client.</p>
-                            <p><strong>Client/Server:</strong> Server processes query, sends result. Low traffic. Scalable.</p>
+                            <p><strong class="lang-en">File Server:</strong><strong class="lang-ar lang-hidden">خادم الملفات:</strong> <span class="lang-en">Sends entire file to client. High traffic. Fat Client.</span><span class="lang-ar lang-hidden">يرسل الملف بالكامل للعميل. حركة مرور عالية. عميل سمين (Fat Client).</span></p>
+                            <p><strong class="lang-en">Client/Server:</strong><strong class="lang-ar lang-hidden">عميل/خادم:</strong> <span class="lang-en">Server processes query, sends result. Low traffic. Scalable.</span><span class="lang-ar lang-hidden">الخادم يعالج الاستعلام، يرسل النتيجة. حركة مرور منخفضة. قابل للتوسع.</span></p>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Cloud Models</h4>
+                        <h4 class="font-bold text-cyan-600 dark:text-cyan-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Cloud Models</span>
+                            <span class="lang-ar lang-hidden">نماذج السحابة</span>
+                        </h4>
                         <div class="grid grid-cols-3 gap-2 text-xs text-center">
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>IaaS</strong><br>Hardware</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>PaaS</strong><br>Platform</div>
-                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>SaaS</strong><br>Apps</div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>IaaS</strong><br><span class="lang-en">Hardware</span><span class="lang-ar lang-hidden">أجهزة</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>PaaS</strong><br><span class="lang-en">Platform</span><span class="lang-ar lang-hidden">منصة</span></div>
+                            <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded"><strong>SaaS</strong><br><span class="lang-en">Apps</span><span class="lang-ar lang-hidden">تطبيقات</span></div>
                         </div>
                     </div>
                 </div>
@@ -288,27 +439,39 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-rose-500 flex flex-col h-full">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">12. Implementation</h2>
-                    <span class="bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 px-3 py-1 rounded text-xs font-bold uppercase">Test & Install</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">12. Implementation</span>
+                        <span class="lang-ar lang-hidden">12. التنفيذ (Implementation)</span>
+                    </h2>
+                    <span class="bg-rose-100 dark:bg-rose-900 text-rose-600 dark:text-rose-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Test & Install</span>
+                        <span class="lang-ar lang-hidden">الاختبار والتثبيت</span>
+                    </span>
                 </div>
                 
                 <div class="space-y-6 flex-grow">
                     <div>
-                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Testing Strategy (Bottom-Up)</h4>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Testing Strategy (Bottom-Up)</span>
+                            <span class="lang-ar lang-hidden">استراتيجية الاختبار (من الأسفل للأعلى)</span>
+                        </h4>
                         <ol class="list-decimal list-inside text-sm text-gray-700 dark:text-gray-300">
-                            <li><strong>Unit:</strong> Single module logic.</li>
-                            <li><strong>Integration:</strong> Interfaces between modules.</li>
-                            <li><strong>System:</strong> Whole system vs Requirements.</li>
-                            <li><strong>Acceptance:</strong> User verification.</li>
+                            <li><strong class="lang-en">Unit:</strong><strong class="lang-ar lang-hidden">وحدة (Unit):</strong> <span class="lang-en">Single module logic.</span><span class="lang-ar lang-hidden">منطق وحدة واحدة.</span></li>
+                            <li><strong class="lang-en">Integration:</strong><strong class="lang-ar lang-hidden">تكامل (Integration):</strong> <span class="lang-en">Interfaces between modules.</span><span class="lang-ar lang-hidden">الواجهات بين الوحدات.</span></li>
+                            <li><strong class="lang-en">System:</strong><strong class="lang-ar lang-hidden">نظام (System):</strong> <span class="lang-en">Whole system vs Requirements.</span><span class="lang-ar lang-hidden">النظام ككل مقابل المتطلبات.</span></li>
+                            <li><strong class="lang-en">Acceptance:</strong><strong class="lang-ar lang-hidden">قبول (Acceptance):</strong> <span class="lang-en">User verification.</span><span class="lang-ar lang-hidden">تحقق المستخدم.</span></li>
                         </ol>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Installation Strategies</h4>
+                        <h4 class="font-bold text-rose-600 dark:text-rose-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Installation Strategies</span>
+                            <span class="lang-ar lang-hidden">استراتيجيات التثبيت</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                            <li><span class="text-red-500 font-bold">Direct:</span> High risk, low cost.</li>
-                            <li><span class="text-green-500 font-bold">Parallel:</span> Low risk, high cost.</li>
-                            <li><span class="text-blue-500 font-bold">Pilot:</span> One location first.</li>
+                            <li><span class="text-red-500 font-bold"><span class="lang-en">Direct:</span><span class="lang-ar lang-hidden">مباشر:</span></span> <span class="lang-en">High risk, low cost.</span><span class="lang-ar lang-hidden">مخاطرة عالية، تكلفة منخفضة.</span></li>
+                            <li><span class="text-green-500 font-bold"><span class="lang-en">Parallel:</span><span class="lang-ar lang-hidden">متوازي:</span></span> <span class="lang-en">Low risk, high cost.</span><span class="lang-ar lang-hidden">مخاطرة منخفضة، تكلفة عالية.</span></li>
+                            <li><span class="text-blue-500 font-bold"><span class="lang-en">Pilot:</span><span class="lang-ar lang-hidden">تجريبي (Pilot):</span></span> <span class="lang-en">One location first.</span><span class="lang-ar lang-hidden">موقع واحد أولاً.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -316,26 +479,39 @@
 
             <article class="glass-card p-8 rounded-xl border-t-4 border-orange-500 flex flex-col h-full lg:col-span-2">
                 <div class="flex justify-between items-start mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">13. Maintenance</h2>
-                    <span class="bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300 px-3 py-1 rounded text-xs font-bold uppercase">Long Haul</span>
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="lang-en">13. Maintenance</span>
+                        <span class="lang-ar lang-hidden">13. الصيانة (Maintenance)</span>
+                    </h2>
+                    <span class="bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-300 px-3 py-1 rounded text-xs font-bold uppercase">
+                        <span class="lang-en">Long Haul</span>
+                        <span class="lang-ar lang-hidden">المدى الطويل</span>
+                    </span>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 flex-grow">
                     <div>
-                        <h4 class="font-bold text-orange-600 dark:text-orange-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Types of Maintenance</h4>
+                        <h4 class="font-bold text-orange-600 dark:text-orange-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Types of Maintenance</span>
+                            <span class="lang-ar lang-hidden">أنواع الصيانة</span>
+                        </h4>
                         <ul class="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                            <li><strong>Corrective (70%):</strong> Fixing bugs.</li>
-                            <li><strong>Adaptive:</strong> OS/Environment changes.</li>
-                            <li><strong>Perfective:</strong> Enhancements/Performance.</li>
-                            <li><strong>Preventive:</strong> Future-proofing (Refactoring).</li>
+                            <li><strong class="lang-en">Corrective (70%):</strong><strong class="lang-ar lang-hidden">تصحيحية (Corrective):</strong> <span class="lang-en">Fixing bugs.</span><span class="lang-ar lang-hidden">إصلاح الأخطاء.</span></li>
+                            <li><strong class="lang-en">Adaptive:</strong><strong class="lang-ar lang-hidden">تكيفية (Adaptive):</strong> <span class="lang-en">OS/Environment changes.</span><span class="lang-ar lang-hidden">تغييرات النظام/البيئة.</span></li>
+                            <li><strong class="lang-en">Perfective:</strong><strong class="lang-ar lang-hidden">تطويرية (Perfective):</strong> <span class="lang-en">Enhancements/Performance.</span><span class="lang-ar lang-hidden">تحسينات/أداء.</span></li>
+                            <li><strong class="lang-en">Preventive:</strong><strong class="lang-ar lang-hidden">وقائية (Preventive):</strong> <span class="lang-en">Future-proofing (Refactoring).</span><span class="lang-ar lang-hidden">حماية مستقبلية (إعادة هيكلة).</span></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 class="font-bold text-orange-600 dark:text-orange-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">Key Facts</h4>
+                        <h4 class="font-bold text-orange-600 dark:text-orange-400 mb-2 border-b border-gray-200 dark:border-gray-700 pb-1">
+                            <span class="lang-en">Key Facts</span>
+                            <span class="lang-ar lang-hidden">حقائق رئيسية</span>
+                        </h4>
                         <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded border border-orange-200 dark:border-orange-800">
                             <p class="text-sm text-gray-700 dark:text-gray-300">
-                                Maintenance is the <strong>Most Expensive</strong> phase (60-80% of TCO). It is a repeating SDLC process (Plan, Analyze, Design, Implement, Test).
+                                <span class="lang-en">Maintenance is the <strong>Most Expensive</strong> phase (60-80% of TCO). It is a repeating SDLC process (Plan, Analyze, Design, Implement, Test).</span>
+                                <span class="lang-ar lang-hidden">الصيانة هي المرحلة <strong>الأكثر تكلفة</strong> (60-80% من TCO). هي عملية SDLC متكررة (تخطيط، تحليل، تصميم، تنفيذ، اختبار).</span>
                             </p>
                         </div>
                     </div>
@@ -345,117 +521,167 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Key Concepts Summary</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Key Concepts Summary</span>
+                    <span class="lang-ar lang-hidden">ملخص المفاهيم الرئيسية</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Normalization Keys</h4>
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">
+                        <span class="lang-en">Normalization Keys</span>
+                        <span class="lang-ar lang-hidden">مفاتيح التسوية</span>
+                    </h4>
                     <ul class="text-xs text-gray-500 space-y-1">
-                        <li><strong>Composite Key:</strong> Primary Key with >1 attribute.</li>
-                        <li><strong>Partial Dependency:</strong> Depends on part of PK (Violates 2NF).</li>
-                        <li><strong>Transitive Dependency:</strong> Non-key depends on Non-key (Violates 3NF).</li>
+                        <li><strong class="lang-en">Composite Key:</strong><strong class="lang-ar lang-hidden">مفتاح مركب:</strong> <span class="lang-en">Primary Key with >1 attribute.</span><span class="lang-ar lang-hidden">مفتاح أساسي بأكثر من سمة.</span></li>
+                        <li><strong class="lang-en">Partial Dependency:</strong><strong class="lang-ar lang-hidden">اعتماد جزئي:</strong> <span class="lang-en">Depends on part of PK (Violates 2NF).</span><span class="lang-ar lang-hidden">يعتمد على جزء من المفتاح (ينتهك 2NF).</span></li>
+                        <li><strong class="lang-en">Transitive Dependency:</strong><strong class="lang-ar lang-hidden">اعتماد متعدي:</strong> <span class="lang-en">Non-key depends on Non-key (Violates 3NF).</span><span class="lang-ar lang-hidden">غير مفتاح يعتمد على غير مفتاح (ينتهك 3NF).</span></li>
                     </ul>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Testing Flow</h4>
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">
+                        <span class="lang-en">Testing Flow</span>
+                        <span class="lang-ar lang-hidden">تدفق الاختبار</span>
+                    </h4>
                     <div class="flex items-center text-xs text-gray-500 justify-between">
-                        <span>Unit</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                        <span>Integration</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                        <span>System</span>
+                        <span class="lang-en">Unit</span><span class="lang-ar lang-hidden">وحدة</span>
+                        <i class="fa-solid fa-arrow-right rtl:rotate-180"></i>
+                        <span class="lang-en">Integration</span><span class="lang-ar lang-hidden">تكامل</span>
+                        <i class="fa-solid fa-arrow-right rtl:rotate-180"></i>
+                        <span class="lang-en">System</span><span class="lang-ar lang-hidden">نظام</span>
                     </div>
-                    <p class="text-[10px] text-gray-400 mt-2">Always Bottom-Up.</p>
+                    <p class="text-[10px] text-gray-400 mt-2">
+                        <span class="lang-en">Always Bottom-Up.</span>
+                        <span class="lang-ar lang-hidden">دائماً من الأسفل للأعلى.</span>
+                    </p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">Cost Distribution</h4>
+                    <h4 class="text-brand-600 dark:text-brand-400 font-bold mb-2">
+                        <span class="lang-en">Cost Distribution</span>
+                        <span class="lang-ar lang-hidden">توزيع التكلفة</span>
+                    </h4>
                     <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                         <div class="bg-orange-500 h-2.5 rounded-full" style="width: 70%"></div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-1">Maintenance is 70% of total lifecycle cost.</p>
+                    <p class="text-xs text-gray-500 mt-1">
+                        <span class="lang-en">Maintenance is 70% of total lifecycle cost.</span>
+                        <span class="lang-ar lang-hidden">الصيانة تشكل 70% من إجمالي تكلفة الدورة.</span>
+                    </p>
                 </div>
             </div>
         </section>
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-8 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Final Exam Mega Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Secrets for Mod 7-13</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Final Exam Mega Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار النهائي الكبرى</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Secrets for Mod 7-13</span>
+                            <span class="lang-ar lang-hidden">أسرار الوحدات 7-13</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: 2NF Requirement
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: 2NF Requirement</span>
+                            <span class="lang-ar lang-hidden">فخ: متطلبات 2NF</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            "Does every table need 2NF checking?"
-                            <br><strong>NO.</strong> If the Primary Key is a single attribute (not composite), the table is <strong>automatically in 2NF</strong>. You only check for Partial Dependencies if the PK has multiple fields.
+                            <span class="lang-en">"Does every table need 2NF checking?"
+                            <br><strong>NO.</strong> If the Primary Key is a single attribute (not composite), the table is <strong>automatically in 2NF</strong>. You only check for Partial Dependencies if the PK has multiple fields.</span>
+                            <span class="lang-ar lang-hidden">"هل يحتاج كل جدول لفحص 2NF؟"
+                            <br><strong>لا.</strong> إذا كان المفتاح الأساسي سمة واحدة (غير مركب)، فإن الجدول <strong>تلقائياً في 2NF</strong>. تتحقق فقط من الاعتماد الجزئي إذا كان للمفتاح حقول متعددة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Fat vs Thin Client
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Fat vs Thin Client</span>
+                            <span class="lang-ar lang-hidden">فخ: العميل السمين مقابل النحيف</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            <strong>Fat Client:</strong> Processing happens on the PC (Presentation + Logic). Hard to update.
-                            <br><strong>Thin Client:</strong> Processing happens on the Server. PC is just UI. Easy to update.
+                            <span class="lang-en"><strong>Fat Client:</strong> Processing happens on the PC (Presentation + Logic). Hard to update.
+                            <br><strong>Thin Client:</strong> Processing happens on the Server. PC is just UI. Easy to update.</span>
+                            <span class="lang-ar lang-hidden"><strong>Fat Client:</strong> المعالجة تتم على الجهاز (عرض + منطق). صعب التحديث.
+                            <br><strong>Thin Client:</strong> المعالجة تتم على الخادم. الجهاز مجرد واجهة. سهل التحديث.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center text-sm">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: System vs User Doc
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: System vs User Doc</span>
+                            <span class="lang-ar lang-hidden">فخ: وثائق النظام مقابل المستخدم</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            <strong>System Doc:</strong> Records <em>design decisions</em> (For Programmers).
+                            <span class="lang-en"><strong>System Doc:</strong> Records <em>design decisions</em> (For Programmers).
                             <br><strong>User Doc:</strong> Records <em>how to use it</em> (For End Users).
-                            Do not confuse the target audience.
+                            Do not confuse the target audience.</span>
+                            <span class="lang-ar lang-hidden"><strong>وثائق النظام:</strong> تسجل <em>قرارات التصميم</em> (للمبرمجين).
+                            <br><strong>وثائق المستخدم:</strong> تسجل <em>كيفية الاستخدام</em> (للمستخدمين النهائيين).
+                            لا تخلط بين الجمهور المستهدف.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: The M:N Fix
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: The M:N Fix</span>
+                            <span class="lang-ar lang-hidden">سر: إصلاح M:N</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            You cannot implement M:N in a database. You MUST create an <strong>Associative Entity</strong>.
-                            <br>Example: Student $\leftrightarrow$ Course becomes Student $\leftarrow$ Registration $\rightarrow$ Course.
+                            <span class="lang-en">You cannot implement M:N in a database. You MUST create an <strong>Associative Entity</strong>.
+                            <br>Example: Student $\leftrightarrow$ Course becomes Student $\leftarrow$ Registration $\rightarrow$ Course.</span>
+                            <span class="lang-ar lang-hidden">لا يمكنك تنفيذ M:N في قاعدة البيانات. يجب عليك إنشاء <strong>كيان رابط (Associative Entity)</strong>.
+                            <br>مثال: طالب $\leftrightarrow$ مادة يصبح طالب $\leftarrow$ تسجيل $\rightarrow$ مادة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-key mr-2"></i> SECRET: Maintenance Reality
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Maintenance Reality</span>
+                            <span class="lang-ar lang-hidden">سر: واقع الصيانة</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            Maintenance is NOT just fixing bugs (Corrective). Most maintenance effort actually goes to <strong>Enhancements</strong> (Perfective) and <strong>Adaptation</strong> (Adaptive) to keep the system alive.
+                            <span class="lang-en">Maintenance is NOT just fixing bugs (Corrective). Most maintenance effort actually goes to <strong>Enhancements</strong> (Perfective) and <strong>Adaptation</strong> (Adaptive) to keep the system alive.</span>
+                            <span class="lang-ar lang-hidden">الصيانة ليست مجرد إصلاح أخطاء (تصحيحية). معظم جهد الصيانة يذهب في الواقع إلى <strong>التحسينات</strong> (تطويرية) و <strong>التكيف</strong> (تكيفية) لإبقاء النظام حياً.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center text-sm">
-                            <i class="fa-solid fa-lightbulb mr-2"></i> SECRET: XOR vs AND
+                            <i class="fa-solid fa-lightbulb mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: XOR vs AND</span>
+                            <span class="lang-ar lang-hidden">سر: XOR مقابل AND</span>
                         </h4>
                         <p class="text-xs text-gray-700 dark:text-gray-300">
-                            In Activity Diagrams:
+                            <span class="lang-en">In Activity Diagrams:
                             <br><strong>XOR (Diamond):</strong> "OR". Only 1 path.
                             <br><strong>AND (Bar):</strong> "AND". All paths parallel.
-                            Confusing these destroys the logic flow.
+                            Confusing these destroys the logic flow.</span>
+                            <span class="lang-ar lang-hidden">في مخططات النشاط:
+                            <br><strong>XOR (معين):</strong> "OR". مسار واحد فقط.
+                            <br><strong>AND (شريط):</strong> "AND". كل المسارات بالتوازي.
+                            الخلط بينهما يدمر منطق التدفق.</span>
                         </p>
                     </div>
                 </div>
@@ -466,18 +692,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">مركز المادة</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">Final Quiz</a>
+                <a href="final-quiz.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Final Quiz</span>
+                    <span class="lang-ar lang-hidden">الاختبار النهائي</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">Midterm Review</a>
+                <a href="midterm-review.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Midterm Review</span>
+                    <span class="lang-ar lang-hidden">مراجعة نصف الفصل</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -495,6 +734,42 @@
                 htmlElement.classList.add('dark');
                 localStorage.theme = 'dark';
             }
+        });
+
+        
+        const langToggleBtn = document.getElementById('lang-toggle');
+        
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
+
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
         });
     </script>
 </body>

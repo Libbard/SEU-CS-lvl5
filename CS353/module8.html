@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS353 Module 8: Space and Time Trade-Offs</title>
@@ -50,6 +59,52 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { 
+            display: none !important; 
+        }
+
+        
+        [dir="rtl"] body { 
+            font-family: 'Cairo', sans-serif; 
+        }
+
+        
+        [dir="rtl"] .code-block,
+        [dir="rtl"] .mermaid,
+        [dir="rtl"] pre,
+        [dir="rtl"] code,
+        [dir="rtl"] .font-mono,
+        [dir="rtl"] .math-block,
+        [dir="rtl"] .ltr-protection {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        
+        
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        
+        
+        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+        [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+        [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
+
+        
+        [dir="rtl"] .fa-chevron-left,
+        [dir="rtl"] .fa-chevron-right,
+        [dir="rtl"] .fa-arrow-right,
+        [dir="rtl"] .fa-arrow-left {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -116,33 +171,73 @@
             animation: scale-tilt 4s infinite ease-in-out;
             transform-origin: bottom center;
         }
+        
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f43f5e; 
+        }
+
+        
+        @keyframes vault-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+        .vault-border {
+            animation: vault-pulse 2s infinite;
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans flex flex-col min-h-screen">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module7.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 8</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 8</span>
+                        <span class="lang-ar lang-hidden">الوحدة 8</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-project-diagram text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS353 Algorithms</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS353 Algorithms</span>
+                        <span class="lang-ar lang-hidden">CS353 الخوارزميات</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="module9.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
+
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1 rtl:mr-1 rtl:ml-0">EN/AR</span>
+                    </button>
+
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -159,75 +254,122 @@
                 <i class="fa-solid fa-scale-unbalanced-flip text-3xl text-brand-500 scale-anim"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Space and Time <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Trade-Offs</span>
+                <span class="lang-en">Space and Time <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">Trade-Offs</span></span>
+                <span class="lang-ar lang-hidden">مقايضات <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-rose-600">المساحة والوقت (Trade-Offs)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Spending memory to save time. We preprocess inputs or use extra structures to accelerate algorithms from brute force to blazing fast.
+                <span class="lang-en">Spending memory to save time. We preprocess inputs or use extra structures to accelerate algorithms from brute force to blazing fast.</span>
+                <span class="lang-ar lang-hidden">إنفاق الذاكرة لتوفير الوقت. نقوم بمعالجة المدخلات مسبقاً أو استخدام هياكل إضافية لتسريع الخوارزميات من القوة الغاشمة إلى سرعة فائقة.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Input Enhancement</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Prestructuring</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Distribution Counting</span>
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">Horspool's Algorithm</span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Input Enhancement</span>
+                    <span class="lang-ar lang-hidden">Input Enhancement</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Prestructuring</span>
+                    <span class="lang-ar lang-hidden">Prestructuring</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Distribution Counting</span>
+                    <span class="lang-ar lang-hidden">Distribution Counting</span>
+                </span>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                    <span class="lang-en">Horspool's Algorithm</span>
+                    <span class="lang-ar lang-hidden">Horspool's Algorithm</span>
+                </span>
             </div>
         </header>
 
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Strategies for Trading Space</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Strategies for Trading Space</span>
+                    <span class="lang-ar lang-hidden">استراتيجيات مقايضة المساحة</span>
+                </h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 p-4 opacity-5">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-brand-500 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 p-4 opacity-5 rtl:left-0 rtl:right-auto">
                         <i class="fa-solid fa-microchip text-9xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">1. Input Enhancement</h3>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">1. Input Enhancement</span>
+                        <span class="lang-ar lang-hidden">1. Input Enhancement (تحسين المدخلات)</span>
+                    </h3>
                     <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
-                        Preprocess the problem's input (in whole or part) and store additional info to use later.
+                        <span class="lang-en">Preprocess the problem's input (in whole or part) and store additional info to use later.</span>
+                        <span class="lang-ar lang-hidden">معالجة مدخلات المشكلة مسبقاً (كلياً أو جزئياً) وتخزين معلومات إضافية لاستخدامها لاحقاً.</span>
                     </p>
                     <ul class="space-y-2 text-sm text-brand-600 dark:text-brand-400 font-semibold">
-                        <li><i class="fa-solid fa-check mr-2"></i>Counting Sorts</li>
-                        <li><i class="fa-solid fa-check mr-2"></i>String Searching (Horspool, Boyer-Moore)</li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Counting Sorts</span>
+                            <span class="lang-ar lang-hidden">Counting Sorts</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">String Searching (Horspool, Boyer-Moore)</span>
+                            <span class="lang-ar lang-hidden">String Searching (Horspool, Boyer-Moore)</span>
+                        </li>
                     </ul>
                 </div>
 
-                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 p-4 opacity-5">
+                <div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500 rtl:border-l-0 rtl:border-r-4 rtl:border-r-blue-500 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 p-4 opacity-5 rtl:left-0 rtl:right-auto">
                         <i class="fa-solid fa-layer-group text-9xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">2. Prestructuring</h3>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">2. Prestructuring</span>
+                        <span class="lang-ar lang-hidden">2. Prestructuring (إعادة الهيكلة المسبقة)</span>
+                    </h3>
                     <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
-                        Process the input to build a data structure that makes accessing elements easier or faster.
+                        <span class="lang-en">Process the input to build a data structure that makes accessing elements easier or faster.</span>
+                        <span class="lang-ar lang-hidden">معالجة المدخلات لبناء هيكل بيانات يجعل الوصول للعناصر أسهل أو أسرع.</span>
                     </p>
                     <ul class="space-y-2 text-sm text-blue-600 dark:text-blue-400 font-semibold">
-                        <li><i class="fa-solid fa-check mr-2"></i>Hashing</li>
-                        <li><i class="fa-solid fa-check mr-2"></i>Indexing Schemes (B-Trees)</li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Hashing</span>
+                            <span class="lang-ar lang-hidden">Hashing</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check mr-2 rtl:ml-2 rtl:mr-0"></i>
+                            <span class="lang-en">Indexing Schemes (B-Trees)</span>
+                            <span class="lang-ar lang-hidden">أنظمة الفهرسة (B-Trees)</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Sorting by Counting</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Sorting by Counting</span>
+                    <span class="lang-ar lang-hidden">الفرز بالعد (Sorting by Counting)</span>
+                </h2>
             </div>
 
             <div class="space-y-8">
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                        <i class="fa-solid fa-list-ol text-gray-400 mr-2"></i> Method A: Comparison-Counting Sort
+                        <i class="fa-solid fa-list-ol text-gray-400 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">Method A: Comparison-Counting Sort</span>
+                        <span class="lang-ar lang-hidden">الطريقة أ: Comparison-Counting Sort</span>
                     </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        For each element $A[i]$, count how many elements are smaller than it. This count is its exact position in the sorted array .
+                        <span class="lang-en">For each element $A[i]$, count how many elements are smaller than it. This count is its exact position in the sorted array .</span>
+                        <span class="lang-ar lang-hidden">لكل عنصر $A[i]$، احسب كم عنصراً أصغر منه. هذا العدد هو موضعه الدقيق في المصفوفة المرتبة.</span>
                     </p>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded font-mono text-xs">
+                        <div class="bg-gray-100 dark:bg-gray-900 p-4 rounded font-mono text-xs ltr-protection" dir="ltr">
                             <span class="text-rose-500">for</span> i $\leftarrow$ 0 <span class="text-rose-500">to</span> n-2 <span class="text-rose-500">do</span><br>
                             &nbsp;&nbsp;<span class="text-rose-500">for</span> j $\leftarrow$ i+1 <span class="text-rose-500">to</span> n-1 <span class="text-rose-500">do</span><br>
                             &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-rose-500">if</span> A[i] < A[j]<br>
@@ -238,9 +380,15 @@
                         </div>
                         <div class="flex items-center justify-center bg-rose-50 dark:bg-rose-900/20 rounded p-4">
                             <div class="text-center">
-                                <p class="text-xs uppercase font-bold text-rose-500 mb-1">Complexity</p>
+                                <p class="text-xs uppercase font-bold text-rose-500 mb-1">
+                                    <span class="lang-en">Complexity</span>
+                                    <span class="lang-ar lang-hidden">التعقيد</span>
+                                </p>
                                 <p class="text-2xl font-bold text-gray-900 dark:text-white">$O(n^2)$</p>
-                                <p class="text-[10px] text-gray-500">No improvement over simple sorts.</p>
+                                <p class="text-[10px] text-gray-500">
+                                    <span class="lang-en">No improvement over simple sorts.</span>
+                                    <span class="lang-ar lang-hidden">لا تحسن عن الفرز البسيط.</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -248,31 +396,49 @@
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">
-                        <i class="fa-solid fa-chart-bar text-brand-500 mr-2"></i> Method B: Distribution Counting Sort
+                        <i class="fa-solid fa-chart-bar text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                        <span class="lang-en">Method B: Distribution Counting Sort</span>
+                        <span class="lang-ar lang-hidden">الطريقة ب: Distribution Counting Sort</span>
                     </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Assume elements come from a small set of integers between $l$ and $u$. We compute frequencies, then cumulative frequencies (distribution), to calculate positions directly .
+                        <span class="lang-en">Assume elements come from a small set of integers between $l$ and $u$. We compute frequencies, then cumulative frequencies (distribution), to calculate positions directly .</span>
+                        <span class="lang-ar lang-hidden">افترض أن العناصر تأتي من مجموعة صغيرة من الأعداد الصحيحة بين $l$ و $u$. نحسب الترددات، ثم الترددات التراكمية (التوزيع)، لحساب المواقع مباشرة.</span>
                     </p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="space-y-2">
-                            <div class="flex items-center space-x-2 text-xs">
+                            <div class="flex items-center space-x-2 text-xs rtl:space-x-reverse">
                                 <span class="w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 font-bold">1</span>
-                                <span>Compute Frequencies ($F$).</span>
+                                <span>
+                                    <span class="lang-en">Compute Frequencies ($F$).</span>
+                                    <span class="lang-ar lang-hidden">حساب الترددات ($F$).</span>
+                                </span>
                             </div>
-                            <div class="flex items-center space-x-2 text-xs">
+                            <div class="flex items-center space-x-2 text-xs rtl:space-x-reverse">
                                 <span class="w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 font-bold">2</span>
-                                <span>Compute Distribution ($D$): $D[j] = D[j-1] + F[j]$.</span>
+                                <span>
+                                    <span class="lang-en">Compute Distribution ($D$): $D[j] = D[j-1] + F[j]$.</span>
+                                    <span class="lang-ar lang-hidden">حساب التوزيع ($D$): $D[j] = D[j-1] + F[j]$.</span>
+                                </span>
                             </div>
-                            <div class="flex items-center space-x-2 text-xs">
+                            <div class="flex items-center space-x-2 text-xs rtl:space-x-reverse">
                                 <span class="w-6 h-6 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-brand-600 font-bold">3</span>
-                                <span>Place elements: $S[D[A[i]-l]-1] = A[i]$.</span>
+                                <span>
+                                    <span class="lang-en">Place elements: $S[D[A[i]-l]-1] = A[i]$.</span>
+                                    <span class="lang-ar lang-hidden">وضع العناصر: $S[D[A[i]-l]-1] = A[i]$.</span>
+                                </span>
                             </div>
                         </div>
                         <div class="flex items-center justify-center bg-emerald-50 dark:bg-emerald-900/20 rounded p-4">
                             <div class="text-center">
-                                <p class="text-xs uppercase font-bold text-emerald-500 mb-1">Complexity</p>
+                                <p class="text-xs uppercase font-bold text-emerald-500 mb-1">
+                                    <span class="lang-en">Complexity</span>
+                                    <span class="lang-ar lang-hidden">التعقيد</span>
+                                </p>
                                 <p class="text-2xl font-bold text-gray-900 dark:text-white">$O(n)$</p>
-                                <p class="text-[10px] text-gray-500">Linear time! (If range is small)</p>
+                                <p class="text-[10px] text-gray-500">
+                                    <span class="lang-en">Linear time! (If range is small)</span>
+                                    <span class="lang-ar lang-hidden">وقت خطي! (إذا كان المدى صغيراً)</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -281,42 +447,72 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">String Matching</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">String Matching</span>
+                    <span class="lang-ar lang-hidden">مطابقة النصوص (String Matching)</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
-                    Brute force string matching takes $O(nm)$. We can do better by <span class="smart-term font-bold text-brand-500" data-ar="المعالجة المسبقة">Preprocessing</span> the pattern to know how much to shift when a mismatch occurs.
+                    <span class="lang-en">Brute force string matching takes $O(nm)$. We can do better by <span class="smart-term font-bold text-brand-500" data-ar="المعالجة المسبقة">Preprocessing</span> the pattern to know how much to shift when a mismatch occurs.</span>
+                    <span class="lang-ar lang-hidden">مطابقة النصوص بالقوة الغاشمة تستغرق $O(nm)$. يمكننا التحسين عن طريق <span class="smart-term font-bold text-brand-500" data-ar="المعالجة المسبقة">Preprocessing</span> للنمط لمعرفة مقدار الإزاحة عند حدوث عدم تطابق.</span>
                 </p>
 
-                <div class="border-l-4 border-brand-500 pl-4 mb-8">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Horspool's Algorithm</h3>
+                <div class="border-l-4 border-brand-500 pl-4 mb-8 rtl:border-l-0 rtl:border-r-4 rtl:pl-0 rtl:pr-4">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Horspool's Algorithm</span>
+                        <span class="lang-ar lang-hidden">Horspool's Algorithm</span>
+                    </h3>
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        A simplified version of Boyer-Moore. It compares the pattern from <strong>Right-to-Left</strong>. If a mismatch occurs, it determines the shift size based on the character in the text aligned with the <strong>last character</strong> of the pattern.
+                        <span class="lang-en">A simplified version of Boyer-Moore. It compares the pattern from <strong>Right-to-Left</strong>. If a mismatch occurs, it determines the shift size based on the character in the text aligned with the <strong>last character</strong> of the pattern.</span>
+                        <span class="lang-ar lang-hidden">نسخة مبسطة من Boyer-Moore. تقارن النمط من <strong>اليمين لليسار</strong>. إذا حدث عدم تطابق، تحدد حجم الإزاحة بناءً على الحرف الموجود في النص المحاذي <strong>لآخر حرف</strong> في النمط.</span>
                     </p>
 
-                    <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm text-gray-300 mb-4">
+                    <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm text-gray-300 mb-4 ltr-protection" dir="ltr">
                         <div class="flex justify-between border-b border-gray-700 pb-2 mb-2">
-                            <span>Text:</span>
+                            <span>
+                                <span class="lang-en">Text:</span>
+                                <span class="lang-ar lang-hidden">Text:</span>
+                            </span>
                             <span>... <span class="text-white bg-red-600 px-1">B</span> A R B E R ...</span>
                         </div>
                         <div class="flex justify-between">
-                            <span>Pattern:</span>
+                            <span>
+                                <span class="lang-en">Pattern:</span>
+                                <span class="lang-ar lang-hidden">Pattern:</span>
+                            </span>
                             <span><span class="text-gray-500">L E A D E</span> <span class="text-brand-400 font-bold border-b-2 border-brand-400">R</span></span>
                         </div>
                         <p class="mt-4 text-xs text-gray-500">
-                            Logic: Look at 'B' in Text (aligned with Pattern's end). 'B' is not in Pattern? Shift full length!
+                            <span class="lang-en">Logic: Look at 'B' in Text (aligned with Pattern's end). 'B' is not in Pattern? Shift full length!</span>
+                            <span class="lang-ar lang-hidden" dir = 'RTL'>المنطق: انظر إلى 'B' في النص (بمحاذاة نهاية النمط). 'B' ليست في النمط؟ قم بإزاحة كامل الطول!</span>
                         </p>
                     </div>
 
-                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">The Shift Table Construction</h4>
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">For each character $c$ in the alphabet:</p>
-                    <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-400 space-y-1">
-                        <li>If $c$ is NOT in the pattern: Shift by pattern length $m$.</li>
-                        <li>If $c$ IS in the pattern: Shift by distance from right end ($m - 1 - k$).</li>
-                        <li>Note: Only consider the <strong>last occurrence</strong> of $c$ (excluding the very last character itself for calculation purposes) .</li>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-sm mb-2">
+                        <span class="lang-en">The Shift Table Construction</span>
+                        <span class="lang-ar lang-hidden">بناء جدول الإزاحة (Shift Table)</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                        <span class="lang-en">For each character $c$ in the alphabet:</span>
+                        <span class="lang-ar lang-hidden">لكل حرف $c$ في الأبجدية:</span>
+                    </p>
+                    <ul class="list-disc list-inside text-xs text-gray-600 dark:text-gray-400 space-y-1 rtl:pr-4 rtl:pl-0">
+                        <li>
+                            <span class="lang-en">If $c$ is NOT in the pattern: Shift by pattern length $m$.</span>
+                            <span class="lang-ar lang-hidden">إذا كان $c$ ليس في النمط: إزاحة بطول النمط $m$.</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">If $c$ IS in the pattern: Shift by distance from right end ($m - 1 - k$).</span>
+                            <span class="lang-ar lang-hidden">إذا كان $c$ في النمط: إزاحة بالمسافة من الطرف الأيمن ($m - 1 - k$).</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Note: Only consider the <strong>last occurrence</strong> of $c$ (excluding the very last character itself for calculation purposes) .</span>
+                            <span class="lang-ar lang-hidden">ملاحظة: خذ بعين الاعتبار فقط <strong>آخر ظهور</strong> لـ $c$ (باستثناء الحرف الأخير نفسه لأغراض الحساب).</span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -324,56 +520,78 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm vault-border">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Distribution Sort Range
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Distribution Sort Range</span>
+                            <span class="lang-ar lang-hidden">فخ: نطاق Distribution Sort</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            "Is Distribution Counting Sort always linear $O(n)$?"
+                            <span class="lang-en">"Is Distribution Counting Sort always linear $O(n)$?"
                             <br>
-                            <strong>NO!</strong> It depends on the range of values ($k$). The complexity is actually $O(n + k)$. If $k \approx n^2$, the algorithm becomes $O(n^2)$, which is worse than Mergesort.
+                            <strong>NO!</strong> It depends on the range of values ($k$). The complexity is actually $O(n + k)$. If $k \approx n^2$, the algorithm becomes $O(n^2)$, which is worse than Mergesort.</span>
+                            <span class="lang-ar lang-hidden">"هل Distribution Counting Sort دائماً خطي $O(n)$؟"
+                            <br>
+                            <strong>لا!</strong> يعتمد ذلك على نطاق القيم ($k$). التعقيد الفعلي هو $O(n + k)$. إذا كان $k \approx n^2$، تصبح الخوارزمية $O(n^2)$، وهو أسوأ من Mergesort.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Horspool's Lookup
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Horspool's Lookup</span>
+                            <span class="lang-ar lang-hidden">فخ: بحث Horspool</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            When a mismatch occurs in Horspool, which character do you look up in the Shift Table?
+                            <span class="lang-en">When a mismatch occurs in Horspool, which character do you look up in the Shift Table?
                             <br>
-                            <strong>NOT</strong> the mismatched character. You look at the character in the <strong>TEXT</strong> that is aligned with the <strong>LAST</strong> character of the pattern.
+                            <strong>NOT</strong> the mismatched character. You look at the character in the <strong>TEXT</strong> that is aligned with the <strong>LAST</strong> character of the pattern.</span>
+                            <span class="lang-ar lang-hidden">عند حدوث عدم تطابق في Horspool، أي حرف تبحث عنه في جدول الإزاحة؟
+                            <br>
+                            <strong>ليس</strong> الحرف غير المتطابق. تنظر إلى الحرف في <strong>النص (TEXT)</strong> المحاذي للحرف <strong>الأخير</strong> في النمط.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Comparison Counting
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Comparison Counting</span>
+                            <span class="lang-ar lang-hidden">سر: Comparison Counting</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Professors teach Comparison-Counting Sort ($O(n^2)$) not because it's useful (it's not), but to prove that simply throwing "extra space" at a problem doesn't automatically solve "time" efficiency. You need the <em>right</em> strategy (like Distribution Counting).
+                            <span class="lang-en">Professors teach Comparison-Counting Sort ($O(n^2)$) not because it's useful (it's not), but to prove that simply throwing "extra space" at a problem doesn't automatically solve "time" efficiency. You need the <em>right</em> strategy (like Distribution Counting).</span>
+                            <span class="lang-ar lang-hidden">يدرس الأساتذة Comparison-Counting Sort ($O(n^2)$) ليس لأنه مفيد (هو ليس كذلك)، ولكن لإثبات أن مجرد إضافة "مساحة إضافية" لمشكلة لا يحل تلقائياً كفاءة "الوقت". تحتاج إلى الاستراتيجية <em>الصحيحة</em> (مثل Distribution Counting).</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Worst Case Horspool
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Worst Case Horspool</span>
+                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: أسوأ حالة Horspool</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Despite being very fast on average ($O(n)$), Horspool's (and Boyer-Moore's) worst case is still $O(nm)$, just like Brute Force. This happens with patterns like "AAAAA" in text "AAAAAAAA".
+                            <span class="lang-en">Despite being very fast on average ($O(n)$), Horspool's (and Boyer-Moore's) worst case is still $O(nm)$, just like Brute Force. This happens with patterns like "AAAAA" in text "AAAAAAAA".</span>
+                            <span class="lang-ar lang-hidden">على الرغم من كونها سريعة جداً في المتوسط ($O(n)$)، فإن أسوأ حالة لـ Horspool (و Boyer-Moore) لا تزال $O(nm)$، تماماً مثل القوة الغاشمة. يحدث هذا مع أنماط مثل "AAAAA" في نص "AAAAAAAA".</span>
                         </p>
                     </div>
                 </div>
@@ -384,18 +602,31 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 7</a>
+            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+                <a href="module7.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 7</span>
+                    <span class="lang-ar lang-hidden">الوحدة 7</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Home</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 9</a>
+                <a href="module9.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 9</span>
+                    <span class="lang-ar lang-hidden">الوحدة 9</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -414,46 +645,55 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
+        const langToggleBtn = document.getElementById('lang-toggle');
         
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+                localStorage.setItem('preferredLang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+                localStorage.setItem('preferredLang', 'en');
             }
 
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
         }
 
-    });
+        
+        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang');
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} marked complete.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

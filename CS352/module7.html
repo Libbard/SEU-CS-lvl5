@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RVP672LPEY');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS352 Module 7: Logical Modeling (Use Cases & Activity)</title>
@@ -19,16 +28,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6', 
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
@@ -42,14 +44,41 @@
 
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
+        
+        .lang-hidden { display: none !important; }
+        
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        
+        
+        [dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] .mermaid, [dir="rtl"] .math-block, 
+        [dir="rtl"] .tech-term {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: bidi-override !important;
+            display: inline-block;
+        }
+
+        
+        [dir="rtl"] .text-left { text-align: right !important; }
+        [dir="rtl"] .text-right { text-align: left !important; }
+        [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
+        [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
+        [dir="rtl"] .list-inside { padding-right: 0; }
+        
+        
+        [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-chevron-left, 
+        [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-caret-right {
+            transform: scaleX(-1);
+        }
+
         
         .glass {
             background: rgba(255, 255, 255, 0.7);
@@ -128,24 +157,38 @@
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
                     <a href="index.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Course Hub">
                         <i class="fa-solid fa-house text-xl"></i>
                     </a>
                     <a href="module6.html" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors" title="Previous Module">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
-                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">Module 7</span>
+                    <span class="text-sm font-bold tracking-wide uppercase text-gray-400 dark:text-gray-500">
+                        <span class="lang-en">Module 7</span>
+                        <span class="lang-ar lang-hidden">Module 7</span>
+                    </span>
                 </div>
 
-                <div class="hidden md:flex items-center space-x-2">
+                <div class="hidden md:flex items-center space-x-2 rtl:space-x-reverse">
                     <i class="fa-solid fa-diagram-project text-brand-500"></i>
-                    <span class="font-bold text-lg tracking-tight">CS352 System Analysis</span>
+                    <span class="font-bold text-lg tracking-tight">
+                        <span class="lang-en">CS352 System Analysis</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
+                    </span>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:ring-2 ring-brand-400 transition-all">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span class="text-xs font-bold ml-1">EN/AR</span>
+                    </button>
+
                     <a href="module8.html" class="p-2 rounded-lg hover:bg-brand-100 dark:hover:bg-gray-800 text-brand-600 dark:text-brand-400 transition-colors" title="Next Module">
-                        <span class="mr-2 text-sm font-semibold hidden sm:inline">Next</span>
+                        <span class="mr-2 rtl:ml-2 rtl:mr-0 text-sm font-semibold hidden sm:inline">
+                            <span class="lang-en">Next</span>
+                            <span class="lang-ar lang-hidden">التالي</span>
+                        </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
@@ -164,10 +207,12 @@
                 <i class="fa-solid fa-sitemap text-3xl text-brand-500"></i>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                Analysis: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Logical Modeling II</span>
+                <span class="lang-en">Analysis: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">Logical Modeling II</span></span>
+                <span class="lang-ar lang-hidden">التحليل: <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-400 to-blue-600">النمذجة المنطقية 2 (Logical Modeling II)</span></span>
             </h1>
             <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Moving beyond data flow to modeling system behavior and business workflows. Use Cases, Activity Diagrams, and BPMN.
+                <span class="lang-en">Moving beyond data flow to modeling system behavior and business workflows. Use Cases, Activity Diagrams, and BPMN.</span>
+                <span class="lang-ar lang-hidden">الانتقال لما هو أبعد من تدفق البيانات لنمذجة سلوك النظام وسير العمل التجاري. حالات الاستخدام (Use Cases)، مخططات النشاط (Activity Diagrams)، و BPMN.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
@@ -181,32 +226,60 @@
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Use Case Modeling</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Use Case Modeling</span>
+                    <span class="lang-ar lang-hidden">نمذجة حالات الاستخدام (Use Case Modeling)</span>
+                </h2>
             </div>
             
             <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    Use case modeling captures the functional requirements of a system by describing interactions between external entities and the system itself.
+                    <span class="lang-en">Use case modeling captures the functional requirements of a system by describing interactions between external entities and the system itself.</span>
+                    <span class="lang-ar lang-hidden">تجسد نمذجة حالات الاستخدام (Use Case Modeling) المتطلبات الوظيفية للنظام من خلال وصف التفاعلات بين الكيانات الخارجية والنظام نفسه.</span>
                 </p>
                 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Core Components</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">Core Components</span>
+                            <span class="lang-ar lang-hidden">المكونات الأساسية (Core Components)</span>
+                        </h4>
                         <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                            <li class="flex items-center"><i class="fa-solid fa-user mr-2 text-gray-400"></i> <strong>Actor:</strong> External entity (user/system) that interacts with the system.</li>
-                            <li class="flex items-center"><i class="fa-regular fa-circle mr-2 text-gray-400"></i> <strong>Use Case:</strong> A specific goal/task the system performs for the actor.</li>
-                            <li class="flex items-center"><i class="fa-solid fa-arrow-right mr-2 text-gray-400"></i> <strong>Relationship:</strong> Connections like Association, Include, or Extend.</li>
+                            <li class="flex items-center"><i class="fa-solid fa-user mr-2 rtl:ml-2 rtl:mr-0 text-gray-400"></i> 
+                                <span class="lang-en"><strong>Actor:</strong> External entity (user/system) that interacts with the system.</span>
+                                <span class="lang-ar lang-hidden"><strong>Actor (الفاعل):</strong> كيان خارجي (مستخدم/نظام) يتفاعل مع النظام.</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-regular fa-circle mr-2 rtl:ml-2 rtl:mr-0 text-gray-400"></i> 
+                                <span class="lang-en"><strong>Use Case:</strong> A specific goal/task the system performs for the actor.</span>
+                                <span class="lang-ar lang-hidden"><strong>Use Case:</strong> هدف أو مهمة محددة ينفذها النظام من أجل الـ Actor.</span>
+                            </li>
+                            <li class="flex items-center"><i class="fa-solid fa-arrow-right mr-2 rtl:ml-2 rtl:mr-0 text-gray-400"></i> 
+                                <span class="lang-en"><strong>Relationship:</strong> Connections like Association, Include, or Extend.</span>
+                                <span class="lang-ar lang-hidden"><strong>Relationship (العلاقة):</strong> الروابط مثل Association، Include، أو Extend.</span>
+                            </li>
                         </ul>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">Key Characteristics</h4>
+                        <h4 class="font-bold text-brand-600 dark:text-brand-400 mb-2">
+                            <span class="lang-en">Key Characteristics</span>
+                            <span class="lang-ar lang-hidden">الخصائص الرئيسية</span>
+                        </h4>
                         <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-2">
-                            <li>• Although associated with Object-Oriented Analysis (OOAD), it works for traditional approaches too.</li>
-                            <li>• It is an <strong>iterative</strong> process. Start high-level, then refine.</li>
-                            <li>• Focuses on <strong>What</strong> the system does, not How.</li>
+                            <li>
+                                <span class="lang-en">• Although associated with Object-Oriented Analysis (OOAD), it works for traditional approaches too.</span>
+                                <span class="lang-ar lang-hidden">• رغم ارتباطها بالـ Object-Oriented Analysis (OOAD)، فهي تعمل مع الأساليب التقليدية أيضاً.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">• It is an <strong>iterative</strong> process. Start high-level, then refine.</span>
+                                <span class="lang-ar lang-hidden">• هي عملية <strong>تكرارية (Iterative)</strong>. تبدأ بمستوى عالٍ، ثم يتم التنقيح.</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">• Focuses on <strong>What</strong> the system does, not How.</span>
+                                <span class="lang-ar lang-hidden">• تركز على <strong>ماذا (What)</strong> يفعل النظام، وليس الكيفية.</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -214,20 +287,24 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Activity Diagrams</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Activity Diagrams</span>
+                    <span class="lang-ar lang-hidden">مخططات النشاط (Activity Diagrams)</span>
+                </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Modeling Logic & Flow</h3>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Modeling Logic & Flow</span>
+                        <span class="lang-ar lang-hidden">نمذجة المنطق والتدفق</span>
+                    </h3>
                     
-
-[Image of Activity Diagram]
-
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        Activity Diagrams show the conditional logic for the sequence of system activities needed to accomplish a business process . They are similar to flowcharts but can model parallel behavior.
+                        <span class="lang-en">Activity Diagrams show the conditional logic for the sequence of system activities needed to accomplish a business process. They are similar to flowcharts but can model parallel behavior.</span>
+                        <span class="lang-ar lang-hidden">تُظهر الـ Activity Diagrams المنطق الشرطي لتسلسل أنشطة النظام اللازمة لإنجاز عملية تجارية. هي مشابهة للـ Flowcharts لكن يمكنها نمذجة السلوك المتوازي.</span>
                     </p>
                     <div class="flex flex-wrap gap-2 text-xs">
                         <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded">Start/End Nodes</span>
@@ -238,34 +315,48 @@
                 </div>
 
                 <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Gateways (Logic Control)</h3>
-                    <p class="text-xs text-gray-500 mb-3">Gateways control the divergence and convergence of sequence flows.</p>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        <span class="lang-en">Gateways (Logic Control)</span>
+                        <span class="lang-ar lang-hidden">Gateways (التحكم بالمنطق)</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 mb-3">
+                        <span class="lang-en">Gateways control the divergence and convergence of sequence flows.</span>
+                        <span class="lang-ar lang-hidden">تتحكم الـ Gateways في تفرع وتلاقي تدفقات التسلسل.</span>
+                    </p>
                     
                     <div class="space-y-4 text-sm">
                         <div class="flex items-start">
-                            <div class="mr-3 mt-1">
+                            <div class="mr-3 rtl:ml-3 rtl:mr-0 mt-1">
                                 <div class="w-6 h-6 border-2 border-purple-500 transform rotate-45 flex items-center justify-center">
                                     <span class="transform -rotate-45 text-xs font-bold">X</span>
                                 </div>
                             </div>
                             <div>
-                                <strong class="text-purple-600 dark:text-purple-400">XOR (Exclusive) Gateway</strong>
+                                <strong class="text-purple-600 dark:text-purple-400">
+                                    <span class="lang-en">XOR (Exclusive) Gateway</span>
+                                    <span class="lang-ar lang-hidden">XOR (Exclusive) Gateway</span>
+                                </strong>
                                 <p class="text-xs text-gray-600 dark:text-gray-300">
-                                    Decision Point. Only <strong>ONE</strong> path can be taken based on a condition (e.g., "a" vs "b" vs "c"). If "a" is true, do Activity A. If "b", do B.
+                                    <span class="lang-en">Decision Point. Only <strong>ONE</strong> path can be taken based on a condition (e.g., "a" vs "b" vs "c"). If "a" is true, do Activity A. If "b", do B.</span>
+                                    <span class="lang-ar lang-hidden">نقطة قرار. يتم اتخاذ مسار <strong>واحد</strong> فقط بناءً على شرط (مثلاً "أ" مقابل "ب"). إذا تحقق "أ"، نفذ النشاط A.</span>
                                 </p>
                             </div>
                         </div>
 
                         <div class="flex items-start">
-                            <div class="mr-3 mt-1">
+                            <div class="mr-3 rtl:ml-3 rtl:mr-0 mt-1">
                                 <div class="w-6 h-6 border-2 border-green-500 transform rotate-45 flex items-center justify-center">
                                     <span class="transform -rotate-45 text-xs font-bold">+</span>
                                 </div>
                             </div>
                             <div>
-                                <strong class="text-green-600 dark:text-green-400">AND (Parallel) Gateway</strong>
+                                <strong class="text-green-600 dark:text-green-400">
+                                    <span class="lang-en">AND (Parallel) Gateway</span>
+                                    <span class="lang-ar lang-hidden">AND (Parallel) Gateway</span>
+                                </strong>
                                 <p class="text-xs text-gray-600 dark:text-gray-300">
-                                    Fork/Join. <strong>ALL</strong> outgoing paths are followed in parallel. Activities happen simultaneously. They must all finish before merging back.
+                                    <span class="lang-en">Fork/Join. <strong>ALL</strong> outgoing paths are followed in parallel. Activities happen simultaneously. They must all finish before merging back.</span>
+                                    <span class="lang-ar lang-hidden">Fork/Join (التفرع/الدمج). يتم اتباع <strong>كل</strong> المسارات الخارجة بالتوازي. تحدث الأنشطة في وقت واحد. يجب أن تنتهي جميعها قبل الدمج مرة أخرى.</span>
                                 </p>
                             </div>
                         </div>
@@ -275,24 +366,35 @@
         </section>
 
         <section>
-            <div class="flex items-center space-x-3 mb-6">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Business Process Modeling</h2>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <span class="lang-en">Business Process Modeling</span>
+                    <span class="lang-ar lang-hidden">نمذجة العمليات التجارية</span>
+                </h2>
             </div>
 
             <div class="glass-card p-6 rounded-xl">
                 <div class="flex items-start">
-                    <div class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 p-3 rounded-lg mr-4">
+                    <div class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 p-3 rounded-lg mr-4 rtl:ml-4 rtl:mr-0">
                         <i class="fa-solid fa-briefcase"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">BPMN (Business Process Model & Notation)</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                            <span class="lang-en">BPMN (Business Process Model & Notation)</span>
+                            <span class="lang-ar lang-hidden">BPMN (Business Process Model & Notation)</span>
+                        </h3>
                         <p class="text-sm text-gray-600 dark:text-gray-300">
-                            A standard graphical representation for specifying business processes in a business process model. It provides a notation that is easily understandable by all business stakeholders (analysts, developers, and managers).
+                            <span class="lang-en">A standard graphical representation for specifying business processes in a business process model. It provides a notation that is easily understandable by all business stakeholders (analysts, developers, and managers).</span>
+                            <span class="lang-ar lang-hidden">تمثيل رسومي قياسي لتحديد العمليات التجارية في نموذج العمليات. يوفر رموزاً (Notation) سهلة الفهم لجميع أصحاب المصلحة (المحللين، المطورين، والمدراء).</span>
                         </p>
                         <div class="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 text-xs">
-                            <strong class="text-gray-900 dark:text-white">Key Distinction:</strong>
-                            While Activity Diagrams focus on the <em>system logic</em>, BPMN focuses on the <em>organizational workflow</em>.
+                            <strong class="text-gray-900 dark:text-white">
+                                <span class="lang-en">Key Distinction:</span>
+                                <span class="lang-ar lang-hidden">فرق جوهري:</span>
+                            </strong>
+                            <span class="lang-en">While Activity Diagrams focus on the <em>system logic</em>, BPMN focuses on the <em>organizational workflow</em>.</span>
+                            <span class="lang-ar lang-hidden">بينما تركز الـ Activity Diagrams على <em>منطق النظام</em>، يركز الـ BPMN على <em>سير العمل التنظيمي</em>.</span>
                         </div>
                     </div>
                 </div>
@@ -303,56 +405,80 @@
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
             <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">The Exam Vault</h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">Professor's Secrets & Trap Avoidance</p>
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                            <span class="lang-en">The Exam Vault</span>
+                            <span class="lang-ar lang-hidden">The Exam Vault (خزنة الاختبارات)</span>
+                        </h2>
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                            <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
+                            <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: XOR vs AND Gateways
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: XOR vs AND Gateways</span>
+                            <span class="lang-ar lang-hidden">TRAP: XOR vs AND Gateways</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            In Activity Diagrams:
+                            <span class="lang-en">In Activity Diagrams:
                             <br><strong>XOR (Diamond with 'X' or empty):</strong> Only ONE path is chosen (Decision).
                             <br><strong>AND (Diamond with '+'):</strong> ALL paths are chosen (Parallel/Fork).
-                            Confusing these is the most common exam mistake.
+                            Confusing these is the most common exam mistake.</span>
+                            <span class="lang-ar lang-hidden">في الـ Activity Diagrams:
+                            <br><strong>XOR (معين بداخله 'X' أو فارغ):</strong> يتم اختيار مسار واحد فقط (قرار).
+                            <br><strong>AND (معين بداخله '+'):</strong> يتم اختيار كل المسارات (توازي/Fork).
+                            الخلط بينهما هو الخطأ الأكثر شيوعاً في الاختبارات.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> TRAP: Use Case vs Activity
+                            <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">TRAP: Use Case vs Activity</span>
+                            <span class="lang-ar lang-hidden">TRAP: Use Case vs Activity</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Use Case Diagram:</strong> Static view of functionality (Who does what?).
+                            <span class="lang-en"><strong>Use Case Diagram:</strong> Static view of functionality (Who does what?).
                             <strong>Activity Diagram:</strong> Dynamic view of the flow (In what order?).
-                            Do not try to show "order of steps" inside a standard Use Case Diagram.
+                            Do not try to show "order of steps" inside a standard Use Case Diagram.</span>
+                            <span class="lang-ar lang-hidden"><strong>Use Case Diagram:</strong> نظرة ثابتة للوظائف (من يفعل ماذا؟).
+                            <strong>Activity Diagram:</strong> نظرة ديناميكية للتدفق (بأي ترتيب؟).
+                            لا تحاول إظهار "ترتيب الخطوات" داخل مخطط حالة الاستخدام القياسي.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-user-secret mr-2"></i> SECRET: Merge vs Join
+                            <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">SECRET: Merge vs Join</span>
+                            <span class="lang-ar lang-hidden">SECRET: Merge vs Join</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <strong>Merge (XOR):</strong> Bringing alternative paths back together. The process continues when <em>any</em> one path arrives.
-                            <strong>Join (AND):</strong> Bringing parallel paths back together. The process waits until <em>all</em> paths arrive before continuing.
+                            <span class="lang-en"><strong>Merge (XOR):</strong> Bringing alternative paths back together. The process continues when <em>any</em> one path arrives.
+                            <strong>Join (AND):</strong> Bringing parallel paths back together. The process waits until <em>all</em> paths arrive before continuing.</span>
+                            <span class="lang-ar lang-hidden"><strong>Merge (XOR):</strong> إعادة تجميع المسارات البديلة. تستمر العملية عند وصول <em>أي</em> مسار واحد.
+                            <strong>Join (AND):</strong> إعادة تجميع المسارات المتوازية. تنتظر العملية حتى وصول <em>جميع</em> المسارات قبل المتابعة.</span>
                         </p>
                     </div>
 
                     <div class="space-y-2">
                         <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
-                            <i class="fa-solid fa-key mr-2"></i> KEY CONCEPT: Swimlanes
+                            <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">KEY CONCEPT: Swimlanes</span>
+                            <span class="lang-ar lang-hidden">KEY CONCEPT: Swimlanes</span>
                         </h4>
                         <p class="text-sm text-gray-700 dark:text-gray-300">
-                            Activity Diagrams often use <strong>Swimlanes</strong> (vertical or horizontal partitions) to show <em>who</em> (which actor or department) performs which activity. This adds a dimension of responsibility to the flow.
+                            <span class="lang-en">Activity Diagrams often use <strong>Swimlanes</strong> (vertical or horizontal partitions) to show <em>who</em> (which actor or department) performs which activity. This adds a dimension of responsibility to the flow.</span>
+                            <span class="lang-ar lang-hidden">غالباً ما تستخدم الـ Activity Diagrams الـ <strong>Swimlanes (المسارات)</strong> (أقسام رأسية أو أفقية) لإظهار <em>من</em> (أي فاعل أو قسم) يقوم بأي نشاط. هذا يضيف بعداً للمسؤولية إلى التدفق.</span>
                         </p>
                     </div>
                 </div>
@@ -363,21 +489,35 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 6</a>
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
+                <a href="module6.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 6</span>
+                    <span class="lang-ar lang-hidden">Module 6</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">Course Hub</a>
+                <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Course Hub</span>
+                    <span class="lang-ar lang-hidden">Course Hub</span>
+                </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
-                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">Module 8</a>
+                <a href="module8.html" class="text-gray-500 hover:text-brand-500 transition-colors">
+                    <span class="lang-en">Module 8</span>
+                    <span class="lang-ar lang-hidden">Module 8</span>
+                </a>
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</p>
+            <p class="text-gray-400 text-sm">
+                <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 CS Level 5 Digital Garden. صممت للتميز.</span>
+            </p>
         </div>
     </footer>
 
     <script>
+        const langToggleBtn = document.getElementById('lang-toggle');
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -393,46 +533,42 @@
                 localStorage.theme = 'dark';
             }
         });
-    </script>
-<script>
-
-    document.addEventListener("DOMContentLoaded", function() {
 
         
-
-        const path = window.location.pathname;
-
-        
-
-        
-
-        
-
-        const match = path.match(/module(\d+)\.html/);
-
-        
-
-        if (match) {
-
-            const moduleNumber = match[1]; 
-
-            
-
-            
-
-            if (moduleNumber >= 1 && moduleNumber <= 13) {
-
-                localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-
-                console.log(`تم تسجيل إنجاز المودل رقم: ${moduleNumber}`);
-
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
             }
-
+            document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('lang-hidden', lang === 'ar'));
+            document.querySelectorAll('.lang-ar').forEach(el => el.classList.toggle('lang-hidden', lang !== 'ar'));
         }
 
-    });
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
 
-</script>
+        langToggleBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('lang');
+            setLanguage(current === 'en' ? 'ar' : 'en');
+        });
 
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const path = window.location.pathname;
+            const match = path.match(/module(\d+)\.html/);
+            if (match) {
+                const moduleNumber = match[1];
+                if (moduleNumber >= 1 && moduleNumber <= 13) {
+                    localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
+                    console.log(`Module ${moduleNumber} completed.`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
