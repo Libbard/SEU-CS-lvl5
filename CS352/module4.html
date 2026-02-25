@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RVP672LPEY"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -12,7 +11,7 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS352 Module 4: Requirements Determination</title>
+    <title>CS352 Module 4: Project Initiation</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,16 +27,9 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6', 
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         }
                     },
                     fontFamily: {
@@ -51,62 +43,42 @@
 
     <script>
         MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            chtml: { displayAlign: 'left' }  
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         
-        .lang-hidden { 
-            display: none !important; 
-        }
-
+        .lang-hidden { display: none !important; }
         
-        [dir="rtl"] body { 
-            font-family: 'Cairo', sans-serif; 
-        }
-
+        [dir="rtl"] body { font-family: 'Cairo', sans-serif; }
         
-        [dir="rtl"] .code-block,
-        [dir="rtl"] .mermaid,
-        [dir="rtl"] pre,
-        [dir="rtl"] code,
-        [dir="rtl"] .language-sql,
-        [dir="rtl"] .language-javascript,
-        [dir="rtl"] .math-block,
-        [dir="rtl"] .font-mono {
+        
+        [dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] .mermaid, [dir="rtl"] .math-block, 
+        [dir="rtl"] .tech-term, [dir="rtl"] canvas {
             direction: ltr !important;
             text-align: left !important;
             unicode-bidi: bidi-override !important;
+            display: inline-block;
         }
 
         
         [dir="rtl"] .text-left { text-align: right !important; }
         [dir="rtl"] .text-right { text-align: left !important; }
-        
-        
-        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
         [dir="rtl"] .border-l-4 { border-left-width: 0; border-right-width: 4px; }
+        [dir="rtl"] .border-l-2 { border-left-width: 0; border-right-width: 2px; }
         [dir="rtl"] .border-r-4 { border-right-width: 0; border-left-width: 4px; }
-
-        
-        [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
-        [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
-        [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
-        [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
-        [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
-        [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
-        [dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+        [dir="rtl"] .border-r-2 { border-right-width: 0; border-left-width: 2px; }
         [dir="rtl"] .list-inside { padding-right: 0; }
-
         
-        [dir="rtl"] .fa-chevron-left,
-        [dir="rtl"] .fa-chevron-right,
-        [dir="rtl"] .fa-arrow-right,
-        [dir="rtl"] .fa-arrow-left {
+        
+        [dir="rtl"] .fa-chevron-right, [dir="rtl"] .fa-chevron-left, 
+        [dir="rtl"] .fa-arrow-right, [dir="rtl"] .fa-arrow-left,
+        [dir="rtl"] .fa-caret-right {
             transform: scaleX(-1);
         }
 
@@ -171,19 +143,9 @@
         .smart-term:hover::after {
             opacity: 1;
         }
-
-        
-        @keyframes funnel {
-            0% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-            50% { clip-path: polygon(10% 0, 90% 0, 60% 100%, 40% 100%); }
-            100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-        }
-        .funnel-anim:hover {
-            animation: funnel 2s ease-in-out;
-        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen flex flex-col overflow-x-hidden">
 
     <nav class="sticky top-0 z-50 glass border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -205,7 +167,7 @@
                     <i class="fa-solid fa-magnifying-glass text-brand-500"></i>
                     <span class="font-bold text-lg tracking-tight">
                         <span class="lang-en">CS352 System Analysis</span>
-                        <span class="lang-ar lang-hidden">CS352 تحليل النظم</span>
+                        <span class="lang-ar lang-hidden">CS352 تحليل وتصميم النظم</span>
                     </span>
                 </div>
 
@@ -217,12 +179,11 @@
                         </span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </a>
-                    
-                    <button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:ring-2 ring-brand-400 transition-all">
+					
+					<button id="lang-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-earth-americas"></i>
                         <span class="text-xs font-bold ml-1">EN/AR</span>
                     </button>
-
                     <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-yellow-400 hover:ring-2 ring-brand-400 transition-all">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
@@ -232,41 +193,41 @@
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12 w-full">
 
         <header class="text-center space-y-4">
             <div class="inline-flex items-center justify-center p-3 bg-brand-500/10 rounded-full mb-4">
-                <i class="fa-solid fa-clipboard-list text-3xl text-brand-500 funnel-anim"></i>
+                <i class="fa-solid fa-rocket text-3xl text-brand-500"></i>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                <span class="lang-en">Determining <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">System Requirements</span></span>
-                <span class="lang-ar lang-hidden">تحديد <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600">متطلبات النظام (System Requirements)</span></span>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white break-words">
+                <span class="lang-en">Planning: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-blue-600 block sm:inline">Project Initiation</span></span>
+                <span class="lang-ar lang-hidden">التخطيط: <span class="text-transparent bg-clip-text bg-gradient-to-l from-brand-400 to-blue-600 block sm:inline">بدء المشروع (Project Initiation)</span></span>
             </h1>
-            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                <span class="lang-en">"Garbage In, Garbage Out." The success of a system depends entirely on how well we gather, analyze, and structure the requirements.</span>
-                <span class="lang-ar lang-hidden">"ما بُني على باطل فهو باطل" (Garbage In, Garbage Out). يعتمد نجاح النظام كلياً على مدى جودة جمع وتحليل وهيكلة المتطلبات.</span>
+            <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto break-words">
+                <span class="lang-en">Welcome to Module 4. We are crossing the critical threshold from simply identifying a project to rigorously planning its execution. Here, we transform abstract business needs into actionable, structured project plans, evaluating risks, costs, and feasibility before committing organizational resources.</span>
+                <span class="lang-ar lang-hidden">مرحباً بك في الوحدة الرابعة. نحن نعبر العتبة الحاسمة من مجرد تحديد المشروع إلى التخطيط الدقيق لتنفيذه. هنا، نقوم بتحويل احتياجات العمل المجردة إلى خطط مشاريع منظمة، مع تقييم المخاطر، التكاليف، والجدوى قبل تخصيص الموارد التنظيمية.</span>
             </p>
             
             <div class="flex flex-wrap justify-center gap-2 mt-6">
                 <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                    <span class="lang-en">Interviewing</span>
-                    <span class="lang-ar lang-hidden">المقابلات (Interviewing)</span>
+                    <span class="lang-en">Initiation & Planning</span>
+                    <span class="lang-ar lang-hidden">البدء والتخطيط</span>
                 </span>
                 <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                    <span class="lang-en">JAD</span>
-                    <span class="lang-ar lang-hidden">JAD</span>
+                    <span class="lang-en">Feasibility Assessment</span>
+                    <span class="lang-ar lang-hidden">تقييم الجدوى</span>
                 </span>
                 <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                    <span class="lang-en">Prototyping</span>
-                    <span class="lang-ar lang-hidden">النمذجة (Prototyping)</span>
+                    <span class="lang-en">BPP</span>
+                    <span class="lang-ar lang-hidden">BPP</span>
                 </span>
                 <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                    <span class="lang-en">BPR</span>
-                    <span class="lang-ar lang-hidden">BPR</span>
+                    <span class="lang-en">PSS</span>
+                    <span class="lang-ar lang-hidden">PSS</span>
                 </span>
                 <span class="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                    <span class="lang-en">Observation</span>
-                    <span class="lang-ar lang-hidden">المراقبة (Observation)</span>
+                    <span class="lang-en">Cost-Benefit Analysis</span>
+                    <span class="lang-ar lang-hidden">تحليل التكلفة والعائد</span>
                 </span>
             </div>
         </header>
@@ -274,313 +235,495 @@
         <hr class="border-gray-200 dark:border-gray-800">
 
         <section>
-            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
                 <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                    <span class="lang-en">The Requirements Process</span>
-                    <span class="lang-ar lang-hidden">عملية المتطلبات (Requirements Process)</span>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white break-words">
+                    <span class="lang-en">1. The Process of Initiating and Planning (PIP)</span>
+                    <span class="lang-ar lang-hidden">1. عملية البدء والتخطيط (PIP)</span>
                 </h2>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                        <span class="lang-en">The Goal</span>
-                        <span class="lang-ar lang-hidden">الهدف</span>
+            <div class="glass-card p-6 rounded-xl border-l-4 border-l-brand-500 mb-8">
+                <p class="text-sm text-gray-600 dark:text-gray-300 break-words">
+                    <span class="lang-en">A foundational challenge in system development is determining precisely when <span class="smart-term font-bold text-brand-500" data-ar="بدء وتخطيط المشروع">Project Initiation and Planning (PIP)</span> ends and when the actual <em>Analysis</em> phase of the SDLC begins. PIP is not about solving the problem; it is about defining the scope of the problem and ensuring the organization has the capability to solve it.</span>
+                    <span class="lang-ar lang-hidden">من التحديات الأساسية في تطوير النظم هو التحديد الدقيق لمتى تنتهي مرحلة <span class="smart-term font-bold text-brand-500" data-ar="Project Initiation and Planning">بدء وتخطيط المشروع (PIP)</span> ومتى تبدأ مرحلة الـ <em>Analysis</em> (التحليل) الفعلية في الـ SDLC. الـ PIP لا يتعلق بحل المشكلة؛ بل يتعلق بتحديد نطاق المشكلة والتأكد من أن المنظمة لديها القدرة على حلها.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2 break-words">
+                        <span class="lang-en">Project Initiation Tasks</span>
+                        <span class="lang-ar lang-hidden">مهام بدء المشروع (Initiation)</span>
                     </h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                        <span class="lang-en">We gather information on what the system should do from users, reports, forms, and procedures. This information is then transformed into a structured format.</span>
-                        <span class="lang-ar lang-hidden">نجمع المعلومات حول ما يجب أن يفعله النظام من المستخدمين، التقارير، النماذج، والإجراءات. ثم تحول هذه المعلومات إلى صيغة مهيكلة.</span>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 break-words">
+                        <span class="lang-en">Initiation focuses on establishing the environment and team structure.</span>
+                        <span class="lang-ar lang-hidden">يركز البدء على تهيئة بيئة العمل وهيكل الفريق.</span>
                     </p>
-                    <div class="flex items-center justify-between text-xs font-mono bg-gray-100 dark:bg-gray-800 p-3 rounded-lg">
-                        <div class="text-center">
-                            <i class="fa-solid fa-comments text-blue-500 mb-1"></i>
-                            <span class="block">
-                                <span class="lang-en">Requirements Determination</span>
-                                <span class="lang-ar lang-hidden">تحديد المتطلبات</span>
-                            </span>
-                            <span class="text-gray-400">
-                                <span class="lang-en">Gathering</span>
-                                <span class="lang-ar lang-hidden">جمع</span>
-                            </span>
+                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300 break-words">
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Establish the initiation team.</span>
+                            <span class="lang-ar lang-hidden">تشكيل فريق البدء.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Establish the relationship with the customer.</span>
+                            <span class="lang-ar lang-hidden">تأسيس العلاقة مع العميل.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Create the project initiation plan.</span>
+                            <span class="lang-ar lang-hidden">إنشاء خطة بدء المشروع.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Define management procedures & environment.</span>
+                            <span class="lang-ar lang-hidden">تحديد إجراءات وبيئة الإدارة.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-check text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Initialize the project workbook.</span>
+                            <span class="lang-ar lang-hidden">تهيئة سجل أو دليل المشروع (Project Workbook).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 mb-4 border-b border-gray-200 dark:border-gray-700 pb-2 break-words">
+                        <span class="lang-en">Project Planning Tasks</span>
+                        <span class="lang-ar lang-hidden">مهام تخطيط المشروع (Planning)</span>
+                    </h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4 break-words">
+                        <span class="lang-en">Planning focuses on scope, resources, and deliverables.</span>
+                        <span class="lang-ar lang-hidden">يركز التخطيط على النطاق، الموارد، والمخرجات.</span>
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300 break-words">
+                        <li class="flex items-start"><i class="fa-solid fa-tasks text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Describe project scope, alternatives, and feasibility.</span>
+                            <span class="lang-ar lang-hidden">وصف نطاق المشروع، البدائل، والجدوى.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-tasks text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Divide project into tasks and build schedules.</span>
+                            <span class="lang-ar lang-hidden">تقسيم المشروع إلى مهام وبناء الجداول الزمنية.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-tasks text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Estimate resources and create a preliminary budget.</span>
+                            <span class="lang-ar lang-hidden">تقدير الموارد وإنشاء ميزانية أولية.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-tasks text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Identify and assess risk.</span>
+                            <span class="lang-ar lang-hidden">تحديد وتقييم المخاطر.</span>
+                        </li>
+                        <li class="flex items-start"><i class="fa-solid fa-tasks text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i> 
+                            <span class="lang-en">Set the Baseline Project Plan (BPP).</span>
+                            <span class="lang-ar lang-hidden">تحديد خطة المشروع الأساسية (BPP).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <blockquote class="border-l-4 border-brand-500 bg-brand-50 dark:bg-brand-900/20 p-4 rounded-r-lg rtl:rounded-l-lg rtl:rounded-r-none text-gray-700 dark:text-gray-300 italic mb-6 break-words">
+                <strong>
+                    <span class="lang-en">Professor's Insight:</span>
+                    <span class="lang-ar lang-hidden">رؤية البروفيسور:</span>
+                </strong> 
+                <span class="lang-en">Notice the distinct difference between initiation and planning. Initiation is organizational (building the team, setting up the workbook), while planning is analytical (budgeting, scheduling, risk assessment). In the real world, these often blur, but for your exams, keep the deliverables strictly separated.</span>
+                <span class="lang-ar lang-hidden">لاحظ الفرق الواضح بين الـ Initiation والـ Planning. البدء هو تنظيمي (بناء الفريق، إعداد سجل المشروع)، بينما التخطيط هو تحليلي (وضع الميزانية، الجدولة، تقييم المخاطر). في العالم الحقيقي، غالباً ما تتداخل هذه الأمور، ولكن من أجل اختباراتك، احتفظ بالمخرجات منفصلة تماماً.</span>
+            </blockquote>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white break-words">
+                    <span class="lang-en">2. Assessing Project Feasibility</span>
+                    <span class="lang-ar lang-hidden">2. تقييم جدوى المشروع (Feasibility Assessment)</span>
+                </h2>
+            </div>
+            
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-6 glass-card p-4 rounded-xl border-l-4 border-gray-400 break-words">
+                <span class="lang-en">Feasibility is not a single question of "Can we build it?". It is a multi-dimensional analysis spanning six domains: Economic, Technical, Operational, Schedule, Legal/Contractual, and Political.</span>
+                <span class="lang-ar lang-hidden">الجدوى ليست مجرد سؤال واحد "هل يمكننا بناؤه؟". بل هي تحليل متعدد الأبعاد يمتد عبر ستة مجالات: الاقتصادية، الفنية، التشغيلية، الجدول الزمني، القانونية/التعاقدية، والسياسية.</span>
+            </p>
+
+            <div class="mb-10">
+                <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-4 break-words">
+                    <span class="lang-en">A. Economic Feasibility (Cost-Benefit Analysis)</span>
+                    <span class="lang-ar lang-hidden">أ. الجدوى الاقتصادية (تحليل التكلفة والعائد)</span>
+                </h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 break-words">
+                    <span class="lang-en">Also known as Cost-Benefit Analysis, this identifies the financial benefits and costs associated with a project. We must distinguish between various types of costs and benefits:</span>
+                    <span class="lang-ar lang-hidden">تعرف أيضاً بـ Cost-Benefit Analysis، وهي تحدد الفوائد والتكاليف المالية المرتبطة بالمشروع. يجب أن نميز بين الأنواع المختلفة للتكاليف والفوائد:</span>
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-sm">
+                    <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <strong class="text-gray-900 dark:text-white block mb-2 break-words">
+                            <span class="lang-en">Tangible vs. Intangible Benefits</span>
+                            <span class="lang-ar lang-hidden">الفوائد الملموسة مقابل غير الملموسة</span>
+                        </strong>
+                        <p class="text-gray-600 dark:text-gray-400 break-words">
+                            <span class="lang-en"><span class="smart-term font-bold text-brand-500" data-ar="فوائد ملموسة">Tangible benefits</span> can be measured in dollars with certainty (e.g., cost reduction, error reduction, increased speed). Intangible benefits cannot be easily quantified.</span>
+                            <span class="lang-ar lang-hidden">الفوائد الملموسة (<span class="smart-term font-bold text-brand-500" data-ar="Tangible Benefits">Tangible Benefits</span>) يمكن قياسها بالدولار بشكل مؤكد (مثل تقليل التكلفة، تقليل الأخطاء، زيادة السرعة). الفوائد غير الملموسة لا يمكن تحديد كميتها بسهولة.</span>
+                        </p>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <strong class="text-gray-900 dark:text-white block mb-2 break-words">
+                            <span class="lang-en">One-Time vs. Recurring Costs</span>
+                            <span class="lang-ar lang-hidden">التكاليف لمرة واحدة مقابل التكاليف المتكررة</span>
+                        </strong>
+                        <p class="text-gray-600 dark:text-gray-400 break-words">
+                            <span class="lang-en"><span class="smart-term font-bold text-brand-500" data-ar="تكاليف لمرة واحدة">One-time costs</span> occur during start-up (hardware, training). <span class="smart-term font-bold text-brand-500" data-ar="تكاليف متكررة">Recurring costs</span> result from ongoing operation and maintenance.</span>
+                            <span class="lang-ar lang-hidden">التكاليف لمرة واحدة (<span class="smart-term font-bold text-brand-500" data-ar="One-Time Costs">One-Time Costs</span>) تحدث أثناء البدء (الأجهزة، التدريب). التكاليف المتكررة (<span class="smart-term font-bold text-brand-500" data-ar="Recurring Costs">Recurring Costs</span>) تنتج عن التشغيل والصيانة المستمرة.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 mb-6">
+                    <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4 break-words">
+                        <span class="lang-en">Financial Measurements</span>
+                        <span class="lang-ar lang-hidden">المقاييس المالية (Financial Measurements)</span>
+                    </h4>
+                    <div class="space-y-6">
+                        
+                        <div class="flex flex-col md:flex-row items-center justify-between border-b border-gray-200 dark:border-gray-800 pb-4">
+                            <div class="md:w-1/2 pr-4 rtl:pr-0 rtl:pl-4 mb-4 md:mb-0 min-w-0">
+                                <strong class="text-brand-600 dark:text-brand-400 break-words">
+                                    <span class="lang-en">Net Present Value (NPV)</span>
+                                    <span class="lang-ar lang-hidden">صافي القيمة الحالية (NPV)</span>
+                                </strong>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 break-words">
+                                    <span class="lang-en">Calculates the time value of money. Uses a discount rate to determine present value of cash outlays and receipts. NPV is the sum of PVs across years.</span>
+                                    <span class="lang-ar lang-hidden">يحسب القيمة الزمنية للنقود. يستخدم معدل الخصم لتحديد القيمة الحالية للمصروفات والمقبوضات النقدية. الـ NPV هو مجموع القيم الحالية (PVs) عبر السنوات.</span>
+                                </p>
+                            </div>
+                            <div class="md:w-1/2 bg-white dark:bg-gray-900 p-4 rounded-lg text-center overflow-x-auto border border-gray-200 dark:border-gray-700 w-full min-w-0">
+                                $$PV_{n}=Y\times\frac{1}{(1+i)^{n}}$$
+                                <p class="text-xs text-gray-500 mt-2 break-words">
+                                    <span class="lang-en">Where \(Y\) = dollars, \(i\) = discount rate, \(n\) = years.</span>
+                                    <span class="lang-ar lang-hidden">حيث \(Y\) = الدولارات، \(i\) = معدل الخصم، \(n\) = السنوات.</span>
+                                </p>
+                            </div>
                         </div>
-                        <i class="fa-solid fa-arrow-right text-gray-400 rtl:rotate-180"></i>
-                        <div class="text-center">
-                            <i class="fa-solid fa-cubes text-purple-500 mb-1"></i>
-                            <span class="block">
-                                <span class="lang-en">Requirements Structuring</span>
-                                <span class="lang-ar lang-hidden">هيكلة المتطلبات</span>
-                            </span>
-                            <span class="text-gray-400">
-                                <span class="lang-en">Modeling</span>
-                                <span class="lang-ar lang-hidden">نمذجة</span>
-                            </span>
+
+                        <div class="flex flex-col md:flex-row items-center justify-between border-b border-gray-200 dark:border-gray-800 pb-4">
+                            <div class="md:w-1/2 pr-4 rtl:pr-0 rtl:pl-4 mb-4 md:mb-0 min-w-0">
+                                <strong class="text-brand-600 dark:text-brand-400 break-words">
+                                    <span class="lang-en">Return on Investment (ROI)</span>
+                                    <span class="lang-ar lang-hidden">عائد الاستثمار (ROI)</span>
+                                </strong>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 break-words">
+                                    <span class="lang-en">The ratio of cash receipts (benefits) divided by the cash outlays (costs). Used for trade-off analysis among competing projects.</span>
+                                    <span class="lang-ar lang-hidden">نسبة المقبوضات النقدية (الفوائد) مقسومة على المصروفات النقدية (التكاليف). يستخدم لتحليل المفاضلة بين المشاريع المتنافسة.</span>
+                                </p>
+                            </div>
+                            <div class="md:w-1/2 bg-white dark:bg-gray-900 p-4 rounded-lg text-center overflow-x-auto border border-gray-200 dark:border-gray-700 w-full min-w-0">
+                                $$ROI = \frac{Overall~NPV~Cash~Flow}{NPV~of~All~Costs}$$
+                            </div>
                         </div>
+
+                        <div class="flex flex-col md:flex-row items-center justify-between">
+                            <div class="md:w-1/2 pr-4 rtl:pr-0 rtl:pl-4 mb-4 md:mb-0 min-w-0">
+                                <strong class="text-brand-600 dark:text-brand-400 break-words">
+                                    <span class="lang-en">Break-Even Analysis (BEA)</span>
+                                    <span class="lang-ar lang-hidden">تحليل نقطة التعادل (BEA)</span>
+                                </strong>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 break-words">
+                                    <span class="lang-en">Identifies the point in time when cumulative benefits equal initial and ongoing investment costs.</span>
+                                    <span class="lang-ar lang-hidden">يحدد النقطة الزمنية التي تتساوى فيها الفوائد التراكمية مع تكاليف الاستثمار الأولية والمستمرة.</span>
+                                </p>
+                            </div>
+                            <div class="md:w-1/2 bg-white dark:bg-gray-900 p-4 rounded-lg text-center overflow-x-auto border border-gray-200 dark:border-gray-700 w-full min-w-0">
+                                $$Break-Even~Ratio=\frac{Yearly~NPV~Cash~Flow - Overall~NPV~Cash~Flow}{Yearly~NPV~Cash~Flow}$$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl text-center">
+                    <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300 mb-4 uppercase tracking-wider break-words">
+                        <span class="lang-en">Interactive Break-Even Projection</span>
+                        <span class="lang-ar lang-hidden">توقع نقطة التعادل التفاعلي</span>
+                    </h4>
+                    <div class="relative h-64 w-full min-w-0" dir="ltr"> <canvas id="beaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-4 break-words">
+                    <span class="lang-en">B. Technical Feasibility & Risk</span>
+                    <span class="lang-ar lang-hidden">ب. الجدوى الفنية والمخاطر (Technical Feasibility & Risk)</span>
+                </h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 break-words">
+                    <span class="lang-en">Assesses the organization's ability to construct the proposed system and accounts for project risk factors. If risk is not managed, consequences include inaccurate estimates, failure to achieve performance levels, or integration failures.</span>
+                    <span class="lang-ar lang-hidden">يُقيِّم قدرة المنظمة على بناء النظام المقترح ويأخذ في الاعتبار عوامل مخاطر المشروع. إذا لم تتم إدارة المخاطر، تشمل العواقب تقديرات غير دقيقة، فشل في تحقيق مستويات الأداء، أو إخفاقات في التكامل.</span>
+                </p>
+                
+                <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 mb-6 bg-white dark:bg-gray-900 min-w-0">
+                    <table class="min-w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-300">
+                        <thead class="bg-gray-100 dark:bg-gray-800 font-bold text-brand-600 dark:text-brand-400">
+                            <tr>
+                                <th class="px-6 py-3 border-b border-gray-200 dark:border-gray-700 border-r rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Familiarity with Tech</span>
+                                    <span class="lang-ar lang-hidden">الإلمام بالتقنية</span>
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 dark:border-gray-700 border-r rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Project Structure</span>
+                                    <span class="lang-ar lang-hidden">هيكل المشروع</span>
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 dark:border-gray-700 border-r rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Small Project</span>
+                                    <span class="lang-ar lang-hidden">مشروع صغير</span>
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 dark:border-gray-700 break-words">
+                                    <span class="lang-en">Large Project</span>
+                                    <span class="lang-ar lang-hidden">مشروع كبير</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words" rowspan="2">
+                                    <span class="lang-en">High Familiarity</span>
+                                    <span class="lang-ar lang-hidden">إلمام عالي</span>
+                                </td>
+                                <td class="px-6 py-4 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">High Structure</span>
+                                    <span class="lang-ar lang-hidden">هيكل عالي التنظيم</span>
+                                </td>
+                                <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Low Risk (1)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة منخفضة (1)</span>
+                                </td>
+                                <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold break-words">
+                                    <span class="lang-en">Low Risk (2)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة منخفضة (2)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Low Structure</span>
+                                    <span class="lang-ar lang-hidden">هيكل منخفض التنظيم</span>
+                                </td>
+                                <td class="px-6 py-4 text-green-600 dark:text-green-400 font-semibold border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Very Low Risk (3)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة منخفضة جداً (3)</span>
+                                </td>
+                                <td class="px-6 py-4 text-yellow-600 dark:text-yellow-400 font-semibold break-words">
+                                    <span class="lang-en">Low Risk (Very susceptible to mismanagement) (4)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة منخفضة (ולكن معرض بشدة لسوء الإدارة) (4)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 font-bold text-gray-900 dark:text-white border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words" rowspan="2">
+                                    <span class="lang-en">Low Familiarity</span>
+                                    <span class="lang-ar lang-hidden">إلمام منخفض</span>
+                                </td>
+                                <td class="px-6 py-4 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">High Structure</span>
+                                    <span class="lang-ar lang-hidden">هيكل عالي التنظيم</span>
+                                </td>
+                                <td class="px-6 py-4 text-yellow-600 dark:text-yellow-400 font-semibold border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Medium-Low Risk (8)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة متوسطة-منخفضة (8)</span>
+                                </td>
+                                <td class="px-6 py-4 text-orange-500 font-semibold break-words">
+                                    <span class="lang-en">Medium Risk (6)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة متوسطة (6)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">Low Structure</span>
+                                    <span class="lang-ar lang-hidden">هيكل منخفض التنظيم</span>
+                                </td>
+                                <td class="px-6 py-4 text-orange-500 font-semibold border-r border-gray-200 dark:border-gray-700 rtl:border-l rtl:border-r-0 break-words">
+                                    <span class="lang-en">High Risk (7)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة عالية (7)</span>
+                                </td>
+                                <td class="px-6 py-4 text-red-600 dark:text-red-400 font-semibold break-words">
+                                    <span class="lang-en">Very High Risk (5)</span>
+                                    <span class="lang-ar lang-hidden">مخاطرة عالية جداً (5)</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="text-xs text-gray-500 p-2 text-center bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 break-words">
+                        <span class="lang-en">Effects of structure, size, and familiarity on project risk.</span>
+                        <span class="lang-ar lang-hidden">تأثير الهيكل، الحجم، والإلمام على مخاطر المشروع.</span>
+                    </p>
+                </div>
+
+                <div class="p-4 bg-blue-50 dark:bg-brand-900/20 rounded-xl border border-blue-100 dark:border-brand-800 text-sm">
+                    <strong class="text-gray-900 dark:text-white block mb-1 break-words">
+                        <span class="lang-en">Other Feasibility Concerns:</span>
+                        <span class="lang-ar lang-hidden">اهتمامات الجدوى الأخرى:</span>
+                    </strong> 
+                    <p class="text-gray-600 dark:text-gray-300 break-words whitespace-normal">
+                        <span class="font-bold text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">Operational</span>
+                            <span class="lang-ar lang-hidden">التشغيلية</span>
+                        </span> 
+                        <span class="lang-en">(does it solve the business problem?),</span>
+                        <span class="lang-ar lang-hidden">(هل تحل مشكلة العمل؟)،</span>
+                        
+                        <span class="font-bold text-brand-600 dark:text-brand-400 ml-2 rtl:mr-2 rtl:ml-0">
+                            <span class="lang-en">Schedule</span>
+                            <span class="lang-ar lang-hidden">الجدول الزمني</span>
+                        </span> 
+                        <span class="lang-en">(can we meet organizational deadlines?),</span>
+                        <span class="lang-ar lang-hidden">(هل يمكننا تلبية المواعيد النهائية للمنظمة؟)،</span>
+                        
+                        <span class="font-bold text-brand-600 dark:text-brand-400 ml-2 rtl:mr-2 rtl:ml-0">
+                            <span class="lang-en">Legal/Contractual</span>
+                            <span class="lang-ar lang-hidden">القانونية/التعاقدية</span>
+                        </span> 
+                        <span class="lang-en">(copyright, data transfer laws),</span>
+                        <span class="lang-ar lang-hidden">(حقوق النشر، قوانين نقل البيانات)،</span>
+                        
+                        <span class="lang-en">and</span>
+                        <span class="lang-ar lang-hidden">و</span>
+                        <span class="font-bold text-brand-600 dark:text-brand-400">
+                            <span class="lang-en">Political</span>
+                            <span class="lang-ar lang-hidden">السياسية</span>
+                        </span> 
+                        <span class="lang-en">(how do key stakeholders view it?).</span>
+                        <span class="lang-ar lang-hidden">(كيف ينظر إليها أصحاب المصلحة الرئيسيون؟).</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center space-x-3 rtl:space-x-reverse mb-6">
+                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white break-words">
+                    <span class="lang-en">3. The Key Deliverables: BPP and PSS</span>
+                    <span class="lang-ar lang-hidden">3. المخرجات الرئيسية: BPP و PSS</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="glass-card p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-3 border-b border-gray-200 dark:border-gray-700 pb-2 break-words">
+                        <span class="lang-en">Baseline Project Plan (BPP)</span>
+                        <span class="lang-ar lang-hidden">خطة المشروع الأساسية (BPP)</span>
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 break-words">
+                        <span class="lang-en">A major deliverable containing the best estimate of scope, benefits, costs, risks, and resources. All info collected during PIP is organized here.</span>
+                        <span class="lang-ar lang-hidden">مُخرج رئيسي يحتوي على أفضل تقدير للنطاق، الفوائد، التكاليف، المخاطر، والموارد. كل المعلومات التي تم جمعها خلال PIP يتم تنظيمها هنا.</span>
+                    </p>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 text-sm">
+                        <strong class="text-gray-900 dark:text-white block mb-2 break-words">
+                            <span class="lang-en">Structure:</span>
+                            <span class="lang-ar lang-hidden">الهيكل (Structure):</span>
+                        </strong>
+                        <ol class="list-decimal pl-5 rtl:pr-5 rtl:pl-0 space-y-2 text-gray-600 dark:text-gray-300 break-words">
+                            <li><strong>
+                                <span class="lang-en">Introduction:</span>
+                                <span class="lang-ar lang-hidden">المقدمة:</span>
+                            </strong> 
+                                <span class="lang-en">Executive summary, project overview, recommendations.</span>
+                                <span class="lang-ar lang-hidden">الملخص التنفيذي، نظرة عامة على المشروع، التوصيات.</span>
+                            </li>
+                            <li><strong>
+                                <span class="lang-en">System Description:</span>
+                                <span class="lang-ar lang-hidden">وصف النظام:</span>
+                            </strong> 
+                                <span class="lang-en">Alternatives and selected configuration.</span>
+                                <span class="lang-ar lang-hidden">البدائل والتشكيل (Configuration) المختار.</span>
+                            </li>
+                            <li><strong>
+                                <span class="lang-en">Feasibility Assessment:</span>
+                                <span class="lang-ar lang-hidden">تقييم الجدوى:</span>
+                            </strong> 
+                                <span class="lang-en">Economic, Technical, Operational, Legal, Political, and Schedule analysis.</span>
+                                <span class="lang-ar lang-hidden">التحليل الاقتصادي، الفني، التشغيلي، القانوني، السياسي، والجدول الزمني.</span>
+                            </li>
+                            <li><strong>
+                                <span class="lang-en">Management Issues:</span>
+                                <span class="lang-ar lang-hidden">قضايا الإدارة:</span>
+                            </strong> 
+                                <span class="lang-en">Team configuration, communication plan, project standards.</span>
+                                <span class="lang-ar lang-hidden">تكوين الفريق، خطة التواصل، معايير المشروع.</span>
+                            </li>
+                        </ol>
                     </div>
                 </div>
 
                 <div class="glass-card p-6 rounded-xl">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                        <span class="lang-en">Deliverables</span>
-                        <span class="lang-ar lang-hidden">المخرجات (Deliverables)</span>
+                    <h3 class="text-xl font-bold text-brand-600 dark:text-brand-400 mb-3 border-b border-gray-200 dark:border-gray-700 pb-2 break-words">
+                        <span class="lang-en">Project Scope Statement (PSS)</span>
+                        <span class="lang-ar lang-hidden">بيان نطاق المشروع (PSS)</span>
                     </h3>
-                    <ul class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-file-lines text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
-                            <div>
-                                <strong>
-                                    <span class="lang-en">Information Collected:</span>
-                                    <span class="lang-ar lang-hidden">المعلومات المجموعة:</span>
-                                </strong>
-                                <span class="text-xs block text-gray-500">
-                                    <span class="lang-en">Interview transcripts, observation notes, meeting minutes.</span>
-                                    <span class="lang-ar lang-hidden">نصوص المقابلات، ملاحظات المراقبة، محاضر الاجتماعات.</span>
-                                </span>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-file-contract text-brand-500 mt-1 mr-2 rtl:ml-2 rtl:mr-0"></i>
-                            <div>
-                                <strong>
-                                    <span class="lang-en">Understanding:</span>
-                                    <span class="lang-ar lang-hidden">الفهم:</span>
-                                </strong>
-                                <span class="text-xs block text-gray-500">
-                                    <span class="lang-en">Business mission, objectives, and information processing needs.</span>
-                                    <span class="lang-ar lang-hidden">مهمة العمل، الأهداف، واحتياجات معالجة المعلومات.</span>
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
-                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                    <span class="lang-en">Traditional Methods</span>
-                    <span class="lang-ar lang-hidden">الأساليب التقليدية</span>
-                </h2>
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 p-2 rounded-lg mr-3 rtl:mr-0 rtl:ml-3">
-                            <i class="fa-solid fa-microphone-lines"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
-                            <span class="lang-en">1. Interviewing</span>
-                            <span class="lang-ar lang-hidden">1. المقابلات (Interviewing)</span>
-                        </h3>
-                    </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                        <span class="lang-en">The primary way analysts gather information. Can be Individual or Group.</span>
-                        <span class="lang-ar lang-hidden">الطريقة الأساسية التي يجمع بها المحللون المعلومات. يمكن أن تكون فردية أو جماعية.</span>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 break-words">
+                        <span class="lang-en">A document prepared for the customer describing what the project will deliver and outlining all required work at a high level.</span>
+                        <span class="lang-ar lang-hidden">وثيقة مُعدة للعميل تصف ما سيقدمه المشروع وتحدد جميع الأعمال المطلوبة على مستوى عالٍ (High Level).</span>
                     </p>
-                    
-                    <div class="grid md:grid-cols-2 gap-4 text-sm">
-                        <div class="p-3 bg-gray-50 dark:bg-gray-900 rounded border-l-2 border-green-500 rtl:border-l-0 rtl:border-r-2">
-                            <strong class="block text-green-600 dark:text-green-400 mb-1">
-                                <span class="lang-en">Open-Ended Questions</span>
-                                <span class="lang-ar lang-hidden">أسئلة مفتوحة</span>
-                            </strong>
-                            <p class="text-xs">
-                                <span class="lang-en">"What do you think about...?"</span>
-                                <span class="lang-ar lang-hidden">"ما رأيك في...؟"</span>
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">
-                                <span class="lang-en">PRO: Breadth of detail. CON: Hard to analyze.</span>
-                                <span class="lang-ar lang-hidden">إيجابيات: تفاصيل واسعة. سلبيات: صعبة التحليل.</span>
-                            </p>
-                        </div>
-                        <div class="p-3 bg-gray-50 dark:bg-gray-900 rounded border-l-2 border-red-500 rtl:border-l-0 rtl:border-r-2">
-                            <strong class="block text-red-600 dark:text-red-400 mb-1">
-                                <span class="lang-en">Closed-Ended Questions</span>
-                                <span class="lang-ar lang-hidden">أسئلة مغلقة</span>
-                            </strong>
-                            <p class="text-xs">
-                                <span class="lang-en">"Do you use option A or B?"</span>
-                                <span class="lang-ar lang-hidden">"هل تستخدم الخيار أ أم ب؟"</span>
-                            </p>
-                            <p class="text-xs text-gray-500 mt-1">
-                                <span class="lang-en">PRO: Easy to analyze. CON: Limited info.</span>
-                                <span class="lang-ar lang-hidden">إيجابيات: سهلة التحليل. سلبيات: معلومات محدودة.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="glass-card p-5 rounded-xl">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
-                            <i class="fa-solid fa-eye text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
-                            <span class="lang-en">2. Direct Observation</span>
-                            <span class="lang-ar lang-hidden">2. المراقبة المباشرة (Direct Observation)</span>
-                        </h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-400">
-                            <span class="lang-en">Watching users work. Validates what they *say* vs what they *do*.</span>
-                            <span class="lang-ar lang-hidden">مراقبة المستخدمين أثناء العمل. التحقق مما *يقولون* مقابل ما *يفعلون*.</span>
-                            <br>
-                            <strong class="text-brand-500">
-                                <span class="lang-en">Risk:</span>
-                                <span class="lang-ar lang-hidden">خطر:</span>
-                            </strong> 
-                            <span class="lang-en">Hawthorne Effect (people behave differently when watched).</span>
-                            <span class="lang-ar lang-hidden">تأثير هاوثورن (يتصرف الناس بشكل مختلف عند مراقبتهم).</span>
-                        </p>
-                    </div>
-                    <div class="glass-card p-5 rounded-xl">
-                        <h4 class="font-bold text-gray-900 dark:text-white mb-2">
-                            <i class="fa-solid fa-folder-open text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
-                            <span class="lang-en">3. Document Analysis</span>
-                            <span class="lang-ar lang-hidden">3. تحليل الوثائق (Document Analysis)</span>
-                        </h4>
-                        <p class="text-xs text-gray-600 dark:text-gray-400">
-                            <span class="lang-en">Reviewing forms, reports, and manuals. Helps understand the "Formal System" vs the "Informal System" and find gaps.</span>
-                            <span class="lang-ar lang-hidden">مراجعة النماذج والتقارير والأدلة. تساعد في فهم "النظام الرسمي" مقابل "النظام غير الرسمي" وإيجاد الثغرات.</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
-                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                    <span class="lang-en">Modern Methods</span>
-                    <span class="lang-ar lang-hidden">الأساليب الحديثة</span>
-                </h2>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="glass-card p-6 rounded-xl border-t-4 border-purple-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                        <span class="lang-en">JAD (Joint Application Design)</span>
-                        <span class="lang-ar lang-hidden">JAD (التصميم المشترك للتطبيقات)</span>
-                    </h3>
-                    
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-4">
-                        <span class="lang-en">Intensive group-oriented requirements determination technique. Team members meet in isolation for an extended period.</span>
-                        <span class="lang-ar lang-hidden">تقنية مكثفة لتحديد المتطلبات موجهة للمجموعات. يجتمع أعضاء الفريق في عزلة لفترة ممتدة.</span>
-                    </p>
-                    <div class="space-y-2 text-xs">
-                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-1">
-                            <span><strong><span class="lang-en">Session Leader:</span><span class="lang-ar lang-hidden">قائد الجلسة:</span></strong></span>
-                            <span class="text-gray-500"><span class="lang-en">Facilitates, neutral.</span><span class="lang-ar lang-hidden">ميسر، محايد.</span></span>
-                        </div>
-                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-1">
-                            <span><strong><span class="lang-en">Scribe:</span><span class="lang-ar lang-hidden">الكاتب:</span></strong></span>
-                            <span class="text-gray-500"><span class="lang-en">Takes notes (CASE tools).</span><span class="lang-ar lang-hidden">يدون الملاحظات (أدوات CASE).</span></span>
-                        </div>
-                        <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-1">
-                            <span><strong><span class="lang-en">Users/Managers:</span><span class="lang-ar lang-hidden">المستخدمون/المدراء:</span></strong></span>
-                            <span class="text-gray-500"><span class="lang-en">Active participants.</span><span class="lang-ar lang-hidden">مشاركون نشطون.</span></span>
-                        </div>
-                    </div>
-                    <p class="text-xs text-green-600 dark:text-green-400 mt-2 font-bold">
-                        <span class="lang-en">Goal: Resolve conflicts fast & build consensus.</span>
-                        <span class="lang-ar lang-hidden">الهدف: حل النزاعات بسرعة وبناء التوافق.</span>
-                    </p>
-                </div>
-
-                <div class="glass-card p-6 rounded-xl border-t-4 border-cyan-500">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                        <span class="lang-en">Prototyping</span>
-                        <span class="lang-ar lang-hidden">النمذجة (Prototyping)</span>
-                    </h3>
-                    
-                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-4">
-                        <span class="lang-en">Iterative process of building a rudimentary version of the system.</span>
-                        <span class="lang-ar lang-hidden">عملية تكرارية لبناء نسخة أولية من النظام.</span>
-                    </p>
-                    <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-2 list-disc list-inside">
-                        <li>
-                            <span class="lang-en"><strong>Evolutionary:</strong> Prototype becomes the final system.</span>
-                            <span class="lang-ar lang-hidden"><strong>تطوري (Evolutionary):</strong> يصبح النموذج هو النظام النهائي.</span>
-                        </li>
-                        <li>
-                            <span class="lang-en"><strong>Throwaway:</strong> Prototype helps define reqs, then discarded.</span>
-                            <span class="lang-ar lang-hidden"><strong>للاستبعاد (Throwaway):</strong> يساعد النموذج في تحديد المتطلبات، ثم يتم التخلص منه.</span>
-                        </li>
-                    </ul>
-                    <div class="mt-4 p-2 bg-gray-100 dark:bg-gray-900 rounded text-xs">
-                        <strong class="text-cyan-600">
-                            <span class="lang-en">Best when:</span>
-                            <span class="lang-ar lang-hidden">الأفضل عندما:</span>
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 text-sm mb-6 break-words">
+                        <strong class="text-gray-900 dark:text-white block mb-2">
+                            <span class="lang-en">Structure:</span>
+                            <span class="lang-ar lang-hidden">الهيكل (Structure):</span>
                         </strong>
-                        <span class="lang-en">Requirements are not well understood or communication problems exist.</span>
-                        <span class="lang-ar lang-hidden">المتطلبات غير مفهومة جيداً أو توجد مشاكل في الاتصال.</span>
+                        <ul class="list-disc pl-5 rtl:pr-5 rtl:pl-0 space-y-1 text-gray-600 dark:text-gray-300">
+                            <li>
+                                <span class="lang-en">Problem statement</span>
+                                <span class="lang-ar lang-hidden">بيان المشكلة</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Project objectives</span>
+                                <span class="lang-ar lang-hidden">أهداف المشروع</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Project description</span>
+                                <span class="lang-ar lang-hidden">وصف المشروع</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Business benefits</span>
+                                <span class="lang-ar lang-hidden">فوائد العمل</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Deliverables</span>
+                                <span class="lang-ar lang-hidden">المخرجات (Deliverables)</span>
+                            </li>
+                            <li>
+                                <span class="lang-en">Expected duration</span>
+                                <span class="lang-ar lang-hidden">المدة المتوقعة</span>
+                            </li>
+                        </ul>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <section>
-            <div class="flex items-center space-x-3 mb-6 rtl:space-x-reverse">
-                <div class="h-8 w-1 bg-brand-500 rounded-full"></div>
-                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                    <span class="lang-en">Radical Methods</span>
-                    <span class="lang-ar lang-hidden">الأساليب الجذرية</span>
-                </h2>
-            </div>
-
-            <div class="glass-card p-6 rounded-xl">
-                <div class="flex items-start">
-                    <div class="bg-red-100 dark:bg-red-900/30 text-red-600 p-3 rounded-lg mr-4 rtl:mr-0 rtl:ml-4">
-                        <i class="fa-solid fa-bomb"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
-                            <span class="lang-en">BPR (Business Process Reengineering)</span>
-                            <span class="lang-ar lang-hidden">BPR (إعادة هندسة العمليات التجارية)</span>
-                        </h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                            <span class="lang-en">The search for, and implementation of, radical change in business processes to achieve breakthrough improvements.</span>
-                            <span class="lang-ar lang-hidden">البحث عن، وتنفيذ، تغيير جذري في العمليات التجارية لتحقيق تحسينات هائلة.</span>
-                        </p>
-                        <p class="text-xs text-gray-500 italic">
-                            <span class="lang-en">"Obliterate, don't automate."</span>
-                            <span class="lang-ar lang-hidden">"امحُ، لا تؤتمت."</span>
-                        </p>
-                        
-                        <div class="mt-4 grid grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-900 p-3 rounded border border-gray-200 dark:border-gray-700 text-xs">
-                            <div>
-                                <span class="font-bold block text-gray-900 dark:text-white">
-                                    <span class="lang-en">Key Technologies</span>
-                                    <span class="lang-ar lang-hidden">تقنيات رئيسية</span>
-                                </span>
-                                <ul class="list-disc list-inside text-gray-500 mt-1">
-                                    <li>
-                                        <span class="lang-en">Disruptive Technologies</span>
-                                        <span class="lang-ar lang-hidden">التقنيات المزعزعة</span>
-                                    </li>
-                                    <li>
-                                        <span class="lang-en">Databases & Networks</span>
-                                        <span class="lang-ar lang-hidden">قواعد البيانات والشبكات</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div>
-                                <span class="font-bold block text-gray-900 dark:text-white">
-                                    <span class="lang-en">Examples</span>
-                                    <span class="lang-ar lang-hidden">أمثلة</span>
-                                </span>
-                                <ul class="list-disc list-inside text-gray-500 mt-1">
-                                    <li>
-                                        <span class="lang-en">Ford Accounts Payable</span>
-                                        <span class="lang-ar lang-hidden">حسابات فورد الدائنة</span>
-                                    </li>
-                                    <li>
-                                        <span class="lang-en">Mutual Benefit Life</span>
-                                        <span class="lang-ar lang-hidden">Mutual Benefit Life</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <h4 class="text-md font-bold text-gray-900 dark:text-white mb-2 break-words">
+                        <i class="fa-solid fa-users text-brand-500 mr-2 rtl:ml-2 rtl:mr-0"></i>
+                        <span class="lang-en">Reviewing: Structured Walk-through</span>
+                        <span class="lang-ar lang-hidden">المراجعة: الجولة المنظمة (Structured Walk-through)</span>
+                    </h4>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-3 break-words">
+                        <span class="lang-en">A peer group review of any product created during the systems development process. Applies to BPP, code, manuals, etc.</span>
+                        <span class="lang-ar lang-hidden">مراجعة مجموعة الأقران لأي منتج تم إنشاؤه أثناء عملية تطوير النظم. ينطبق على الـ BPP، الأكواد، الأدلة، إلخ.</span>
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs font-mono">
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-200 break-words">
+                            <span class="lang-en">Coordinator</span>
+                            <span class="lang-ar lang-hidden">المنسق</span>
+                        </span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-200 break-words">
+                            <span class="lang-en">Presenter</span>
+                            <span class="lang-ar lang-hidden">المقدم</span>
+                        </span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-200 break-words">
+                            <span class="lang-en">User</span>
+                            <span class="lang-ar lang-hidden">المستخدم</span>
+                        </span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-200 break-words">
+                            <span class="lang-en">Secretary</span>
+                            <span class="lang-ar lang-hidden">الكاتب</span>
+                        </span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-200 break-words">
+                            <span class="lang-en">Standard-Bearer</span>
+                            <span class="lang-ar lang-hidden">حامل المعايير</span>
+                        </span>
+                        <span class="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-gray-700 dark:text-gray-200 break-words">
+                            <span class="lang-en">Maintenance Oracle</span>
+                            <span class="lang-ar lang-hidden">خبير الصيانة</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -588,18 +731,17 @@
 
         <section class="relative mt-12">
             <div class="absolute inset-0 bg-yellow-500/5 dark:bg-yellow-500/10 rounded-xl pointer-events-none"></div>
-            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-hidden shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+            <div class="relative border-2 border-yellow-400 dark:border-yellow-600 rounded-xl p-8 overflow-x-auto shadow-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
                 
-                <div class="flex items-center space-x-4 mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4 rtl:space-x-reverse">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6 border-b border-yellow-200 dark:border-yellow-800 pb-4">
                     <div class="bg-yellow-500 text-white p-3 rounded-lg shadow-lg">
                         <i class="fa-solid fa-vault text-2xl"></i>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+                    <div class="min-w-0"> <h2 class="text-2xl font-bold text-gray-900 dark:text-white break-words whitespace-normal">
                             <span class="lang-en">The Exam Vault</span>
-                            <span class="lang-ar lang-hidden">خزنة الاختبار</span>
+                            <span class="lang-ar lang-hidden">خزنة الاختبارات</span>
                         </h2>
-                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider">
+                        <p class="text-yellow-700 dark:text-yellow-500 text-sm font-semibold uppercase tracking-wider break-words whitespace-normal">
                             <span class="lang-en">Professor's Secrets & Trap Avoidance</span>
                             <span class="lang-ar lang-hidden">أسرار البروفيسور وتجنب الفخاخ</span>
                         </p>
@@ -607,57 +749,47 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                    <div class="space-y-2 min-w-0"> <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center break-words whitespace-normal">
                             <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
-                            <span class="lang-en">TRAP: Interviewing vs JAD</span>
-                            <span class="lang-ar lang-hidden">فخ: المقابلات مقابل JAD</span>
+                            <span class="lang-en">TRAP: BPP vs. PSS Distinctions</span>
+                            <span class="lang-ar lang-hidden">فخ: التمييز بين BPP و PSS</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <span class="lang-en"><strong>Interviewing</strong> is time-consuming and can lead to conflicting requirements (one person says X, another says Y).
-                            <strong>JAD</strong> solves conflicts *during* the session but is expensive (key people off-site for days). Know the trade-off.</span>
-                            <span class="lang-ar lang-hidden"><strong>المقابلات</strong> تستغرق وقتاً طويلاً وقد تؤدي إلى متطلبات متعارضة (شخص يقول س، وآخر يقول ص).
-                            <strong>JAD</strong> تحل النزاعات *أثناء* الجلسة لكنها مكلفة (أشخاص رئيسيون خارج الموقع لأيام). اعرف المقايضة.</span>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en">A classic trick question asks where internal team structures are documented. Remember: The <strong>PSS</strong> is for the <em>customer</em> (focuses on high-level deliverables and problem statements). The <strong>BPP</strong> is internal and comprehensive (contains Management Issues like team configurations and deep risk analysis). If the question mentions "customer document", the answer is PSS.</span>
+                            <span class="lang-ar lang-hidden">سؤال خادع كلاسيكي يسأل أين يتم توثيق هياكل الفريق الداخلية. تذكر: الـ <strong>PSS</strong> مخصص للـ <em>العميل</em> (يركز على المخرجات عالية المستوى وبيانات المشكلة). بينما الـ <strong>BPP</strong> هو داخلي وشامل (يحتوي على قضايا الإدارة مثل تكوينات الفريق وتحليل المخاطر العميق). إذا ذكر السؤال "وثيقة للعميل"، الإجابة هي PSS.</span>
                         </p>
                     </div>
 
-                    <div class="space-y-2">
-                        <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center">
+                    <div class="space-y-2 min-w-0"> <h4 class="font-bold text-rose-600 dark:text-rose-400 flex items-center break-words whitespace-normal">
                             <i class="fa-solid fa-triangle-exclamation mr-2 rtl:ml-2 rtl:mr-0"></i> 
-                            <span class="lang-en">TRAP: Prototyping Drawbacks</span>
-                            <span class="lang-ar lang-hidden">فخ: عيوب النمذجة (Prototyping)</span>
+                            <span class="lang-en">TRAP: Tangible vs Intangible Trap</span>
+                            <span class="lang-ar lang-hidden">فخ: الملموس مقابل غير الملموس</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <span class="lang-en">Prototyping is great, but it has a hidden trap: <strong>Skipping Validation</strong>. Users might see a working prototype and assume the system is "done," ignoring reliability, security, and performance checks.</span>
-                            <span class="lang-ar lang-hidden">النمذجة رائعة، لكن بها فخ خفي: <strong>تخطي التحقق</strong>. قد يرى المستخدمون نموذجاً يعمل ويفترضون أن النظام "انتهى"، متجاهلين فحوصات الموثوقية والأمن والأداء.</span>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en">"Increased speed of activity" and "Improvement of management planning" sound intangible, but in Cost-Benefit Analysis, these are explicitly categorized as <strong>Tangible Benefits</strong>. Do not let the wording fool you on multiple-choice questions.</span>
+                            <span class="lang-ar lang-hidden">"زيادة سرعة النشاط" و "تحسين التخطيط الإداري" تبدو وكأنها غير ملموسة، ولكن في تحليل التكلفة والعائد (Cost-Benefit Analysis)، يتم تصنيفها صراحة كـ <strong>Tangible Benefits</strong> (فوائد ملموسة). لا تدع الصياغة تخدعك في أسئلة الخيارات المتعددة.</span>
                         </p>
                     </div>
 
-                    <div class="space-y-2">
-                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                    <div class="space-y-2 min-w-0"> <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center break-words whitespace-normal">
                             <i class="fa-solid fa-user-secret mr-2 rtl:ml-2 rtl:mr-0"></i> 
-                            <span class="lang-en">SECRET: The Hawthorne Effect</span>
-                            <span class="lang-ar lang-hidden">سر: تأثير هاوثورن (Hawthorne Effect)</span>
+                            <span class="lang-en">SECRET: The Risk Matrix Edge Case</span>
+                            <span class="lang-ar lang-hidden">سر: حالة الحافة في مصفوفة المخاطر</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <span class="lang-en">When observing users, they often perform better or differently simply *because they are being watched*. This biases your data. Always mention this limitation when discussing Observation.</span>
-                            <span class="lang-ar lang-hidden">عند مراقبة المستخدمين، غالباً ما يؤدون بشكل أفضل أو مختلف ببساطة *لأنهم مراقبون*. هذا يحيز بياناتك. اذكر دائماً هذا القيد عند مناقشة المراقبة.</span>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en">Look at the Technical Feasibility Risk Matrix. Notice that a "Large Project" with "High Familiarity" but "Low Structure" is considered <strong>Low risk (Very susceptible to mismanagement)</strong>. Mismanagement is the key keyword here—high familiarity breeds overconfidence if structure is lacking.</span>
+                            <span class="lang-ar lang-hidden">انظر إلى مصفوفة مخاطر الجدوى الفنية. لاحظ أن "مشروع كبير" مع "إلمام عالي" ولكن "هيكل منخفض" يُعتبر <strong>مخاطرة منخفضة (Low risk) ولكن معرض بشدة لسوء الإدارة</strong>. سوء الإدارة (Mismanagement) هي الكلمة المفتاحية هنا — الإلمام العالي يولد ثقة مفرطة إذا غاب الهيكل.</span>
                         </p>
                     </div>
 
-                    <div class="space-y-2">
-                        <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center">
+                    <div class="space-y-2 min-w-0"> <h4 class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center break-words whitespace-normal">
                             <i class="fa-solid fa-key mr-2 rtl:ml-2 rtl:mr-0"></i> 
-                            <span class="lang-en">KEY CONCEPT: Formal vs Informal Systems</span>
-                            <span class="lang-ar lang-hidden">مفهوم مفتاحي: الأنظمة الرسمية مقابل غير الرسمية</span>
+                            <span class="lang-en">KEY CONCEPT: Walk-through Roles</span>
+                            <span class="lang-ar lang-hidden">مفهوم أساسي: أدوار الـ Walk-through</span>
                         </h4>
-                        <p class="text-sm text-gray-700 dark:text-gray-300">
-                            <span class="lang-en"><strong>Formal:</strong> What the procedure manual says (Document Analysis).
-                            <strong>Informal:</strong> How people actually do the work (Observation).
-                            The gap between these two is where requirements usually hide.</span>
-                            <span class="lang-ar lang-hidden"><strong>الرسمي:</strong> ما يقوله دليل الإجراءات (تحليل الوثائق).
-                            <strong>غير الرسمي:</strong> كيف يقوم الناس بالعمل فعلياً (المراقبة).
-                            الفجوة بين الاثنين هي المكان الذي تختبئ فيه المتطلبات عادة.</span>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 break-words whitespace-normal">
+                            <span class="lang-en">You will likely be asked to identify which role is NOT part of a structured walk-through. Memorize the specific titles: Coordinator, Presenter, User, Secretary, Standard-bearer, Maintenance Oracle. "Project Manager" or "Lead Developer" are <em>not</em> formal walk-through roles.</span>
+                            <span class="lang-ar lang-hidden">من المحتمل أن يُطلب منك تحديد أي دور ليس جزءاً من الـ Structured walk-through. احفظ العناوين المحددة: المنسق، المقدم، المستخدم، الكاتب، حامل المعايير، خبير الصيانة. "مدير المشروع" أو "المطور الرئيسي" <em>ليست</em> أدوار رسمية في الـ Walk-through.</span>
                         </p>
                     </div>
                 </div>
@@ -668,7 +800,7 @@
 
     <footer class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-8 mt-12 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4 rtl:space-x-reverse">
+            <div class="flex justify-center space-x-6 rtl:space-x-reverse mb-4">
                 <a href="module3.html" class="text-gray-500 hover:text-brand-500 transition-colors">
                     <span class="lang-en">Module 3</span>
                     <span class="lang-ar lang-hidden">الوحدة 3</span>
@@ -676,7 +808,7 @@
                 <span class="text-gray-300 dark:text-gray-700">|</span>
                 <a href="index.html" class="text-gray-500 hover:text-brand-500 transition-colors">
                     <span class="lang-en">Course Hub</span>
-                    <span class="lang-ar lang-hidden">مركز الدورة</span>
+                    <span class="lang-ar lang-hidden">الرئيسية</span>
                 </a>
                 <span class="text-gray-300 dark:text-gray-700">|</span>
                 <a href="module5.html" class="text-gray-500 hover:text-brand-500 transition-colors">
@@ -686,16 +818,49 @@
             </div>
             <p class="text-gray-400 text-sm">
                 <span class="lang-en">&copy; 2026 CS Level 5 Digital Garden. Designed for Excellence.</span>
-                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس. صمم للتميز.</span>
+                <span class="lang-ar lang-hidden">&copy; 2026 الحديقة الرقمية للمستوى الخامس CS. صممت للتميز.</span>
             </p>
         </div>
     </footer>
 
     <script>
         
-        const themeToggleBtn = document.getElementById('theme-toggle');
+        const langToggleBtn = document.getElementById('lang-toggle');
         const htmlElement = document.documentElement;
 
+        function setLanguage(lang) {
+            if (lang === 'ar') {
+                htmlElement.setAttribute('dir', 'rtl');
+                htmlElement.setAttribute('lang', 'ar');
+                localStorage.setItem('lang', 'ar');
+            } else {
+                htmlElement.setAttribute('dir', 'ltr');
+                htmlElement.setAttribute('lang', 'en');
+                localStorage.setItem('lang', 'en');
+            }
+
+            
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.toggle('lang-hidden', lang === 'ar');
+            });
+            document.querySelectorAll('.lang-ar').forEach(el => {
+                el.classList.toggle('lang-hidden', lang !== 'ar');
+            });
+        }
+
+        
+        const savedLang = localStorage.getItem('lang') || 'en';
+        setLanguage(savedLang);
+
+        langToggleBtn.addEventListener('click', () => {
+            const currentLang = htmlElement.getAttribute('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            setLanguage(newLang);
+        });
+
+        
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlElement.classList.add('dark');
         } else {
@@ -713,50 +878,89 @@
         });
 
         
-        const langToggleBtn = document.getElementById('lang-toggle');
-        
-        function setLanguage(lang) {
-            if (lang === 'ar') {
-                htmlElement.setAttribute('dir', 'rtl');
-                htmlElement.setAttribute('lang', 'ar');
-                localStorage.setItem('lang', 'ar');
-                localStorage.setItem('preferredLang', 'ar'); 
-            } else {
-                htmlElement.setAttribute('dir', 'ltr');
-                htmlElement.setAttribute('lang', 'en');
-                localStorage.setItem('lang', 'en');
-                localStorage.setItem('preferredLang', 'en'); 
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('beaChart').getContext('2d');
+            
+            
+            const years = [0, 1, 2, 3, 4, 5];
+            const costs = [425, 650, 900, 1100, 1300, 1450]; 
+            const benefits = [0, 450, 850, 1200, 1550, 1850]; 
 
             
-            document.querySelectorAll('.lang-en').forEach(el => {
-                el.classList.toggle('lang-hidden', lang === 'ar');
-            });
-            document.querySelectorAll('.lang-ar').forEach(el => {
-                el.classList.toggle('lang-hidden', lang !== 'ar');
-            });
-        }
+            const labelColor = document.documentElement.classList.contains('dark') ? '#9ca3af' : '#4b5563';
+            const gridColor = document.documentElement.classList.contains('dark') ? '#374151' : '#e5e7eb';
 
-        
-        const savedLang = localStorage.getItem('lang') || localStorage.getItem('preferredLang') || 'en';
-        setLanguage(savedLang);
-
-        
-        langToggleBtn.addEventListener('click', () => {
-            const currentLang = htmlElement.getAttribute('lang');
-            const newLang = currentLang === 'en' ? 'ar' : 'en';
-            setLanguage(newLang);
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Costs',
+                            data: costs,
+                            borderColor: '#3b82f6', 
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#2563eb',
+                            tension: 0.1,
+                            fill: true
+                        },
+                        {
+                            label: 'Benefits',
+                            data: benefits,
+                            borderColor: '#ef4444', 
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#dc2626',
+                            tension: 0.1,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: labelColor }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                            titleColor: '#f3f4f6',
+                            bodyColor: '#d1d5db',
+                            borderColor: '#374151',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Year', color: labelColor },
+                            grid: { color: gridColor, drawBorder: false },
+                            ticks: { color: labelColor }
+                        },
+                        y: {
+                            title: { display: true, text: 'Dollars (in thousands)', color: labelColor },
+                            grid: { color: gridColor, drawBorder: false },
+                            ticks: { color: labelColor }
+                        }
+                    }
+                }
+            });
         });
 
         
-        window.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", function() {
             const path = window.location.pathname;
             const match = path.match(/module(\d+)\.html/);
             if (match) {
                 const moduleNumber = match[1];
                 if (moduleNumber >= 1 && moduleNumber <= 13) {
                     localStorage.setItem(`module_completed_${moduleNumber}`, 'true');
-                    console.log(`Module ${moduleNumber} marked complete.`);
+                    console.log(`Module ${moduleNumber} completed.`);
                 }
             }
         });
